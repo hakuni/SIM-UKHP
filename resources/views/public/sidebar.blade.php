@@ -11,7 +11,7 @@
 		>
 						<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
 							<li class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
-								<a  href="#" class="m-menu__link ">
+								<a  href="/Dashboard" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-dashboard" style="color:whitesmoke" ></i>
 									<span class="m-menu__link-title">
 										<span class="m-menu__link-wrap">
@@ -41,7 +41,7 @@
 								</a>
 							</li>
                             <li class="m-menu__item" aria-haspopup="true" >
-								<a  href="#" class="m-menu__link ">
+								<a  href="/Penelitian" class="m-menu__link ">
 									<i class="m-menu__link-icon fa fa-flask" style="color:whitesmoke"></i>
 									<span class="m-menu__link-title">
 										<span class="m-menu__link-wrap">
@@ -53,7 +53,7 @@
 								</a>
 							</li>
                             <li class="m-menu__item" aria-haspopup="true" >
-								<a  href="#" class="m-menu__link ">
+								<a  href="/Keuangan" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-coins" style="color:whitesmoke"></i>
 									<span class="m-menu__link-title">
 										<span class="m-menu__link-wrap">
@@ -65,7 +65,7 @@
 								</a>
 							</li>
                             <li class="m-menu__item" aria-haspopup="true" >
-								<a  href="#" class="m-menu__link ">
+								<a  href="/Inventaris" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-piggy-bank" style="color:whitesmoke"></i>
 									<span class="m-menu__link-title">
 										<span class="m-menu__link-wrap">
@@ -83,7 +83,7 @@
                                 <i class="m-menu__section-icon flaticon-more-v3"></i>
 							</li>
                             <li class="m-menu__item" aria-haspopup="true" >
-								<a  href="#" class="m-menu__link ">
+								<a  href="/Kategori" class="m-menu__link ">
 									<i class="m-menu__link-icon flaticon-light" style="color:whitesmoke"></i>
 									<span class="m-menu__link-title">
 										<span class="m-menu__link-wrap">

@@ -6,11 +6,7 @@ jQuery(document).ready(function () {
 
 var Table = {
     Init: function () {
-        Table.Rincian();
-        Table.Log();
-    },
-    Rincian: function () {
-        t = $("#divRincianList").mDatatable({
+        t = $("#divPenelitianList").mDatatable({
             data: {
                 type: "remote",
                 source: {
@@ -46,92 +42,59 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "RincianID",
+                    field: "PenelitianID",
                     title: "Actions",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<a href="editRincian' +
-                            t.RincianID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Rincian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
+                            '<a href="/UbahPenelitian' +
+                            t.PenelitianID +
+                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Penelitian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<a href="hapusRincian' +
-                            t.RincianID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Rincian"><i class="la la-trash"></i></a>';
+                            '<a href="/TambahRincian' +
+                            t.PenelitianID +
+                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Rincian"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
+                        strBuilder +=
+                            '<a href="/TambahProsedur' +
+                            t.PenelitianID +
+                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Prosedur"><i class="la la-file-text"></i></a>';
                         return strBuilder;
                     }
-                }, {
-                    field: "AlatBahan",
-                    title: "Alat dan Bahan",
+                },
+                {
+                    field: "Kategori",
+                    title: "Kategori Peneltian",
                     textAlign: "center"
                 },
                 {
-                    field: "Jumlah",
-                    title: "Jumlah",
+                    field: "NamaPeneliti",
+                    title: "Nama",
                     textAlign: "center"
                 },
                 {
-                    field: "Biaya",
-                    title: "Biaya",
+                    field: "Instansi",
+                    title: "Instansi",
                     textAlign: "center"
                 },
                 {
-                    field: "Total",
-                    title: "Total",
+                    field: "NoHP",
+                    title: "No. HP",
                     textAlign: "center"
-                }
-            ]
-        });
-    },
-    Log: function () {
-        t = $("#divLogList").mDatatable({
-            data: {
-                type: "remote",
-                source: {
-                    read: {
-                        url: "/api/project/list/",
-                        method: "GET",
-                        map: function (r) {
-                            var e = r;
-                            return void 0 !== r.data && (e = r.data), e;
-                        }
-                    }
-                },
-                pageSize: 10,
-                saveState: {
-                    cookie: true,
-                    webstorage: true
-                },
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false
-            },
-            layout: {
-                scroll: false,
-                footer: false
-            },
-            sortable: true,
-            pagination: true,
-            toolbar: {
-                items: {
-                    pagination: {
-                        pageSizeSelect: [10, 20, 30, 50, 100]
-                    }
-                }
-            },
-            columns: [{
-                    field: "TanggalPembayaran",
-                    title: "Tanggal Pembayaran",
-                    sortable: false,
-                    textAlign: "center",
-                    template: function (t) {
-                        return t.TanggalPembayaran != null ? Common.Format.Date(t.TanggalPembayaran) : "-"
-                    }
                 },
                 {
-                    field: "Biaya",
-                    title: "Biaya",
+                    field: "Email",
+                    title: "Email",
+                    textAlign: "center"
+                },
+                {
+                    field: "Alamat",
+                    title: "Alamat",
+                    textAlign: "center"
+                },
+                {
+                    field: "StatusPeneliti",
+                    title: "Status",
                     textAlign: "center"
                 }
             ]
@@ -163,16 +126,21 @@ var Control = {
                         "</option>";
                 });
 
-                $("#slsProjectManager").append(html);
-                $("#slsProjectManager").selectpicker("refresh");
+                $("#slsStatusPen").append(html);
+                $("#slsStatusPen").selectpicker("refresh");
+                $("#slsKategori").append(html);
+                $("#slsKategori").selectpicker("refresh");
             },
             error: function (xhr) {
                 alert(xhr.responseText);
             }
         });
 
-        $("#slsProjectManager").on("change", function () {
-            t.search($(this).val(), "ProjectManager");
+        $("#slsStatusPen").on("change", function () {
+            t.search($(this).val(), "Status");
+        });
+        $("#slsKategori").on("change", function () {
+            t.search($(this).val(), "Kategori");
         });
     }
 };

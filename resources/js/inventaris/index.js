@@ -6,11 +6,12 @@ jQuery(document).ready(function () {
 
 var Table = {
     Init: function () {
-        Table.Rincian();
-        Table.Log();
+        Table.Stock();
+        Table.Pembelian();
+        Table.Penggunaan();
     },
-    Rincian: function () {
-        t = $("#divRincianList").mDatatable({
+    Stock: function () {
+        t = $("#divStockList").mDatatable({
             data: {
                 type: "remote",
                 source: {
@@ -46,22 +47,6 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "RincianID",
-                    title: "Actions",
-                    sortable: false,
-                    textAlign: "center",
-                    template: function (t) {
-                        var strBuilder =
-                            '<a href="editRincian' +
-                            t.RincianID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Rincian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
-                        strBuilder +=
-                            '<a href="hapusRincian' +
-                            t.RincianID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Rincian"><i class="la la-trash"></i></a>';
-                        return strBuilder;
-                    }
-                }, {
                     field: "AlatBahan",
                     title: "Alat dan Bahan",
                     textAlign: "center"
@@ -84,8 +69,61 @@ var Table = {
             ]
         });
     },
-    Log: function () {
-        t = $("#divLogList").mDatatable({
+    Pembelian: function () {
+        t = $("#divPembelianList").mDatatable({
+            data: {
+                type: "remote",
+                source: {
+                    read: {
+                        url: "/api/project/list/",
+                        method: "GET",
+                        map: function (r) {
+                            var e = r;
+                            return void 0 !== r.data && (e = r.data), e;
+                        }
+                    }
+                },
+                pageSize: 10,
+                saveState: {
+                    cookie: true,
+                    webstorage: true
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            layout: {
+                scroll: false,
+                footer: false
+            },
+            sortable: true,
+            pagination: true,
+            toolbar: {
+                items: {
+                    pagination: {
+                        pageSizeSelect: [10, 20, 30, 50, 100]
+                    }
+                }
+            },
+            columns: [{
+                    field: "TanggalPembayaran",
+                    title: "Tanggal Pembayaran",
+                    sortable: false,
+                    textAlign: "center",
+                    template: function (t) {
+                        return t.TanggalPembayaran != null ? Common.Format.Date(t.TanggalPembayaran) : "-"
+                    }
+                },
+                {
+                    field: "Biaya",
+                    title: "Biaya",
+                    textAlign: "center"
+                }
+            ]
+        });
+    },
+    Penggunaan: function () {
+        t = $("#divPenggunaanList").mDatatable({
             data: {
                 type: "remote",
                 source: {

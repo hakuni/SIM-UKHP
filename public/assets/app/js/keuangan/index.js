@@ -6,11 +6,7 @@ jQuery(document).ready(function () {
 
 var Table = {
     Init: function () {
-        Table.Rincian();
-        Table.Log();
-    },
-    Rincian: function () {
-        t = $("#divRincianList").mDatatable({
+        t = $("#divKeuanganList").mDatatable({
             data: {
                 type: "remote",
                 source: {
@@ -46,81 +42,29 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "RincianID",
-                    title: "Actions",
+                    field: "PenelitianID",
+                    title: "Aksi",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<a href="editRincian' +
-                            t.RincianID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Rincian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
-                        strBuilder +=
-                            '<a href="hapusRincian' +
-                            t.RincianID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Rincian"><i class="la la-trash"></i></a>';
+                            '<a href="edit' +
+                            t.PenelitianID +
+                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Keuangan"><i class="la la-info-circle"></i></a>';
                         return strBuilder;
                     }
-                }, {
-                    field: "AlatBahan",
-                    title: "Alat dan Bahan",
+                },
+                {
+                    field: "NamaPeneliti",
+                    title: "Nama",
                     textAlign: "center"
                 },
                 {
-                    field: "Jumlah",
-                    title: "Jumlah",
+                    field: "Kategori",
+                    title: "Kategori",
                     textAlign: "center"
                 },
                 {
-                    field: "Biaya",
-                    title: "Biaya",
-                    textAlign: "center"
-                },
-                {
-                    field: "Total",
-                    title: "Total",
-                    textAlign: "center"
-                }
-            ]
-        });
-    },
-    Log: function () {
-        t = $("#divLogList").mDatatable({
-            data: {
-                type: "remote",
-                source: {
-                    read: {
-                        url: "/api/project/list/",
-                        method: "GET",
-                        map: function (r) {
-                            var e = r;
-                            return void 0 !== r.data && (e = r.data), e;
-                        }
-                    }
-                },
-                pageSize: 10,
-                saveState: {
-                    cookie: true,
-                    webstorage: true
-                },
-                serverPaging: false,
-                serverFiltering: false,
-                serverSorting: false
-            },
-            layout: {
-                scroll: false,
-                footer: false
-            },
-            sortable: true,
-            pagination: true,
-            toolbar: {
-                items: {
-                    pagination: {
-                        pageSizeSelect: [10, 20, 30, 50, 100]
-                    }
-                }
-            },
-            columns: [{
                     field: "TanggalPembayaran",
                     title: "Tanggal Pembayaran",
                     sortable: false,
@@ -133,6 +77,11 @@ var Table = {
                     field: "Biaya",
                     title: "Biaya",
                     textAlign: "center"
+                },
+                {
+                    field: "Status",
+                    title: "Status",
+                    textAlign: "center"
                 }
             ]
         });
@@ -141,6 +90,10 @@ var Table = {
 
 var Control = {
     Init: function () {
+        Control.Kategori();
+        Control.Status();
+    },
+    Kategori: function () {
         if ($("#errorMsg").val() != "-") {
             Common.Alert.ErrorRoute($("#errorMsg").val(), document.referrer);
         }
@@ -152,7 +105,7 @@ var Control = {
             contenType: "application/json",
             success: function (data) {
                 var html = "<option value=''>All</option>";
-                var select = $("#slsProjectManager");
+                var select = $("#slsKategori");
 
                 $.each(data, function (i, item) {
                     html +=
@@ -163,16 +116,51 @@ var Control = {
                         "</option>";
                 });
 
-                $("#slsProjectManager").append(html);
-                $("#slsProjectManager").selectpicker("refresh");
+                $("#slsKategori").append(html);
+                $("#slsKategori").selectpicker("refresh");
             },
             error: function (xhr) {
                 alert(xhr.responseText);
             }
         });
 
-        $("#slsProjectManager").on("change", function () {
-            t.search($(this).val(), "ProjectManager");
+        $("#slsKategori").on("change", function () {
+            t.search($(this).val(), "Kategori");
+        });
+    },
+    Status: function () {
+        if ($("#errorMsg").val() != "-") {
+            Common.Alert.ErrorRoute($("#errorMsg").val(), document.referrer);
+        }
+
+        $.ajax({
+            url: "/api/user/list?roleID=4",
+            type: "GET",
+            dataType: "json",
+            contenType: "application/json",
+            success: function (data) {
+                var html = "<option value=''>All</option>";
+                var select = $("#slsStatusPen");
+
+                $.each(data, function (i, item) {
+                    html +=
+                        '<option value="' +
+                        item.FullName +
+                        '">' +
+                        item.FullName +
+                        "</option>";
+                });
+
+                $("#slsStatusPen").append(html);
+                $("#slsStatusPen").selectpicker("refresh");
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+
+        $("#slsStatusPen").on("change", function () {
+            t.search($(this).val(), "Status");
         });
     }
 };

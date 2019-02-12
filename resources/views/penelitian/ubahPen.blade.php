@@ -1,4 +1,5 @@
 @extends('public.index')
+@section('title', 'Penelitian')
 @section('content')
     <div class="m-content">
 	<div class="row">
@@ -100,5 +101,5 @@
 	</div>
 </div>
 
-<script src="resources/js/penelitian/ubahPen.js" type="text/javascript"></script>
+<script src="{{asset('assets/app/js/penelitian/ubahPen.js')}}" type="text/javascript"></script>
 @endsection

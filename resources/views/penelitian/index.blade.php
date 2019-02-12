@@ -1,4 +1,5 @@
 @extends('public.index')
+@section('title', 'Penelitian')
 @section('content')
 
 <div class="m-content">
@@ -54,7 +55,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4 order-1 order-xl-2 m--align-right">
-                                                    <a href="/Project/Create" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                                    <a href="/TambahPenelitian" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
                                                         <span>
                                                             <i class="fa fa-plus"></i>
                                                             <span>
@@ -75,5 +76,5 @@
                             </div>
                         </div>
                     </div>
-<script src="js/penelitian/index.js" type="text/javascript"></script>
+<script src="{{asset('assets/app/js/penelitian/index.js')}}" type="text/javascript"></script>
 @endsection

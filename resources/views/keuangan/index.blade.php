@@ -1,4 +1,5 @@
 @extends('public.index')
+@section('title', 'Keuangan')
 @section('content')
 
 <div class="m-content">
@@ -64,5 +65,5 @@
         </div>
     </div>
 </div>
-<script src="resources/js/keuangan/index.js" type="text/javascript"></script>
+<script src="{{asset('assets/app/js/keuangan/index.js')}}" type="text/javascript"></script>
 @endsection

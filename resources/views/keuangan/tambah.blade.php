@@ -1,4 +1,5 @@
 @extends('public.index')
+@section('title', 'Keuangan')
 @section('content')
     <div class="m-content">
 	<div class="row">
@@ -48,7 +49,7 @@
 							<label class="col-form-label col-lg-3 col-sm-12">
 								Tanggal Pembayaran <strong style="color:red" ;>*</strong> :
 							</label>
-							<div class="col-lg-4 col-md-9 col-sm-12">
+							<div class="col-lg-6 col-md-9 col-sm-12">
 								<div class="input-group date">
 									<input type="text" class="form-control m-input datepicker" id="tbxTanggalPembayaran" />
 									<div class="input-group-append">
@@ -99,5 +100,5 @@
 	</div>
 </div>
 
-<script src="resources/js/keuangan/tambah.js" type="text/javascript"></script>
+<script src="{{asset('assets/app/js/keuangan/tambah.js')}}" type="text/javascript"></script>
 @endsection
