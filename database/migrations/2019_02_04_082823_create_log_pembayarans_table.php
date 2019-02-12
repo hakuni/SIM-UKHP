@@ -15,12 +15,11 @@ class CreateLogPembayaransTable extends Migration
     {
         Schema::create('log_pembayarans', function (Blueprint $table) {
             $table->increments('idLogPembayaran');
-            $table->integer('idKeuangan');
+            $table->integer('idPenelitian');
             $table->timestamp('tglPembayaran');
             $table->integer('totalPembayaran');
 
             $table->string('createdBy');
-            $table->string('updatedBy')->nullable();
             $table->timestamps();
         });
     }

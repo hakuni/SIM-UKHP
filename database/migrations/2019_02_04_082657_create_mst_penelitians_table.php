@@ -21,7 +21,7 @@ class CreateMstPenelitiansTable extends Migration
             $table->string('telpPeneliti');
             $table->string('emailPeneliti');
             $table->string('alamatPeneliti');
-            $table->boolean('statusPenelitian');
+            $table->integer('statusPenelitian');
             
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogAlatBahansTable extends Migration
+class CreateLogPemakaians extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateLogAlatBahansTable extends Migration
      */
     public function up()
     {
-        Schema::create('log_alat_bahans', function (Blueprint $table) {
-            $table->increments('idLogAlatBahan');
+        Schema::create('log_pemakaians', function (Blueprint $table) {
+            $table->increments('idLogPemakaian');
             $table->integer('idAlatBahan');
-            $table->integer('statusTrx');
             $table->timestamp('tglTrx');
             $table->integer('jumlah');
-            $table->integer('harga');
 
             $table->string('createdBy');
             $table->timestamps();
@@ -33,6 +31,6 @@ class CreateLogAlatBahansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('log_alat_bahans');
+        Schema::dropIfExists('log_pemakaians');
     }
 }

@@ -4,111 +4,98 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\MstAlatBahan;
-use App\LogAlatBahan;
-use App\Http\Resources\AlatBahan as AlatBahanResource;
+use App\LogPemakaian;
+use App\LogPembelian;
+use App\vwAlatBahan;
 
 class AlatBahanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    #region Master
+    public function getListAlatBahan(){
         try{
-            $alatBahan = MstAlatBahan::All();
-            return (AlatBahanResource::collection($alatBahan))->response()->setStatusCode(200);
+            $inventarisasi = vwAlatBahan::All();
+            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
         }
         catch(\Exception $ex){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    public function saveAlatBahan(Request $request){
         try{
-            $alatBahan = $request->isMethod('put') ? MstAlatBahan::findOrFail($request->id) : new MstAlatBahan;
-            $alatBahan->fill($request->all());
+            $inventarisasi = $request->isMethod('put') ? MstAlatBahan::findOrFail($request->idAlatBahan) : new MstAlatBahan;
+            $inventarisasi->fill($request->all());
             
             if($request->isMethod('put'))
-                $alatBahan->updatedBy = 'kuni';
+                $inventarisasi->updatedBy = 'kuni';
             else
-                $alatBahan->createdBy = 'kuni';
+                $inventarisasi->createdBy = 'kuni';
 
-            $alatBahan->save();
-            return (new AlatBahanResource($alatBahan))->response()->setStatusCode(200);
+            $inventarisasi->save();
+            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
         }
         catch(\Exception $e){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
+    public function getSingleAlatBahan($id){
         try{
-            $alatBahan = MstAlatBahan::findOrFail($id);
-            return (new AlatBahanResource($alatBahan))->response()->setStatusCode(200);
+            $inventarisasi = vwAlatBahan::findOrFail($id);
+            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
         }
         catch(\Exception $e){
             return response()->json(['success'=>false, 'error'=>$e->getCode()])->setStatusCode(204);
         }
     }
     
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+    public function deleteAlatBahan($id){
         try{
-            $alatBahan = MstAlatBahan::findOrFail($id);
+            $inventarisasi = MstAlatBahan::findOrFail($id);
 
-            $alatBahan->delete();
-            return (new PenelitianResource($alatBahan))->response()->setStatusCode(200);
+            $inventarisasi->delete();
+            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
 
         }
         catch(\Exception $e){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
         }
     }
+    #endregion
 
-    public function createTrx(Request $request){
+    #region Log
+    public function saveLogs(Request $request){
         try{
-            $logTrx = new LogAlatBahan;
-            $logTrx->fill($request->all());
+            if($request->tipeTrx == 1){
+                $logTrx = $request->isMethod('post') ? new LogPembelian : LogPembelian::findOrFail($request->idLog);
+                $logTrx->harga = $request->harga;
+            }
+            else if($request->tipeTrx == 2){
+                $logTrx = $request->isMethod('post') ? new LogPemakaian : LogPemakaian::findOrFail($request->idLog);
+            }
+            $logTrx->idAlatBahan = $request->idAlatBahan;
+            $logTrx->tglTrx = $request->tglTrx;
+            $logTrx->jumlah = $request->jumlah;
+
             $logTrx->createdBy = 'kuni';
-            $logTrx->updatedBy = 'kuni';
 
             $logTrx->save();
-            return (new AlatBahanResource($logTrx))->response()->setStatusCode(200);
+            return response()->json(['data'=>$logTrx])->setStatusCode(200);
         }
         catch(\Exception $e){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
         }
     }
 
-    public function logTrx($idAlatBahan){
+    public function getListLog($idAlatBahan){
         try{
-            $log = LogAlatBahan::where('idAlatBahan', $idAlatBahan)->firstOrFail();
-            return (new AlatBahanResource($log))->response()->setStatusCode(200);
+            $logPembelian = LogPembelian::where('idAlatBahan', $idAlatBahan)->get();
+            $logPemakaian = LogPemakaian::where('idAlatBahan', $idAlatBahan)->get();
+            return response()->json(['data'=> ['logPembelian'=>$logPembelian, 'logPemakaian'=>$logPemakaian]])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getCode()])->setStatusCode(204);
+            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
         }
     }
+    #endregion
 }
