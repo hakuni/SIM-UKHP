@@ -2,6 +2,9 @@
 jQuery(document).ready(function () {
     Control.Init();
     Table.Init();
+    $("#btnTipe").on("click", function(){
+        console.log(this.val());
+    })
     // Select.Init();
 });
 
@@ -17,7 +20,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/project/list/",
+                        url: "/api/inventarisasi",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -48,12 +51,12 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "AlatBahan",
+                    field: "namaAlatBahan",
                     title: "Alat dan Bahan",
                     textAlign: "center"
                 },
                 {
-                    field: "Jumlah",
+                    field: "stokAlatBahan",
                     title: "Jumlah",
                     textAlign: "center"
                 }
@@ -66,7 +69,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/project/list/",
+                        url: "/api/inventarisasi/log/1",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -97,12 +100,12 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "AlatBahan",
+                    field: "namaAlatBahan",
                     title: "Alat dan Bahan",
                     textAlign: "center"
                 },
                 {
-                    field: "TanggalPembelian",
+                    field: "tglTrx",
                     title: "Tanggal Pembelian",
                     sortable: false,
                     textAlign: "center",
@@ -111,12 +114,12 @@ var Table = {
                     }
                 },
                 {
-                    field: "Jumlah",
+                    field: "jumlah",
                     title: "Jumlah",
                     textAlign: "center"
                 },
                 {
-                    field: "Harga",
+                    field: "harga",
                     title: "Harga",
                     textAlign: "center"
                 }
@@ -129,7 +132,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/project/list/",
+                        url: "/api/inventarisasi/log/2",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -160,12 +163,12 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "AlatBahan",
+                    field: "namaAlatBahan",
                     title: "Alat dan Bahan",
                     textAlign: "center"
                 },
                 {
-                    field: "TanggalPenggunaan",
+                    field: "tglTrx",
                     title: "Tanggal Penggunaan",
                     sortable: false,
                     textAlign: "center",
@@ -174,7 +177,7 @@ var Table = {
                     }
                 },
                 {
-                    field: "Jumlah",
+                    field: "jumlah",
                     title: "Jumlah",
                     textAlign: "center"
                 }
@@ -263,9 +266,9 @@ var Select = {
 var Control = {
     Init: function () {
         Control.DatePicker();
+        Control.Switch();
     },
     DatePicker: function () {
-        console.log('.datepicker');
         $(".datepicker").datepicker({
             format: "dd-M-yyyy",
             todayBtn: "linked",
@@ -276,5 +279,49 @@ var Control = {
                 rightArrow: '<i class="la la-angle-right"></i>'
             }
         });
+    },
+    Switch: function(){
+        $("[data-switch=true]").bootstrapSwitch();
     }
 };
+
+var Transaction ={
+    Init: function(){
+        Transaction.Pembelian();
+        Transaction.Penggunaan();
+    },
+    Pembelian: function(){
+        var btn = $("#btnTambahPembelian");
+        var params = {
+            namaKategori: $("#tbxKategori").val()
+        };
+
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
+
+        $.ajax({
+            url: "/api/kategori",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(params),
+            cache: false
+        })
+            .done(function(data, textStatus, jqXHR) {
+                $("#divKategoriList").mDatatable('reload');
+                $("#tbxKategori").val("");
+                $("#formTambah").modal("toggle");
+                console.log(data);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            });
+    }
+}

@@ -87,11 +87,15 @@ class AlatBahanController extends Controller
         }
     }
 
-    public function getListLog($idAlatBahan){
+    public function getListLog($tipeLog){
         try{
-            $logPembelian = LogPembelian::where('idAlatBahan', $idAlatBahan)->get();
-            $logPemakaian = LogPemakaian::where('idAlatBahan', $idAlatBahan)->get();
-            return response()->json(['data'=> ['logPembelian'=>$logPembelian, 'logPemakaian'=>$logPemakaian]])->setStatusCode(200);
+            if($tipeLog == 1){
+                $log = LogPembelian::All();
+            }
+            else{
+                $log = LogPemakaian::All();
+            }
+            return response()->json(['data'=> $log])->setStatusCode(200);
         }
         catch(\Exception $e){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);

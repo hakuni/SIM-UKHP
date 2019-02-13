@@ -19,23 +19,23 @@ Route::get('/Dashboard', function () {
     return view('dashboard/index');
 });
 // penelitian
-// Route::get('/Penelitian', function () {
-//     return view('penelitian/index');
-// });
-// Route::get('/TambahPenelitian', function () {
-//     return view('penelitian/tambahPen');
-// });
-Route::get('/TambahProsedur', function () {
+Route::get('/Penelitian', function () {
+    return view('penelitian/index');
+});
+Route::get('/TambahPenelitian', function () {
+    return view('penelitian/tambahPen');
+});
+Route::get('/TambahProsedur/{id}', function () {
     return view('penelitian/tambahPro');
 });
-Route::get('/UbahPenelitian', function () {
-    return view('penelitian/ubahPen');
+Route::get('/UbahPenelitian/{id}', function ($id) {
+    return view('penelitian/ubahPen', ['idPenelitian' => $id]);
 });
 // keuangan
 Route::get('/Keuangan', function () {
     return view('keuangan/index');
 });
-Route::get('/Rincian', function () {
+Route::get('/Rincian/{id}', function () {
     return view('keuangan/rincian');
 });
 Route::get('/TambahPembayaran', function () {
@@ -50,12 +50,12 @@ Route::get('/Kategori', function () {
     return view('kategori/index');
 });
 
-Route::group(['prefix'=>'Penelitian'], function(){
-    Route::get('/', function () {
-        return view('penelitian/index');
-    });
-    Route::get('/Tambah', function () {
-        return view('penelitian/tambahPen');
-    });
+// Route::group(['prefix'=>'Penelitian'], function(){
+//     Route::get('/', function () {
+//         return view('penelitian/index');
+//     });
+//     Route::get('/Tambah', function () {
+//         return view('penelitian/tambahPen');
+//     });
 
-});
+// });

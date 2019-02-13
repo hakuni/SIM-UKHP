@@ -90,7 +90,7 @@
                                                     Kategori <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="text" id="tbxKategori" class="form-control m-input"
+                                                    <input type="text" id="tbxKategoriUbah" class="form-control m-input"
                                                         required>
                                                 </div>
                                             </div>

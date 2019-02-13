@@ -13,11 +13,14 @@ class KategoriController extends Controller
         //
         try{
             $kategori = MstKategori::All();
-            // return (KategoriResource::collection($kategori))->response()->setStatusCode(200);
-            return response()->json(['data'=>$kategori])->setStatusCode(200);
+            $kategori->ErrorType = 0;
+            return response($kategori)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
+            $kategori = new MstKategori;
+            $kategori->ErrorType = 2;
+            $kategori->ErrorMessage = $e->getMessage();
+            return response($kategori)->setStatusCode(204);
         }
     }
 
@@ -34,10 +37,14 @@ class KategoriController extends Controller
                 $kategori->createdBy = 'kuni';
 
             $kategori->save();
-            return response()->json(['data'=>$kategori])->setStatusCode(200);
+            $kategori->ErrorType = 0;
+            return response($kategori)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $kategori = new MstKategori;
+            $kategori->ErrorType = 2;
+            $kategori->ErrorMessage = $e->getMessage();
+            return response($kategori)->setStatusCode(422);
         }
     }
 
@@ -46,10 +53,14 @@ class KategoriController extends Controller
         //
         try{
             $kategori = MstKategori::findOrFail($id);
-            return response()->json(['data'=>$kategori])->setStatusCode(200);
+            $kategori->ErrorType = 0;
+            return response($kategori)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getCode()])->setStatusCode(204);
+            $kategori = new MstKategori;
+            $kategori->ErrorType = 2;
+            $kategori->ErrorMessage = $e->getMessage();
+            return response($kategori)->setStatusCode(204);
         }
     }
 
@@ -60,11 +71,15 @@ class KategoriController extends Controller
             $kategori = MstKategori::findOrFail($id);
 
             $kategori->delete();
-            return response()->json(['data'=>$kategori])->setStatusCode(200);
+            $kategori->ErrorType = 0;
+            return response($kategori)->setStatusCode(200);
 
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
+            $kategori = new MstKategori;
+            $kategori->ErrorType = 2;
+            $kategori->ErrorMessage = $e->getMessage();
+            return response($kategori)->setStatusCode(204);
         }
     }
     #endregion

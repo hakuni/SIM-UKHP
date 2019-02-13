@@ -1,12 +1,12 @@
 //== Class Initialization
 jQuery(document).ready(function () {
     Form.Init();
-    // Control.Init();
+    Control.Init();
 });
 
 var Control = {
     Init: function () {
-        Control.BootstrapDatepicker();
+        // Control.BootstrapDatepicker();
         Control.Select2();
     },
     BootstrapDatepicker: function () {
@@ -23,22 +23,22 @@ var Control = {
     },
     Select2: function () {
         $.ajax({
-                url: "/api/user/list?roleID=4",
+                url: "/api/kategori",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#slsProjectManager").html("<option></option>");
-                $.each(data, function (i, item) {
-                    $("#slsProjectManager").append(
+                $("#slsKategori").html("<option></option>");
+                $.each(data.data, function (i, item) {
+                    $("#slsKategori").append(
                         "<option value='" +
-                        item.UserID +
+                        item.idKategori +
                         "'>" +
-                        item.FullName +
+                        item.namaKategori +
                         "</option>"
                     );
                 });
-                $("#slsProjectManager").select2({
-                    placeholder: "Select Project Manager"
+                $("#slsKategori").select2({
+                    placeholder: "Kategori"
                 });
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -78,11 +78,13 @@ var Transaction = function () {
     var btn = $("#btnTambah");
 
     var params = {
-        NamaPeneliti: $("#tbxNamaPeneliti").val(),
-        Instansi: $("#tbxInstansi").val(),
-        NoHP: $("#tbxNoHP").val(),
-        Email: $("#tbxEmail").val(),
-        Alamat: $("#tbxAlamat").val()
+        idKategori: $("#slsKategori").val(),
+        namaPeneliti: $("#tbxNamaPeneliti").val(),
+        instansipeneliti: $("#tbxInstansi").val(),
+        telpPeneliti: $("#tbxNoHP").val(),
+        emailPeneliti: $("#tbxEmail").val(),
+        alamatPeneliti: $("#tbxAlamat").val(),
+        statusPenelitian: 1
     };
 
     btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -90,28 +92,28 @@ var Transaction = function () {
         true
     );
 
-    // $.ajax({
-    //     url: "/api/project/create",
-    //     type: "POST",
-    //     dataType: "json",
-    //     contentType: "application/json",
-    //     data: JSON.stringify(params),
-    //     cache: false
-    // })
-    //     .done(function(data, textStatus, jqXHR) {
-    //         console.log(data);
-    //         if (Common.CheckError.Object(data) == true)
-    //             Common.Alert.SuccessRoute("Berhasil menambahkan", "/Penelitian");
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     })
-    //     .fail(function(jqXHR, textStatus, errorThrown) {
-    //         Common.Alert.Error(errorThrown);
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     });
+    $.ajax({
+        url: "/api/penelitian",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(params),
+        cache: false
+    })
+        .done(function(data, textStatus, jqXHR) {
+            console.log(data);
+            // if (Common.CheckError.Object(data) == true)
+                Common.Alert.SuccessRoute("Berhasil menambahkan", "/Penelitian");
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        });
 };

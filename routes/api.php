@@ -17,19 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-#region API Penelitian
-//create penelitian
-Route::post('/penelitian', 'PenelitianController@savePenelitian');
-//list penelitian
-Route::get('/penelitian', 'PenelitianController@getListPenelitian');
-//get single penelitian
-Route::get('/penelitian/{id}', 'PenelitianController@getSinglePenelitian');
-//update penelitian
-Route::put('/penelitian', 'PenelitianController@savePenelitian');
-//delete penelitian
-Route::delete('/penelitian/{id}', 'PenelitianController@deletePenelitian');
-#endregion
-
 #region API Kategori
 //create kategori
 Route::post('/kategori', 'KategoriController@saveKategori');
@@ -41,6 +28,52 @@ Route::get('/kategori/{id}', 'KategoriController@getSingleKategori');
 Route::put('/kategori', 'KategoriController@saveKategori');
 //delete kategori
 Route::delete('/kategori/{id}', 'KategoriController@deleteKategori');
+#endregion
+
+#region API Status Penelitian
+//create status
+Route::post('/status', 'StatusPenelitianController@saveStatus');
+//list status
+Route::get('/status', 'StatusPenelitianController@getListStatus');
+//get single status
+Route::get('/status/{id}', 'StatusPenelitianController@getSingleStatus');
+//update status
+Route::put('/status', 'StatusPenelitianController@saveStatus');
+//delete status
+Route::delete('/status/{id}', 'StatusPenelitianController@deleteStatus');
+#endregion
+
+#region API Inventarisasi
+#master
+//create alat bahan
+Route::post('/inventarisasi', 'AlatBahanController@saveAlatBahan');
+//get list alat bahan
+Route::get('/inventarisasi', 'AlatBahanController@getListAlatBahan');
+//get single alat bahan
+Route::get('/inventarisasi/{idAlatBahan}', 'AlatBahanController@getSingleAlatBahan');
+//edit alat bahan
+Route::put('/inventarisasi', 'AlatBahanController@saveAlatBahan');
+//delet alat bahan
+Route::delete('/inventarisasi/{idAlatBahan}', 'AlatBahanController@deleteAlatBahan');
+
+#logs
+//create log
+Route::post('/inventarisasi/log', 'AlatBahanController@saveLogs');
+//get list log
+Route::get('/inventarisasi/log/{tipeLog}', 'AlatBahanController@getListLog');
+#endregion
+
+#region API Penelitian
+//create penelitian
+Route::post('/penelitian', 'PenelitianController@savePenelitian');
+//list penelitian
+Route::get('/penelitian', 'PenelitianController@getListPenelitian');
+//get single penelitian
+Route::get('/penelitian/{id}', 'PenelitianController@getSinglePenelitian');
+//update penelitian
+Route::put('/penelitian', 'PenelitianController@savePenelitian');
+//delete penelitian
+Route::delete('/penelitian/{id}', 'PenelitianController@deletePenelitian');
 #endregion
 
 #region API Keuangan
@@ -70,26 +103,6 @@ Route::get('/keuangan/log/{idPenelitian}/{idLog}', 'KeuanganController@getSingle
 Route::put('/keuangan/log', 'KeuanganController@saveLog');
 //delete log
 Route::delete('/keuangan/log', 'KeuanganController@deleteLog');
-#endregion
-
-#region API Inventarisasi
-#master
-//create alat bahan
-Route::post('/inventarisasi', 'AlatBahanController@saveAlatBahan');
-//get list alat bahan
-Route::get('/inventarisasi', 'AlatBahanController@getListAlatBahan');
-//get single alat bahan
-Route::get('/inventarisasi/{idAlatBahan}', 'AlatBahanController@getSingleAlatBahan');
-//edit alat bahan
-Route::put('/inventarisasi', 'AlatBahanController@saveAlatBahan');
-//delet alat bahan
-Route::delete('/inventarisasi/{idAlatBahan}', 'AlatBahanController@deleteAlatBahan');
-
-#logs
-//create log
-Route::post('/inventarisasi/log', 'AlatBahanController@saveLogs');
-//get list log
-Route::get('/inventarisasi/log/{idAlatBahan}', 'AlatBahanController@getListLog');
 #endregion
 
 #region API Prosedur

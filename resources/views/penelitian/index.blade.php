@@ -32,7 +32,7 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="m-form__control">
-                                                                    <select class="form-control m-bootstrap-select" id="slsKategori"></select>
+                                                                    <select class="form-control m-bootstrap-select" data-dropup-auto="false" id="slsKategori"></select>
                                                                 </div>
                                                             </div>
                                                             <div class="d-md-none m--margin-bottom-10"></div>
@@ -47,7 +47,12 @@
                                                                     </label>
                                                                 </div>
                                                                 <div class="m-form__control">
-                                                                    <select class="form-control m-bootstrap-select" id="slsStatusPen"></select>
+                                                                    <select class="form-control m-bootstrap-select" data-dropup-auto="false" id="slsStatusPen">
+                                                                        <option value="">All</option>
+                                                                        <option value="1">Rencana</option>
+                                                                        <option value="2">Sedang Berlangsung</option>
+                                                                        <option value="3">Selesai</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="d-md-none m--margin-bottom-10"></div>

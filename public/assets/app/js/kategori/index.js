@@ -1,6 +1,6 @@
 //== Class Initialization
 jQuery(document).ready(function () {
-    // Control.Init();
+    Button.Init();
     Table.Init();
 });
 
@@ -11,7 +11,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/project/list/",
+                        url: "/api/kategori",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -42,24 +42,20 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "KategoriID",
+                    field: "idKategori",
                     title: "Actions",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<a href="/UbahKategori' +
-                            t.KategoriID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
+                            '<button onclick="Button.ModalUbah('+t.idKategori +')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<a href="/HapusKategori' +
-                            t.KategoriID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
+                            '<button onclick="Button.Hapus('+t.idKategori +')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
                         return strBuilder;
                     }
                 },
                 {
-                    field: "Kategori",
+                    field: "namaKategori",
                     title: "Kategori Peneltian",
                     textAlign: "center"
                 }
@@ -67,6 +63,121 @@ var Table = {
         });
     }
 };
+
+var Button = {
+    Init: function(){
+        $("#btnTambahKategori").on("click", function(){
+            Button.Tambah();
+        });
+        // Button.Ubah();
+    },
+    Tambah: function(){
+        var btn = $("#btnTambahKategori");
+        var params = {
+            namaKategori: $("#tbxKategori").val()
+        };
+
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
+
+        $.ajax({
+            url: "/api/kategori",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(params),
+            cache: false
+        })
+            .done(function(data, textStatus, jqXHR) {
+                $("#divKategoriList").mDatatable('reload');
+                $("#tbxKategori").val("");
+                $("#formTambah").modal("toggle");
+                console.log(data);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            });
+    },
+    Hapus: function(id){
+        $.ajax({
+            url: "/api/kategori/"+id,
+            type: "DELETE",
+            dataType: "json",
+            contentType: "application/json",
+            cache: false
+        })
+            .done(function(data, textStatus, jqXHR) {
+                if(Common.CheckError.Object(data))
+                    Common.Alert.Success("Berhasil dihapus")
+                $("#divKategoriList").mDatatable('reload');
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    },
+    Ubah: function(id){
+        var btn = $("#btnUbahKategori");
+        console.log(id);
+        var params = {
+            idKategori: id,
+            namaKategori: $("#tbxKategoriUbah").val()
+        };
+
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
+
+        $.ajax({
+            url: "/api/kategori",
+            type: "PUT",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(params),
+            cache: false
+        })
+            .done(function(data, textStatus, jqXHR) {
+                $("#divKategoriList").mDatatable('reload');
+                $("#tbxKategoriUbah").val("");
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+                if(Common.CheckError.Object(data))
+                    Common.Alert.Success("Berhasil diubah");
+                $("#formUbah").modal("toggle");
+                $("#divKategoriList").mDatatable('reload');
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            });
+    },
+    ModalUbah: function(id){
+        $.ajax({
+            url: "/api/kategori/"+id,
+            type: "GET",
+            dataType: "json",
+        })
+            .done(function(data, textStatus, jqXHR) {
+                $("#tbxKategoriUbah").val(data.namaKategori);
+                $("#formUbah").modal({backdrop: "static"});
+                $("#btnUbahKategori").on("click", function(){
+                    Button.Ubah(data.idKategori);
+                })
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    }
+}
 
 var Control = {
     Init: function () {

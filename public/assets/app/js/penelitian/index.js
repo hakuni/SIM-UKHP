@@ -1,6 +1,6 @@
 //== Class Initialization
 jQuery(document).ready(function () {
-    // Control.Init();
+    Control.Init();
     Table.Init();
 });
 
@@ -11,7 +11,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/project/list/",
+                        url: "/api/penelitian",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -42,58 +42,58 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "PenelitianID",
+                    field: "idPenelitian",
                     title: "Actions",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<a href="/UbahPenelitian' +
-                            t.PenelitianID +
+                            '<a href="/UbahPenelitian/' +
+                            t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Penelitian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<a href="/TambahRincian' +
-                            t.PenelitianID +
+                            '<a href="/Rincian/' +
+                            t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Rincian"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<a href="/TambahProsedur' +
-                            t.PenelitianID +
+                            '<a href="/TambahProsedur/' +
+                            t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Prosedur"><i class="la la-file-text"></i></a>';
                         return strBuilder;
                     }
                 },
                 {
-                    field: "Kategori",
+                    field: "namaKategori",
                     title: "Kategori Peneltian",
                     textAlign: "center"
                 },
                 {
-                    field: "NamaPeneliti",
+                    field: "namaPeneliti",
                     title: "Nama",
                     textAlign: "center"
                 },
                 {
-                    field: "Instansi",
+                    field: "instansiPeneliti",
                     title: "Instansi",
                     textAlign: "center"
                 },
                 {
-                    field: "NoHP",
+                    field: "telpPeneliti",
                     title: "No. HP",
                     textAlign: "center"
                 },
                 {
-                    field: "Email",
+                    field: "emailPeneliti",
                     title: "Email",
                     textAlign: "center"
                 },
                 {
-                    field: "Alamat",
+                    field: "alamtPeneliti",
                     title: "Alamat",
                     textAlign: "center"
                 },
                 {
-                    field: "StatusPeneliti",
+                    field: "statusPenelitian",
                     title: "Status",
                     textAlign: "center"
                 }
@@ -103,44 +103,44 @@ var Table = {
 };
 
 var Control = {
-    Init: function () {
-        if ($("#errorMsg").val() != "-") {
-            Common.Alert.ErrorRoute($("#errorMsg").val(), document.referrer);
-        }
-
+    Init: function(){
+        Control.Kategori();
+        Control.Status();
+    },
+    Kategori: function () {
         $.ajax({
-            url: "/api/user/list?roleID=4",
+            url: "/api/kategori",
             type: "GET",
             dataType: "json",
             contenType: "application/json",
             success: function (data) {
                 var html = "<option value=''>All</option>";
-                var select = $("#slsProjectManager");
+                var select = $("#slsKategori");
 
-                $.each(data, function (i, item) {
+                $.each(data.data, function (i, item) {
                     html +=
                         '<option value="' +
-                        item.FullName +
+                        item.idKategori +
                         '">' +
-                        item.FullName +
+                        item.namaKategori +
                         "</option>";
                 });
-
-                $("#slsStatusPen").append(html);
-                $("#slsStatusPen").selectpicker("refresh");
                 $("#slsKategori").append(html);
                 $("#slsKategori").selectpicker("refresh");
+                $("#slsStatusPen").selectpicker("refresh");
             },
             error: function (xhr) {
                 alert(xhr.responseText);
             }
         });
+        $("#slsKategori").on("change", function () {
+            t.search($(this).val(), "namaKategori");
+        });
+    },
+    Status: function(){
 
         $("#slsStatusPen").on("change", function () {
-            t.search($(this).val(), "Status");
-        });
-        $("#slsKategori").on("change", function () {
-            t.search($(this).val(), "Kategori");
+            t.search($(this).val(), "statusPenelitian");
         });
     }
 };
