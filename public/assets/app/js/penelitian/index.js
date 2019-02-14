@@ -88,12 +88,12 @@ var Table = {
                     textAlign: "center"
                 },
                 {
-                    field: "alamtPeneliti",
+                    field: "alamatPeneliti",
                     title: "Alamat",
                     textAlign: "center"
                 },
                 {
-                    field: "statusPenelitian",
+                    field: "namaStatus",
                     title: "Status",
                     textAlign: "center"
                 }
@@ -103,7 +103,7 @@ var Table = {
 };
 
 var Control = {
-    Init: function(){
+    Init: function () {
         Control.Kategori();
         Control.Status();
     },
@@ -117,7 +117,7 @@ var Control = {
                 var html = "<option value=''>All</option>";
                 var select = $("#slsKategori");
 
-                $.each(data.data, function (i, item) {
+                $.each(data, function (i, item) {
                     html +=
                         '<option value="' +
                         item.idKategori +
@@ -137,7 +137,7 @@ var Control = {
             t.search($(this).val(), "namaKategori");
         });
     },
-    Status: function(){
+    Status: function () {
 
         $("#slsStatusPen").on("change", function () {
             t.search($(this).val(), "statusPenelitian");

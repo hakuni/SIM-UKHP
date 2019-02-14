@@ -25,8 +25,8 @@ Route::get('/Penelitian', function () {
 Route::get('/TambahPenelitian', function () {
     return view('penelitian/tambahPen');
 });
-Route::get('/TambahProsedur/{id}', function () {
-    return view('penelitian/tambahPro');
+Route::get('/TambahProsedur/{id}', function ($id) {
+    return view('penelitian/tambahPro', ['idPenelitian' => $id]);
 });
 Route::get('/UbahPenelitian/{id}', function ($id) {
     return view('penelitian/ubahPen', ['idPenelitian' => $id]);
@@ -35,8 +35,8 @@ Route::get('/UbahPenelitian/{id}', function ($id) {
 Route::get('/Keuangan', function () {
     return view('keuangan/index');
 });
-Route::get('/Rincian/{id}', function () {
-    return view('keuangan/rincian');
+Route::get('/Rincian/{id}', function ($id) {
+    return view('keuangan/rincian', ['idPenelitian' => $id]);
 });
 Route::get('/TambahPembayaran', function () {
     return view('keuangan/tambah');

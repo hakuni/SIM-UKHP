@@ -14,7 +14,7 @@
                             </div>
                             <h3 class="m-portlet__head-text col-lg-4">
                                 Rincian Keuangan |
-                                <small class="m-portlet__head-caption">Adji, S2 IPB</small>
+                                <small class="m-portlet__head-caption" id="biodata"></small>
                             </h3>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                                             <div class="col-xl-6 order-1 order-xl-2 m--align-right">
                                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
                                             </div>
-                                            <div class="modal hide fade" id="formRincian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal hide fade" id="formRincian" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -64,7 +64,9 @@
                                                                     Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                                 </label>
                                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input type="text" id="tbxAlatBahan" class="form-control m-input" required>
+                                                                    <select class="form-control m-select2" id="slsAlatBahan" style="width:550px">
+                                                                        <!-- <option value="1">Ilham</option> -->
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group m-form__group row">
@@ -77,10 +79,10 @@
                                                             </div>
                                                             <div class="form-group m-form__group row">
                                                                 <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Biaya <span style="color:red">*</span> :
+                                                                    Harga <span style="color:red">*</span> :
                                                                 </label>
                                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input type="number" id="tbxBiaya" class="form-control m-input" required>
+                                                                    <input type="number" id="tbxHarga" class="form-control m-input" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -182,5 +184,6 @@
         </div>
     </div>
 </div>
+<input type="hidden" value="{{$idPenelitian}}" id="idPenelitian">
 <script src="{{asset('assets/app/js/keuangan/rincian.js')}}" type="text/javascript"></script>
 @endsection

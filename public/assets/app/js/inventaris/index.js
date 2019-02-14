@@ -2,7 +2,9 @@
 jQuery(document).ready(function () {
     Control.Init();
     Table.Init();
-    $("#btnTipe").on("click", function(){
+    Select.AlatBahan();
+    Transaction.Init();
+    $("#btnTipe").on("click", function () {
         console.log(this.val());
     })
     // Select.Init();
@@ -190,6 +192,7 @@ var Select = {
     Init: function () {
         Select.Bulan();
         Select.Tahun();
+        Select.AlatBahan();
     },
     Bulan: function () {
         if ($("#errorMsg").val() != "-") {
@@ -260,6 +263,12 @@ var Select = {
         $("#slsTahun").on("change", function () {
             t.search($(this).val(), "ProjectManager");
         });
+    },
+    AlatBahan: function () {
+        $("#slsAlatBahan").select2({
+            placeholder: "Alat dan Bahan",
+            tags: true,
+        });
     }
 };
 
@@ -280,43 +289,90 @@ var Control = {
             }
         });
     },
-    Switch: function(){
+    Switch: function () {
         $("[data-switch=true]").bootstrapSwitch();
     }
 };
 
-var Transaction ={
-    Init: function(){
-        Transaction.Pembelian();
-        Transaction.Penggunaan();
+var Transaction = {
+    Init: function () {
+        $("#btnTambahPembelian").on("click", function () {
+            Transaction.Pembelian();
+        });
+        $("#btnTambahPenggunaan").on("click", function () {
+            Transaction.Penggunaan();
+        })
     },
-    Pembelian: function(){
+    Pembelian: function () {
         var btn = $("#btnTambahPembelian");
         var params = {
-            namaKategori: $("#tbxKategori").val()
+            tipeAlatBahan: $("#btnTipe").prop('checked'),
+            namaAlatBahan: $("#slsAlatBahan").val(),
+            tglTrx: $("#tbxTanggalPembelian").val(),
+            jumlah: $("#tbxJumlahBeli").val(),
+            harga: $("#tbxHargaBeli").val()
         };
-
+        console.log(params);
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true
         );
 
         $.ajax({
-            url: "/api/kategori",
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(params),
-            cache: false
-        })
-            .done(function(data, textStatus, jqXHR) {
-                $("#divKategoriList").mDatatable('reload');
-                $("#tbxKategori").val("");
-                $("#formTambah").modal("toggle");
-                console.log(data);
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+                url: "/api/inventarisasi/log",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(params),
+                cache: false
             })
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .done(function (data, textStatus, jqXHR) {
+                $("#divPembelianList").mDatatable('reload');
+                $("#slsAlatBahan").val("");
+                $("#tbxTanggalPembelian").val("");
+                $("#tbxJumlahBeli").val("");
+                $("#tbxHargaBeli").val("")
+                $("#formPembelian").modal("toggle");
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            });
+    },
+    Penggunaan: function () {
+        var btn = $("#btnTambahPenggunaan");
+        var params = {
+            namaAlatBahan: $("#slsAlatBahanGuna").val(),
+            tglTrx: $("#tbxTanggalPenggunaan").val(),
+            jumlah: $("#tbxJumlahPenggunaan").val()
+        };
+        console.log(params);
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
+
+        $.ajax({
+                url: "/api/inventarisasi/log",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(params),
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#divPenggunaanList").mDatatable('reload');
+                $("#slsAlatBahanGuna").val("");
+                $("#tbxTanggalPenggunaan").val("");
+                $("#tbxJumlahPenggunaan").val("");
+                $("#formPenggunaan").modal("toggle");
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                     "disabled",

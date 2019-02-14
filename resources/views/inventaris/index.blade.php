@@ -126,7 +126,7 @@
                                         </div>
                                     </div>
                                     <!-- modal form pembelian -->
-                                    <div class="modal hide fade" id="formPembelian" tabindex="-1" role="dialog"
+                                    <div class="modal hide fade" id="formPembelian" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
@@ -146,16 +146,18 @@
                                                             Tipe Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input data-switch="true" type="checkbox" checked="checked" data-on-text="Hewan" data-handle-width="70" data-off-text="Bukan" data-on-color="info" id="btnTipe">
+                                                            <input data-switch="true" type="checkbox" checked="checked"
+                                                                data-on-text="Hewan" data-handle-width="70"
+                                                                data-off-text="Bukan" data-on-color="info" id="btnTipe">
                                                         </div>
-                                                    </div>                                      
+                                                    </div>
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input type="text" id="tbxAlatBahanBeli" class="form-control m-input"
-                                                                required>
+                                                            <select class="form-control m-select2" id="slsAlatBahan" style="width:550px">
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
@@ -164,7 +166,8 @@
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <div class="input-group date">
-                                                                <input type="text" class="form-control m-input datepicker" id="tbxTanggalPembelian" />
+                                                                <input type="text" class="form-control m-input datepicker"
+                                                                    id="tbxTanggalPembelian" />
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>
@@ -288,7 +291,8 @@
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <div class="input-group date">
-                                                                <input type="text" class="form-control m-input datepicker" id="tbxTanggalPenggunaan" />
+                                                                <input type="text" class="form-control m-input datepicker"
+                                                                    id="tbxTanggalPenggunaan" />
                                                                 <div class="input-group-append">
                                                                     <span class="input-group-text">
                                                                         <i class="la la-calendar"></i>
