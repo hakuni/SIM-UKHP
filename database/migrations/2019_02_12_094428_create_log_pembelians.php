@@ -15,7 +15,7 @@ class CreateLogPembelians extends Migration
     {
         Schema::create('log_pembelians', function (Blueprint $table) {
             $table->increments('idLogPembelian');
-            $table->integer('idAlatBahan');
+            $table->string('namaAlatBahan');
             $table->timestamp('tglTrx');
             $table->integer('jumlah');
             $table->integer('harga');

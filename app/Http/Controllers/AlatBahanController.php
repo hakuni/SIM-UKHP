@@ -14,7 +14,7 @@ class AlatBahanController extends Controller
     public function getListAlatBahan(){
         try{
             $inventarisasi = vwAlatBahan::All();
-            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
+            return response($inventarisasi)->setStatusCode(200);
         }
         catch(\Exception $ex){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
@@ -32,7 +32,7 @@ class AlatBahanController extends Controller
                 $inventarisasi->createdBy = 'kuni';
 
             $inventarisasi->save();
-            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
+            return response($inventarisasi)->setStatusCode(200);
         }
         catch(\Exception $e){
             return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
@@ -42,7 +42,7 @@ class AlatBahanController extends Controller
     public function getSingleAlatBahan($id){
         try{
             $inventarisasi = vwAlatBahan::findOrFail($id);
-            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
+            return response($inventarisasi)->setStatusCode(200);
         }
         catch(\Exception $e){
             return response()->json(['success'=>false, 'error'=>$e->getCode()])->setStatusCode(204);
@@ -54,7 +54,7 @@ class AlatBahanController extends Controller
             $inventarisasi = MstAlatBahan::findOrFail($id);
 
             $inventarisasi->delete();
-            return response()->json(['data'=>$inventarisasi])->setStatusCode(200);
+            return response($inventarisasi)->setStatusCode(200);
 
         }
         catch(\Exception $e){
@@ -66,6 +66,16 @@ class AlatBahanController extends Controller
     #region Log
     public function saveLogs(Request $request){
         try{
+            //save alat bahan dulu
+            $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->first();
+            if($cek == null){
+                $cek = new MstAlatBahan;
+                $cek->namaAlatBahan = strtoupper($request->namaAlatBahan);
+                $cek->tipeAlatBahan = $request->tipeAlatBahan;
+                $cek->createdBy = 'kuni';
+                $cek->save();
+            }
+
             if($request->tipeTrx == 1){
                 $logTrx = $request->isMethod('post') ? new LogPembelian : LogPembelian::findOrFail($request->idLog);
                 $logTrx->harga = $request->harga;
@@ -73,17 +83,21 @@ class AlatBahanController extends Controller
             else if($request->tipeTrx == 2){
                 $logTrx = $request->isMethod('post') ? new LogPemakaian : LogPemakaian::findOrFail($request->idLog);
             }
-            $logTrx->idAlatBahan = $request->idAlatBahan;
-            $logTrx->tglTrx = $request->tglTrx;
+            $logTrx->idAlatBahan = $cek->idAlatBahan;
+            $logTrx->tglTrx = date("y-m-d", strtotime($request->tglTrx));
             $logTrx->jumlah = $request->jumlah;
 
             $logTrx->createdBy = 'kuni';
 
             $logTrx->save();
-            return response()->json(['data'=>$logTrx])->setStatusCode(200);
+            $logTrx->ErrorType = 0;
+            return response($logTrx)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $logTrx = new LogPembelian;
+            $logTrx->ErrorType = 2;
+            $logTrx->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(422);
         }
     }
 
@@ -95,10 +109,14 @@ class AlatBahanController extends Controller
             else{
                 $log = LogPemakaian::All();
             }
+            $log->ErrorType = 0;
             return response()->json(['data'=> $log])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $log = new LogPembelian;
+            $log->ErrorType = 2;
+            $log->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(442);
         }
     }
     #endregion

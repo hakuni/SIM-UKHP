@@ -15,9 +15,8 @@ class CreateMstAlatBahansTable extends Migration
     {
         Schema::create('mst_alat_bahans', function (Blueprint $table) {
             $table->increments('idAlatBahan');
-            $table->string('namaAlatBahan');
-            $table->integer('tipeAlatBahan');
-            $table->integer('stokAlatBahan');
+            $table->string('namaAlatBahan')->unique();
+            $table->boolean('tipeAlatBahan');
 
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();

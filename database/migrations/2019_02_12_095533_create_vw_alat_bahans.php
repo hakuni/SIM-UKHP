@@ -13,8 +13,8 @@ class CreateVwAlatBahans extends Migration
      */
     public function up()
     {
-        DB::statement($this->dropView());
-        DB::statement($this->createView());
+        // DB::statement($this->dropView());
+        // DB::statement($this->createView());
     }
     
     private function dropView() : string{

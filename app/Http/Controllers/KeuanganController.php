@@ -15,10 +15,14 @@ class KeuanganController extends Controller
     public function getListKeuangan(){
         try{
             $keuangan = vwKeuangan::All();
-            return response()->json(['data'=>$keuangan])->setStatusCode(200);
+            $keuangan->ErrorType = 0;
+            return response($keuangan)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
+            $keuangan = new vwKeuangan;
+            $keuangan->ErrorType = 2;
+            $keuangan->ErrorMessage = $e->getMessage();
+            return response($keuangan)->setStatusCode(204);
         }
     }
     #endregion
@@ -34,41 +38,57 @@ class KeuanganController extends Controller
             else
                 $rincian->updatedBy = 'kuni';
             $rincian->save();
-            return response()->json(['data'=>$rincian])->setStatusCode(200);
+            $rincian->ErrorType = 0;
+            return response($rincian)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $rincian = new RincianBiaya;
+            $rincian->ErrorType = 2;
+            $rincian->ErrorMessage = $e->getMessage();
+            return response($rincian)->setStatusCode(422);
         }
     }
 
     public function getListDetail($idPenelitian){
         try{
             $rincian = vwRincian::where('idPenelitian', $idPenelitian)->get();
-            return response()->json(['data'=>$rincian])->setStatusCode(200);
+            $rincian->ErrorType = 0;
+            return response($rincian)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $rincian = new vwRincian;
+            $rincian->ErrorType = 2;
+            $rincian->ErrorMessage = $e->getMessage();
+            return response($rincian)->setStatusCode(204);
         }
     }
 
     public function getSingleDetail($idPenelitian, $idRincian){
         try{
             $rincian = vwRincian::findOrFail($idRincian);
-            return response()->json(['data'=>$rincian])->setStatusCode(200);
+            $rincian->ErrorType = 0;
+            return response($rincian)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $rincian = new vwRincian;
+            $rincian->ErrorType = 2;
+            $rincian->ErrorMessage = $e->getMessage();
+            return response($rincian)->setStatusCode(204);
         }
     }
 
     public function deleteDetail($idRincian){
         try{
-            $rincian = vwRincian::findOrFail($idRincian);
+            $rincian = RincianBiaya::findOrFail($idRincian);
             $rincian->delete();
+            $rincian->ErrorType = 0;
             return response()->json(['data'=>$rincian])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $rincian = new RincianBiaya;
+            $rincian->ErrorType = 2;
+            $rincian->ErrorMessage = $e->getMessage();
+            return response($rincian)->setStatusCode(422);
         }
     }
     #endregion
@@ -82,30 +102,42 @@ class KeuanganController extends Controller
             $logPembayaran->createdBy = 'kuni';
 
             $logPembayaran->save();
+            $logPembayaran->ErrorType = 0;
             return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $logPembayaran = new LogPembayaran;
+            $logPembayaran->ErrorType = 2;
+            $logPembayaran->ErrorMessage = $e->getMessage();
+            return response($logPembayaran)->setStatusCode(422);
         }
     }
 
     public function getListLog($idPenelitian){
         try{
             $logPembayaran = LogPembayaran::where('idPenelitian', $idPenelitian)->get();
+            $logPembayaran->ErrorType = 0;
             return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $logPembayaran = new LogPembayaran;
+            $logPembayaran->ErrorType = 2;
+            $logPembayaran->ErrorMessage = $e->getMessage();
+            return response($logPembayaran)->setStatusCode(204);
         }
     }
 
     public function getSingleLog($idPenelitian, $idLog){
         try{
             $logPembayaran = LogPembayaran::findOrFail($idLog);
+            $logPembayaran->ErrorType = 0;
             return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $logPembayaran = new LogPembayaran;
+            $logPembayaran->ErrorType = 2;
+            $logPembayaran->ErrorMessage = $e->getMessage();
+            return response($logPembayaran)->setStatusCode(204);
         }
     }
 
@@ -113,10 +145,14 @@ class KeuanganController extends Controller
         try{
             $logPembayaran = LogPembayaran::findOrFail($idLog);
             $logPembayaran->delete();
+            $logPembayaran->ErrorType = 0;
             return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $logPembayaran = new LogPembayaran;
+            $logPembayaran->ErrorType = 2;
+            $logPembayaran->ErrorMessage = $e->getMessage();
+            return response($logPembayaran)->setStatusCode(422);
         }
     }
     #endregion 

@@ -14,10 +14,14 @@ class PenelitianController extends Controller
     {
         try{
             $penelitian = vwPenelitian::All();
-            return response()->json(['data'=>$penelitian])->setStatusCode(200);
+            $penelitian->ErrorType = 0;
+            return response($penelitian)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()]);
+            $penelitian = new vwPenelitian;
+            $penelitian->ErrorType = 2;
+            $penelitian->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(204);
         }
     }
     
@@ -33,10 +37,14 @@ class PenelitianController extends Controller
                 $penelitian->createdBy = 'kuni';
 
             $penelitian->save();
-            return response()->json(['data'=>$penelitian])->setStatusCode(200);
+            $kategori->ErrorType = 0;
+            return response($penelitian)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $penelitian = new MstPenelitian;
+            $penelitian->ErrorType = 2;
+            $penelitian->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(422);
         }
     }
 
@@ -44,10 +52,14 @@ class PenelitianController extends Controller
     {
         try{
             $penelitian = vwPenelitian::findOrFail($id);
-            return response()->json(['data'=>$penelitian])->setStatusCode(200);
+            $penelitian->ErrorType = 0;
+            return response($penelitian)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getCode()])->setStatusCode(204);
+            $penelitian = new vwPenelitian;
+            $penelitian->ErrorType = 2;
+            $penelitian->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(204);
         }
     }
 
@@ -57,11 +69,15 @@ class PenelitianController extends Controller
             $penelitian = MstPenelitian::findOrFail($id);
 
             $penelitian->delete();
-            return response()->json(['data'=>$penelitian])->setStatusCode(200);
+            $penelitian->ErrorType = 0;
+            return response($penelitian)->setStatusCode(200);
 
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
+            $penelitian = new MstPenelitian;
+            $penelitian->ErrorType = 2;
+            $penelitian->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(422);
         }
     }
     #endregion
