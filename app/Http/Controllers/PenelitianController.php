@@ -24,20 +24,20 @@ class PenelitianController extends Controller
             return response($penelitian)->setStatusCode(204);
         }
     }
-    
+
     public function savePenelitian(Request $request)
     {
         try{
             $penelitian = $request->isMethod('put') ? MstPenelitian::findOrFail($request->idPenelitian) : new MstPenelitian;
             $penelitian->fill($request->all());
-            
+
             if($request->isMethod('put'))
                 $penelitian->updatedBy = 'kuni';
             else
                 $penelitian->createdBy = 'kuni';
 
             $penelitian->save();
-            $kategori->ErrorType = 0;
+            $penelitian->ErrorType = 0;
             return response($penelitian)->setStatusCode(200);
         }
         catch(\Exception $e){

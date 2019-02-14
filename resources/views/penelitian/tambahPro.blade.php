@@ -116,6 +116,6 @@
 		</div>
 	</div>
 </div>
-
+<input type="hidden" value="{{$idPenelitian}}" id="idPenelitian">
 <script src="{{asset('assets/app/js/penelitian/tambahPro.js')}}" type="text/javascript"></script>
 @endsection

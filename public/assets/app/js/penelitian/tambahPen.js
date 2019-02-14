@@ -25,8 +25,7 @@ var Control = {
                     );
                 });
                 $("#slsKategori").select2({
-                    placeholder: "Kategori",
-                    tags: true,
+                    placeholder: "Kategori"
                 });
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -62,32 +61,32 @@ var Transaction = function () {
         statusPenelitian: 1
     };
 
-    // btn.addClass("m-loader m-loader--right m-loader--light").attr(
-    //     "disabled",
-    //     true
-    // );
-    console.log($("#slsKategori").val());
-    // $.ajax({
-    //         url: "/api/penelitian",
-    //         type: "POST",
-    //         dataType: "json",
-    //         contentType: "application/json",
-    //         data: JSON.stringify(params),
-    //         cache: false
-    //     })
-    //     .done(function (data, textStatus, jqXHR) {
-    //         // if (Common.CheckError.Object(data) == true)
-    //         Common.Alert.SuccessRoute("Berhasil menambahkan", "/Penelitian");
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     })
-    //     .fail(function (jqXHR, textStatus, errorThrown) {
-    //         Common.Alert.Error(errorThrown);
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     });
+    btn.addClass("m-loader m-loader--right m-loader--light").attr(
+        "disabled",
+        true
+    );
+
+    $.ajax({
+            url: "/api/penelitian",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(params),
+            cache: false
+        })
+        .done(function (data, textStatus, jqXHR) {
+            // if (Common.CheckError.Object(data) == true)
+            Common.Alert.SuccessRoute("Berhasil menambahkan", "/Penelitian");
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        });
 };

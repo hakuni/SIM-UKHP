@@ -47,7 +47,11 @@
                                                 </label>
                                             </div>
                                             <div class="m-form__control">
-                                                <select class="form-control m-bootstrap-select" id="slsStatusPen"></select>
+                                                <select class="form-control m-bootstrap-select" id="slsStatusPen">
+                                                    <option value="">All</option>
+                                                    <option value="BELUM LUNAS">BELUM LUNAS</option>
+                                                    <option value="LUNAS">LUNAS</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="d-md-none m--margin-bottom-10"></div>

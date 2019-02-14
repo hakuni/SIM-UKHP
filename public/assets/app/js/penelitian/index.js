@@ -120,14 +120,13 @@ var Control = {
                 $.each(data, function (i, item) {
                     html +=
                         '<option value="' +
-                        item.idKategori +
+                        item.namaKategori +
                         '">' +
                         item.namaKategori +
                         "</option>";
                 });
                 $("#slsKategori").append(html);
                 $("#slsKategori").selectpicker("refresh");
-                $("#slsStatusPen").selectpicker("refresh");
             },
             error: function (xhr) {
                 alert(xhr.responseText);
@@ -138,9 +137,32 @@ var Control = {
         });
     },
     Status: function () {
+        $.ajax({
+            url: "/api/status",
+            type: "GET",
+            dataType: "json",
+            contenType: "application/json",
+            success: function (data) {
+                var html = "<option value=''>All</option>";
+                var select = $("#slsStatusPen");
 
-        $("#slsStatusPen").on("change", function () {
-            t.search($(this).val(), "statusPenelitian");
+                $.each(data, function (i, item) {
+                    html +=
+                        '<option value="' +
+                        item.namaStatus +
+                        '">' +
+                        item.namaStatus +
+                        "</option>";
+                });
+                $("#slsStatusPen").append(html);
+                $("#slsStatusPen").selectpicker("refresh");
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
         });
-    }
+        $("#slsStatusPen").on("change", function () {
+            t.search($(this).val(), "namaStatus");
+        });
+    },
 };

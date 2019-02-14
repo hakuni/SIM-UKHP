@@ -13,7 +13,7 @@ class AlatBahanController extends Controller
     #region Master
     public function getListAlatBahan(){
         try{
-            $inventarisasi = vwAlatBahan::All();
+            $inventarisasi = MstAlatBahan::All();
             return response($inventarisasi)->setStatusCode(200);
         }
         catch(\Exception $ex){
@@ -25,7 +25,7 @@ class AlatBahanController extends Controller
         try{
             $inventarisasi = $request->isMethod('put') ? MstAlatBahan::findOrFail($request->idAlatBahan) : new MstAlatBahan;
             $inventarisasi->fill($request->all());
-            
+
             if($request->isMethod('put'))
                 $inventarisasi->updatedBy = 'kuni';
             else
@@ -48,7 +48,7 @@ class AlatBahanController extends Controller
             return response()->json(['success'=>false, 'error'=>$e->getCode()])->setStatusCode(204);
         }
     }
-    
+
     public function deleteAlatBahan($id){
         try{
             $inventarisasi = MstAlatBahan::findOrFail($id);
@@ -67,7 +67,7 @@ class AlatBahanController extends Controller
     public function saveLogs(Request $request){
         try{
             //save alat bahan dulu
-            $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->first();
+            $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->orWhere('idAlatBahan', $request->namaAlatBahan)->first();
             if($cek == null){
                 $cek = new MstAlatBahan;
                 $cek->namaAlatBahan = strtoupper($request->namaAlatBahan);
@@ -83,7 +83,7 @@ class AlatBahanController extends Controller
             else if($request->tipeTrx == 2){
                 $logTrx = $request->isMethod('post') ? new LogPemakaian : LogPemakaian::findOrFail($request->idLog);
             }
-            $logTrx->idAlatBahan = $cek->idAlatBahan;
+            $logTrx->namaAlatBahan = $cek->namaAlatBahan;
             $logTrx->tglTrx = date("y-m-d", strtotime($request->tglTrx));
             $logTrx->jumlah = $request->jumlah;
 

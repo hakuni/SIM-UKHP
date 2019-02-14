@@ -112,7 +112,7 @@ var Table = {
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
-                        return t.TanggalPembayaran != null ? Common.Format.Date(t.TanggalPembayaran) : "-"
+                        return t.tglTrx != null ? Common.Format.Date(t.tglTrx) : "-"
                     }
                 },
                 {
@@ -175,7 +175,7 @@ var Table = {
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
-                        return t.TanggalPenggunaan != null ? Common.Format.Date(t.TanggalPenggunaan) : "-"
+                        return t.tglTrx != null ? Common.Format.Date(t.tglTrx) : "-"
                     }
                 },
                 {
@@ -190,8 +190,8 @@ var Table = {
 
 var Select = {
     Init: function () {
-        Select.Bulan();
-        Select.Tahun();
+        // Select.Bulan();
+        // Select.Tahun();
         Select.AlatBahan();
     },
     Bulan: function () {
@@ -265,10 +265,32 @@ var Select = {
         });
     },
     AlatBahan: function () {
-        $("#slsAlatBahan").select2({
-            placeholder: "Alat dan Bahan",
-            tags: true,
-        });
+        $.ajax({
+                url: "/api/inventarisasi",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $(".m-select2").html("<option></option>");
+                $.each(data, function (i, item) {
+                    $(".m-select2").append(
+                        "<option value='" +
+                        item.idAlatBahan +
+                        "'>" +
+                        item.namaAlatBahan +
+                        "</option>"
+                    );
+                });
+                $("#slsAlatBahan").select2({
+                    placeholder: "Alat dan Bahan",
+                    tags: true,
+                });
+                $("#slsAlatBahanGuna").select2({
+                    placeholder: "Alat dan Bahan"
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     }
 };
 
@@ -306,13 +328,13 @@ var Transaction = {
     Pembelian: function () {
         var btn = $("#btnTambahPembelian");
         var params = {
+            tipeTrx: 1,
             tipeAlatBahan: $("#btnTipe").prop('checked'),
             namaAlatBahan: $("#slsAlatBahan").val(),
             tglTrx: $("#tbxTanggalPembelian").val(),
             jumlah: $("#tbxJumlahBeli").val(),
             harga: $("#tbxHargaBeli").val()
         };
-        console.log(params);
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true
@@ -346,11 +368,11 @@ var Transaction = {
     Penggunaan: function () {
         var btn = $("#btnTambahPenggunaan");
         var params = {
+            tipeTrx: 2,
             namaAlatBahan: $("#slsAlatBahanGuna").val(),
             tglTrx: $("#tbxTanggalPenggunaan").val(),
             jumlah: $("#tbxJumlahPenggunaan").val()
         };
-        console.log(params);
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true

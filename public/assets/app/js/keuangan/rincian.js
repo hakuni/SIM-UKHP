@@ -164,7 +164,7 @@ var Control = {
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#biodata").text(data.data.namaPeneliti + ", " + data.data.instansiPeneliti)
+                $("#biodata").text(data.namaPeneliti + ", " + data.instansiPeneliti)
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

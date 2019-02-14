@@ -39,12 +39,12 @@ var Control = {
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                Control.Select2(data.data.idKategori);
-                $("#tbxNamaPeneliti").val(data.data.namaPeneliti);
-                $("#tbxInstansi").val(data.data.instansiPeneliti);
-                $("#tbxNoHP").val(data.data.telpPeneliti);
-                $("#tbxEmail").val(data.data.emailPeneliti);
-                $("#tbxAlamat").val(data.data.alamatPeneliti);
+                Control.Select2(data.idKategori);
+                $("#tbxNamaPeneliti").val(data.namaPeneliti);
+                $("#tbxInstansi").val(data.instansiPeneliti);
+                $("#tbxNoHP").val(data.telpPeneliti);
+                $("#tbxEmail").val(data.emailPeneliti);
+                $("#tbxAlamat").val(data.alamatPeneliti);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

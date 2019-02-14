@@ -1,3 +1,4 @@
+var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
     Form.Init();
@@ -11,7 +12,7 @@ var Control = {
     },
     SelectKategori: function () {
         $.ajax({
-                url: "/api/user/list?roleID=4",
+                url: "/api/kategori",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
@@ -19,9 +20,9 @@ var Control = {
                 $.each(data, function (i, item) {
                     $("#slsKategori").append(
                         "<option value='" +
-                        item.UserID +
+                        item.idKategori +
                         "'>" +
-                        item.FullName +
+                        item.namaKategori +
                         "</option>"
                     );
                 });
@@ -35,7 +36,7 @@ var Control = {
     },
     SelectHewan: function () {
         $.ajax({
-                url: "/api/user/list?roleID=4",
+                url: "/api/inventarisasi",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
@@ -43,9 +44,9 @@ var Control = {
                 $.each(data, function (i, item) {
                     $("#slsHewan").append(
                         "<option value='" +
-                        item.UserID +
+                        item.idAlatBahan +
                         "'>" +
-                        item.FullName +
+                        item.namaAlatBahan +
                         "</option>"
                     );
                 });
@@ -58,19 +59,6 @@ var Control = {
             });
     }
 };
-
-// var format = new Vue({
-//     el: "#formTambahPenelitian",
-//     data: {
-//         nama: ""
-//     },
-//     watch: {
-//         nama: function(val) {
-//             this.nama = val;
-//             return val;
-//         }
-//     }
-// });
 
 var Form = {
     Init: function () {
@@ -90,13 +78,14 @@ var Transaction = function () {
     var btn = $("#btnTambah");
 
     var params = {
-        Kategori: $("#slsKategori").val(),
-        JudulPen: $("#tbxJudul").val(),
-        Hewan: $("#slsHewan").val(),
-        Jumlah: $("#tbxJumlah").val(),
-        Perlakuan: $("#tbxPerlakuan").val(),
-        ParameterUji: $("#tbxParameter").val(),
-        DesainPen: $("#tbxDesain").val()
+        idPenelitian: id,
+        idKategori: $("#slsKategori").val(),
+        judulPenelitian: $("#tbxJudul").val(),
+        idAlatBahan: $("#slsHewan").val(),
+        jumlahHewan: $("#tbxJumlah").val(),
+        perlakuan: $("#tbxPerlakuan").val(),
+        parameterUji: $("#tbxParameter").val(),
+        desainPenelitian: $("#tbxDesain").val()
     };
 
     btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -104,28 +93,28 @@ var Transaction = function () {
         true
     );
 
-    // $.ajax({
-    //     url: "/api/project/create",
-    //     type: "POST",
-    //     dataType: "json",
-    //     contentType: "application/json",
-    //     data: JSON.stringify(params),
-    //     cache: false
-    // })
-    //     .done(function(data, textStatus, jqXHR) {
-    //         console.log(data);
-    //         if (Common.CheckError.Object(data) == true)
-    //             Common.Alert.SuccessRoute("Berhasil menambahkan", "/Project");
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     })
-    //     .fail(function(jqXHR, textStatus, errorThrown) {
-    //         Common.Alert.Error(errorThrown);
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     });
+    $.ajax({
+            url: "/api/project/create",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(params),
+            cache: false
+        })
+        .done(function (data, textStatus, jqXHR) {
+            console.log(data);
+            if (Common.CheckError.Object(data) == true)
+                Common.Alert.SuccessRoute("Berhasil menambahkan", "/Project");
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        });
 };

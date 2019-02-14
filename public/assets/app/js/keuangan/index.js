@@ -1,6 +1,6 @@
 //== Class Initialization
 jQuery(document).ready(function () {
-    // Control.Init();
+    Control.Init();
     Table.Init();
 });
 
@@ -11,7 +11,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/project/list/",
+                        url: "/api/keuangan",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -41,45 +41,44 @@ var Table = {
                     }
                 }
             },
+            search: {},
             columns: [{
-                    field: "PenelitianID",
+                    field: "idPenelitian",
                     title: "Aksi",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<a href="edit' +
-                            t.PenelitianID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Keuangan"><i class="la la-info-circle"></i></a>';
+                            '<a href="/Rincian/' + t.idPenelitian + '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Keuangan"><i class="la la-info-circle"></i></a>';
                         return strBuilder;
                     }
                 },
                 {
-                    field: "NamaPeneliti",
+                    field: "namaPeneliti",
                     title: "Nama",
                     textAlign: "center"
                 },
                 {
-                    field: "Kategori",
+                    field: "namaKategori",
                     title: "Kategori",
                     textAlign: "center"
                 },
                 {
-                    field: "TanggalPembayaran",
+                    field: "tgl",
                     title: "Tanggal Pembayaran",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
-                        return t.TanggalPembayaran != null ? Common.Format.Date(t.TanggalPembayaran) : "-"
+                        return t.tgl != null ? Common.Format.Date(t.tgl) : "-"
                     }
                 },
                 {
-                    field: "Biaya",
+                    field: "biaya",
                     title: "Biaya",
                     textAlign: "center"
                 },
                 {
-                    field: "Status",
+                    field: "statusPembayaran",
                     title: "Status",
                     textAlign: "center"
                 }
@@ -90,16 +89,11 @@ var Table = {
 
 var Control = {
     Init: function () {
-        Control.Kategori();
-        Control.Status();
+        Control.Select();
     },
-    Kategori: function () {
-        if ($("#errorMsg").val() != "-") {
-            Common.Alert.ErrorRoute($("#errorMsg").val(), document.referrer);
-        }
-
+    Select: function () {
         $.ajax({
-            url: "/api/user/list?roleID=4",
+            url: "/api/kategori",
             type: "GET",
             dataType: "json",
             contenType: "application/json",
@@ -110,48 +104,14 @@ var Control = {
                 $.each(data, function (i, item) {
                     html +=
                         '<option value="' +
-                        item.FullName +
+                        item.namaKategori +
                         '">' +
-                        item.FullName +
+                        item.namaKategori +
                         "</option>";
                 });
 
                 $("#slsKategori").append(html);
                 $("#slsKategori").selectpicker("refresh");
-            },
-            error: function (xhr) {
-                alert(xhr.responseText);
-            }
-        });
-
-        $("#slsKategori").on("change", function () {
-            t.search($(this).val(), "Kategori");
-        });
-    },
-    Status: function () {
-        if ($("#errorMsg").val() != "-") {
-            Common.Alert.ErrorRoute($("#errorMsg").val(), document.referrer);
-        }
-
-        $.ajax({
-            url: "/api/user/list?roleID=4",
-            type: "GET",
-            dataType: "json",
-            contenType: "application/json",
-            success: function (data) {
-                var html = "<option value=''>All</option>";
-                var select = $("#slsStatusPen");
-
-                $.each(data, function (i, item) {
-                    html +=
-                        '<option value="' +
-                        item.FullName +
-                        '">' +
-                        item.FullName +
-                        "</option>";
-                });
-
-                $("#slsStatusPen").append(html);
                 $("#slsStatusPen").selectpicker("refresh");
             },
             error: function (xhr) {
@@ -159,8 +119,11 @@ var Control = {
             }
         });
 
+        $("#slsKategori").on("change", function () {
+            t.search($(this).val(), "namaKategori");
+        });
         $("#slsStatusPen").on("change", function () {
-            t.search($(this).val(), "Status");
+            t.search($(this).val(), "statusPembayaran");
         });
     }
 };

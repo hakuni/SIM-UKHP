@@ -48,10 +48,7 @@
                                                                 </div>
                                                                 <div class="m-form__control">
                                                                     <select class="form-control m-bootstrap-select" data-dropup-auto="false" id="slsStatusPen">
-                                                                        <option value="">All</option>
-                                                                        <option value="1">Rencana</option>
-                                                                        <option value="2">Sedang Berlangsung</option>
-                                                                        <option value="3">Selesai</option>
+
                                                                     </select>
                                                                 </div>
                                                             </div>

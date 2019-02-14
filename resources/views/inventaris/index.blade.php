@@ -281,8 +281,8 @@
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input type="text" id="tbxAlatBahanPenggunaan" class="form-control m-input"
-                                                                required>
+                                                            <select class="form-control m-select2" id="slsAlatBahanGuna" style="width:550px">
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
