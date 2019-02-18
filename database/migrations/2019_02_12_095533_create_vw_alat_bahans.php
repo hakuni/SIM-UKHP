@@ -13,8 +13,8 @@ class CreateVwAlatBahans extends Migration
      */
     public function up()
     {
-        // DB::statement($this->dropView());
-        // DB::statement($this->createView());
+        DB::statement($this->dropView());
+        DB::statement($this->createView());
     }
     
     private function dropView() : string{
@@ -26,16 +26,21 @@ SQL;
     private function createView() : string{
         return <<<SQL
 CREATE VIEW `vw_alatBahans` AS
-SELECT
-    `mb`.`idAlatBahan`,
-    `mb`.`namaAlatBahan`,
-    CASE WHEN(`mb`.`stokAlatBahan` = 0) THEN 0 ELSE `mb`.`stokAlatBahan` END +
-    CASE WHEN ISNULL(SUM(`lb`.`jumlah`)) THEN 0 ELSE SUM(`lb`.`jumlah`) END -
-    CASE WHEN ISNULL(SUM(`lp`.`jumlah`)) THEN 0 ELSE SUM(`lp`.`jumlah`) END AS `stok`
+SELECT DISTINCT
+    `mb`.`namaAlatBahan` AS `namaAlatBahan`,
+    (SELECT 
+        CASE WHEN ISNULL(SUM(`lb`.`jumlah`)) THEN 0 ELSE SUM(`lb`.`jumlah`) END 
+    FROM `log_pembelians` `lb`
+    WHERE `lb`.`namaAlatBahan` = `mb`.`namaAlatBahan`) AS `jumlahBeli`,
+    (SELECT
+        CASE WHEN ISNULL(SUM(`lp`.`jumlah`)) THEN 0 ELSE SUM(`lp`.`jumlah`) END
+    FROM `log_pemakaians` `lp`
+    WHERE
+    `lp`.`namaAlatBahan` = `mb`.`namaAlatBahan`) AS `jumlahPakai`
 FROM
-    `mst_alat_bahans` `mb` LEFT JOIN `sim-ukhp`.`log_pembelians` `lb` ON `mb`.`idAlatBahan` = `lb`.`idAlatBahan`
-    LEFT JOIN `sim-ukhp`.`log_pemakaians` `lp` ON `mb`.`idAlatBahan` = `lp`.`idAlatBahan`
-GROUP BY `mb`.`idAlatBahan`, `mb`.`namaAlatBahan`, `mb`.`stokAlatBahan`
+    `mst_alat_bahans` `mb`
+GROUP BY
+    `mb`.`namaAlatBahan`
 SQL;
     }
 }

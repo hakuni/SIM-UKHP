@@ -20,9 +20,9 @@ class CreateMstProsedursTable extends Migration
             $table->integer('idAlatBahan');
             $table->string('judulPenelitian');
             $table->integer('jumlahHewan');
-            $table->string('perlakuan');
-            $table->string('parameterUji');
-            $table->string('desainPenelitian');
+            $table->text('perlakuan');
+            $table->text('parameterUji');
+            $table->text('desainPenelitian');
 
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();

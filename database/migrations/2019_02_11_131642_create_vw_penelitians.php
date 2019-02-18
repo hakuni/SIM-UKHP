@@ -36,9 +36,11 @@ SELECT
     `p`.`emailPeneliti`,
     `p`.`alamatPeneliti`,
     `sp`.`idStatusPenelitian`,
-    `sp`.`namaStatus`
+    `sp`.`namaStatus`,
+    CASE WHEN `mp`.`idProsedur` IS NULL THEN 0 ELSE `mp`.`idProsedur` END AS `idProsedur`
 FROM
     `mst_penelitians` `p` LEFT JOIN `kategoris` `k` ON `p`.`idKategori` = `k`.`idKategori`
+    LEFT JOIN `mst_prosedurs` `mp` ON `p`.`idPenelitian` = `mp`.`idPenelitian`
     LEFT JOIN `status_penelitians` `sp` ON `p`.`statusPenelitian` = `sp`.`idStatusPenelitian`
 SQL;
     }

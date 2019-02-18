@@ -45,14 +45,10 @@ Route::delete('/status/{id}', 'StatusPenelitianController@deleteStatus');
 
 #region API Inventarisasi
 #master
-//create alat bahan
-Route::post('/inventarisasi', 'AlatBahanController@saveAlatBahan');
 //get list alat bahan
 Route::get('/inventarisasi', 'AlatBahanController@getListAlatBahan');
-//get single alat bahan
-Route::get('/inventarisasi/{idAlatBahan}', 'AlatBahanController@getSingleAlatBahan');
-//edit alat bahan
-Route::put('/inventarisasi', 'AlatBahanController@saveAlatBahan');
+//get list hewan
+Route::get('/inventarisasi/{tipeAlatBahan}', 'AlatBahanController@getListHewan');
 //delet alat bahan
 Route::delete('/inventarisasi/{idAlatBahan}', 'AlatBahanController@deleteAlatBahan');
 

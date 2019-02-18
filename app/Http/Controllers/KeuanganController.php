@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\MstAlatBahan;
 use App\MstKeuangan;
 use App\RincianBiaya;
 use App\LogPembayaran;
@@ -30,9 +31,20 @@ class KeuanganController extends Controller
     #region Rincian
     public function saveDetail(Request $request){
         try{
+            //save alat bahan dulu
+            $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->orWhere('idAlatBahan', $request->namaAlatBahan)->first();
+            if($cek == null){
+                $cek = new MstAlatBahan;
+                $cek->namaAlatBahan = strtoupper($request->namaAlatBahan);
+                $cek->tipeAlatBahan = $request->tipeAlatBahan;
+                $cek->createdBy = 'kuni';
+                $cek->save();
+            }
+
             $rincian = $request->isMethod('put') ? RincianBiaya::findOrFail($request->idRincianBiaya) : new RincianBiaya;
 
             $rincian->fill($request->all());
+            $rincian->idAlatBahan = $cek->idAlatBahan;
             if($request->isMethod('post'))
                 $rincian->createdBy = 'kuni';
             else

@@ -15,7 +15,7 @@ class CreateStatusPenelitians extends Migration
     {
         Schema::create('status_penelitians', function (Blueprint $table) {
             $table->increments('idStatusPenelitian');
-            $table->string('namaStatus');
+            $table->string('namaStatus')->unique();
         });
         DB::statement($this->insertStatus());
     }

@@ -13,52 +13,45 @@ class AlatBahanController extends Controller
     #region Master
     public function getListAlatBahan(){
         try{
-            $inventarisasi = MstAlatBahan::All();
-            return response($inventarisasi)->setStatusCode(200);
-        }
-        catch(\Exception $ex){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
-        }
-    }
-
-    public function saveAlatBahan(Request $request){
-        try{
-            $inventarisasi = $request->isMethod('put') ? MstAlatBahan::findOrFail($request->idAlatBahan) : new MstAlatBahan;
-            $inventarisasi->fill($request->all());
-
-            if($request->isMethod('put'))
-                $inventarisasi->updatedBy = 'kuni';
-            else
-                $inventarisasi->createdBy = 'kuni';
-
-            $inventarisasi->save();
+            $inventarisasi = vwAlatBahan::All();
+            $inventarisasi->ErrorType = 0;
             return response($inventarisasi)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $inventarisasi = new vwKeuangan;
+            $inventarisasi->ErrorType = 2;
+            $inventarisasi->ErrorMessage = $e->getMessage();
+            return response($inventarisasi)->setStatusCode(204);
         }
     }
 
-    public function getSingleAlatBahan($id){
+    public function getListHewan($tipe){
         try{
-            $inventarisasi = vwAlatBahan::findOrFail($id);
+            $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $tipe);
+            $inventarisasi->ErrorType = 0;
             return response($inventarisasi)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getCode()])->setStatusCode(204);
+            $inventarisasi = new vwKeuangan;
+            $inventarisasi->ErrorType = 2;
+            $inventarisasi->ErrorMessage = $e->getMessage();
+            return response($inventarisasi)->setStatusCode(204);
         }
     }
 
     public function deleteAlatBahan($id){
         try{
             $inventarisasi = MstAlatBahan::findOrFail($id);
-
             $inventarisasi->delete();
+            $inventarisasi->ErrorType = 0;
             return response($inventarisasi)->setStatusCode(200);
 
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(204);
+            $inventarisasi = new vwKeuangan;
+            $inventarisasi->ErrorType = 2;
+            $inventarisasi->ErrorMessage = $e->getMessage();
+            return response($inventarisasi)->setStatusCode(422);
         }
     }
     #endregion
