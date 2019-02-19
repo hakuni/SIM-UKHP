@@ -13,13 +13,13 @@
 								<i class="la la-gear"></i>
 							</span>
 							<h3 class="m-portlet__head-text">
-								Tambah Penelitian
+								Ubah Penelitian
 							</h3>
 						</div>
 					</div>
 				</div>
 				<!--begin::Form-->
-				<form class="m-form m-form--fit m-form--label-align-right" id="formTambahPenelitian">
+				<form class="m-form m-form--fit m-form--label-align-right" id="formUbahPenelitian">
 
 					<div class="m-form__content">
 						<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="msgFail">
@@ -94,8 +94,8 @@
 									<button onclick="JavaScript: window.history.back(1); return false;" class="btn btn-secondary">
 										Batal
 									</button>
-									<button id="btnTambah" class="btn btn-success">
-										Tambah
+									<button id="btnUbah" class="btn btn-primary">
+										Ubah
 									</button>
 								</div>
 							</div>
@@ -108,6 +108,6 @@
 		</div>
 	</div>
 </div>
-
-<script src="{{asset('assets/app/js/penelitian/tambahPen.js')}}" type="text/javascript"></script>
+<input type="hidden" value="{{$idPenelitian}}" id="idUbahPenelitian">
+<script src="{{asset('assets/app/js/penelitian/ubah.js')}}" type="text/javascript"></script>
 @endsection

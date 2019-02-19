@@ -27,12 +27,13 @@ class AlatBahanController extends Controller
 
     public function getListHewan($tipe){
         try{
-            $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $tipe);
+            $inventarisasi = new MstAlatBahan;
+            $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $tipe)->get();
             $inventarisasi->ErrorType = 0;
             return response($inventarisasi)->setStatusCode(200);
         }
         catch(\Exception $e){
-            $inventarisasi = new vwKeuangan;
+            $inventarisasi = new MstAlatBahan;
             $inventarisasi->ErrorType = 2;
             $inventarisasi->ErrorMessage = $e->getMessage();
             return response($inventarisasi)->setStatusCode(204);

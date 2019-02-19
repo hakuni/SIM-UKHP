@@ -58,6 +58,9 @@ var Table = {
                     textAlign: "center"
                 },
                 {
+                    template: function (i) {
+                        return i.jumlahBeli - i.jumlahPakai;
+                    },
                     field: "stokAlatBahan",
                     title: "Jumlah",
                     textAlign: "center"
@@ -274,7 +277,7 @@ var Select = {
                 $.each(data, function (i, item) {
                     $(".m-select2").append(
                         "<option value='" +
-                        item.idAlatBahan +
+                        item.namaAlatBahan +
                         "'>" +
                         item.namaAlatBahan +
                         "</option>"
@@ -349,7 +352,10 @@ var Transaction = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
+                $("#divStockList").mDatatable('reload');
                 $("#divPembelianList").mDatatable('reload');
+                $("#divPenggunaanList").mDatatable('reload');
+                Select.AlatBahan();
                 $("#slsAlatBahan").val("");
                 $("#tbxTanggalPembelian").val("");
                 $("#tbxJumlahBeli").val("");
@@ -373,6 +379,7 @@ var Transaction = {
             tglTrx: $("#tbxTanggalPenggunaan").val(),
             jumlah: $("#tbxJumlahPenggunaan").val()
         };
+        console.log(params);
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true
@@ -387,7 +394,10 @@ var Transaction = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
+                $("#divStockList").mDatatable('reload');
+                $("#divPembelianList").mDatatable('reload');
                 $("#divPenggunaanList").mDatatable('reload');
+                Select.AlatBahan();
                 $("#slsAlatBahanGuna").val("");
                 $("#tbxTanggalPenggunaan").val("");
                 $("#tbxJumlahPenggunaan").val("");

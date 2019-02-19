@@ -13,13 +13,13 @@
 								<i class="la la-gear"></i>
 							</span>
 							<h3 class="m-portlet__head-text">
-								Ubah Penelitian
+								Tambah Prosedur Penelitian
 							</h3>
 						</div>
 					</div>
 				</div>
 				<!--begin::Form-->
-				<form class="m-form m-form--fit m-form--label-align-right" id="formUbahPenelitian">
+				<form class="m-form m-form--fit m-form--label-align-right" id="formTambahProsedur">
 
 					<div class="m-form__content">
 						<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="msgFail">
@@ -42,47 +42,55 @@
 								Kategori <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<select class="form-control m-select2" id="slsKategori" required></select>
+								<select class="form-control m-select2" id="slsKategori" disabled="disable"></select>
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">
-								Nama <strong style="color:red";>*</strong> :
+								Judul Penelitian <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" class="form-control m-input" id="tbxNamaPeneliti" required>
-                            </div>
-						</div>
-						<div class="form-group m-form__group row">
-							<label class="col-form-label col-lg-3 col-sm-12">
-								Instansi <strong style="color:red" ;>*</strong> :
-							</label>
-							<div class="col-lg-6">
-								<input type="text" id="tbxInstansi" class="form-control m-input" required>
+								<input type="text" id="tbxJudul" class="form-control m-input" required>
 							</div>
                         </div>
                         <div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">
-								No. HP <strong style="color:red" ;>*</strong> :
+								Hewan <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" id="tbxNoHP" class="form-control m-input" required>
+								<select class="form-control m-select2" id="slsHewan" required></select>
+							</div>
+						</div>
+                        <div class="form-group m-form__group row">
+							<label class="col-form-label col-lg-3 col-sm-12">
+								Jumlah Hewan <strong style="color:red" ;>*</strong> :
+							</label>
+							<div class="col-lg-6">
+								<input type="number" id="tbxJumlah" class="form-control m-input" required>
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">
-								Email <strong style="color:red" ;>*</strong> :
+								Perlakuan <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" id="tbxEmail" class="form-control m-input" required>
+								<textarea type="text" class="form-control m-input" id="tbxPerlakuan" rows="4"></textarea>
 							</div>
-						</div>
-						<div class="form-group m-form__group row">
+                        </div>
+                        <div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">
-								Alamat <strong style="color:red" ;>*</strong> :
+								Parameter Uji <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<textarea type="text" class="form-control m-input" id="tbxAlamat" rows="4"></textarea>
+								<textarea type="text" class="form-control m-input" id="tbxParameter" rows="4"></textarea>
+							</div>
+                        </div>
+                        <div class="form-group m-form__group row">
+							<label class="col-form-label col-lg-3 col-sm-12">
+								Desain Penelitian <strong style="color:red" ;>*</strong> :
+							</label>
+							<div class="col-lg-6">
+								<textarea type="text" class="form-control m-input" id="tbxDesain" rows="4"></textarea>
 							</div>
 						</div>
 					</div>
@@ -94,8 +102,8 @@
 									<button onclick="JavaScript: window.history.back(1); return false;" class="btn btn-secondary">
 										Batal
 									</button>
-									<button id="btnUbah" class="btn btn-success">
-										Ubah
+									<button id="btnTambah" class="btn btn-success">
+										Tambah
 									</button>
 								</div>
 							</div>
@@ -108,6 +116,6 @@
 		</div>
 	</div>
 </div>
-<input type="hidden" value="{{$idPenelitian}}" id="idUbahPenelitian">
-<script src="{{asset('assets/app/js/penelitian/ubahPen.js')}}" type="text/javascript"></script>
+<input type="hidden" value="{{$idPenelitian}}" id="idPenelitian">
+<script src="{{asset('assets/app/js/prosedur/tambah.js')}}" type="text/javascript"></script>
 @endsection

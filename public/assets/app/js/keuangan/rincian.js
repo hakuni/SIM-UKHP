@@ -152,10 +152,29 @@ var Control = {
         Control.Select();
     },
     Select: function () {
-        $("#slsAlatBahan").select2({
-            placeholder: "Alat dan Bahan",
-            tags: true,
-        });
+        $.ajax({
+                url: "/api/inventarisasi",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $(".m-select2").html("<option></option>");
+                $.each(data, function (i, item) {
+                    $(".m-select2").append(
+                        "<option value='" +
+                        item.idAlatBahan +
+                        "'>" +
+                        item.namaAlatBahan +
+                        "</option>"
+                    );
+                });
+                $("#slsAlatBahan").select2({
+                    placeholder: "Alat dan Bahan",
+                    tags: true,
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     },
     Biodata: function () {
         $.ajax({
@@ -175,7 +194,7 @@ var Control = {
         var params = {
             idPenelitian: id,
             // idAlatBahan:
-            namaAlatBahan: $("#tbxAlatBahan").val(),
+            namaAlatBahan: $("#slsAlatBahan").val(),
             jumlah: $("#tbxJumlah").val(),
             harga: $("#tbxHarga").val()
         };
@@ -195,6 +214,7 @@ var Control = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divRincianList").mDatatable('reload');
+                Control.Select();
                 $("#tbxAlatBahan").val("");
                 $("#tbxJumlah").val("");
                 $("#tbxHarga").val("");

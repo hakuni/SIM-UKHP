@@ -7,8 +7,21 @@ jQuery(document).ready(function () {
 
 var Control = {
     Init: function () {
-        Control.SelectKategori();
+        Control.GetKategori();
         Control.SelectHewan();
+    },
+    GetKategori: function () {
+        $.ajax({
+                url: "/api/kategori",
+                type: "GET",
+                dataType: "json",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                Control.SelectKategori(data.idKategori);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     },
     SelectKategori: function () {
         $.ajax({
@@ -18,13 +31,7 @@ var Control = {
             .done(function (data, textStatus, jqXHR) {
                 $("#slsKategori").html("<option></option>");
                 $.each(data, function (i, item) {
-                    $("#slsKategori").append(
-                        "<option value='" +
-                        item.idKategori +
-                        "'>" +
-                        item.namaKategori +
-                        "</option>"
-                    );
+                    $("#slsKategori").append("<option value='" + item.idKategori + "' selected>" + item.namaKategori + "</option>");
                 });
                 $("#slsKategori").select2({
                     placeholder: "Pilih Kategori"
@@ -36,7 +43,7 @@ var Control = {
     },
     SelectHewan: function () {
         $.ajax({
-                url: "/api/inventarisasi",
+                url: "/api/inventarisasi/1",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
@@ -94,7 +101,7 @@ var Transaction = function () {
     );
 
     $.ajax({
-            url: "/api/project/create",
+            url: "/api/prosedur",
             type: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -103,8 +110,8 @@ var Transaction = function () {
         })
         .done(function (data, textStatus, jqXHR) {
             console.log(data);
-            if (Common.CheckError.Object(data) == true)
-                Common.Alert.SuccessRoute("Berhasil menambahkan", "/Project");
+            // if (Common.CheckError.Object(data) == true)
+            Common.Alert.SuccessRoute("Berhasil menambahkan", "/Prosedur/" + id);
             btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                 "disabled",
                 false

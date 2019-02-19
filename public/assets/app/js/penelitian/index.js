@@ -1,11 +1,11 @@
 //== Class Initialization
-jQuery(document).ready(function () {
+jQuery(document).ready(function() {
     Control.Init();
     Table.Init();
 });
 
 var Table = {
-    Init: function () {
+    Init: function() {
         t = $("#divPenelitianList").mDatatable({
             data: {
                 type: "remote",
@@ -13,7 +13,7 @@ var Table = {
                     read: {
                         url: "/api/penelitian",
                         method: "GET",
-                        map: function (r) {
+                        map: function(r) {
                             var e = r;
                             return void 0 !== r.data && (e = r.data), e;
                         }
@@ -41,12 +41,13 @@ var Table = {
                     }
                 }
             },
-            columns: [{
+            columns: [
+                {
                     field: "idPenelitian",
                     title: "Actions",
                     sortable: false,
                     textAlign: "center",
-                    template: function (t) {
+                    template: function(t) {
                         var strBuilder =
                             '<a href="/UbahPenelitian/' +
                             t.idPenelitian +
@@ -55,9 +56,21 @@ var Table = {
                             '<a href="/Rincian/' +
                             t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Rincian"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
+                        var routeView = "";
+                        if (t.idProsedur != 0) {
+                            routeView =
+                                "/Prosedur/" +
+                                t.idPenelitian +
+                                "/" +
+                                t.idProsedur +
+                                "";
+                        } else {
+                            routeView =
+                                "/TambahProsedur/" + t.idPenelitian + "";
+                        }
                         strBuilder +=
-                            '<a href="/TambahProsedur/' +
-                            t.idPenelitian +
+                            "<a href=" +
+                            routeView +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Prosedur"><i class="la la-file-text"></i></a>';
                         return strBuilder;
                     }
@@ -103,21 +116,21 @@ var Table = {
 };
 
 var Control = {
-    Init: function () {
+    Init: function() {
         Control.Kategori();
         Control.Status();
     },
-    Kategori: function () {
+    Kategori: function() {
         $.ajax({
             url: "/api/kategori",
             type: "GET",
             dataType: "json",
             contenType: "application/json",
-            success: function (data) {
+            success: function(data) {
                 var html = "<option value=''>All</option>";
                 var select = $("#slsKategori");
 
-                $.each(data, function (i, item) {
+                $.each(data, function(i, item) {
                     html +=
                         '<option value="' +
                         item.namaKategori +
@@ -128,25 +141,25 @@ var Control = {
                 $("#slsKategori").append(html);
                 $("#slsKategori").selectpicker("refresh");
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 alert(xhr.responseText);
             }
         });
-        $("#slsKategori").on("change", function () {
+        $("#slsKategori").on("change", function() {
             t.search($(this).val(), "namaKategori");
         });
     },
-    Status: function () {
+    Status: function() {
         $.ajax({
             url: "/api/status",
             type: "GET",
             dataType: "json",
             contenType: "application/json",
-            success: function (data) {
+            success: function(data) {
                 var html = "<option value=''>All</option>";
                 var select = $("#slsStatusPen");
 
-                $.each(data, function (i, item) {
+                $.each(data, function(i, item) {
                     html +=
                         '<option value="' +
                         item.namaStatus +
@@ -157,12 +170,12 @@ var Control = {
                 $("#slsStatusPen").append(html);
                 $("#slsStatusPen").selectpicker("refresh");
             },
-            error: function (xhr) {
+            error: function(xhr) {
                 alert(xhr.responseText);
             }
         });
-        $("#slsStatusPen").on("change", function () {
+        $("#slsStatusPen").on("change", function() {
             t.search($(this).val(), "namaStatus");
         });
-    },
+    }
 };

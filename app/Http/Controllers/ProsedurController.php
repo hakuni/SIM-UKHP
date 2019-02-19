@@ -18,7 +18,7 @@ class ProsedurController extends Controller
             else
                 $prosedur->createdBy = 'kuni';
 
-            $penelitian->save();
+            $prosedur->save();
             return response()->json(['data'=>$prosedur])->setStatusCode(200);
         }
         catch(\Exception $e){
