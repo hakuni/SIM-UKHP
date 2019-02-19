@@ -56,22 +56,12 @@ var Table = {
                             '<a href="/Rincian/' +
                             t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Rincian"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
-                        var routeView = "";
-                        if (t.idProsedur != 0) {
-                            routeView =
-                                "/Prosedur/" +
-                                t.idPenelitian +
-                                "/" +
-                                t.idProsedur +
-                                "";
-                        } else {
-                            routeView =
-                                "/TambahProsedur/" + t.idPenelitian + "";
+                        var routeView = "/Prosedur/"+t.idPenelitian+"/"+t.idProsedur;
+                        if (t.idProsedur == 0) {
+                            routeView = "/TambahProsedur/" + t.idPenelitian;
                         }
                         strBuilder +=
-                            "<a href=" +
-                            routeView +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Prosedur"><i class="la la-file-text"></i></a>';
+                            '<a href=' +routeView +' class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Tambah Prosedur"><i class="la la-file-text"></i></a>';
                         return strBuilder;
                     }
                 },

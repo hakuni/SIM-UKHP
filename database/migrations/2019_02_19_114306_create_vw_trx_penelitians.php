@@ -34,7 +34,8 @@ SELECT
     `mm`.`namaMilestone` AS `namaMilestone`,
     `vk`.`biaya` AS `biaya`,
     TO_DAYS(`tp`.`startDate`) - TO_DAYS(NOW()) AS `durasi`,
-    `mp`.`perlakuan` AS `perlakuan`
+    `mp`.`perlakuan` AS `perlakuan`,
+    `mp`.`idProsedur`
     FROM
         `mst_penelitians` `p` LEFT JOIN `trx_penelitians` `tp` ON `p`.`idPenelitian` = `tp`.`idPenelitian`
          LEFT JOIN `mst_milestones` `mm` ON `p`.`lastMilestoneID` = `mm`.`idMilestone`
