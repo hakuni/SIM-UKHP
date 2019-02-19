@@ -39,8 +39,6 @@ SELECT DISTINCT
     `lp`.`namaAlatBahan` = `mb`.`namaAlatBahan`) AS `jumlahPakai`
 FROM
     `mst_alat_bahans` `mb`
-GROUP BY
-    `mb`.`namaAlatBahan`
 SQL;
     }
 }

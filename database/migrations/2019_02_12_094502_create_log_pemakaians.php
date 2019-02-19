@@ -19,6 +19,9 @@ class CreateLogPemakaians extends Migration
             $table->timestamp('tglTrx');
             $table->integer('jumlah');
 
+            //foreign key
+            $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans');
+
             $table->string('createdBy');
             $table->timestamps();
         });

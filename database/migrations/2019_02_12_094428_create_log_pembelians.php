@@ -20,6 +20,9 @@ class CreateLogPembelians extends Migration
             $table->integer('jumlah');
             $table->integer('harga');
 
+            //foreign key
+            $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans');
+
             $table->string('createdBy');
             $table->timestamps();
         });

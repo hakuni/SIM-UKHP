@@ -15,14 +15,17 @@ class CreateMstPenelitiansTable extends Migration
     {
         Schema::create('mst_penelitians', function (Blueprint $table) {
             $table->increments('idPenelitian');
-            $table->integer('idKategori');
-            $table->string('namaPeneliti');
-            $table->string('instansiPeneliti');
-            $table->string('telpPeneliti');
-            $table->string('emailPeneliti');
-            $table->string('alamatPeneliti');
-            $table->integer('statusPenelitian');
+            $table->integer('idKategori')->unsigned();
+            $table->integer('idDataClient')->unsigned();
+            $table->integer('statusPenelitian')->unsigned();
+            $table->integer('lastMilestoneID')->unsigned();
             
+            //foreign key
+            $table->foreign('idKategori')->references('idKategori')->on('kategoris');
+            $table->foreign('idDataClient')->references('idDataClient')->on('mst_data_clients')->onDelete('cascade');
+            $table->foreign('statusPenelitian')->references('idStatusPenelitian')->on('status_penelitians');
+            $table->foreign('lastMilestoneID')->references('idMilestone')->on('mst_milestones');
+
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();
             $table->timestamps();

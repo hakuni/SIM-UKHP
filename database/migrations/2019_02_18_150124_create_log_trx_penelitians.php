@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLogPembayaransTable extends Migration
+class CreateLogTrxPenelitians extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateLogPembayaransTable extends Migration
      */
     public function up()
     {
-        Schema::create('log_pembayarans', function (Blueprint $table) {
-            $table->increments('idLogPembayaran');
+        Schema::create('log_trx_penelitians', function (Blueprint $table) {
+            $table->increments('idTrxLog');
             $table->integer('idPenelitian')->unsigned();
-            $table->timestamp('tglPembayaran');
-            $table->integer('totalPembayaran');
+            $table->string("namaMilestone");
+            $table->string("PIC");
+            $table->timestamp("createdDate");
 
             //foreign key
             $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians');
-
-            $table->string('createdBy');
-            $table->timestamps();
         });
     }
 
@@ -34,6 +32,6 @@ class CreateLogPembayaransTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('log_pembayarans');
+        Schema::dropIfExists('log_trx_penelitians');
     }
 }

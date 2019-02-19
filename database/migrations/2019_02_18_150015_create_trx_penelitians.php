@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRincianBiayasTable extends Migration
+class CreateTrxPenelitians extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,20 @@ class CreateRincianBiayasTable extends Migration
      */
     public function up()
     {
-        Schema::create('rincian_biayas', function (Blueprint $table) {
-            $table->increments('idRincianBiaya');
+        Schema::create('trx_penelitians', function (Blueprint $table) {
+            $table->increments('idTrxPenelitian');
             $table->integer('idPenelitian')->unsigned();
-            $table->integer('idAlatBahan')->unsigned();
-            $table->integer('jumlah');
-            $table->integer('harga');
+            $table->integer("idMilestone")->unsigned();
+            $table->string('PIC');
+            $table->integer("durasi");
+            $table->timestamp("startDate");
+            $table->timestamp("endDate")->nullable();
+            $table->string('filePath')->nullable();
+            $table->string("catatan")->nullable();
 
             //foreign key
             $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');
-            $table->foreign('idAlatBahan')->references('idAlatBahan')->on('mst_alat_bahans')->onDelete('cascade');
+            $table->foreign('idMilestone')->references('idMilestone')->on('mst_milestones');
 
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();
@@ -37,6 +41,6 @@ class CreateRincianBiayasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rincian_biayas');
+        Schema::dropIfExists('trx_penelitians');
     }
 }

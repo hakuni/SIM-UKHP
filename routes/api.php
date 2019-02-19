@@ -30,19 +30,6 @@ Route::put('/kategori', 'KategoriController@saveKategori');
 Route::delete('/kategori/{id}', 'KategoriController@deleteKategori');
 #endregion
 
-#region API Status Penelitian
-//create status
-Route::post('/status', 'StatusPenelitianController@saveStatus');
-//list status
-Route::get('/status', 'StatusPenelitianController@getListStatus');
-//get single status
-Route::get('/status/{id}', 'StatusPenelitianController@getSingleStatus');
-//update status
-Route::put('/status', 'StatusPenelitianController@saveStatus');
-//delete status
-Route::delete('/status/{id}', 'StatusPenelitianController@deleteStatus');
-#endregion
-
 #region API Inventarisasi
 #master
 //get list alat bahan
@@ -59,15 +46,28 @@ Route::post('/inventarisasi/log', 'AlatBahanController@saveLogs');
 Route::get('/inventarisasi/log/{tipeLog}', 'AlatBahanController@getListLog');
 #endregion
 
+#region API Status Penelitian
+//create status
+Route::post('/status', 'StatusPenelitianController@saveStatus');
+//list status
+Route::get('/status', 'StatusPenelitianController@getListStatus');
+//get single status
+Route::get('/status/{id}', 'StatusPenelitianController@getSingleStatus');
+//update status
+Route::put('/status', 'StatusPenelitianController@saveStatus');
+//delete status
+Route::delete('/status/{id}', 'StatusPenelitianController@deleteStatus');
+#endregion
+
 #region API Penelitian
 //create penelitian
-Route::post('/penelitian', 'PenelitianController@savePenelitian');
+Route::post('/penelitian', 'PenelitianController@createPenelitian');
 //list penelitian
 Route::get('/penelitian', 'PenelitianController@getListPenelitian');
 //get single penelitian
 Route::get('/penelitian/{id}', 'PenelitianController@getSinglePenelitian');
 //update penelitian
-Route::put('/penelitian', 'PenelitianController@savePenelitian');
+Route::put('/penelitian', 'PenelitianController@editPenelitian');
 //delete penelitian
 Route::delete('/penelitian/{id}', 'PenelitianController@deletePenelitian');
 #endregion
@@ -106,4 +106,11 @@ Route::delete('/keuangan/log', 'KeuanganController@deleteLog');
 Route::post('/prosedur', 'ProsedurController@saveProsedur');
 //get prosedur
 Route::get('/prosedur/{idProsedur}', 'ProsedurController@getProsedur');
+#endregion
+
+#region API Tracking
+// Route::post();
+// Route::get();
+// Route::put();
+// Route::delete();
 #endregion

@@ -94,7 +94,7 @@ class KeuanganController extends Controller
             $rincian = RincianBiaya::findOrFail($idRincian);
             $rincian->delete();
             $rincian->ErrorType = 0;
-            return response()->json(['data'=>$rincian])->setStatusCode(200);
+            return response($rincian)->setStatusCode(200);
         }
         catch(\Exception $e){
             $rincian = new RincianBiaya;
@@ -115,7 +115,7 @@ class KeuanganController extends Controller
 
             $logPembayaran->save();
             $logPembayaran->ErrorType = 0;
-            return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
+            return response($logPembayaran)->setStatusCode(200);
         }
         catch(\Exception $e){
             $logPembayaran = new LogPembayaran;
@@ -129,7 +129,7 @@ class KeuanganController extends Controller
         try{
             $logPembayaran = LogPembayaran::where('idPenelitian', $idPenelitian)->get();
             $logPembayaran->ErrorType = 0;
-            return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
+            return response($logPembayaran)->setStatusCode(200);
         }
         catch(\Exception $e){
             $logPembayaran = new LogPembayaran;
@@ -143,7 +143,7 @@ class KeuanganController extends Controller
         try{
             $logPembayaran = LogPembayaran::findOrFail($idLog);
             $logPembayaran->ErrorType = 0;
-            return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
+            return response($logPembayaran)->setStatusCode(200);
         }
         catch(\Exception $e){
             $logPembayaran = new LogPembayaran;
@@ -158,7 +158,7 @@ class KeuanganController extends Controller
             $logPembayaran = LogPembayaran::findOrFail($idLog);
             $logPembayaran->delete();
             $logPembayaran->ErrorType = 0;
-            return response()->json(['data'=>$logPembayaran])->setStatusCode(200);
+            return response($logPembayaran)->setStatusCode(200);
         }
         catch(\Exception $e){
             $logPembayaran = new LogPembayaran;
