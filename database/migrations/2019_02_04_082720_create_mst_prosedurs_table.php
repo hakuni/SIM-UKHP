@@ -26,8 +26,8 @@ class CreateMstProsedursTable extends Migration
 
             //foreign key
             $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');
-            $table->foreign('idKategori')->references('idKategori')->on('kategoris');
-            $table->foreign('idAlatBahan')->references('idAlatBahan')->on('mst_alat_bahans');
+            $table->foreign('idKategori')->references('idKategori')->on('kategoris')->onDelete('cascade');
+            $table->foreign('idAlatBahan')->references('idAlatBahan')->on('mst_alat_bahans')->onDelete('cascade');
 
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();

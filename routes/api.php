@@ -109,8 +109,8 @@ Route::get('/prosedur/{idProsedur}', 'ProsedurController@getProsedur');
 #endregion
 
 #region API Tracking
-// Route::post();
-// Route::get();
+Route::post('/penelitian/activity', 'PenelitianController@saveTrx');
+Route::get('penelitian/activity/{idPenelitian}', 'PenelitianController@getListTrx');
 // Route::put();
 // Route::delete();
 #endregion

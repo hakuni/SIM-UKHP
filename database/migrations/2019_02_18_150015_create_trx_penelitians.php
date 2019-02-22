@@ -26,7 +26,7 @@ class CreateTrxPenelitians extends Migration
 
             //foreign key
             $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');
-            $table->foreign('idMilestone')->references('idMilestone')->on('mst_milestones');
+            $table->foreign('idMilestone')->references('idMilestone')->on('mst_milestones')->onDelete('cascade');
 
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();

@@ -8,6 +8,7 @@ use App\vwPenelitian;
 use App\MstDataClient;
 use App\LogTrxPenelitian;
 use App\TrxPenelitian;
+use App\MstMilestone;
 
 class PenelitianController extends Controller
 {
@@ -121,12 +122,49 @@ class PenelitianController extends Controller
 
     #region Transaction
     //simpan transaksi
-    private function saveTrx(Request $request){
+    public function saveTrx(Request $request){
         try{
+            $cek = TrxPenelitian::where('idPenelitian', $request->idPenelitian)->where('idMilestone', $request->idMilestone)->first();
+            //if there is no trx
+            if($cek == null){
+                $transaksi = new TrxPenelitian;
+                $transaksi->idPenelitian = $request->idPenelitian;
+                $transaksi->idMilestone = $request->idMilestone+1;
+                $transaksi->PIC = 'kuni';
+                $transaksi->durasi = $request->durasi;
+                $transaksi->startDate = date('y-m-d');
+                $transaksi->createdBy = 'kuni';
+            }
+            else{
+                $transaksi = $cek;
+                $transaksi->endDate = date('y-m-d');
+            }
+            $transaksi->save();
+            //save log trx
+            $milestone = MstMilestone::findOrFail($transaksi->idMilestone)->first();
+            $log = $this->saveTrxLog($transaksi->idPenelitian, $milestone->namaMilestone, 'kuni');    
 
+            return response($transaksi)->setStatusCode(200);
         }
         catch(\Exception $e){
-            
+            $transaksi = new TrxPenelitian;
+            $transaksi->ErrorType = 2;
+            $transaksi->ErrorMessage = $e->getMessage();
+            return response($transaksi)->setStatusCode(422);
+
+        }
+    }
+
+    public function getListTrx($idPenelitian){
+        try{
+            $transaksi = TrxPenelitian::where('idPenelitian', $idPenelitian)->get();
+            return response($transaksi)->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            $transaksi = new TrxPenelitian;
+            $transaksi->ErrorType = 2;
+            $transaksi->ErrorMessage = $e->getMessage();
+            return response($transaksi)->setStatusCode(422);
         }
     }
     #endregion

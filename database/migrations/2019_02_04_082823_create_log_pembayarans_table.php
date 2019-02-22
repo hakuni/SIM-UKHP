@@ -20,7 +20,7 @@ class CreateLogPembayaransTable extends Migration
             $table->integer('totalPembayaran');
 
             //foreign key
-            $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians');
+            $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');
 
             $table->string('createdBy');
             $table->timestamps();

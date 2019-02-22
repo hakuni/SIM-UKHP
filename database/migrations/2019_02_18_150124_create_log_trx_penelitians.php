@@ -21,7 +21,7 @@ class CreateLogTrxPenelitians extends Migration
             $table->timestamp("createdDate");
 
             //foreign key
-            $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians');
+            $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');
         });
     }
 

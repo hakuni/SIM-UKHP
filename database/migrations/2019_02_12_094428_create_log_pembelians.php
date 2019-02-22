@@ -21,7 +21,7 @@ class CreateLogPembelians extends Migration
             $table->integer('harga');
 
             //foreign key
-            $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans');
+            $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans')->onDelete('cascade');
 
             $table->string('createdBy');
             $table->timestamps();

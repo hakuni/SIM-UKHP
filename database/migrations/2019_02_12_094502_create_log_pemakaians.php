@@ -20,7 +20,7 @@ class CreateLogPemakaians extends Migration
             $table->integer('jumlah');
 
             //foreign key
-            $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans');
+            $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans')->onDelete('cascade');
 
             $table->string('createdBy');
             $table->timestamps();
