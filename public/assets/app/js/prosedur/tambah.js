@@ -111,7 +111,7 @@ var Transaction = function () {
         .done(function (data, textStatus, jqXHR) {
             console.log(data);
             // if (Common.CheckError.Object(data) == true)
-            Common.Alert.SuccessRoute("Berhasil menambahkan", "/Prosedur/" + id);
+            Common.Alert.SuccessRoute("Berhasil menambahkan", "/Penelitian");
             btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                 "disabled",
                 false

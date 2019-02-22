@@ -19,7 +19,7 @@ class PenelitianController extends Controller
             $penelitian = new MstPenelitian;
             //save Data Client
             $dataClient = $this->saveDataClient($request);
-            
+
             //save penelitian
             $penelitian->idKategori = $request->idKategori;
             $penelitian->idDataClient = $dataClient->idDataClient;
@@ -55,7 +55,7 @@ class PenelitianController extends Controller
             $dataClient->emailPeneliti = $request->emailPeneliti;
             $dataClient->alamatPeneliti = $request->alamatPeneliti;
             $dataClient->save();
-            
+
             $penelitian->idKategori = $request->idKategori;
             $penelitian->updatedBy = 'kuni';
             $penelitian->save();
@@ -125,24 +125,29 @@ class PenelitianController extends Controller
     public function saveTrx(Request $request){
         try{
             $cek = TrxPenelitian::where('idPenelitian', $request->idPenelitian)->where('idMilestone', $request->idMilestone)->first();
-            //if there is no trx
-            if($cek == null){
-                $transaksi = new TrxPenelitian;
-                $transaksi->idPenelitian = $request->idPenelitian;
-                $transaksi->idMilestone = $request->idMilestone+1;
-                $transaksi->PIC = 'kuni';
-                $transaksi->durasi = $request->durasi;
-                $transaksi->startDate = date('y-m-d');
-                $transaksi->createdBy = 'kuni';
+            if($cek){ //trx done
+                $trx = $cek;
+                $trx->endDate = date('y-m-d');
+                $trx->save();
             }
-            else{
-                $transaksi = $cek;
-                $transaksi->endDate = date('y-m-d');
-            }
+
+            //create trx
+            $transaksi = new TrxPenelitian;
+            $transaksi->idPenelitian = $request->idPenelitian;
+            $transaksi->idMilestone = $request->idMilestone+1;
+            $transaksi->PIC = $request->PIC;
+            $transaksi->durasi = $request->durasi;
+            $transaksi->catatan = $request->catatan;
+            $transaksi->startDate = date('y-m-d');
+            $transaksi->createdBy = 'kuni';
             $transaksi->save();
+            //update mst penelitian
+            $penelitian = MstPenelitian::findOrFail($request->idPenelitian)->first();
+            $penelitian->lastMilestoneID = $transaksi->idMilestone;
+            $penelitian->save();
             //save log trx
             $milestone = MstMilestone::findOrFail($transaksi->idMilestone)->first();
-            $log = $this->saveTrxLog($transaksi->idPenelitian, $milestone->namaMilestone, 'kuni');    
+            $log = $this->saveTrxLog($transaksi->idPenelitian, $milestone->namaMilestone, 'kuni');
 
             return response($transaksi)->setStatusCode(200);
         }
@@ -182,7 +187,7 @@ class PenelitianController extends Controller
 
             $dataClient->save();
             return $dataClient;
-        }  
+        }
         catch(\Exception $e){
             return $e->getMessage();
         }
@@ -198,7 +203,7 @@ class PenelitianController extends Controller
             $trxLog->createdDate = date("y-m-d");
             $trxLog->save();
             return $trxLog;
-        }  
+        }
         catch(\Exception $e){
             return $e->getMessage();
         }

@@ -113,8 +113,7 @@ var Button = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                if (Common.CheckError.Object(data))
-                    Common.Alert.Success("Berhasil dihapus")
+                Common.Alert.Success("Berhasil dihapus")
                 $("#divKategoriList").mDatatable('reload');
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

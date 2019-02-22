@@ -1,3 +1,4 @@
+var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
     Form.Init();
@@ -47,19 +48,6 @@ var Control = {
     }
 };
 
-// var format = new Vue({
-//     el: "#formTambahPenelitian",
-//     data: {
-//         nama: ""
-//     },
-//     watch: {
-//         nama: function(val) {
-//             this.nama = val;
-//             return val;
-//         }
-//     }
-// });
-
 var Form = {
     Init: function () {
         $("#formTambahPembayaran").validate({
@@ -89,28 +77,28 @@ var Transaction = function () {
         true
     );
 
-    // $.ajax({
-    //     url: "/api/project/create",
-    //     type: "POST",
-    //     dataType: "json",
-    //     contentType: "application/json",
-    //     data: JSON.stringify(params),
-    //     cache: false
-    // })
-    //     .done(function(data, textStatus, jqXHR) {
-    //         console.log(data);
-    //         if (Common.CheckError.Object(data) == true)
-    //             Common.Alert.SuccessRoute("Berhasil menambahkan", "/Project");
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     })
-    //     .fail(function(jqXHR, textStatus, errorThrown) {
-    //         Common.Alert.Error(errorThrown);
-    //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-    //             "disabled",
-    //             false
-    //         );
-    //     });
+    $.ajax({
+            url: "/api/keuangan/log",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(params),
+            cache: false
+        })
+        .done(function (data, textStatus, jqXHR) {
+            console.log(data);
+            if (Common.CheckError.Object(data) == true)
+                Common.Alert.SuccessRoute("Berhasil menambahkan", "/Project");
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        });
 };

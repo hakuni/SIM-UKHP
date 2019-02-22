@@ -42,7 +42,7 @@
 								Kategori <strong style="color:red" ;>*</strong>:
 							</label>
 							<div class="col-lg-6">
-								<select class="form-control m-select2" id="slsKategori" required></select>
+								<select class="form-control m-select2" id="slsKategori" disabled="disabled"></select>
 							</div>
 						</div>
                         <div class="form-group m-form__group row">
@@ -99,6 +99,6 @@
 		</div>
 	</div>
 </div>
-
+<input type="hidden" value={{$idPenelitian}} id="idPenelitian">
 <script src="{{asset('assets/app/js/keuangan/tambah.js')}}" type="text/javascript"></script>
 @endsection

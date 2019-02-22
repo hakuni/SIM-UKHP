@@ -150,6 +150,7 @@ var Control = {
             Control.Tambah();
         });
         Control.Select();
+        Control.Switch();
     },
     Select: function () {
         $.ajax({
@@ -161,7 +162,7 @@ var Control = {
                 $.each(data, function (i, item) {
                     $(".m-select2").append(
                         "<option value='" +
-                        item.idAlatBahan +
+                        item.namaAlatBahan +
                         "'>" +
                         item.namaAlatBahan +
                         "</option>"
@@ -189,11 +190,15 @@ var Control = {
                 Common.Alert.Error(errorThrown);
             });
     },
+    Switch: function () {
+        $("[data-switch=true]").bootstrapSwitch();
+    },
     Tambah: function () {
         var btn = $("#btnTambah");
         var params = {
             idPenelitian: id,
             // idAlatBahan:
+            tipeAlatBahan: $("#btnTipe").prop('checked'),
             namaAlatBahan: $("#slsAlatBahan").val(),
             jumlah: $("#tbxJumlah").val(),
             harga: $("#tbxHarga").val()

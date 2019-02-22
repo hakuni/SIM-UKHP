@@ -354,7 +354,6 @@ var Transaction = {
             .done(function (data, textStatus, jqXHR) {
                 $("#divStockList").mDatatable('reload');
                 $("#divPembelianList").mDatatable('reload');
-                $("#divPenggunaanList").mDatatable('reload');
                 Select.AlatBahan();
                 $("#slsAlatBahan").val("");
                 $("#tbxTanggalPembelian").val("");
@@ -395,7 +394,6 @@ var Transaction = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divStockList").mDatatable('reload');
-                $("#divPembelianList").mDatatable('reload');
                 $("#divPenggunaanList").mDatatable('reload');
                 Select.AlatBahan();
                 $("#slsAlatBahanGuna").val("");

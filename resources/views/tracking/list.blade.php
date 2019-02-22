@@ -12,9 +12,9 @@
                             {{$vwPenelitian['namaPeneliti']}}
                         </span>
 
-                        <!-- <span class="m-badge m-badge--success m-badge--wide" style="float: right;">
-                                                            {{$vwPenelitian['tahapanKategori']}}
-                                                        </span> -->
+                        <span class="m-badge m-badge--success m-badge--wide" style="float: right;">
+                            {{$vwPenelitian['namaMilestone']}}
+                        </span>
                     </div>
                 </div>
                 <span class="m-widget2__user-name">
@@ -30,3 +30,4 @@
 </div>
 @endforeach
 <input type="hidden" value="{{$idPenelitian}}" id="idPenelitian">
+<input type="hidden" value="{{$banyak}}" id="inptJmlhPenelitian">

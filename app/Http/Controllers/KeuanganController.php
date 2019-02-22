@@ -43,8 +43,10 @@ class KeuanganController extends Controller
 
             $rincian = $request->isMethod('put') ? RincianBiaya::findOrFail($request->idRincianBiaya) : new RincianBiaya;
 
-            $rincian->fill($request->all());
+            $rincian->idPenelitian = $request->idPenelitian;
             $rincian->idAlatBahan = $cek->idAlatBahan;
+            $rincian->jumlah = $request->jumlah;
+            $rincian->harga = $request->harga;
             if($request->isMethod('post'))
                 $rincian->createdBy = 'kuni';
             else
@@ -167,5 +169,5 @@ class KeuanganController extends Controller
             return response($logPembayaran)->setStatusCode(422);
         }
     }
-    #endregion 
+    #endregion
 }

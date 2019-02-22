@@ -35,7 +35,7 @@
                             <h3 class="m-portlet__head-text">
                                 Penelitian
                                 <span class="m-menu__link-badge">
-                                    <span class="m-badge m-badge--info">
+                                    <span class="m-badge m-badge--info" id="jumlahPenelitian">
                                         <!-- banyak penelitian -->
                                     </span>
                                 </span>

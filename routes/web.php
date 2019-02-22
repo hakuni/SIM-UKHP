@@ -46,8 +46,8 @@ Route::get('/Keuangan', function () {
 Route::get('/Rincian/{id}', function ($id) {
     return view('keuangan/rincian', ['idPenelitian' => $id]);
 });
-Route::get('/TambahPembayaran', function () {
-    return view('keuangan/tambah');
+Route::get('/TambahPembayaran/{id}', function ($id) {
+    return view('keuangan/tambah', ['idPenelitian' => $id]);
 });
 
 // inventaris

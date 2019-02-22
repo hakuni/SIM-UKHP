@@ -287,7 +287,7 @@
                                                     </div>
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Tanggal Pembelian <strong style="color:red" ;>*</strong> :
+                                                            Tanggal Penggunaan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <div class="input-group date">
