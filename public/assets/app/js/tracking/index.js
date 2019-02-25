@@ -124,13 +124,16 @@ var Transaction = {
     Alur: function () {
         $("#btnTambah").on("click", function () {
             var btn = $("#btnTambah");
-            var params = {
-                idPenelitian: id,
-                idMilestone: $("#inptMilestoneID").val(),
-                PIC: $("#tbxPJ").val(),
-                durasi: $("#tbxDurasi").val(),
-                catatan: $("#tbxCatatan").val(),
-            }
+            var fileInput = document.getElementById("inptFile");
+            var uploadedFile = fileInput.files[0];
+
+            var model = new FormData();
+            model.append('idPenelitian', id);
+            model.append('idMilestone', $.trim($("#inptMilestodeID").val()));
+            model.append('PIC', $.trim($("#tbxPJ").val()));
+            model.append('durasi', $.trim($("#tbxDurasi").val()));
+            model.append('catatan', $.trim($("#tbxCatatan").val()));
+            model.append('filePath', uploadedFile);
 
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
@@ -139,7 +142,7 @@ var Transaction = {
                     type: "POST",
                     dataType: "json",
                     contentType: "application/json",
-                    data: JSON.stringify(params),
+                    data: JSON.stringify(model),
                     cache: false
                 })
                 .done(function (data, textStatus, jqXHR) {

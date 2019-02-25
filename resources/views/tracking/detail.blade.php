@@ -86,7 +86,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">
-                                        Tahap Ketiga
+                                        Laporan
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">
@@ -136,11 +136,11 @@
                                         @if ($vwDetailPenelitian['idMilestone'] == 1)
                                         Mulai Penelitian
                                         @elseif ($vwDetailPenelitian['idMilestone'] == 2)
-                                        Tahap Pertama
+                                        Pengujian
                                         @elseif ($vwDetailPenelitian['idMilestone'] == 3)
-                                        Tahap Kedua
+                                        Analisis
                                         @elseif ($vwDetailPenelitian['idMilestone'] == 4)
-                                        Tahap Ketiga
+                                        Laporan
                                         @endif
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -163,7 +163,7 @@
                                             Durasi <strong style="color:red" ;>*</strong> :
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <input type="text" id="tbxDurasi" class="form-control m-input" required>
+                                            <input type="number" id="tbxDurasi" class="form-control m-input" required>
                                         </div>
                                     </div>
                                     <div class="form-group m-form__group row">
@@ -213,7 +213,14 @@
                         <span>
                             <i class="la la-info"></i>
                             <span>
-                                {{ $vwDetailPenelitian['namaMilestone'] }}
+                                @if($vwDetailPenelitian['idMilestone'] == 2)
+                                    Mulai Pengujian
+                                @elseif($vwDetailPenelitian['idMilestone'] == 3)
+                                    Mulai Analisis
+                                @elseif($vwDetailPenelitian['idMilestone'] == 4)
+                                    Selesai
+                                @endif
+                                <!-- {{ $vwDetailPenelitian['namaMilestone'] }} -->
                             </span>
                         </span>
                     </a>
@@ -259,7 +266,7 @@
                                 <i class="flaticon-music-2"></i>
                             </span>
                             <span class="text-sm-left">
-                                {{ $vwDetailPenelitian['biaya'] }}
+                                Rp {{ $vwDetailPenelitian['biaya'] }}
                             </span>
                         </div>
                         <div class="m-portlet__head-icon">
@@ -268,7 +275,7 @@
                             </span>
                             <span class="text-sm-left" id="txtEndPlan">
                                 @if ($vwDetailPenelitian['durasi'] != 0)
-                                {{ $vwDetailPenelitian['durasi'] }}
+                                {{ $vwDetailPenelitian['durasi'] }} Hari
                                 @else
                                 Durasi Belum Ada
                                 @endif
