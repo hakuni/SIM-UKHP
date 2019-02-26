@@ -19,20 +19,26 @@ class ProsedurController extends Controller
                 $prosedur->createdBy = 'kuni';
 
             $prosedur->save();
-            return response()->json(['data'=>$prosedur])->setStatusCode(200);
+            return response($prosedur)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $prosedur = new MstProsedur;
+            $prosedur->ErrorType = 2;
+            $prosedur->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(422);
         }
     }
 
     public function getProsedur($idProsedur){
         try{
             $prosedur = MstProsedur::findOrFail($idProsedur);
-            return response()->json(['data'=>$prosedur])->setStatusCode(200);
+            return response($prosedur)->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response()->json(['success'=>false, 'error'=>$e->getMessage()])->setStatusCode(422);
+            $prosedur = new MstProsedur;
+            $prosedur->ErrorType = 2;
+            $prosedur->ErrorMessage = $e->getMessage();
+            return response($penelitian)->setStatusCode(422);
         }
     }
     #endregion
