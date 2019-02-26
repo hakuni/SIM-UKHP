@@ -4,10 +4,6 @@ jQuery(document).ready(function () {
     Table.Init();
     Select.AlatBahan();
     Transaction.Init();
-    $("#btnTipe").on("click", function () {
-        console.log(this.val());
-    })
-    // Select.Init();
 });
 
 var Table = {
@@ -198,10 +194,6 @@ var Select = {
         Select.AlatBahan();
     },
     Bulan: function () {
-        if ($("#errorMsg").val() != "-") {
-            Common.Alert.ErrorRoute($("#errorMsg").val(), document.referrer);
-        }
-
         $.ajax({
             url: "/api/user/list?roleID=4",
             type: "GET",
@@ -233,10 +225,6 @@ var Select = {
         });
     },
     Tahun: function () {
-        if ($("#errorMsg").val() != "-") {
-            Common.Alert.ErrorRoute($("#errorMsg").val(), document.referrer);
-        }
-
         $.ajax({
             url: "/api/user/list?roleID=4",
             type: "GET",

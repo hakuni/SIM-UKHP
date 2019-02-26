@@ -25,6 +25,7 @@ class PenelitianController extends Controller
             $penelitian->idDataClient = $dataClient->idDataClient;
             $penelitian->statusPenelitian = $request->statusPenelitian;
             $penelitian->lastMilestoneID = 1;
+            $penelitian->PIC = 'kuni';
             $penelitian->createdBy = 'kuni';
             $penelitian->save();
 
@@ -124,30 +125,53 @@ class PenelitianController extends Controller
     //simpan transaksi
     public function saveTrx(Request $request){
         try{
+            //update mst penelitian
+            $penelitian = MstPenelitian::findOrFail($request->idPenelitian)->first();
+            $penelitian->lastMilestoneID = $request->idMilestone+1;
+            $penelitian->PIC = "kuni";
+
+            //cek old trx
             $cek = TrxPenelitian::where('idPenelitian', $request->idPenelitian)->where('idMilestone', $request->idMilestone)->first();
             if($cek){ //trx done
                 $trx = $cek;
                 $trx->endDate = date('y-m-d');
-                $trx->save();
+                if($request->idMilestone == 4){
+                    //upload file
+                    if($request->hasFile('doc')){
+                        $file = $request->file('doc');
+                        $fileName = $file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+                        $image['filePath'] = $fileName;
+                        $file->move(public_path().'/uploads/', $fileName);
+                        $trx->filePath = public_path().'/uploads/'.$fileName;
+                    }
+                    $penelitian->statusPenelitian = 3;
+                }
+
+                $trx->save(); //save old trx
+                $transaksi = $trx;
             }
 
-            //create trx
-            $transaksi = new TrxPenelitian;
-            $transaksi->idPenelitian = $request->idPenelitian;
-            $transaksi->idMilestone = $request->idMilestone+1;
-            $transaksi->PIC = $request->PIC;
-            $transaksi->durasi = $request->durasi;
-            $transaksi->catatan = $request->catatan;
-            $transaksi->startDate = date('y-m-d');
-            $transaksi->createdBy = 'kuni';
-            $transaksi->save();
-            //update mst penelitian
-            $penelitian = MstPenelitian::findOrFail($request->idPenelitian)->first();
-            $penelitian->lastMilestoneID = $transaksi->idMilestone;
+            if($request->idMilestone != 4){
+                //create trx
+                $transaksi = new TrxPenelitian;
+                $transaksi->idPenelitian = $request->idPenelitian;
+                $transaksi->idMilestone = $request->idMilestone+1;
+                $transaksi->startDate = date('y-m-d');
+                $transaksi->createdBy = 'kuni';
+                $transaksi->PIC = $request->PIC;
+                $transaksi->durasi = $request->durasi;
+                $transaksi->catatan = $request->catatan;
+                $penelitian->statusPenelitian = 2;
+
+                $transaksi->save(); //save new trx
+            }
+            
+            
             $penelitian->save();
+
             //save log trx
-            $milestone = MstMilestone::findOrFail($transaksi->idMilestone)->first();
-            $log = $this->saveTrxLog($transaksi->idPenelitian, $milestone->namaMilestone, 'kuni');
+            $milestone = MstMilestone::where('idMilestone', $penelitian->lastMilestoneID)->first();
+            $log = $this->saveTrxLog($request->idPenelitian, $milestone->namaMilestone, $transaksi->PIC);
 
             return response($transaksi)->setStatusCode(200);
         }

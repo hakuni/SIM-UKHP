@@ -24,7 +24,7 @@ class CreateStatusPenelitians extends Migration
         return <<<SQL
 INSERT INTO `status_penelitians` (`idStatusPenelitian`, `namaStatus`) 
 VALUES (NULL, 'Rencana'), (NULL, 'Sedang Berlangsung'),
-(NULL, 'Selesai');
+(NULL, 'Selesai'), (NULL, 'Batal Penelitian');
 SQL;
     }
 

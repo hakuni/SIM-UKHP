@@ -130,7 +130,7 @@ var Table = {
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
-                        return t.TanggalPembayaran != null ? Common.Format.Date(t.TanggalPembayaran) : "-"
+                        return t.tglPembayaran != null ? Common.Format.Date(t.tglPembayaran) : "-"
                     }
                 },
                 {

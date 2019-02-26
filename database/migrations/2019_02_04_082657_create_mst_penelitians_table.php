@@ -19,6 +19,7 @@ class CreateMstPenelitiansTable extends Migration
             $table->integer('idDataClient')->unsigned();
             $table->integer('statusPenelitian')->unsigned();
             $table->integer('lastMilestoneID')->unsigned();
+            $table->string('PIC');
             
             //foreign key
             $table->foreign('idKategori')->references('idKategori')->on('kategoris')->onDelete('cascade');

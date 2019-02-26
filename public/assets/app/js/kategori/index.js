@@ -56,7 +56,7 @@ var Table = {
                 },
                 {
                     field: "namaKategori",
-                    title: "Kategori Peneltian",
+                    title: "Kategori Penelitian",
                     textAlign: "center"
                 }
             ]

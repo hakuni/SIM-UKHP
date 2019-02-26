@@ -112,7 +112,9 @@ class KeuanganController extends Controller
         try{
             $logPembayaran = $request->isMethod('put') ? LogPembayaran::findOrFail($request->idPenelitian) : new LogPembayaran;
 
-            $logPembayaran->fill($request->all());
+            $logPembayaran->idPenelitian = $request->idPenelitian;
+            $logPembayaran->tglPembayaran = date("y-m-d", strtotime($request->tglPembayaran));
+            $logPembayaran->totalPembayaran = $request->totalPembayaran;
             $logPembayaran->createdBy = 'kuni';
 
             $logPembayaran->save();

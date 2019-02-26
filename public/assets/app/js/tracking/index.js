@@ -66,6 +66,9 @@ var Get = {
             type: "GET",
             success: function (data) {
                 $("#detailPenelitian").html(data);
+                if( $("#inptMilestoneID").val() == 5){
+                    $("#btnTrx").hide();
+                }
                 Transaction.Init();
                 Control.DatePicker();
                 $("#btnMaximize").on("click", function () {
@@ -124,26 +127,28 @@ var Transaction = {
     Alur: function () {
         $("#btnTambah").on("click", function () {
             var btn = $("#btnTambah");
-            var fileInput = document.getElementById("inptFile");
-            var uploadedFile = fileInput.files[0];
-
+            
             var model = new FormData();
             model.append('idPenelitian', id);
-            model.append('idMilestone', $.trim($("#inptMilestodeID").val()));
+            model.append('idMilestone', $.trim($("#inptMilestoneID").val()));
             model.append('PIC', $.trim($("#tbxPJ").val()));
             model.append('durasi', $.trim($("#tbxDurasi").val()));
             model.append('catatan', $.trim($("#tbxCatatan").val()));
-            model.append('filePath', uploadedFile);
+            if($("#inptMilestoneID").val() == 4){
+                var fileInput = document.getElementById("inptFile");
+                var uploadedFile = fileInput.files[0];
+                model.append('doc', uploadedFile);
+            }
 
             btn.addClass('m-loader m-loader--right m-loader--light').attr('disabled', true);
 
             $.ajax({
                     url: "/api/penelitian/activity",
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(model),
-                    cache: false
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: false,
+                    data: model,
+                    processData: false
                 })
                 .done(function (data, textStatus, jqXHR) {
                     // if (Common.CheckError.Object(data) == true)
@@ -167,7 +172,7 @@ var Transaction = {
             var btn = $("#btnTambahBayar");
             var params = {
                 idPenelitian: id,
-                tglPembayran: $("#tbxTglPembayaran").val(),
+                tglPembayaran: $("#tbxTglPembayaran").val(),
                 totalPembayaran: $("#tbxNominal").val(),
             }
 

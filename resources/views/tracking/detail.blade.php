@@ -63,8 +63,8 @@
                                             Nominal <strong style="color:red" ;>*</strong> :
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <textarea type="number" id="tbxNominal" class="form-control m-input"
-                                                required></textarea>
+                                            <input type="number" id="tbxNominal" class="form-control m-input"
+                                                required/>
                                         </div>
                                     </div>
                                 </div>
@@ -162,9 +162,10 @@
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
                                             Durasi <strong style="color:red" ;>*</strong> :
                                         </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="col-lg-8 col-md-8 col-sm-11">
                                             <input type="number" id="tbxDurasi" class="form-control m-input" required>
                                         </div>
+                                        <label class="col-form-label col-lg-1 col-md-1 col-sm-1 m--align-left">Hari</label>
                                     </div>
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
@@ -188,6 +189,7 @@
                     </div>
                     @endif
                     <!-- button -->
+                    @if ($vwDetailPenelitian['totalBayar'] < $vwDetailPenelitian['biaya'])
                     <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px"
                         data-toggle="modal" data-target="#formPembayaran">
                         <span>
@@ -197,6 +199,7 @@
                             </span>
                         </span>
                     </a>
+                    @endif
                     @if ($vwDetailPenelitian['idMilestone'] == 1)
                     <div class="btn-group m-btn-group m-btn-group--pill m-btn-group--air" role="group" aria-label="...">
                         <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
@@ -208,7 +211,7 @@
                     </div>
                     <!-- else if (penelitian belum mulai) -->
                     @else
-                    <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air btn-generate" id="trx"
+                    <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air btn-generate" id="btnTrx"
                         style="margin-left:10px; margin-right:10px" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']">
                         <span>
                             <i class="la la-info"></i>
@@ -263,19 +266,27 @@
 
                         <div class="m-portlet__head-icon">
                             <span style="margin-right: 5px;">
-                                <i class="flaticon-music-2"></i>
+                                <i class="flaticon-coins"></i>
                             </span>
                             <span class="text-sm-left">
-                                Rp {{ $vwDetailPenelitian['biaya'] }}
+                            @if ($vwDetailPenelitian['totalBayar'] == NULL)
+                                Rp 0 dari {{ $vwDetailPenelitian['biaya'] }}
+                            @elseif ($vwDetailPenelitian['totalBayar'] < $vwDetailPenelitian['biaya'])
+                                Rp {{ $vwDetailPenelitian['totalBayar'] }} dari {{ $vwDetailPenelitian['biaya'] }}
+                            @else
+                                Lunas
+                            @endif
                             </span>
                         </div>
                         <div class="m-portlet__head-icon">
                             <span style="margin-right: 5px;">
-                                <i class="flaticon-music-1"></i>
+                                <i class="flaticon-calendar-1"></i>
                             </span>
                             <span class="text-sm-left" id="txtEndPlan">
-                                @if ($vwDetailPenelitian['durasi'] != 0)
-                                {{ $vwDetailPenelitian['durasi'] }} Hari
+                                @if ($vwDetailPenelitian['sisaDurasi'] < 0)
+                                    Lewat {{ $vwDetailPenelitian['sisaDurasi'] }} Hari
+                                @elseif ($vwDetailPenelitian['sisaDurasi'] >= 0)
+                                    {{ $vwDetailPenelitian['sisaDurasi'] }} Hari Lagi
                                 @else
                                 Durasi Belum Ada
                                 @endif
@@ -300,7 +311,7 @@
             <textarea readonly class="form-control m-input m-input--air" id="exampleTextarea" rows="4" style="margin-bottom: 30px;">{{ $vwDetailPenelitian['perlakuan'] }}</textarea>
         </div>
 
-        <ul class="nav nav-pills nav-fill nav-pills--warning" role="tablist">
+        <!-- <ul class="nav nav-pills nav-fill nav-pills--warning" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#milestones">
                     Milestones
@@ -333,7 +344,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 @else
