@@ -79,6 +79,32 @@ var Control = {
 var Form = {
     Init: function () {
         $("#formUbahProsedur").validate({
+            rules: {
+                slsHewan: {
+                    required: true
+                },
+                tbxJumlah: {
+                    required: true
+                },
+                tbxPerlakuan: {
+                    required: true
+                },
+                tbxParameter: {
+                    required: true
+                },
+                tbxDesain: {
+                    required: true
+                },
+                tbxDurasi1: {
+                    required: true
+                },
+                tbxDurasi2: {
+                    required: true
+                },
+                tbxDurasi3: {
+                    required: true
+                }
+            },
             invalidHandler: function (e, r) {
                 var i = $("#msgFail");
                 i.removeClass("m--hide").show(), mApp.scrollTo(i, -200);

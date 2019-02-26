@@ -40,122 +40,133 @@
                         <div class="tab-pane active" id="rincianTab" role="tabpanel">
                             <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                                 <div class="row align-items-center">
+                                    <!-- modal rincian -->
+                                    <div class="modal hide fade" id="formRincian" role="dialog" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">
+                                                        Tambah Rincian
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">
+                                                            &times;
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Tipe Alat dan Bahan <strong style="color:red" ;>*</strong>
+                                                            :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <input data-switch="true" type="checkbox" checked="checked"
+                                                                data-on-text="Hewan" data-handle-width="70"
+                                                                data-off-text="Bukan" data-on-color="info" id="btnTipe">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Alat dan Bahan <strong style="color:red" ;>*</strong> :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <select class="form-control m-select2" id="slsAlatBahan"
+                                                                style="width:550px">
+                                                                <!-- <option value="1">Ilham</option> -->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Jumlah <span style="color:red">*</span> :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <input type="number" id="tbxJumlah" class="form-control m-input"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Harga <span style="color:red">*</span> :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <input type="number" id="tbxHarga" class="form-control m-input"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        Batal
+                                                    </button>
+                                                    <button type="button" class="btn btn-success" id="btnTambah">
+                                                        Tambah
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal hide fade" id="formEditRincian" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">
+                                                        Edit Rincian
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">
+                                                            &times;
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Alat dan Bahan <strong style="color:red" ;>*</strong> :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <input type="text" id="tbxAlatBahan" class="form-control m-input"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Jumlah <span style="color:red">*</span> :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <input type="number" id="tbxJumlah" class="form-control m-input"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Biaya <span style="color:red">*</span> :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <input type="number" id="tbxBiaya" class="form-control m-input"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                        Batal
+                                                    </button>
+                                                    <button type="button" class="btn btn-success" id="btnTambah">
+                                                        Tambah
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- btn eksport/ tambah rincian -->
                                     <div class="col-xl-12 order-2 order-xl-1 m--align-right">
                                         <div class="form-group m-form__group row align-items-center">
                                             <div class="col-xl-6 order-1 order-xl-2 m--align-right">
                                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
-                                            </div>
-                                            <div class="modal hide fade" id="formRincian" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">
-                                                                Tambah Rincian
-                                                            </h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">
-                                                                    &times;
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="form-group m-form__group row">
-                                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Tipe Alat dan Bahan <strong style="color:red" ;>*</strong> :
-                                                                </label>
-                                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input data-switch="true" type="checkbox" checked="checked"
-                                                                        data-on-text="Hewan" data-handle-width="70"
-                                                                        data-off-text="Bukan" data-on-color="info" id="btnTipe">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group m-form__group row">
-                                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Alat dan Bahan <strong style="color:red" ;>*</strong> :
-                                                                </label>
-                                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <select class="form-control m-select2" id="slsAlatBahan" style="width:550px">
-                                                                        <!-- <option value="1">Ilham</option> -->
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group m-form__group row">
-                                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Jumlah <span style="color:red">*</span> :
-                                                                </label>
-                                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input type="number" id="tbxJumlah" class="form-control m-input" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group m-form__group row">
-                                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Harga <span style="color:red">*</span> :
-                                                                </label>
-                                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input type="number" id="tbxHarga" class="form-control m-input" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                                Batal
-                                                            </button>
-                                                            <button type="button" class="btn btn-success" id="btnTambah">
-                                                                Tambah
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal hide fade" id="formEditRincian" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">
-                                                                Edit Rincian
-                                                            </h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">
-                                                                    &times;
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="form-group m-form__group row">
-                                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Alat dan Bahan <strong style="color:red" ;>*</strong> :
-                                                                </label>
-                                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input type="text" id="tbxAlatBahan" class="form-control m-input" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group m-form__group row">
-                                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Jumlah <span style="color:red">*</span> :
-                                                                </label>
-                                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input type="number" id="tbxJumlah" class="form-control m-input" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group m-form__group row">
-                                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                                    Biaya <span style="color:red">*</span> :
-                                                                </label>
-                                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                                    <input type="number" id="tbxBiaya" class="form-control m-input" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                                Batal
-                                                            </button>
-                                                            <button type="button" class="btn btn-success" id="btnTambah">
-                                                                Tambah
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="col-xl-3 order-1 order-xl-2 m--align-right">
                                                 <a href="/Project/Create" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
@@ -169,7 +180,8 @@
                                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
                                             </div>
                                             <div class="col-xl-3 order-1 order-xl-2 m--align-right">
-                                                <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnRincian" data-toggle="modal" data-target="#formRincian">
+                                                <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
+                                                    id="btnRincian" data-toggle="modal" data-target="#formRincian">
                                                     <span>
                                                         <i class="fa fa-plus"></i>
                                                         <span>

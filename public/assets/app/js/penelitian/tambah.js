@@ -37,6 +37,28 @@ var Control = {
 var Form = {
     Init: function () {
         $("#formTambahPenelitian").validate({
+            rules: {
+                slsKategori: {
+                    required: true
+                },
+                tbxNamaPeneliti: {
+                    required: true
+                },
+                tbxInstansi: {
+                    required: true
+                },
+                tbxNoHP: {
+                    required: true,
+                    maxlength: 14
+                },
+                tbxEmail: {
+                    required: true,
+                    email: true
+                },
+                tbxAlamat: {
+                    required: true
+                }
+            },
             invalidHandler: function (e, r) {
                 var i = $("#msgFail");
                 i.removeClass("m--hide").show(), mApp.scrollTo(i, -200);

@@ -1,8 +1,8 @@
 var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
-    Form.Init();
     Control.Init();
+    Form.Init();
 });
 
 var Control = {
@@ -70,8 +70,34 @@ var Control = {
 var Form = {
     Init: function () {
         $("#formTambahProsedur").validate({
+            rules: {
+                slsHewan: {
+                    required: true
+                },
+                tbxJumlah: {
+                    required: true
+                },
+                tbxPerlakuan: {
+                    required: true
+                },
+                tbxParameter: {
+                    required: true
+                },
+                tbxDesain: {
+                    required: true
+                },
+                tbxDurasi1: {
+                    required: true
+                },
+                tbxDurasi2: {
+                    required: true
+                },
+                tbxDurasi3: {
+                    required: true
+                }
+            },
             invalidHandler: function (e, r) {
-                var i = $("#msgFail");
+                var i = $("#msgProsedur");
                 i.removeClass("m--hide").show(), mApp.scrollTo(i, -200);
             },
             submitHandler: function (e) {
@@ -92,7 +118,10 @@ var Transaction = function () {
         jumlahHewan: $("#tbxJumlah").val(),
         perlakuan: $("#tbxPerlakuan").val(),
         parameterUji: $("#tbxParameter").val(),
-        desainPenelitian: $("#tbxDesain").val()
+        desainPenelitian: $("#tbxDesain").val(),
+        tahap1: $("#tbxDurasi1").val(),
+        tahap2: $("#tbxDurasi2").val(),
+        tahap3: $("#tbxDurasi3").val()
     };
 
     btn.addClass("m-loader m-loader--right m-loader--light").attr(

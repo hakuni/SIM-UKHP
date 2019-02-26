@@ -152,23 +152,6 @@
                                 <div class="modal-body">
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
-                                            Penanggung Jawab <strong style="color:red" ;>*</strong> :
-                                        </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <input type="text" id="tbxPJ" class="form-control m-input" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group m-form__group row">
-                                        <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
-                                            Durasi <strong style="color:red" ;>*</strong> :
-                                        </label>
-                                        <div class="col-lg-8 col-md-8 col-sm-11">
-                                            <input type="number" id="tbxDurasi" class="form-control m-input" required>
-                                        </div>
-                                        <label class="col-form-label col-lg-1 col-md-1 col-sm-1 m--align-left">Hari</label>
-                                    </div>
-                                    <div class="form-group m-form__group row">
-                                        <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
                                             Catatan :
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
@@ -285,10 +268,10 @@
                             <span class="text-sm-left" id="txtEndPlan">
                                 @if ($vwDetailPenelitian['sisaDurasi'] < 0)
                                     Lewat {{ $vwDetailPenelitian['sisaDurasi'] }} Hari
-                                @elseif ($vwDetailPenelitian['sisaDurasi'] >= 0)
-                                    {{ $vwDetailPenelitian['sisaDurasi'] }} Hari Lagi
+                                @elseif ($vwDetailPenelitian['sisaDurasi'] == NULL)
+                                    Durasi Belum Ada
                                 @else
-                                Durasi Belum Ada
+                                    {{ $vwDetailPenelitian['sisaDurasi'] }} Hari Lagi
                                 @endif
                             </span>
                         </div>
@@ -300,7 +283,7 @@
 
         </div>
 
-        <div class="m-portlet__head-title ">
+        <!-- <div class="m-portlet__head-title ">
             <h3 class="m-portlet__head-text" style="margin-bottom: 0px;margin-top: 20px;">
                 Perlakuan :
             </h3>
@@ -309,42 +292,12 @@
         <div class="m-scrollable mCustomScrollbar _mCS_5 mCS-autoHide m--margin-top-15" data-scrollbar-shown="true"
             data-scrollable="true" data-max-height="380" style="overflow: visible; position: relative;">
             <textarea readonly class="form-control m-input m-input--air" id="exampleTextarea" rows="4" style="margin-bottom: 30px;">{{ $vwDetailPenelitian['perlakuan'] }}</textarea>
+        </div> -->
+
+        <div class="m_datatable" id="divHistory" style="margin-top: 20px">
+
         </div>
 
-        <!-- <ul class="nav nav-pills nav-fill nav-pills--warning" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#milestones">
-                    Milestones
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#workLog">
-                    Work Log
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#history">
-                    History
-                </a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="milestones" role="tabpanel">
-                <div class="m_datatable" id="divMilestoneList">
-
-                </div>
-            </div>
-            <div class="tab-pane" id="workLog" role="tabpanel">
-                <div class="m_datatable" id="divWorkLogList">
-
-                </div>
-            </div>
-            <div class="tab-pane" id="history" role="tabpanel">
-                <div class="m_datatable" id="divHistoryList">
-
-                </div>
-            </div>
-        </div> -->
     </div>
 </div>
 @else

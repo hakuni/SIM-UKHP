@@ -11,14 +11,12 @@ use App\vwTrxPenelitian;
 class TrackingController extends Controller
 {
     public function index(){
-        return view("tracking/index");
-    }
-    public function listPenelitian()
-    {
-        $vwListPenelitian = vwPenelitian::orderBy('idStatusPenelitian', 'desc')->get();
-        $idPenelitian = $vwListPenelitian[0]->idPenelitian;
+        $vwListPenelitian = vwPenelitian::orderBy('idStatusPenelitian', 'desc')->where('idStatusPenelitian', '!=', 4)->get();
+        $idPenelitian = 0;
+        if(count($vwListPenelitian) > 0)
+            $idPenelitian = $vwListPenelitian[0]->idPenelitian;
         $banyak = count($vwListPenelitian);
-        return view('tracking/list', compact('vwListPenelitian', 'idPenelitian', 'banyak'));
+        return view('tracking/index', compact('vwListPenelitian', 'idPenelitian', 'banyak'));
     }
     public function detailPenelitian($idPenelitian){
         $vwDetailPenelitian = vwTrxPenelitian::where('idPenelitian', $idPenelitian)->orderBy('idTrxPenelitian', 'desc')->first();

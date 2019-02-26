@@ -1,4 +1,4 @@
-var id = 0;
+var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
     $("#sidebarHide").hide();
@@ -7,7 +7,7 @@ jQuery(document).ready(function () {
 
 var Page = {
     Init: function () {
-        Get.ListPenelitian();
+        Get.DetailPenelitian(id);
         $("#listPenelitian").on("click", "div.divShowDetail", function (e) {
             var idPen = this.id;
             console.log(idPen);
@@ -29,35 +29,6 @@ var Page = {
 };
 
 var Get = {
-    ListPenelitian: function () {
-        var link = "/Tracking/List";
-        console.log(link);
-        $.ajax({
-            url: link,
-            type: "GET",
-            success: function (data) {
-                $("#listPenelitian").html(data);
-                id = $("#idPenelitian").val();
-                document.getElementById('jumlahPenelitian').innerHTML = $('#inptJmlhPenelitian').val();
-                $(this)
-                    .css({
-                        background: "whitesmoke"
-                    })
-                    .siblings()
-                    .css({
-                        background: "transparent"
-                    });
-                $(this)
-                    .addClass("selected")
-                    .siblings()
-                    .removeClass("selected");
-                Get.DetailPenelitian(id);
-            },
-            error: function () {
-                alert("error");
-            }
-        });
-    },
     DetailPenelitian: function (id) {
         var link = "/Tracking/Detail/" + id;
         console.log(link);
@@ -66,11 +37,12 @@ var Get = {
             type: "GET",
             success: function (data) {
                 $("#detailPenelitian").html(data);
-                if( $("#inptMilestoneID").val() == 5){
+                if ($("#inptMilestoneID").val() == 5) {
                     $("#btnTrx").hide();
                 }
                 Transaction.Init();
                 Control.DatePicker();
+                Table.History(id);
                 $("#btnMaximize").on("click", function () {
                     $("#sidebarShow").show();
                     $("#detailPenelitian").removeClass("col-lg-11");
@@ -95,21 +67,25 @@ var Get = {
 
 var Transaction = {
     Init: function () {
-        Transaction.Hapus();
+        Transaction.Batal();
         Transaction.Alur();
         Transaction.Pembayaran();
     },
-    Hapus: function () {
+    Batal: function () {
         $("#btnHapus").on("click", function () {
             var btn = $("#btnHapus");
             btn.addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
             $.ajax({
-                    url: "/api/penelitian/" + id,
-                    type: "DELETE",
+                    url: "/api/penelitian/activity",
+                    type: "PUT",
+                    data: {
+                        idPenelitian: id
+                    },
+                    dataType: "json",
                     cache: false
                 })
                 .done(function (data, textStatus, jqXHR) {
-                    Common.Alert.SuccessRoute("Berhasil menghapus penelitian", "/Penelitian");
+                    Common.Alert.SuccessRoute("Berhasil membatalkan penelitian", "/Tracking");
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                         "disabled",
                         false
@@ -127,14 +103,12 @@ var Transaction = {
     Alur: function () {
         $("#btnTambah").on("click", function () {
             var btn = $("#btnTambah");
-            
+
             var model = new FormData();
             model.append('idPenelitian', id);
             model.append('idMilestone', $.trim($("#inptMilestoneID").val()));
-            model.append('PIC', $.trim($("#tbxPJ").val()));
-            model.append('durasi', $.trim($("#tbxDurasi").val()));
             model.append('catatan', $.trim($("#tbxCatatan").val()));
-            if($("#inptMilestoneID").val() == 4){
+            if ($("#inptMilestoneID").val() == 4) {
                 var fileInput = document.getElementById("inptFile");
                 var uploadedFile = fileInput.files[0];
                 model.append('doc', uploadedFile);
@@ -204,6 +178,83 @@ var Transaction = {
         })
     }
 };
+
+var Table = {
+    History: function (id) {
+        t = $("#divHistory").mDatatable({
+            data: {
+                type: "remote",
+                source: {
+                    read: {
+                        url: "/api/task/ListTransactionTask/" + id,
+                        method: "GET",
+                        map: function (r) {
+                            var e = r;
+                            return void 0 !== r.data && (e = r.data), e;
+                        }
+                    }
+                },
+                pageSize: 10,
+                saveState: {
+                    cookie: true,
+                    webstorage: true
+                },
+                serverPaging: false,
+                serverFiltering: false,
+                serverSorting: false
+            },
+            layout: {
+                scroll: false,
+                footer: false
+            },
+            sortable: true,
+            pagination: true,
+            toolbar: {
+                items: {
+                    pagination: {
+                        pageSizeSelect: [10, 20, 30, 50, 100]
+                    }
+                }
+            },
+            columns: [{
+                    field: "idPenelitian",
+                    title: "Actions",
+                    sortable: false,
+                    textAlign: "center",
+                    width: 100,
+                    template: function (t) {
+                        if (t.Attachment != null)
+                            var strBuilder = '<a href="/PinnedProject/Download/ ' + t.trxTaskID + '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
+                        strBuilder += '<a href="/PinnedProject/Download/ ' + t.trxTaskID + '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>';
+                        return strBuilder;
+                    }
+                },
+                {
+                    field: "namaMilestone",
+                    title: "Tahapan",
+                    textAlign: "center"
+                },
+                {
+                    field: "PIC",
+                    title: "Penanggung Jawab",
+                    textAlign: "center"
+                },
+                {
+                    field: "durasi",
+                    title: "Durasi",
+                    textAlign: "center"
+                },
+                {
+                    field: "catatan",
+                    className: 'dt-head-center',
+                    title: "Catatan",
+                    textAlign: "center",
+                    width: 500
+                },
+            ]
+        })
+    },
+}
 
 var Control = {
     DatePicker: function () {
