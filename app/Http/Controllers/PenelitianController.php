@@ -126,7 +126,7 @@ class PenelitianController extends Controller
     public function saveTrx(Request $request){
         try{
             //update mst penelitian
-            $penelitian = MstPenelitian::findOrFail($request->idPenelitian)->first();
+            $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
             $penelitian->lastMilestoneID = $request->idMilestone+1;
 
             //cek old trx

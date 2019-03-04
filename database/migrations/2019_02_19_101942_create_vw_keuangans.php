@@ -42,6 +42,7 @@ SELECT DISTINCT
 FROM
     `mst_penelitians` `p` LEFT JOIN `kategoris` `k` ON `p`.`idKategori` = `k`.`idKategori`
     LEFT JOIN `mst_data_clients` `mdc` ON `p`.`idDataClient` = `mdc`.`idDataClient`
+WHERE `p`.`statusPenelitian` < 4
 SQL;
     }
 }

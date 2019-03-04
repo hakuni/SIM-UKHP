@@ -91,7 +91,7 @@ class AlatBahanController extends Controller
             $logTrx = new LogPembelian;
             $logTrx->ErrorType = 2;
             $logTrx->ErrorMessage = $e->getMessage();
-            return response($penelitian)->setStatusCode(422);
+            return response($logTrx)->setStatusCode(422);
         }
     }
 
@@ -104,13 +104,13 @@ class AlatBahanController extends Controller
                 $log = LogPemakaian::All();
             }
             $log->ErrorType = 0;
-            return response()->json(['data'=> $log])->setStatusCode(200);
+            return response($log)->setStatusCode(200);
         }
         catch(\Exception $e){
             $log = new LogPembelian;
             $log->ErrorType = 2;
             $log->ErrorMessage = $e->getMessage();
-            return response($penelitian)->setStatusCode(442);
+            return response($log)->setStatusCode(442);
         }
     }
     #endregion

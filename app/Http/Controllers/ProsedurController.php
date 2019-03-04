@@ -25,7 +25,7 @@ class ProsedurController extends Controller
             $prosedur = new MstProsedur;
             $prosedur->ErrorType = 2;
             $prosedur->ErrorMessage = $e->getMessage();
-            return response($penelitian)->setStatusCode(422);
+            return response($prosedur)->setStatusCode(422);
         }
     }
 
@@ -38,7 +38,7 @@ class ProsedurController extends Controller
             $prosedur = new MstProsedur;
             $prosedur->ErrorType = 2;
             $prosedur->ErrorMessage = $e->getMessage();
-            return response($penelitian)->setStatusCode(422);
+            return response($prosedur)->setStatusCode(422);
         }
     }
     #endregion

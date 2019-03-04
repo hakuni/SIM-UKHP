@@ -7,7 +7,7 @@
         <div class="col-xl-6">
             <!--begin:: Widgets/Tasks -->
             <div class="m-portlet">
-                <div class="m-widget14" style="padding-left: 15px; padding-right: 15px">
+                <div class="m-widget14">
                     <div class="m-widget14__header m--margin-bottom-10">
                         <div class="row">
                             <h3 class="m-widget14__title col-lg-6">
@@ -48,7 +48,7 @@
         <div class="col-xl-6">
             <!--begin:: Widgets/Support Tickets -->
             <div class="m-portlet">
-                <div class="m-widget14" style="padding-left: 15px; padding-right:15px">
+                <div class="m-widget14">
                     <div class="m-widget14__header m--margin-bottom-10">
                         <h3 class="m-widget14__title">
                             Administrasi
