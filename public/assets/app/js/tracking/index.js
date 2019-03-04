@@ -37,9 +37,9 @@ var Get = {
             type: "GET",
             success: function (data) {
                 $("#detailPenelitian").html(data);
-                if ($("#inptMilestoneID").val() == 5) {
-                    $("#btnTrx").hide();
-                }
+                // if ($("#inptMilestoneID").val() == 5) {
+                //     $("#btnTrx").hide();
+                // }
                 Transaction.Init();
                 Control.DatePicker();
                 Table.History(id);

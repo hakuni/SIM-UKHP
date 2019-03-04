@@ -172,28 +172,42 @@
                     </div>
                     @endif
                     <!-- button -->
+                    <!-- cek biaya penelitian -->
                     @if ($vwDetailPenelitian['totalBayar'] < $vwDetailPenelitian['biaya'])
-                    <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px"
-                        data-toggle="modal" data-target="#formPembayaran">
-                        <span>
-                            <i class="la la-dollar"></i>
+                        <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px"
+                            data-toggle="modal" data-target="#formPembayaran">
                             <span>
-                                Bayar
+                                <i class="la la-dollar"></i>
+                                <span>
+                                    Bayar
+                                </span>
                             </span>
-                        </span>
-                    </a>
+                        </a>
+                    @elseif ($vwDetailPenelitian['biaya'] == 0)
+                        <a href="/Rincian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px">
+                            <span>
+                                <i class="la la-dollar"></i>
+                                <span>
+                                    Tambah Rincian
+                                </span>
+                            </span>
+                        </a>
                     @endif
+                    <!-- cek alur -->
+                    <!-- penelitian rencana -->
                     @if ($vwDetailPenelitian['idMilestone'] == 1)
                     <div class="btn-group m-btn-group m-btn-group--pill m-btn-group--air" role="group" aria-label="...">
                         <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
                             Batal
                         </button>
-                        <button type="button" class="m-btn btn btn-success" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']">
+                        @if($vwDetailPenelitian['totalBayar'] >= ($vwDetailPenelitian['biaya']/2.0))
+                        <button type="button" class="m-btn btn btn-success" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']" id="btnLanjut">
                             Lanjut
                         </button>
+                        @endif
                     </div>
-                    <!-- else if (penelitian belum mulai) -->
-                    @else
+                    <!-- else if (penelitian sudah mulai) -->
+                    @elseif ($vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4)
                     <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air btn-generate" id="btnTrx"
                         style="margin-left:10px; margin-right:10px" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']">
                         <span>
@@ -266,12 +280,16 @@
                                 <i class="flaticon-calendar-1"></i>
                             </span>
                             <span class="text-sm-left" id="txtEndPlan">
-                                @if ($vwDetailPenelitian['sisaDurasi'] < 0)
-                                    Lewat {{ $vwDetailPenelitian['sisaDurasi'] }} Hari
-                                @elseif ($vwDetailPenelitian['sisaDurasi'] == NULL)
-                                    Durasi Belum Ada
+                                @if($vwDetailPenelitian['idMilestone'] != 5)
+                                    @if ($vwDetailPenelitian['sisaDurasi'] < 0)
+                                        Lewat {{ $vwDetailPenelitian['sisaDurasi'] }} Hari
+                                    @elseif ($vwDetailPenelitian['sisaDurasi'] == NULL)
+                                        Durasi Belum Ada
+                                    @else
+                                        {{ $vwDetailPenelitian['sisaDurasi'] }} Hari Lagi
+                                    @endif
                                 @else
-                                    {{ $vwDetailPenelitian['sisaDurasi'] }} Hari Lagi
+                                    Selesai
                                 @endif
                             </span>
                         </div>
