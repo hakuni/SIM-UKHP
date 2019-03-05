@@ -28,14 +28,38 @@ SQL;
         return <<<SQL
 CREATE VIEW `vw_penggunaanps` AS
 SELECT
-    MONTH(`lb`.`tglPembayaran`) AS `bulan`,
-    YEAR(`lb`.`tglPembayaran`) AS `tahun`,
-    SUM(`lb`.`totalPembayaran`) AS `pemasukan`
+    `mab`.`namaAlatBahan` AS `namaAlatBahan`,
+    COUNT(`mp`.`idPenelitian`) AS `banyakPenelitian`,
+    MONTH(`mp`.`created_at`) AS `bulan`,
+    YEAR(`mp`.`created_at`) AS `tahun`
 FROM
-    `log_pembayarans` `lb`
+    (
+        (
+            `sim-ukhp`.`rincian_biayas` `rb`
+        LEFT JOIN `sim-ukhp`.`mst_alat_bahans` `mab`
+        ON
+            (
+                (
+                    `rb`.`idAlatBahan` = `mab`.`idAlatBahan`
+                )
+            )
+        )
+    JOIN `sim-ukhp`.`mst_penelitians` `mp`
+    ON
+        (
+            (
+                `rb`.`idPenelitian` = `mp`.`idPenelitian`
+            )
+        )
+    )
+WHERE
+    (
+        (`mp`.`statusPenelitian` <> 4) AND(`mab`.`tipeAlatBahan` = 1)
+    )
 GROUP BY
-    MONTH(`lb`.`tglPembayaran`),
-    YEAR(`lb`.`tglPembayaran`)
+    `mab`.`namaAlatBahan`,
+    MONTH(`mp`.`created_at`),
+    YEAR(`mp`.`created_at`)
 SQL;
     }
 }

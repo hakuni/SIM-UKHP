@@ -48,11 +48,11 @@
 
                         <div class="m-portlet__head-tools">
 
-                            <!-- <ul class="m-portlet__nav">
+                            <ul class="m-portlet__nav">
                                 <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
                                     m-dropdown-toggle="hover" aria-expanded="true">
                                     <small class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
-                                        Order By :
+                                        Urutan :
                                     </small>
                                     <div class="m-dropdown__wrapper" style="width: 130px;">
                                         <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"
@@ -61,34 +61,34 @@
                                             <div class="m-dropdown__body">
                                                 <div class="m-dropdown__content">
                                                     <ul class="m-nav">
-                                                        <li class="m-nav__item TaskOrderBy" id="Order-UpdatedDate">
+                                                        <li class="m-nav__item TaskOrderBy" id="order-terbaru">
                                                             <a style="cursor:pointer" class="m-nav__link">
                                                                 <span class="m-nav__link-text text-sm-right">
-                                                                    Update Date
+                                                                    Terbaru
                                                                 </span>
                                                             </a>
                                                         </li>
-                                                        <li class="m-nav__item TaskOrderBy" id="Order-TaskName">
+                                                        <li class="m-nav__item TaskOrderBy" id="order-saya">
                                                             <a style="cursor:pointer" class="m-nav__link">
                                                                 <span class="m-nav__link-text text-sm-right">
-                                                                    Task Name
+                                                                    Saya
                                                                 </span>
                                                             </a>
                                                         </li>
-                                                        <li class="m-nav__item TaskOrderBy" id="Order-TaskCode">
+                                                        <!-- <li class="m-nav__item TaskOrderBy" id="Order-TaskCode">
                                                             <a style="cursor:pointer" class="m-nav__link">
                                                                 <span class="m-nav__link-text text-sm-right">
                                                                     Task Code
                                                                 </span>
                                                             </a>
-                                                        </li>
+                                                        </li> -->
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                            </ul> -->
+                            </ul>
 
                         </div>
 

@@ -56,13 +56,9 @@ var Table = {
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<a href="editRincian' +
-                            t.idRincianBiaya +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Edit Rincian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
+                            '<button onclick="Control.ModalUbah('+ t.idRincianBiaya + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Rincian"><i class="la la-edit"></i></button>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<a href="hapusRincian' +
-                            t.idRincianBiaya +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Rincian"><i class="la la-trash"></i></a>';
+                            '<button onclick="Control.Hapus(' + t.idRincianBiaya + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Rincian"><i class="la la-trash"></i></button>';
                         return strBuilder;
                     }
                 }, {
@@ -158,18 +154,34 @@ var Control = {
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                $(".m-select2").html("<option></option>");
+                $("#slsAlatBahan").html("<option></option>");
                 $.each(data, function (i, item) {
-                    $(".m-select2").append(
-                        "<option value='" +
-                        item.namaAlatBahan +
-                        "'>" +
-                        item.namaAlatBahan +
-                        "</option>"
-                    );
+                    $("#slsAlatBahan").append("<option value='" + item.namaAlatBahan + "'>" + item.namaAlatBahan + "</option>");
                 });
                 $("#slsAlatBahan").select2({
                     placeholder: "Alat dan Bahan",
+                    tags: true,
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    },
+    SelectUbah: function (nama) {
+        $.ajax({
+                url: "/api/inventarisasi",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#slsAlatBahanUbah").html("<option></option>");
+                $.each(data, function (i, item) {
+                    if (item.namaAlatBahan == nama) {
+                        $("#slsAlatBahanUbah").append("<option value='" + item.namaAlatBahan + "' selected>" + item.namaAlatBahan + "</option>");
+                    } else {
+                        $("#slsAlatBahanUbah").append("<option value='" + item.namaAlatBahan + "'>" + item.namaAlatBahan + "</option>");
+                    }
+                });
+                $("#slsAlatBahanUbah").select2({
                     tags: true,
                 });
             })
@@ -233,5 +245,94 @@ var Control = {
                     false
                 );
             });
-    }
+    },
+    Hapus: function(idRincian){
+        $.ajax({
+            url: "/api/keuangan/detail/" + idRincian,
+            type: "DELETE",
+            dataType: "json",
+            contentType: "application/json",
+            cache: false
+        })
+        .done(function (data, textStatus, jqXHR) {
+            Common.Alert.Success("Berhasil dihapus")
+            $("#divRincianList").mDatatable('reload');
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+        });
+    },
+    ModalUbah: function(idRincian){
+        $.ajax({
+            url: "/api/keuangan/detail/" + id +"/" + idRincian,
+            type: "GET",
+            dataType: "json",
+        })
+        .done(function (data, textStatus, jqXHR) {
+            console.log(data);
+            // $("#btnTipeUbah").prop("checked", 'checked');?
+            if(data.tipeAlatBahan){
+                console.log(data.tipeAlatBahan)
+                $("#btnTipeUbah").attr('checked', 'checked');
+            }
+            else{
+                $("#btnTipeUbah").removeAttr('checked');
+                console.log(data.tipeAlatBahan)
+            }
+            Control.SelectUbah(data.namaAlatBahan);
+            $("#slsAlatBahanUbah").val(data.namaAlatBahan);
+            $("#tbxJumlahUbah").val(data.jumlah);
+            $("#tbxHargaUbah").val(data.harga);
+            $("#formEditRincian").modal({
+                backdrop: "static"
+            });
+            $("#btnUbah").on("click", function () {
+                Control.Ubah(data.idRincianBiaya);
+            })
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+        });
+    },
+    Ubah: function (idRincian) {
+        var btn = $("#btnUbahKbtnUbahategori");
+        var params = {
+            idPenelitian: id,
+            idRincianBiaya: idRincian,
+            tipeAlatBahan: $("#btnTipeUbah").prop('checked'),
+            namaAlatBahan: $("#slsAlatBahanUbah").val(),
+            jumlah: $("#tbxJumlahUbah").val(),
+            harga: $("#tbxHargaUbah").val()
+        };
+
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
+
+        $.ajax({
+                url: "/api/keuangan/detail",
+                type: "PUT",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(params),
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#divRincianList").mDatatable('reload');
+                Control.Select();
+                $("#tbxAlatBahan").val("");
+                $("#tbxJumlah").val("");
+                $("#tbxHarga").val("");
+                $("#formRincian").modal("toggle");
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            });
+    },
 };

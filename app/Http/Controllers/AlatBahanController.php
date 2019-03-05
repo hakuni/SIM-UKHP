@@ -95,13 +95,43 @@ class AlatBahanController extends Controller
         }
     }
 
-    public function getListLog($tipeLog){
+    public function getListLog(Request $req, $tipeLog){
         try{
             if($tipeLog == 1){
-                $log = LogPembelian::All();
+                if($req->bulan == null){
+                    if($req->tahun == null){
+                        $log = LogPembelian::All();
+                    }
+                    else {
+                        $log = LogPembelian::whereYear('tglTrx', $req->tahun)->get();
+                    }
+                }
+                else{
+                    if($req->tahun == null){
+                        $log = LogPembelian::whereMonth('tglTrx', $req->bulan)->get();
+                    }
+                    else {
+                        $log = LogPembelian::whereYear('tglTrx', $req->tahun)->whereMonth('tglTrx', $req->bulan)->get();
+                    }
+                }
             }
             else{
-                $log = LogPemakaian::All();
+                if($req->bulan == null){
+                    if($req->tahun == null){
+                        $log = LogPemakaian::All();
+                    }
+                    else {
+                        $log = LogPemakaian::whereYear('tglTrx', $req->tahun)->get();
+                    }
+                }
+                else{
+                    if($req->tahun == null){
+                        $log = LogPemakaian::whereMonth('tglTrx', $req->bulan)->get();
+                    }
+                    else {
+                        $log = LogPemakaian::whereYear('tglTrx', $req->tahun)->whereMonth('tglTrx', $req->bulan)->get();
+                    }
+                }
             }
             $log->ErrorType = 0;
             return response($log)->setStatusCode(200);

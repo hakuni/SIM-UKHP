@@ -40,7 +40,7 @@ var Get = {
                 // if ($("#inptMilestoneID").val() == 5) {
                 //     $("#btnTrx").hide();
                 // }
-                Transaction.Init();
+                Transaction.Init(id);
                 Control.DatePicker();
                 Table.History(id);
                 $("#btnMaximize").on("click", function () {
@@ -66,12 +66,12 @@ var Get = {
 };
 
 var Transaction = {
-    Init: function () {
-        Transaction.Batal();
-        Transaction.Alur();
-        Transaction.Pembayaran();
+    Init: function (id) {
+        Transaction.Batal(id);
+        Transaction.Alur(id);
+        Transaction.Pembayaran(id);
     },
-    Batal: function () {
+    Batal: function (id) {
         $("#btnHapus").on("click", function () {
             var btn = $("#btnHapus");
             btn.addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
@@ -100,7 +100,7 @@ var Transaction = {
                 });
         })
     },
-    Alur: function () {
+    Alur: function (id) {
         $("#btnTambah").on("click", function () {
             var btn = $("#btnTambah");
 
@@ -141,7 +141,7 @@ var Transaction = {
                 });
         })
     },
-    Pembayaran: function () {
+    Pembayaran: function (id) {
         $("#btnTambahBayar").on("click", function () {
             var btn = $("#btnTambahBayar");
             var params = {

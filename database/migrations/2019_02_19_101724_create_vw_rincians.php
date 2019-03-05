@@ -30,6 +30,7 @@ SELECT
     `r`.`idRincianBiaya`,
     `p`.`idPenelitian`,
     `b`.`namaAlatBahan`,
+    `b`.`tipeAlatBahan`,
     `r`.`jumlah`,
     `r`.`harga`,
     (`r`.`jumlah` * `r`.`harga`) AS `total`

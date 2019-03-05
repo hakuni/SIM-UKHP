@@ -28,14 +28,39 @@ SQL;
         return <<<SQL
 CREATE VIEW `vw_kategorips` AS
 SELECT
-    MONTH(`lb`.`tglPembayaran`) AS `bulan`,
-    YEAR(`lb`.`tglPembayaran`) AS `tahun`,
-    SUM(`lb`.`totalPembayaran`) AS `pemasukan`
+    `k`.`namaKategori` AS `namaKategori`,
+    COUNT(`mp`.`idKategori`) AS `banyakPenelitian`,
+    (
+        (
+            COUNT(`mp`.`idKategori`) /(
+            SELECT
+                COUNT(
+                    `sim-ukhp`.`mst_penelitians`.`idPenelitian`
+                )
+            FROM
+                `sim-ukhp`.`mst_penelitians`
+            WHERE
+                (
+                    `sim-ukhp`.`mst_penelitians`.`statusPenelitian` <> 4
+                )
+        )
+        ) * 100
+    ) AS `persenKategori`,
+    MONTH(`mp`.`created_at`) AS `bulan`,
+    YEAR(`mp`.`created_at`) AS `tahun`
 FROM
-    `sim-ukhp`.`log_pembayarans` `lb`
+    (
+        `sim-ukhp`.`mst_penelitians` `mp`
+    LEFT JOIN `sim-ukhp`.`kategoris` `k`
+    ON
+        ((`mp`.`idKategori` = `k`.`idKategori`))
+    )
+WHERE
+    (`mp`.`statusPenelitian` <> 4)
 GROUP BY
-    MONTH(`lb`.`tglPembayaran`),
-    YEAR(`lb`.`tglPembayaran`)
+    MONTH(`mp`.`created_at`),
+    YEAR(`mp`.`created_at`),
+    `k`.`namaKategori`
 SQL;
     }
 }

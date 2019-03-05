@@ -1,17 +1,48 @@
+var bulan = 0;
+var tahun = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
-    Control.Init();
-    Table.Init();
-    Select.AlatBahan();
+    Data.Init();
+    Table.Stock();
+    Button.Init();
+    Select.Init();
     Transaction.Init();
 });
 
-var Table = {
-    Init: function () {
-        Table.Stock();
-        Table.Pembelian();
-        Table.Penggunaan();
+var Data = {
+    Init: function(){
+        Data.Pembelian("","");
+        Data.Penggunaan("","");
     },
+    Pembelian: function(bulan, tahun){
+        $.ajax({
+            url: "/api/inventarisasi/log/1/?bulan="+bulan+"&tahun="+tahun,
+            type: "GET",
+        })
+        .done(function (data, textStatus, jqXHR) {
+            $("#divPembelianList").mDatatable('destroy');
+            Table.Pembelian(data);
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+        });
+    },
+    Penggunaan: function(bulan, tahun){
+        $.ajax({
+            url: "/api/inventarisasi/log/2/?bulan="+bulan+"&tahun="+tahun,
+            type: "GET",
+        })
+        .done(function (data, textStatus, jqXHR) {
+            $("#divPenggunaanList").mDatatable('destroy');
+            Table.Penggunaan(data);
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+        });
+    }
+};
+
+var Table = {
     Stock: function () {
         t = $("#divStockList").mDatatable({
             data: {
@@ -64,20 +95,11 @@ var Table = {
             ]
         });
     },
-    Pembelian: function () {
+    Pembelian: function (data) {
         t = $("#divPembelianList").mDatatable({
             data: {
-                type: "remote",
-                source: {
-                    read: {
-                        url: "/api/inventarisasi/log/1",
-                        method: "GET",
-                        map: function (r) {
-                            var e = r;
-                            return void 0 !== r.data && (e = r.data), e;
-                        }
-                    }
-                },
+                type: "local",
+                source: data,
                 pageSize: 10,
                 saveState: {
                     cookie: true,
@@ -127,20 +149,11 @@ var Table = {
             ]
         });
     },
-    Penggunaan: function () {
+    Penggunaan: function (data) {
         t = $("#divPenggunaanList").mDatatable({
             data: {
-                type: "remote",
-                source: {
-                    read: {
-                        url: "/api/inventarisasi/log/2",
-                        method: "GET",
-                        map: function (r) {
-                            var e = r;
-                            return void 0 !== r.data && (e = r.data), e;
-                        }
-                    }
-                },
+                type: "local",
+                source: data,
                 pageSize: 10,
                 saveState: {
                     cookie: true,
@@ -187,73 +200,57 @@ var Table = {
     }
 };
 
+var Button = {
+    Init: function(){
+        Button.FilterBeli();
+        Button.FilterGuna();
+        Button.DatePicker();
+        Button.Switch();
+    },
+    FilterBeli: function(){
+        $("#btnFilterBeli").on("click", function(){
+            $("#btnFilterBeli").addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
+            bulan = $("#slsBulanBeli").val();
+            tahun = $("#tbxTahunBeli").val();
+            Data.Pembelian(bulan,tahun);
+            $("#btnFilterBeli").removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+        })
+    },
+    FilterGuna: function(){
+        $("#btnFilterGuna").on("click", function(){
+            this.addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
+            bulan = $("#slsBulanGunaBeli").val();
+            tahun = $("#tbxTahunGunaBeli").val();
+            Data.Penggunaan(bulan,tahun);
+            this.removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+        })
+    },
+    DatePicker: function () {
+        $(".datepicker").datepicker({
+            format: "dd-M-yyyy",
+            todayBtn: "linked",
+            clearBtn: !0,
+            todayHighlight: !0,
+            templates: {
+                leftArrow: '<i class="la la-angle-left"></i>',
+                rightArrow: '<i class="la la-angle-right"></i>'
+            }
+        });
+    },
+    Switch: function () {
+        $("[data-switch=true]").bootstrapSwitch();
+    }
+};
+
 var Select = {
     Init: function () {
-        // Select.Bulan();
-        // Select.Tahun();
+        Select.Bulan();
         Select.AlatBahan();
     },
     Bulan: function () {
-        $.ajax({
-            url: "/api/user/list?roleID=4",
-            type: "GET",
-            dataType: "json",
-            contenType: "application/json",
-            success: function (data) {
-                var html = "<option value=''>All</option>";
-                var select = $("#slsBulan");
-
-                $.each(data, function (i, item) {
-                    html +=
-                        '<option value="' +
-                        item.FullName +
-                        '">' +
-                        item.FullName +
-                        "</option>";
-                });
-
-                $("#slsBulan").append(html);
-                $("#slsBulan").selectpicker("refresh");
-            },
-            error: function (xhr) {
-                alert(xhr.responseText);
-            }
-        });
-
-        $("#slsBulan").on("change", function () {
-            t.search($(this).val(), "ProjectManager");
-        });
-    },
-    Tahun: function () {
-        $.ajax({
-            url: "/api/user/list?roleID=4",
-            type: "GET",
-            dataType: "json",
-            contenType: "application/json",
-            success: function (data) {
-                var html = "<option value=''>All</option>";
-                var select = $("#slsTahun");
-
-                $.each(data, function (i, item) {
-                    html +=
-                        '<option value="' +
-                        item.FullName +
-                        '">' +
-                        item.FullName +
-                        "</option>";
-                });
-
-                $("#slsTahun").append(html);
-                $("#slsTahun").selectpicker("refresh");
-            },
-            error: function (xhr) {
-                alert(xhr.responseText);
-            }
-        });
-
-        $("#slsTahun").on("change", function () {
-            t.search($(this).val(), "ProjectManager");
-        });
+        $("#slsBulanStock").select2();
+        $("#slsBulanPembelian").select2();
+        $("#slsBulanPenggunaan").select2();
     },
     AlatBahan: function () {
         $.ajax({
@@ -282,28 +279,6 @@ var Select = {
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
-    }
-};
-
-var Control = {
-    Init: function () {
-        Control.DatePicker();
-        Control.Switch();
-    },
-    DatePicker: function () {
-        $(".datepicker").datepicker({
-            format: "dd-M-yyyy",
-            todayBtn: "linked",
-            clearBtn: !0,
-            todayHighlight: !0,
-            templates: {
-                leftArrow: '<i class="la la-angle-left"></i>',
-                rightArrow: '<i class="la la-angle-right"></i>'
-            }
-        });
-    },
-    Switch: function () {
-        $("[data-switch=true]").bootstrapSwitch();
     }
 };
 

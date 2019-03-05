@@ -86,7 +86,7 @@ Route::get('/keuangan/detail/{idPenelitian}/{idRincian}', 'KeuanganController@ge
 //update single rincian
 Route::put('/keuangan/detail', 'KeuanganController@saveDetail');
 //delete rincian
-Route::delete('/keuangan/rincian', 'KeuanganController@deleteDetail');
+Route::delete('/keuangan/detail/{idRincian}', 'KeuanganController@deleteDetail');
 
 #log pembayaran
 //create log pembayaran

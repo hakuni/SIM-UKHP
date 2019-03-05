@@ -119,6 +119,7 @@
                             <div class="col-lg-6">
                                 <input type="number" id="tbxDurasi1" name="tbxDurasi1" class="form-control m-input" required>
                             </div>
+                            Hari
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
@@ -127,6 +128,7 @@
                             <div class="col-lg-6">
                                 <input type="number" id="tbxDurasi2" name="tbxDurasi2" class="form-control m-input" required>
                             </div>
+                            Hari
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
@@ -135,6 +137,7 @@
                             <div class="col-lg-6">
                                 <input type="number" id="tbxDurasi3" name="tbxDurasi3" class="form-control m-input" required>
                             </div>
+                            Hari
                         </div>
                     </div>
 
