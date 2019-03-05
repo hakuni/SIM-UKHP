@@ -192,18 +192,20 @@
                                                 </a>
                                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
                                             </div>
-                                            <div class="col-xl-3 order-1 order-xl-2 m--align-right">
-                                                <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
-                                                    id="btnRincian" data-toggle="modal" data-target="#formRincian">
-                                                    <span>
-                                                        <i class="fa fa-plus"></i>
+                                            @if({{$statusPenelitian}} == 1)
+                                                <div class="col-xl-3 order-1 order-xl-2 m--align-right">
+                                                    <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
+                                                        id="btnRincian" data-toggle="modal" data-target="#formRincian">
                                                         <span>
-                                                            Tambah Rincian
+                                                            <i class="fa fa-plus"></i>
+                                                            <span>
+                                                                Tambah Rincian
+                                                            </span>
                                                         </span>
-                                                    </span>
-                                                </a>
-                                                <div class="m-separator m-separator--dashed d-xl-none"></div>
-                                            </div>
+                                                    </a>
+                                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -219,6 +221,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" value="{{$idPenelitian}}" id="idPenelitian">
+<input type="hidden" value="{{$id}}" id="idPenelitian">
+<input type="hidden" value="{{$statusPenelitian}}" id="statusPenelitian">
 <script src="{{asset('assets/app/js/keuangan/rincian.js')}}" type="text/javascript"></script>
 @endsection

@@ -1,14 +1,14 @@
 //== Class Initialization
 jQuery(document).ready(function () {
-    Form.Init();
     Control.Init();
+    Form.Init();
 });
 
 var Control = {
     Init: function () {
-        Control.Ubah();
+        Control.Select2();
     },
-    Select2: function (idKategori) {
+    Select2: function () {
         $.ajax({
                 url: "/api/kategori",
                 type: "GET"
@@ -16,7 +16,7 @@ var Control = {
             .done(function (data, textStatus, jqXHR) {
                 $("#slsKategori").html("<option></option>");
                 $.each(data, function (i, item) {
-                    if (item.idKategori == idKategori) {
+                    if (item.idKategori == $("#idKategori").val()) {
                         console.log(idKategori)
                         $("#slsKategori").append("<option value='" + item.idKategori + "' selected>" + item.namaKategori + "</option>");
                     } else {
@@ -26,25 +26,6 @@ var Control = {
                 $("#slsKategori").select2({
                     placeholder: "Pilih Kategori"
                 });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
-    },
-    Ubah: function () {
-        var id = $("#idUbahPenelitian").val();
-        $.ajax({
-                url: "/api/penelitian/" + id,
-                type: "GET",
-                dataType: "json",
-            })
-            .done(function (data, textStatus, jqXHR) {
-                Control.Select2(data.idKategori);
-                $("#tbxNamaPeneliti").val(data.namaPeneliti);
-                $("#tbxInstansi").val(data.instansiPeneliti);
-                $("#tbxNoHP").val(data.telpPeneliti);
-                $("#tbxEmail").val(data.emailPeneliti);
-                $("#tbxAlamat").val(data.alamatPeneliti);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

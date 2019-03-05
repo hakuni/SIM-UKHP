@@ -50,7 +50,7 @@
 								Nama <strong style="color:red";>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" class="form-control m-input" id="tbxNamaPeneliti" name="tbxNamaPeneliti" required>
+								<input type="text" class="form-control m-input" value="{{$penelitian['namaPeneliti']}}" id="tbxNamaPeneliti" name="tbxNamaPeneliti" required>
                             </div>
 						</div>
 						<div class="form-group m-form__group row">
@@ -58,7 +58,7 @@
 								Instansi <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" id="tbxInstansi" name="tbxInstansi" class="form-control m-input" required>
+								<input type="text" class="form-control m-input" value="{{$penelitian['instansiPeneliti']}}" id="tbxInstansi" name="tbxInstansi" class="form-control m-input" required>
 							</div>
                         </div>
                         <div class="form-group m-form__group row">
@@ -66,7 +66,7 @@
 								No. HP <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" id="tbxNoHP" name="tbxNoHP" class="form-control m-input" required>
+								<input type="text" class="form-control m-input" value="{{$penelitian['telpPeneliti']}}" id="tbxNoHP" name="tbxNoHP" class="form-control m-input" required>
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
@@ -74,7 +74,7 @@
 								Email <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" id="tbxEmail" name="tbxEmail" class="form-control m-input" required>
+								<input type="text" class="form-control m-input" value="{{$penelitian['emailPeneliti']}}" id="tbxEmail" name="tbxEmail" class="form-control m-input" required>
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
@@ -82,7 +82,7 @@
 								Alamat <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<textarea type="text" class="form-control m-input" id="tbxAlamat" name="tbxAlamat" rows="4"></textarea>
+								<textarea type="text" class="form-control m-input" class="form-control m-input" id="tbxAlamat" name="tbxAlamat" rows="4">{{$penelitian['alamatPeneliti']}}</textarea>
 							</div>
 						</div>
 					</div>
@@ -108,6 +108,7 @@
 		</div>
 	</div>
 </div>
-<input type="hidden" value="{{$idPenelitian}}" id="idUbahPenelitian">
+<input type="hidden" value="{{$penelitian['idPenelitian']}}" id="idUbahPenelitian">
+<input type="hidden" value="{{$penelitian['idKategori']}}" id="idKategori">
 <script src="{{asset('assets/app/js/penelitian/ubah.js')}}" type="text/javascript"></script>
 @endsection

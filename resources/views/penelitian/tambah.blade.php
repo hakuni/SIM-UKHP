@@ -58,7 +58,7 @@
 								Instansi <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" id="tbxInstansi" name="tbxInstansi" class="form-control m-input" required>
+								<input type="text" class="form-control m-input" id="tbxInstansi" name="tbxInstansi" class="form-control m-input" required>
 							</div>
                         </div>
                         <div class="form-group m-form__group row">
@@ -66,7 +66,7 @@
 								No. HP <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="number" id="tbxNoHP" name="tbxNoHP" class="form-control m-input" required>
+								<input type="number" class="form-control m-input" id="tbxNoHP" name="tbxNoHP" class="form-control m-input" required>
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
@@ -74,7 +74,7 @@
 								Email <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" id="tbxEmail" name="tbxEmail" class="form-control m-input" required>
+								<input type="text" class="form-control m-input" id="tbxEmail" name="tbxEmail" class="form-control m-input" required>
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
@@ -82,7 +82,7 @@
 								Alamat <strong style="color:red" ;>*</strong> :
 							</label>
 							<div class="col-lg-6">
-								<textarea type="text" class="form-control m-input" id="tbxAlamat" name="tbxAlamat" rows="4"></textarea>
+								<textarea type="text" class="form-control m-input" class="form-control m-input" id="tbxAlamat" name="tbxAlamat" rows="4"></textarea>
 							</div>
 						</div>
 					</div>

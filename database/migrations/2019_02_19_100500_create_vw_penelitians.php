@@ -16,7 +16,7 @@ class CreateVwPenelitians extends Migration
         DB::statement($this->dropView());
         DB::statement($this->createView());
     }
-    
+
     private function dropView() : string{
         return <<<SQL
 DROP VIEW IF EXISTS `vw_penelitians`;
@@ -39,7 +39,8 @@ SELECT
     `mdc`.`alamatPeneliti` AS `alamatPeneliti`,
     `sp`.`idStatusPenelitian` AS `idStatusPenelitian`,
     `sp`.`namaStatus` AS `namaStatus`,
-    CASE WHEN ISNULL(`mp`.`idProsedur`) THEN 0 ELSE `mp`.`idProsedur` END AS `idProsedur`
+    CASE WHEN ISNULL(`mp`.`idProsedur`) THEN 0 ELSE `mp`.`idProsedur` END AS `idProsedur`,
+    `p`.`updated_at`
 FROM
     `mst_penelitians` `p` LEFT JOIN `mst_data_clients` `mdc` ON `p`.`idDataClient` = `mdc`.`idDataClient`
     LEFT JOIN `kategoris` `k` ON `p`.`idKategori` = `k`.`idKategori`

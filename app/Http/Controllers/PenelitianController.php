@@ -8,6 +8,7 @@ use App\vwPenelitian;
 use App\MstDataClient;
 use App\LogTrxPenelitian;
 use App\TrxPenelitian;
+use App\vwTrxPenelitian;
 use App\MstMilestone;
 
 class PenelitianController extends Controller
@@ -72,9 +73,13 @@ class PenelitianController extends Controller
         }
     }
 
-    public function getListPenelitian()
+    public function getListPenelitian($order = 1)
     {
         try{
+            if($order == 1)
+                $penelitian = vwPenelitian::orderBy('updated_at', 'DESC')->get();
+            else
+                $penelitian = vwPenelitian::where('PIC', 'kuni')->orderBy('updated_at', 'DESC')->get();
             $penelitian = vwPenelitian::All();
             $penelitian->ErrorType = 0;
             return response($penelitian)->setStatusCode(200);
@@ -157,7 +162,7 @@ class PenelitianController extends Controller
                     $transaksi->durasi = $prosedur->tahap2;
                 else if($request->idMilestone == 3)
                     $transaksi->durasi = $prosedur->tahap3;
-                
+
                 $transaksi->idPenelitian = $request->idPenelitian;
                 $transaksi->idMilestone = $request->idMilestone+1;
                 $transaksi->startDate = date('y-m-d');
@@ -165,10 +170,10 @@ class PenelitianController extends Controller
                 $transaksi->PIC = $penelitian->PIC;
                 $transaksi->catatan = $request->catatan;
                 $penelitian->statusPenelitian = 2;
-                
+
                 $transaksi->save(); //save new trx
             }
-            
+
             $penelitian->save();
 
             //save log trx
@@ -202,9 +207,9 @@ class PenelitianController extends Controller
         }
     }
 
-    public function getListTrx($idPenelitian){
+    public function getDetailTrx($idPenelitian){
         try{
-            $transaksi = TrxPenelitian::where('idPenelitian', $idPenelitian)->get();
+            $transaksi = vwTrxPenelitian::where('idPenelitian', $idPenelitian)->orderBy('updated_at', 'DESC')->first();
             return response($transaksi)->setStatusCode(200);
         }
         catch(\Exception $e){

@@ -11,15 +11,23 @@ use App\vwTrxPenelitian;
 class TrackingController extends Controller
 {
     public function index(){
-        $vwListPenelitian = vwPenelitian::orderBy('idStatusPenelitian', 'desc')->where('idStatusPenelitian', '!=', 4)->get();
+        $penelitian = new PenelitianController();
+        $vwListPenelitian = json_decode($penelitian->getListPenelitian()->getContent(),true);
+        $banyak = count($vwListPenelitian);
+        return view('tracking/index', compact('banyak'));
+    }
+    public function listPenelitian($orderBy = 1){
+        $penelitian = new PenelitianController();
+        $vwListPenelitian = json_decode($penelitian->getListPenelitian($orderBy)->getContent(),true);
         $idPenelitian = 0;
         if(count($vwListPenelitian) > 0)
-            $idPenelitian = $vwListPenelitian[0]->idPenelitian;
+            $idPenelitian = $vwListPenelitian[0]['idPenelitian'];
         $banyak = count($vwListPenelitian);
-        return view('tracking/index', compact('vwListPenelitian', 'idPenelitian', 'banyak'));
+        return view('tracking/list', compact('vwListPenelitian', 'idPenelitian', 'banyak'));
     }
     public function detailPenelitian($idPenelitian){
-        $vwDetailPenelitian = vwTrxPenelitian::where('idPenelitian', $idPenelitian)->orderBy('idTrxPenelitian', 'desc')->first();
+        $penelitian = new PenelitianController();
+        $vwDetailPenelitian = json_decode($penelitian->getDetailTrx($idPenelitian)->getContent(), true);
         return view('tracking/detail')->with('vwDetailPenelitian', $vwDetailPenelitian);
     }
 }

@@ -36,6 +36,8 @@ Route::delete('/kategori/{id}', 'KategoriController@deleteKategori');
 Route::get('/inventarisasi', 'AlatBahanController@getListAlatBahan');
 //get list hewan
 Route::get('/inventarisasi/{tipeAlatBahan}', 'AlatBahanController@getListHewan');
+//get single alat bahan
+Route::get('/inventarisasi/{tipeAlatBahan}/{idAlatBahan}', 'AlatBahanController@getSingleAlatBahan');
 //delet alat bahan
 Route::delete('/inventarisasi/{idAlatBahan}', 'AlatBahanController@deleteAlatBahan');
 

@@ -26,6 +26,19 @@ class KeuanganController extends Controller
             return response($keuangan)->setStatusCode(204);
         }
     }
+    public function getSingleViewKeuangan($idPenelitian){
+        try{
+            $keuangan = vwKeuangan::where('idPenelitian', $idPenelitian);
+            $keuangan->ErrorType = 0;
+            return response($keuangan)->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            $keuangan = new vwKeuangan;
+            $keuangan->ErrorType = 2;
+            $keuangan->ErrorMessage = $e->getMessage();
+            return response($keuangan)->setStatusCode(204);
+        }
+    }
     #endregion
 
     #region Rincian

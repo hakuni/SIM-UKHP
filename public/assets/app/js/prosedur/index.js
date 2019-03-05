@@ -1,31 +1,8 @@
 var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
-    Form.Init();
     Control.Init();
 });
-
-var Form = {
-    Init: function () {
-        $.ajax({
-                url: "/api/prosedur/" + id,
-                type: "GET",
-                dataType: "json",
-            })
-            .done(function (data, textStatus, jqXHR) {
-                Control.SelectKategori(data.data.idKategori),
-                    $("#tbxJudul").val(data.data.judulPenelitian),
-                    Control.SelectHewan(data.data.idAlatBahan),
-                    $("#tbxJumlah").val(data.data.jumlahHewan),
-                    $("#tbxPerlakuan").val(data.data.perlakuan),
-                    $("#tbxParameter").val(data.data.parameterUji),
-                    $("#tbxDesain").val(data.data.desainPenelitian)
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
-    }
-}
 
 var Control = {
     Init: function () {
@@ -34,12 +11,11 @@ var Control = {
     },
     GetKategori: function () {
         $.ajax({
-                url: "/api/kategori",
-                type: "GET",
-                dataType: "json",
+                url: "/api/kategori/" + $("#idKategori").val(),
+                type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                Control.SelectKategori(data.idKategori);
+                $("#tbxKategori").val(data.namaKategori)
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -47,30 +23,11 @@ var Control = {
     },
     GetHewan: function () {
         $.ajax({
-                url: "/api/inventarisasi/1",
-                type: "GET",
-                dataType: "json",
-            })
-            .done(function (data, textStatus, jqXHR) {
-                Control.SelectHewan(data.idAlatBahan);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
-    },
-    SelectKategori: function () {
-        $.ajax({
-                url: "/api/kategori",
+                url: "/api/inventarisasi/1/" + $("#idAlatBahan").val(),
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#slsKategori").html("<option></option>");
-                $.each(data, function (i, item) {
-                    $("#slsKategori").append("<option value='" + item.idKategori + "' selected>" + item.namaKategori + "</option>");
-                });
-                $("#slsKategori").select2({
-                    placeholder: "Pilih Kategori"
-                });
+                $("#tbxHewan").val(data.namaAlatBahan)
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

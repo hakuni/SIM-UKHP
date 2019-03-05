@@ -1,4 +1,4 @@
-var id = $("#idPenelitian").val();
+var id = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
     $("#sidebarHide").hide();
@@ -7,7 +7,13 @@ jQuery(document).ready(function () {
 
 var Page = {
     Init: function () {
-        Get.DetailPenelitian(id);
+        Get.Filter(1);
+        //filter
+        $(".TaskOrderBy").on("click", function () {
+            var order = (this.id);
+            Get.Filter(order);
+        })
+
         $("#listPenelitian").on("click", "div.divShowDetail", function (e) {
             var idPen = this.id;
             console.log(idPen);
@@ -25,10 +31,31 @@ var Page = {
                 .removeClass("selected");
             Get.DetailPenelitian(idPen);
         });
-    }
+    },
+    Filter: function () {
+        $("#order-terbaru").val();
+    },
 };
 
 var Get = {
+    Filter: function (order) {
+        var link = "/Tracking/List?orderBy=" + order;
+        console.log(link);
+        $.ajax({
+            url: link,
+            type: "GET",
+            success: function (data) {
+                $("#listPenelitian").html(data);
+                id = $("#idPenelitian").val();
+                Get.DetailPenelitian(id);
+                $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());
+
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    },
     DetailPenelitian: function (id) {
         var link = "/Tracking/Detail/" + id;
         console.log(link);
@@ -37,12 +64,12 @@ var Get = {
             type: "GET",
             success: function (data) {
                 $("#detailPenelitian").html(data);
-                // if ($("#inptMilestoneID").val() == 5) {
-                //     $("#btnTrx").hide();
-                // }
+                if ($("#inptMilestoneID").val() == 5) {
+                    $("#btnTrx").hide();
+                }
                 Transaction.Init(id);
                 Control.DatePicker();
-                Table.History(id);
+                // Table.History(id);
                 $("#btnMaximize").on("click", function () {
                     $("#sidebarShow").show();
                     $("#detailPenelitian").removeClass("col-lg-11");

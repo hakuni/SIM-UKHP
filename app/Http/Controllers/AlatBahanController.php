@@ -40,6 +40,21 @@ class AlatBahanController extends Controller
         }
     }
 
+    public function getSingleAlatBahan($tipeAlatBahan, $idAlatBahan){
+        try{
+            $inventarisasi = new MstAlatBahan;
+            $inventarisasi = MstAlatBahan::where('idAlatBahan', $idAlatBahan)->where('tipeAlatBahan', $tipeAlatBahan)->first();
+            $inventarisasi->ErrorType = 0;
+            return response($inventarisasi)->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            $inventarisasi = new MstAlatBahan;
+            $inventarisasi->ErrorType = 2;
+            $inventarisasi->ErrorMessage = $e->getMessage();
+            return response($inventarisasi)->setStatusCode(204);
+        }
+    }
+
     public function deleteAlatBahan($id){
         try{
             $inventarisasi = MstAlatBahan::findOrFail($id);

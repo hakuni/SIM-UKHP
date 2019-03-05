@@ -2,57 +2,28 @@ var id = $("#idPenelitian").val();
 var idPro = $("#idProsedur").val();
 //== Class Initialization
 jQuery(document).ready(function () {
-    Form.Init();
     Control.Init();
+    Form.Init();
 });
 
 var Control = {
     Init: function () {
-        Control.Ubah();
+        Control.SelectKategori();
+        Control.SelectHewan();
     },
-    Ubah: function () {
+    SelectKategori: function () {
         $.ajax({
-                url: "/api/prosedur/" + idPro,
-                type: "GET",
-                dataType: "json",
-            })
-            .done(function (data, textStatus, jqXHR) {
-                Control.SelectKategori(data.data.idKategori);
-                Control.SelectHewan(data.data.idAlatBahan);
-                $("#tbxJudul").val(data.data.judulPenelitian);
-                $("#tbxJumlah").val(data.data.jumlahHewan);
-                $("#tbxPerlakuan").val(data.data.perlakuan);
-                $("#tbxParameter").val(data.data.parameterUji);
-                $("#tbxDesain").val(data.data.desainPenelitian);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
-    },
-    SelectKategori: function (idKategori) {
-        $.ajax({
-                url: "/api/kategori",
+                url: "/api/kategori/" + $("#idKategori").val(),
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#slsKategori").html("<option></option>");
-                $.each(data, function (i, item) {
-                    if (item.idKategori == idKategori) {
-                        console.log(idKategori)
-                        $("#slsKategori").append("<option value='" + item.idKategori + "' selected>" + item.namaKategori + "</option>");
-                    } else {
-                        $("#slsKategori").append("<option value='" + item.idKategori + "'>" + item.namaKategori + "</option>");
-                    }
-                });
-                $("#slsKategori").select2({
-                    placeholder: "Pilih Kategori"
-                });
+                $("#tbxKategori").val(data.namaKategori)
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     },
-    SelectHewan: function (idAlatBahan) {
+    SelectHewan: function () {
         $.ajax({
                 url: "/api/inventarisasi/1",
                 type: "GET"
@@ -60,7 +31,7 @@ var Control = {
             .done(function (data, textStatus, jqXHR) {
                 $("#slsHewan").html("<option></option>");
                 $.each(data, function (i, item) {
-                    if (item.idAlatBahan == idAlatBahan) {
+                    if (item.idAlatBahan == $("#idAlatBahan").val()) {
                         $("#slsHewan").append("<option value='" + item.idAlatBahan + "' selected>" + item.namaAlatBahan + "</option>");
                     } else {
                         $("#slsHewan").append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
@@ -121,13 +92,17 @@ var Transaction = function () {
 
     var params = {
         idPenelitian: id,
-        idKategori: $("#slsKategori").val(),
+        idProsedur: idPro,
+        idKategori: $("#idKategori").val(),
         judulPenelitian: $("#tbxJudul").val(),
         idAlatBahan: $("#slsHewan").val(),
         jumlahHewan: $("#tbxJumlah").val(),
         perlakuan: $("#tbxPerlakuan").val(),
         parameterUji: $("#tbxParameter").val(),
-        desainPenelitian: $("#tbxDesain").val()
+        desainPenelitian: $("#tbxDesain").val(),
+        tahap1: $("#tbxDurasi1").val(),
+        tahap2: $("#tbxDurasi2").val(),
+        tahap3: $("#tbxDurasi3").val()
     };
 
     btn.addClass("m-loader m-loader--right m-loader--light").attr(

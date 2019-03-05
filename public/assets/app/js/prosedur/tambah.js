@@ -1,4 +1,4 @@
-var id = $("#idPenelitian").val();
+// var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
     Control.Init();
@@ -7,39 +7,7 @@ jQuery(document).ready(function () {
 
 var Control = {
     Init: function () {
-        Control.GetKategori();
         Control.SelectHewan();
-    },
-    GetKategori: function () {
-        $.ajax({
-                url: "/api/kategori",
-                type: "GET",
-                dataType: "json",
-            })
-            .done(function (data, textStatus, jqXHR) {
-                Control.SelectKategori(data.idKategori);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
-    },
-    SelectKategori: function () {
-        $.ajax({
-                url: "/api/kategori",
-                type: "GET"
-            })
-            .done(function (data, textStatus, jqXHR) {
-                $("#slsKategori").html("<option></option>");
-                $.each(data, function (i, item) {
-                    $("#slsKategori").append("<option value='" + item.idKategori + "' selected>" + item.namaKategori + "</option>");
-                });
-                $("#slsKategori").select2({
-                    placeholder: "Pilih Kategori"
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
     },
     SelectHewan: function () {
         $.ajax({
@@ -111,8 +79,8 @@ var Transaction = function () {
     var btn = $("#btnTambah");
 
     var params = {
-        idPenelitian: id,
-        idKategori: $("#slsKategori").val(),
+        idPenelitian: $("#idPenelitian").val(),
+        idKategori: $("#idKategori").val(),
         judulPenelitian: $("#tbxJudul").val(),
         idAlatBahan: $("#slsHewan").val(),
         jumlahHewan: $("#tbxJumlah").val(),

@@ -42,7 +42,7 @@
                                 Kategori <strong style="color:red" ;>*</strong> :
                             </label>
                             <div class="col-lg-6">
-                                <select class="form-control m-select2" id="slsKategori" disabled="disable"></select>
+                                <input type="text" value="{{$kategori}}" class="form-control m-input" id="tbxKategori" disabled="disable">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
@@ -162,6 +162,7 @@
         </div>
     </div>
 </div>
-<input type="hidden" value="{{$idPenelitian}}" id="idPenelitian">
+<input type="hidden" value="{{$idPen}}" id="idPenelitian">
+<input type="hidden" value="{{$idKategori}}" id="idKategori">
 <script src="{{asset('assets/app/js/prosedur/tambah.js')}}" type="text/javascript"></script>
 @endsection

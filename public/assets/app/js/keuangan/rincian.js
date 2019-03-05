@@ -1,9 +1,11 @@
 var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
-    $("#formRincian").modal({
-        backdrop: "static"
-    });
+    if ($("#status").val() == 1) {
+        $("#formRincian").modal({
+            backdrop: "static"
+        });
+    }
     Control.Init();
     Table.Init();
 });
@@ -56,7 +58,7 @@ var Table = {
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<button onclick="Control.ModalUbah('+ t.idRincianBiaya + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Rincian"><i class="la la-edit"></i></button>\t\t\t\t\t\t';
+                            '<button onclick="Control.ModalUbah(' + t.idRincianBiaya + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Rincian"><i class="la la-edit"></i></button>\t\t\t\t\t\t';
                         strBuilder +=
                             '<button onclick="Control.Hapus(' + t.idRincianBiaya + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Rincian"><i class="la la-trash"></i></button>';
                         return strBuilder;
@@ -246,53 +248,52 @@ var Control = {
                 );
             });
     },
-    Hapus: function(idRincian){
+    Hapus: function (idRincian) {
         $.ajax({
-            url: "/api/keuangan/detail/" + idRincian,
-            type: "DELETE",
-            dataType: "json",
-            contentType: "application/json",
-            cache: false
-        })
-        .done(function (data, textStatus, jqXHR) {
-            Common.Alert.Success("Berhasil dihapus")
-            $("#divRincianList").mDatatable('reload');
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            Common.Alert.Error(errorThrown);
-        });
-    },
-    ModalUbah: function(idRincian){
-        $.ajax({
-            url: "/api/keuangan/detail/" + id +"/" + idRincian,
-            type: "GET",
-            dataType: "json",
-        })
-        .done(function (data, textStatus, jqXHR) {
-            console.log(data);
-            // $("#btnTipeUbah").prop("checked", 'checked');?
-            if(data.tipeAlatBahan){
-                console.log(data.tipeAlatBahan)
-                $("#btnTipeUbah").attr('checked', 'checked');
-            }
-            else{
-                $("#btnTipeUbah").removeAttr('checked');
-                console.log(data.tipeAlatBahan)
-            }
-            Control.SelectUbah(data.namaAlatBahan);
-            $("#slsAlatBahanUbah").val(data.namaAlatBahan);
-            $("#tbxJumlahUbah").val(data.jumlah);
-            $("#tbxHargaUbah").val(data.harga);
-            $("#formEditRincian").modal({
-                backdrop: "static"
-            });
-            $("#btnUbah").on("click", function () {
-                Control.Ubah(data.idRincianBiaya);
+                url: "/api/keuangan/detail/" + idRincian,
+                type: "DELETE",
+                dataType: "json",
+                contentType: "application/json",
+                cache: false
             })
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            Common.Alert.Error(errorThrown);
-        });
+            .done(function (data, textStatus, jqXHR) {
+                Common.Alert.Success("Berhasil dihapus")
+                $("#divRincianList").mDatatable('reload');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    },
+    ModalUbah: function (idRincian) {
+        $.ajax({
+                url: "/api/keuangan/detail/" + id + "/" + idRincian,
+                type: "GET",
+                dataType: "json",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                console.log(data);
+                // $("#btnTipeUbah").prop("checked", 'checked');?
+                if (data.tipeAlatBahan) {
+                    console.log(data.tipeAlatBahan)
+                    $("#btnTipeUbah").attr('checked', 'checked');
+                } else {
+                    $("#btnTipeUbah").removeAttr('checked');
+                    console.log(data.tipeAlatBahan)
+                }
+                Control.SelectUbah(data.namaAlatBahan);
+                $("#slsAlatBahanUbah").val(data.namaAlatBahan);
+                $("#tbxJumlahUbah").val(data.jumlah);
+                $("#tbxHargaUbah").val(data.harga);
+                $("#formEditRincian").modal({
+                    backdrop: "static"
+                });
+                $("#btnUbah").on("click", function () {
+                    Control.Ubah(data.idRincianBiaya);
+                })
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     },
     Ubah: function (idRincian) {
         var btn = $("#btnUbahKbtnUbahategori");

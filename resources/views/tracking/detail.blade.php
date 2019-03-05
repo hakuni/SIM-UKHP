@@ -173,7 +173,17 @@
                     @endif
                     <!-- button -->
                     <!-- cek biaya penelitian -->
-                    @if ($vwDetailPenelitian['totalBayar'] < $vwDetailPenelitian['biaya'])
+                    @if ($vwDetailPenelitian['biaya'] == 0)
+                        <a href="/Rincian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px">
+                            <span>
+                                <i class="la la-dollar"></i>
+                                <span>
+                                    Tambah Rincian
+                                </span>
+                            </span>
+                        </a>
+                    @else
+                        @if ($vwDetailPenelitian['totalBayar'] < $vwDetailPenelitian['biaya'])
                         <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px"
                             data-toggle="modal" data-target="#formPembayaran">
                             <span>
@@ -183,29 +193,25 @@
                                 </span>
                             </span>
                         </a>
-                    @elseif ($vwDetailPenelitian['biaya'] == 0)
-                        <a href="/Rincian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px">
-                            <span>
-                                <i class="la la-dollar"></i>
-                                <span>
-                                    Tambah Rincian
-                                </span>
-                            </span>
-                        </a>
+                        @endif
                     @endif
                     <!-- cek alur -->
                     <!-- penelitian rencana -->
                     @if ($vwDetailPenelitian['idMilestone'] == 1)
-                    <div class="btn-group m-btn-group m-btn-group--pill m-btn-group--air" role="group" aria-label="...">
-                        <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
-                            Batal
-                        </button>
-                        @if($vwDetailPenelitian['totalBayar'] >= ($vwDetailPenelitian['biaya']/2.0))
-                        <button type="button" class="m-btn btn btn-success" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']" id="btnLanjut">
-                            Lanjut
-                        </button>
+                        @if($vwDetailPenelitian['totalBayar'] >= ($vwDetailPenelitian['biaya']/2.0) && $vwDetailPenelitian['biaya'] != 0)
+                        <div class="btn-group m-btn-group m-btn-group--pill m-btn-group--air" role="group" aria-label="...">
+                            <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
+                                Batal
+                            </button>
+                            <button type="button" class="m-btn btn btn-success" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']" id="btnLanjut">
+                                Lanjut
+                            </button>
+                        </div>
+                        @else
+                            <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
+                                Batal
+                            </button>
                         @endif
-                    </div>
                     <!-- else if (penelitian sudah mulai) -->
                     @elseif ($vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4)
                     <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air btn-generate" id="btnTrx"

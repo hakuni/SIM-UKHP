@@ -40,7 +40,8 @@ SELECT DISTINCT
     `vk`.`biaya` AS `biaya`,
     TO_DAYS(`tp`.`startDate`) + `tp`.`durasi` - TO_DAYS(NOW()) AS `sisaDurasi`,
     `tp`.`durasi` AS `durasi`,
-    `mp`.`perlakuan` AS `perlakuan`
+    `mp`.`perlakuan` AS `perlakuan`,
+    `p`.`updated_at` AS `updated_at`
 
     FROM
         `mst_penelitians` `p` LEFT JOIN `trx_penelitians` `tp` ON `p`.`idPenelitian` = `tp`.`idPenelitian`
