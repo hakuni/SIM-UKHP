@@ -51,7 +51,7 @@
                             <ul class="m-portlet__nav">
                                 <li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
                                     m-dropdown-toggle="hover" aria-expanded="true">
-                                    <small class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand">
+                                    <small class="m-portlet__nav-link m-dropdown__toggle dropdown-toggle btn btn--sm m-btn--pill btn-secondary m-btn m-btn--label-brand cek" id="order">
                                         Urutan :
                                     </small>
                                     <div class="m-dropdown__wrapper" style="width: 130px;">

@@ -1,5 +1,5 @@
 @extends('public.index')
-@section('title', 'Kategori')
+@section('title', 'Layanan')
 @section('content')
 
 <div class="m-content">
@@ -10,7 +10,7 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                Daftar Kategori
+                                Daftar Layanan
                             </h3>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">
-                                                Tambah Kategori
+                                                Tambah Harga Layanan
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">
@@ -50,10 +50,28 @@
                                         <div class="modal-body">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Kategori <strong style="color:red" ;>*</strong> :
+                                                    Item <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="text" id="tbxKategori" class="form-control m-input"
+                                                    <input type="text" id="tbxItem" class="form-control m-input"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-form-label col-lg-3 col-sm-12">
+                                                    Harga <strong style="color:red" ;>*</strong> :
+                                                </label>
+                                                <div class="col-lg-9 col-md-9 col-sm-12">
+                                                    <input type="number" id="tbxHarga" class="form-control m-input"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-form-label col-lg-3 col-sm-12">
+                                                    Satuan <strong style="color:red" ;>*</strong> :
+                                                </label>
+                                                <div class="col-lg-9 col-md-9 col-sm-12">
+                                                    <input type="text" id="tbxSatuan" class="form-control m-input"
                                                         required>
                                                 </div>
                                             </div>
@@ -62,7 +80,7 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 Batal
                                             </button>
-                                            <button type="button" class="btn btn-success" id="btnTambahKategori">
+                                            <button type="button" class="btn btn-success" id="btnTambahLayanan">
                                                 Tambah
                                             </button>
                                         </div>
@@ -76,7 +94,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">
-                                                Ubah Kategori
+                                                Ubah Daftar Layanan
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">
@@ -87,10 +105,28 @@
                                         <div class="modal-body">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Kategori <strong style="color:red" ;>*</strong> :
+                                                    Item <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="text" id="tbxKategoriUbah" class="form-control m-input"
+                                                    <input type="text" id="tbxItemUbah" class="form-control m-input"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-form-label col-lg-3 col-sm-12">
+                                                    Harga <strong style="color:red" ;>*</strong> :
+                                                </label>
+                                                <div class="col-lg-9 col-md-9 col-sm-12">
+                                                    <input type="number" id="tbxHargaUbah" class="form-control m-input"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group m-form__group row">
+                                                <label class="col-form-label col-lg-3 col-sm-12">
+                                                    Satuan <strong style="color:red" ;>*</strong> :
+                                                </label>
+                                                <div class="col-lg-9 col-md-9 col-sm-12">
+                                                    <input type="text" id="tbxSatuanUbah" class="form-control m-input"
                                                         required>
                                                 </div>
                                             </div>
@@ -99,7 +135,7 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 Batal
                                             </button>
-                                            <button type="button" class="btn btn-success" id="btnUbahKategori">
+                                            <button type="button" class="btn btn-success" id="btnUbahLayanan">
                                                 Ubah
                                             </button>
                                         </div>
@@ -113,7 +149,7 @@
                                     <span>
                                         <i class="fa fa-plus"></i>
                                         <span>
-                                            Tambah Kategori
+                                            Tambah Layanan
                                         </span>
                                     </span>
                                 </a>
@@ -123,12 +159,12 @@
                     </div>
                     <!--end: Search Form -->
                     <!--begin: Datatable -->
-                    <div class="m_datatable" id="divKategoriList"></div>
+                    <div class="m_datatable" id="divLayananList"></div>
                     <!--end: Datatable -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="{{asset('assets/app/js/kategori/index.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/app/js/layanan/index.js')}}" type="text/javascript"></script>
 @endsection

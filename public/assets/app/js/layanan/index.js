@@ -6,12 +6,12 @@ jQuery(document).ready(function () {
 
 var Table = {
     Init: function () {
-        t = $("#divKategoriList").mDatatable({
+        t = $("#divLayananList").mDatatable({
             data: {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/kategori",
+                        url: "/api/inventaris",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -42,21 +42,31 @@ var Table = {
                 }
             },
             columns: [{
-                    field: "idKategori",
+                    field: "idAlatBahan",
                     title: "Aksi",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<button onclick="Button.ModalUbah(' + t.idKategori + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
+                            '<button onclick="Button.ModalUbah(' + t.idAlatBahan + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<button onclick="Button.Hapus(' + t.idKategori + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
+                            '<button onclick="Button.Hapus(' + t.idAlatBahan + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
                         return strBuilder;
                     }
                 },
                 {
-                    field: "namaKategori",
-                    title: "Kategori Penelitian",
+                    field: "namaItem",
+                    title: "Item",
+                    textAlign: "center"
+                },
+                {
+                    field: "harga",
+                    title: "Harga",
+                    textAlign: "center"
+                },
+                {
+                    field: "satuan",
+                    title: "Satuan",
                     textAlign: "center"
                 }
             ]
@@ -66,14 +76,16 @@ var Table = {
 
 var Button = {
     Init: function () {
-        $("#btnTambahKategori").on("click", function () {
+        $("#btnTambahLayanan").on("click", function () {
             Button.Tambah();
         });
     },
     Tambah: function () {
-        var btn = $("#btnTambahKategori");
+        var btn = $("#btnTambahLayanan");
         var params = {
-            namaKategori: $("#tbxKategori").val()
+            namaItem: $("#tbxItem").val(),
+            harga: $("#tbxHarga").val(),
+            satuan: $("#tbxSatuan").val()
         };
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -82,7 +94,7 @@ var Button = {
         );
 
         $.ajax({
-                url: "/api/kategori",
+                url: "/api/inventaris",
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -90,10 +102,11 @@ var Button = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#divKategoriList").mDatatable('reload');
-                $("#tbxKategori").val("");
+                $("#divLayananList").mDatatable('reload');
+                $("#tbxItem").val("");
+                $("#tbxHarga").val("");
+                $("#tbxSatuan").val("");
                 $("#formTambah").modal("toggle");
-                console.log(data);
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -106,7 +119,7 @@ var Button = {
     },
     Hapus: function (id) {
         $.ajax({
-                url: "/api/kategori/" + id,
+                url: "/api/inventaris/" + id,
                 type: "DELETE",
                 dataType: "json",
                 contentType: "application/json",
@@ -114,18 +127,19 @@ var Button = {
             })
             .done(function (data, textStatus, jqXHR) {
                 Common.Alert.Success("Berhasil dihapus")
-                $("#divKategoriList").mDatatable('reload');
+                $("#divLayananList").mDatatable('reload');
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     },
     Ubah: function (id) {
-        var btn = $("#btnUbahKategori");
-        console.log(id);
+        var btn = $("#btnUbahLayanan");
         var params = {
-            idKategori: id,
-            namaKategori: $("#tbxKategoriUbah").val()
+            idAlatBahan: id,
+            namaItem: $("#tbxItemUbah").val(),
+            harga: $("#tbxHargaUbah").val(),
+            satuan: $("#tbxSatuanUbah").val()
         };
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -134,7 +148,7 @@ var Button = {
         );
 
         $.ajax({
-                url: "/api/kategori",
+                url: "/api/inventaris",
                 type: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -142,13 +156,15 @@ var Button = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#divKategoriList").mDatatable('reload');
-                $("#tbxKategoriUbah").val("");
+                $("#divLayananList").mDatatable('reload');
+                $("#tbxItemUbah").val("");
+                $("#tbxHargaUbah").val("");
+                $("#tbxSatuanUbah").val("");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
                 if (Common.CheckError.Object(data))
                     Common.Alert.Success("Berhasil diubah");
                 $("#formUbah").modal("toggle");
-                $("#divKategoriList").mDatatable('reload');
+                $("#divLayananList").mDatatable('reload');
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -160,17 +176,19 @@ var Button = {
     },
     ModalUbah: function (id) {
         $.ajax({
-                url: "/api/kategori/" + id,
+                url: "/api/inventaris/" + id,
                 type: "GET",
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#tbxKategoriUbah").val(data.namaKategori);
+                $("#tbxItem").val(data.namaItem);
+                $("#tbxHarga").val(data.harga);
+                $("#tbxSatuan").val(data.satuan);
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
-                $("#btnUbahKategori").on("click", function () {
-                    Button.Ubah(data.idKategori);
+                $("#btnUbahLayanan").on("click", function () {
+                    Button.Ubah(data.idAlatBahan);
                 })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

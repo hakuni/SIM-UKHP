@@ -90,6 +90,18 @@
                     </span>
                 </a>
             </li>
+            <li class="m-menu__item" aria-haspopup="true">
+                <a href="/Layanan" class="m-menu__link ">
+                    <i class="m-menu__link-icon flaticon-cogwheel-2" style="color:whitesmoke"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
+                                Layanan
+                            </span>
+                        </span>
+                    </span>
+                </a>
+            </li>
         </ul>
     </div>
 

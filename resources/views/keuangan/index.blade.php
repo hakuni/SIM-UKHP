@@ -10,7 +10,7 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                List Keuangan
+                                Daftar Keuangan
                             </h3>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                             </div>
                                             <div class="m-form__control">
                                                 <select class="form-control m-bootstrap-select" id="slsStatusPen">
-                                                    <option value="">All</option>
+                                                    <option value="">Semua</option>
                                                     <option value="BELUM LUNAS">BELUM LUNAS</option>
                                                     <option value="LUNAS">LUNAS</option>
                                                 </select>

@@ -10,7 +10,7 @@
                     <div class="m-portlet__head-caption col-lg-8">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                List Alat dan Bahan
+                                Daftar Alat dan Bahan
                             </h3>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
                             <span>
                                 <i class="fa fa-file"></i>
                                 <span>
-                                    Eksport File
+                                    Eksport
                                 </span>
                             </span>
                         </a>
@@ -107,9 +107,6 @@
                                                 id="btnFilterBeli" style="padding-left:15px; padding-right:15px">
                                                 <span>
                                                     <i class="fa fa-search"></i>
-                                                    <span>
-                                                        Filter
-                                                    </span>
                                                 </span>
                                             </button>
                                         </div>
@@ -267,9 +264,6 @@
                                                 id="btnFilterGuna" style="padding-left:15px; padding-right:15px">
                                                 <span>
                                                     <i class="fa fa-search"></i>
-                                                    <span>
-                                                        Filter
-                                                    </span>
                                                 </span>
                                             </button>
                                         </div>

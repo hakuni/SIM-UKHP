@@ -5,9 +5,12 @@ namespace App\Http\Controllers\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class KategoriController extends Controller
+class MasterController extends Controller
 {
-    public function index(){
+    public function kategori(){
         return view('kategori/index');
+    }
+    public function layanan(){
+        return view('layanan/index');
     }
 }

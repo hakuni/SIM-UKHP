@@ -11,6 +11,7 @@ var Page = {
         //filter
         $(".TaskOrderBy").on("click", function () {
             var order = (this.id);
+            console.log($(".cek").id());
             Get.Filter(order);
         })
 
@@ -32,30 +33,9 @@ var Page = {
             Get.DetailPenelitian(idPen);
         });
     },
-    Filter: function () {
-        $("#order-terbaru").val();
-    },
 };
 
 var Get = {
-    Filter: function (order) {
-        var link = "/Tracking/List?orderBy=" + order;
-        console.log(link);
-        $.ajax({
-            url: link,
-            type: "GET",
-            success: function (data) {
-                $("#listPenelitian").html(data);
-                id = $("#idPenelitian").val();
-                Get.DetailPenelitian(id);
-                $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());
-
-            },
-            error: function () {
-                alert("error");
-            }
-        });
-    },
     DetailPenelitian: function (id) {
         var link = "/Tracking/Detail/" + id;
         console.log(link);
@@ -89,7 +69,25 @@ var Get = {
                 alert("error");
             }
         });
-    }
+    },
+    Filter: function (order) {
+        var link = "/Tracking/List?orderBy=" + order;
+        console.log(link);
+        $.ajax({
+            url: link,
+            type: "GET",
+            success: function (data) {
+                $("#listPenelitian").html(data);
+                id = $("#idPenelitian").val();
+                Get.DetailPenelitian(id);
+                $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());
+
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    },
 };
 
 var Transaction = {

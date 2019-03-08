@@ -19,6 +19,13 @@ Route::get('/Dashboard', function () {
     return view('dashboard/index');
 });
 
+#region Tracking
+// tracking
+Route::get('/Tracking', 'View\TrackingController@index') -> name('/Tracking');
+Route::get('/Tracking/List', 'View\TrackingController@listPenelitian');
+Route::get('/Tracking/Detail/{idPenelitian}', 'View\TrackingController@detailPenelitian');
+#endregion
+
 #region Penelitian
 // penelitian
 Route::get('/Penelitian', 'View\PenelitianController@index');
@@ -41,14 +48,9 @@ Route::get('/Rincian/{id}', 'View\KeuanganController@rincian');
 Route::get('/Inventaris', 'View\InventarisController@index');
 #endregion
 
-#region Kategori
+#region Master
 // kategori
-Route::get('/Kategori', 'View\InventarisController@index');
-#endregion
-
-#region Tracking
-// tracking
-Route::get('/Tracking', 'View\TrackingController@index') -> name('/Tracking');
-Route::get('/Tracking/List', 'View\TrackingController@listPenelitian');
-Route::get('/Tracking/Detail/{idPenelitian}', 'View\TrackingController@detailPenelitian');
+Route::get('/Kategori', 'View\MasterController@kategori');
+// layanan
+Route::get('/Layanan', 'View\MasterController@layanan');
 #endregion

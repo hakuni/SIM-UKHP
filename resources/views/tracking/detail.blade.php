@@ -28,6 +28,7 @@
                         </span>
                     </a>
                     <!-- modal -->
+                    <!-- form pembayaran -->
                     <div class="modal hide fade" id="formPembayaran" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -79,6 +80,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- form laporan penelitian -->
                     @if ($vwDetailPenelitian['idMilestone'] == 4)
                     <div class="modal hide fade" id="$vwDetailPenelitian['idMilestone']" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -125,6 +127,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- form alur penelitian -->
                     @elseif ($vwDetailPenelitian['idMilestone'] == 1 || $vwDetailPenelitian['idMilestone'] == 2 ||
                     $vwDetailPenelitian['idMilestone'] == 3)
                     <div class="modal hide fade" id="$vwDetailPenelitian['idMilestone']" role="dialog" aria-labelledby="exampleModalLabel"
@@ -208,7 +211,7 @@
                             </button>
                         </div>
                         @else
-                            <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
+                            <button type="button" class="btn btn-secondary btn-m m-btn m-btn--icon m-btn--pill m-btn--air" id="btnHapus">
                                 Batal
                             </button>
                         @endif
