@@ -19,7 +19,7 @@ var Grafik = {
         // Add data
         chart.data = []
         //loop
-        $.each(data, function(index, item){
+        $.each(data, function (index, item) {
             var params = {
                 kategoriPen: item.namaKategori,
                 jumlah: item.banyakPenelitian
@@ -50,14 +50,14 @@ var Grafik = {
         // Add data
         chart.data = []
         //loop
-        $.each(data, function(index, item){
+        $.each(data, function (index, item) {
             var params = {
                 hewan: item.namaAlatBahan,
                 jumlah: item.banyakPenelitian
             }
             chart.data.push(params);
         })
-        
+
         // Add and configure Series
         var pieSeries = chart.series.push(new am4charts.PieSeries());
         pieSeries.dataFields.value = "jumlah";
@@ -84,10 +84,10 @@ var Grafik = {
         // Create chart instance
         var chart = am4core.create("keuangan", am4charts.XYChart);
 
-        var pemasukan = [0,0,0,0,0,0,0,0,0,0,0,0]
+        var pemasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        $.each(data, function(index, item){
-            pemasukan[item.bulan-1] = item.pemasukan;
+        $.each(data, function (index, item) {
+            pemasukan[item.bulan - 1] = item.pemasukan;
         })
 
         // Add data
@@ -100,34 +100,34 @@ var Grafik = {
         }, {
             "bulan": "Mar",
             "pemasukan": pemasukan[2]
-        },{
+        }, {
             "bulan": "Apr",
             "pemasukan": pemasukan[3]
-        },{
+        }, {
             "bulan": "Mei",
             "pemasukan": pemasukan[4]
-        },{
+        }, {
             "bulan": "Jun",
             "pemasukan": pemasukan[5]
-        },{
+        }, {
             "bulan": "Jul",
             "pemasukan": pemasukan[6]
-        },{
+        }, {
             "bulan": "Aug",
             "pemasukan": pemasukan[7]
-        },{
+        }, {
             "bulan": "Sep",
             "pemasukan": pemasukan[8]
-        },{
+        }, {
             "bulan": "Okt",
             "pemasukan": pemasukan[9]
-        },{
+        }, {
             "bulan": "Nov",
             "pemasukan": pemasukan[10]
-        },{
+        }, {
             "bulan": "Des",
             "pemasukan": pemasukan[11]
-        },];
+        }, ];
 
         // Create category axis
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -163,9 +163,9 @@ var Grafik = {
 
         // Create chart instance
         var chart = am4core.create("hewan", am4charts.XYChart);
-        
+
         chart.data = [];
-        $.each(data, function(index, item){
+        $.each(data, function (index, item) {
             var params = {
                 hewan: item.namaAlatBahan,
                 jumlah: item.hewan
@@ -223,22 +223,21 @@ var Grafik = {
             series.columns.template.width = am4core.percent(95);
         }
         // createSeries("bulan1", "Jan", false);
-        if(data[0].bulan<=6){
-            createSeries("bulan1", "Jan", false);
-            createSeries("bulan2", "Feb", true);
-            createSeries("bulan3", "Mar", true);
-            createSeries("bulan4", "Apr", true);
-            createSeries("bulan5", "Mei", true);
-            createSeries("bulan6", "Jun", true);
-        }
-        else{
-            createSeries("bulan1", "Jul", false);
-            createSeries("bulan2", "Ags", true);
-            createSeries("bulan3", "Sep", true);
-            createSeries("bulan4", "Okt", true);
-            createSeries("bulan5", "Nov", true);
-            createSeries("bulan6", "Des", true);
-        }
+        // if (data[0].bulan <= 6) {
+        //     createSeries("bulan1", "Jan", false);
+        //     createSeries("bulan2", "Feb", true);
+        //     createSeries("bulan3", "Mar", true);
+        //     createSeries("bulan4", "Apr", true);
+        //     createSeries("bulan5", "Mei", true);
+        //     createSeries("bulan6", "Jun", true);
+        // } else {
+        //     createSeries("bulan1", "Jul", false);
+        //     createSeries("bulan2", "Ags", true);
+        //     createSeries("bulan3", "Sep", true);
+        //     createSeries("bulan4", "Okt", true);
+        //     createSeries("bulan5", "Nov", true);
+        //     createSeries("bulan6", "Des", true);
+        // }
 
         // Add legend
         chart.legend = new am4charts.Legend();
@@ -250,15 +249,15 @@ var Grafik = {
 
         // Create chart instance
         var chart = am4core.create("hewan", am4charts.XYChart);
-        
+
         chart.data = [];
-        var jumlah = [0,0,0,0,0,0];
-        $.each(data, function(i, hewan){
-            jumlah[((hewan.bulan) % 6)-1] = hewan.banyak;
+        var jumlah = [0, 0, 0, 0, 0, 0];
+        $.each(data, function (i, hewan) {
+            jumlah[((hewan.bulan) % 6) - 1] = hewan.banyak;
             console.log("garok")
         })
         // loop data
-        $.each(data, function(index, item){
+        $.each(data, function (index, item) {
             // loop banyak hewan
             var params = {
                 hewan: item.namaAlatBahan,
@@ -272,7 +271,7 @@ var Grafik = {
             console.log(params)
             chart.data.push(params);
         })
-        
+
         // Add data
         // chart.data = [{
         //     "hewan": "Tikus",
@@ -323,15 +322,14 @@ var Grafik = {
             series.stacked = stacked;
             series.columns.template.width = am4core.percent(95);
         }
-        if(data[0].bulan<=6){
+        if (data[0].bulan <= 6) {
             createSeries("bulan1", "Jan", false);
             createSeries("bulan2", "Feb", true);
             createSeries("bulan3", "Mar", true);
             createSeries("bulan4", "Apr", true);
             createSeries("bulan5", "Mei", true);
             createSeries("bulan6", "Jun", true);
-        }
-        else{
+        } else {
             createSeries("bulan1", "Jul", false);
             createSeries("bulan2", "Ags", true);
             createSeries("bulan3", "Sep", true);
@@ -346,7 +344,7 @@ var Grafik = {
 };
 
 var GetData = {
-    Init: function(){
+    Init: function () {
         GetData.Kategori();
         GetData.Penggunaan();
         GetData.Keuangan();
@@ -357,7 +355,7 @@ var GetData = {
             url: "/api/dashboard/kategori",
             type: 'GET',
             success: function (data) {
-                Grafik.Kategori(data);  
+                Grafik.Kategori(data);
             },
             error: function () {
                 alert("error");
@@ -392,12 +390,12 @@ var GetData = {
             }
         });
     },
-    Hewan: function(){
+    Hewan: function () {
         $.ajax({
             url: "/api/dashboard/banyakHewan",
             type: 'GET',
             success: function (data) {
-                Grafik.Hewan(data);
+                Grafik.HewanPeriode(data);
                 console.log(data);
             },
             error: function () {

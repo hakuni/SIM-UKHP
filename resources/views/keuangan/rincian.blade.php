@@ -192,7 +192,7 @@
                                                 </a>
                                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
                                             </div>
-                                            @if({{$statusPenelitian}} == 1)
+                                            @if($statusPenelitian == 1)
                                                 <div class="col-xl-3 order-1 order-xl-2 m--align-right">
                                                     <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
                                                         id="btnRincian" data-toggle="modal" data-target="#formRincian">

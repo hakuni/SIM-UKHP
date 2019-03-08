@@ -1,7 +1,7 @@
 var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
-    if ($("#status").val() == 1) {
+    if ($("#statusPenelitian").val() == 1) {
         $("#formRincian").modal({
             backdrop: "static"
         });

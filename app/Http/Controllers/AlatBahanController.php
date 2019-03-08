@@ -19,21 +19,26 @@ class AlatBahanController extends Controller
             $alatBahan->harga = $request->harga;
             $alatBahan->satuan = $request->satuan;
             $alatBahan->createdBy = 'kuni';
-            
+
             $alatBahan->save();
 
             $alatBahan->ErrorType = 0;
             return response($alatBahan);
         }
         catch(\Exception $e){
-
+            $alatBahan = new MstAlatBahan;
+            $alatBahan->ErrorType = 2;
+            $alatBahan->ErrorMessage = $e->getMessage();
+            return response($alatBahan);
         }
     }
-    
+
     public function getListAlatBahan(Request $req){
         try{
             if($req->tipe == null)
                 $inventarisasi = vwAlatBahan::All();
+            else if($req->tipe == 0)
+                $inventarisasi = MstAlatBahan::All();
             else
                 $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $req->tipe)->get();
             $inventarisasi->ErrorType = 0;
@@ -46,11 +51,11 @@ class AlatBahanController extends Controller
             return response($inventarisasi)->setStatusCode(204);
         }
     }
-    
+
     public function getSingleAlatBahan($idAlatBahan){
         try{
             $inventarisasi = new MstAlatBahan;
-            $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $tipeAlatBahan)->first();
+            $inventarisasi = MstAlatBahan::where('idAlatBahan', $idAlatBahan)->first();
             $inventarisasi->ErrorType = 0;
             return response($inventarisasi)->setStatusCode(200);
         }
@@ -61,26 +66,30 @@ class AlatBahanController extends Controller
             return response($inventarisasi)->setStatusCode(204);
         }
     }
-    
-    public function editAlatBahan(Request $req){
+
+    public function editAlatBahan(Request $request){
         try{
+            $alatBahan = new MstAlatBahan;
             $alatBahan = MstAlatBahan::findOrFail($request->idAlatBahan);
             $alatBahan->namaAlatBahan = $request->namaAlatBahan;
             $alatBahan->tipeAlatBahan = $request->tipeAlatBahan;
             $alatBahan->harga = $request->harga;
             $alatBahan->satuan = $request->satuan;
             $alatBahan->updatedBy = 'kuni';
-            
+
             $alatBahan->save();
 
             $alatBahan->ErrorType = 0;
             return response($alatBahan);
         }
         catch(\Exception $e){
-
+            $alatBahan = new MstAlatBahan;
+            $alatBahan->ErrorType = 2;
+            $alatBahan->ErrorMessage = $e->getMessage();
+            return response($alatBahan);
         }
     }
-    
+
     public function deleteAlatBahan($id){
         try{
             $inventarisasi = MstAlatBahan::findOrFail($id);

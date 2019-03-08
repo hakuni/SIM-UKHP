@@ -48,6 +48,28 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
+                                            <div class="m-form__group form-group row">
+                                                <label class="col-form-label col-lg-3 col-sm-12">
+                                                    Tipe Layanan <strong style="color:red" ;>*</strong> :
+                                                </label>
+                                                <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipe" value="1">
+                                                        Hewan
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipe" value="2">
+                                                        Alat Bahan
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipe" value="3">
+                                                        Jasa
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
                                                     Item <strong style="color:red" ;>*</strong> :
@@ -103,6 +125,28 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
+                                            <div class="m-form__group form-group row">
+                                                <label class="col-form-label col-lg-3 col-sm-12">
+                                                    Tipe Layanan <strong style="color:red" ;>*</strong> :
+                                                </label>
+                                                <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipeUbah" value="1" id="hewan">
+                                                        Hewan
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipeUbah" value="2" id="alatBahan">
+                                                        Alat Bahan
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipeUbah" value="3" id="jasa">
+                                                        Jasa
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
                                                     Item <strong style="color:red" ;>*</strong> :
@@ -145,7 +189,7 @@
                             <!-- btn tambah kategori -->
                             <div class="col-xl-4 order-1 order-xl-2 m--align-right">
                                 <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
-                                            id="btnTambah" data-toggle="modal" data-target="#formTambah">
+                                    id="btnTambah" data-toggle="modal" data-target="#formTambah">
                                     <span>
                                         <i class="fa fa-plus"></i>
                                         <span>

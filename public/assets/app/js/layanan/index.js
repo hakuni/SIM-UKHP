@@ -11,7 +11,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/inventaris",
+                        url: "/api/inventarisasi?tipe=0",
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -55,7 +55,7 @@ var Table = {
                     }
                 },
                 {
-                    field: "namaItem",
+                    field: "namaAlatBahan",
                     title: "Item",
                     textAlign: "center"
                 },
@@ -83,7 +83,8 @@ var Button = {
     Tambah: function () {
         var btn = $("#btnTambahLayanan");
         var params = {
-            namaItem: $("#tbxItem").val(),
+            tipeAlatBahan: $("input[name='tipe']:checked").val(),
+            namaAlatBahan: $("#tbxItem").val(),
             harga: $("#tbxHarga").val(),
             satuan: $("#tbxSatuan").val()
         };
@@ -94,7 +95,7 @@ var Button = {
         );
 
         $.ajax({
-                url: "/api/inventaris",
+                url: "/api/inventarisasi",
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -103,6 +104,7 @@ var Button = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divLayananList").mDatatable('reload');
+                $("input[name='tipe']").prop('checked', false);
                 $("#tbxItem").val("");
                 $("#tbxHarga").val("");
                 $("#tbxSatuan").val("");
@@ -119,7 +121,7 @@ var Button = {
     },
     Hapus: function (id) {
         $.ajax({
-                url: "/api/inventaris/" + id,
+                url: "/api/inventarisasi/" + id,
                 type: "DELETE",
                 dataType: "json",
                 contentType: "application/json",
@@ -137,7 +139,8 @@ var Button = {
         var btn = $("#btnUbahLayanan");
         var params = {
             idAlatBahan: id,
-            namaItem: $("#tbxItemUbah").val(),
+            tipeAlatBahan: $("input[name='tipeUbah']:checked").val(),
+            namaAlatBahan: $("#tbxItemUbah").val(),
             harga: $("#tbxHargaUbah").val(),
             satuan: $("#tbxSatuanUbah").val()
         };
@@ -148,7 +151,7 @@ var Button = {
         );
 
         $.ajax({
-                url: "/api/inventaris",
+                url: "/api/inventarisasi",
                 type: "PUT",
                 dataType: "json",
                 contentType: "application/json",
@@ -157,12 +160,13 @@ var Button = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divLayananList").mDatatable('reload');
+                $("input[name='tipe']").prop('checked', false);
                 $("#tbxItemUbah").val("");
                 $("#tbxHargaUbah").val("");
                 $("#tbxSatuanUbah").val("");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
-                if (Common.CheckError.Object(data))
-                    Common.Alert.Success("Berhasil diubah");
+                // if (Common.CheckError.Object(data))
+                Common.Alert.Success("Berhasil diubah");
                 $("#formUbah").modal("toggle");
                 $("#divLayananList").mDatatable('reload');
             })
@@ -176,14 +180,23 @@ var Button = {
     },
     ModalUbah: function (id) {
         $.ajax({
-                url: "/api/inventaris/" + id,
+                url: "/api/inventarisasi/" + id,
                 type: "GET",
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#tbxItem").val(data.namaItem);
-                $("#tbxHarga").val(data.harga);
-                $("#tbxSatuan").val(data.satuan);
+                console.log(data)
+                if (data.tipeAlatBahan == 1) {
+                    $("#hewan").prop("checked", true);
+                } else if (data.tipeAlatBahan == 2) {
+                    $("#alatBahan").prop("checked", true);
+                } else if (data.tipeAlatBahan == 3) {
+                    $("#jasa").prop("checked", true);
+                }
+                // $("input[name='tipeUbah']:checked").val();
+                $("#tbxItemUbah").val(data.namaAlatBahan);
+                $("#tbxHargaUbah").val(data.harga);
+                $("#tbxSatuanUbah").val(data.satuan);
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
