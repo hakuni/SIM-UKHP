@@ -20,7 +20,7 @@ class CreateVwPenggunaanp extends Migration
 
     private function dropView() : string{
         return <<<SQL
-DROP VIEW IF EXISTS `vw_penggunaanps;`;
+DROP VIEW IF EXISTS `vw_penggunaanps`;
 SQL;
     }
 

@@ -92,7 +92,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/keuangan/log/" + id,
+                        url: "/api/keuanganLog/" + id,
                         method: "GET",
                         map: function (r) {
                             var e = r;

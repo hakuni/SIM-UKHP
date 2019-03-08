@@ -11,7 +11,7 @@ var Control = {
     },
     SelectHewan: function () {
         $.ajax({
-                url: "/api/inventarisasi/1",
+                url: "/api/inventarisasi?tipe=1",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {

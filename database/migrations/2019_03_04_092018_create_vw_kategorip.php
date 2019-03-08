@@ -20,7 +20,7 @@ class CreateVwKategorip extends Migration
 
     private function dropView() : string{
         return <<<SQL
-DROP VIEW IF EXISTS `vw_kategorips;`;
+DROP VIEW IF EXISTS `vw_kategorips`;
 SQL;
     }
 

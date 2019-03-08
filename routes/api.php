@@ -30,24 +30,6 @@ Route::put('/kategori', 'KategoriController@saveKategori');
 Route::delete('/kategori/{id}', 'KategoriController@deleteKategori');
 #endregion
 
-#region API Inventarisasi
-#master
-//get list alat bahan
-Route::get('/inventarisasi', 'AlatBahanController@getListAlatBahan');
-//get list hewan
-Route::get('/inventarisasi/{tipeAlatBahan}', 'AlatBahanController@getListHewan');
-//get single alat bahan
-Route::get('/inventarisasi/{tipeAlatBahan}/{idAlatBahan}', 'AlatBahanController@getSingleAlatBahan');
-//delet alat bahan
-Route::delete('/inventarisasi/{idAlatBahan}', 'AlatBahanController@deleteAlatBahan');
-
-#logs
-//create log
-Route::post('/inventarisasi/log', 'AlatBahanController@saveLogs');
-//get list log
-Route::get('/inventarisasi/log/{tipeLog}', 'AlatBahanController@getListLog');
-#endregion
-
 #region API Status Penelitian
 //create status
 Route::post('/status', 'StatusPenelitianController@saveStatus');
@@ -61,7 +43,33 @@ Route::put('/status', 'StatusPenelitianController@saveStatus');
 Route::delete('/status/{id}', 'StatusPenelitianController@deleteStatus');
 #endregion
 
+#region API Inventarisasi
+
+#region master
+//create alat bahan
+Route::post('/inventarisasi', 'AlatBahanController@saveAlatBahan');
+//get list alat bahan
+Route::get('/inventarisasi', 'AlatBahanController@getListAlatBahan');
+//get single alat bahan
+Route::get('/inventarisasi/{idAlatBahan}', 'AlatBahanController@getSingleAlatBahan');
+//update alat bahan
+Route::put('/inventarisasi', 'AlatBahanController@editAlatBahan');
+//delet alat bahan
+Route::delete('/inventarisasi/{idAlatBahan}', 'AlatBahanController@deleteAlatBahan');
+#endregion
+
+#region logs
+//create log
+Route::post('/inventarisasiLog', 'AlatBahanController@saveLogs');
+//get list log
+Route::get('/inventarisasiLog/{tipeLog}', 'AlatBahanController@getListLog');
+#endregion
+
+#endregion
+
 #region API Penelitian
+
+#region master
 //create penelitian
 Route::post('/penelitian', 'PenelitianController@createPenelitian');
 //list penelitian
@@ -74,11 +82,27 @@ Route::put('/penelitian', 'PenelitianController@editPenelitian');
 Route::delete('/penelitian/{id}', 'PenelitianController@deletePenelitian');
 #endregion
 
+#region API Tracking
+//continue trx
+Route::post('/penelitian/activity', 'PenelitianController@saveTrx');
+//get list trx
+Route::get('penelitian/activity/{idPenelitian}', 'PenelitianController@getListTrx');
+//cancel penelitian
+Route::put('/penelitian/activity', 'PenelitianController@batalTrx');
+//upload hasil analisis
+Route::post('/penelitian/activity/uploadAnalisis', 'PenelitianController@uploadFile');
+#endregion
+
+#endregion
+
 #region API Keuangan
+
+#region master
 //list keuangan
 Route::get('/keuangan', 'KeuanganController@getListKeuangan');
+#endregion
 
-#rincian
+#region rincian
 //create new list rincian
 Route::post('/keuangan/detail', 'KeuanganController@saveDetail');
 //get rincian
@@ -89,18 +113,21 @@ Route::get('/keuangan/detail/{idPenelitian}/{idRincian}', 'KeuanganController@ge
 Route::put('/keuangan/detail', 'KeuanganController@saveDetail');
 //delete rincian
 Route::delete('/keuangan/detail/{idRincian}', 'KeuanganController@deleteDetail');
+#endregion
 
-#log pembayaran
+#region log
 //create log pembayaran
-Route::post('/keuangan/log', 'KeuanganController@saveLog');
+Route::post('/keuanganLog', 'KeuanganController@saveLog');
 //get log pembayaran
-Route::get('/keuangan/log/{idPenelitian}', 'KeuanganController@getListLog');
+Route::get('/keuanganLog/{idPenelitian}', 'KeuanganController@getListLog');
 //get single log
-Route::get('/keuangan/log/{idPenelitian}/{idLog}', 'KeuanganController@getSingleLog');
+Route::get('/keuanganLog/{idPenelitian}/{idLog}', 'KeuanganController@getSingleLog');
 //update log
-Route::put('/keuangan/log', 'KeuanganController@saveLog');
+Route::put('/keuanganLog', 'KeuanganController@saveLog');
 //delete log
-Route::delete('/keuangan/log', 'KeuanganController@deleteLog');
+Route::delete('/keuanganLog/{idLog}', 'KeuanganController@deleteLog');
+#endregion
+
 #endregion
 
 #region API Prosedur
@@ -108,17 +135,6 @@ Route::delete('/keuangan/log', 'KeuanganController@deleteLog');
 Route::post('/prosedur', 'ProsedurController@saveProsedur');
 //get prosedur
 Route::get('/prosedur/{idProsedur}', 'ProsedurController@getProsedur');
-#endregion
-
-#region API Tracking
-//continue trx
-Route::post('/penelitian/activity', 'PenelitianController@saveTrx');
-//get list trx
-Route::get('penelitian/activity/{idPenelitian}', 'PenelitianController@getListTrx');
-//cancel penelitian
-Route::put('/penelitian/activity', 'PenelitianController@batalTrx');
-//upload hasil analisis
-Route::post('/penelitian/activity/uploadAnalisis', 'PenelitianController@uploadFile');
 #endregion
 
 #region API Dashboard

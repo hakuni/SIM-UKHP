@@ -23,7 +23,7 @@ var Control = {
     },
     GetHewan: function () {
         $.ajax({
-                url: "/api/inventarisasi/1/" + $("#idAlatBahan").val(),
+                url: "/api/inventarisasi/" + $("#idAlatBahan").val(),
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
@@ -35,7 +35,7 @@ var Control = {
     },
     SelectHewan: function () {
         $.ajax({
-                url: "/api/inventarisasi/1",
+                url: "/api/inventarisasi?tipe=1",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {

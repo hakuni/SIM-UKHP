@@ -78,7 +78,7 @@ var Transaction = function () {
     );
 
     $.ajax({
-            url: "/api/keuangan/log",
+            url: "/api/keuanganLog",
             type: "POST",
             dataType: "json",
             contentType: "application/json",

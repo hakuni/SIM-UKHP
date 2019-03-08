@@ -16,7 +16,7 @@ var Data = {
     },
     Pembelian: function(bulan, tahun){
         $.ajax({
-            url: "/api/inventarisasi/log/1/?bulan="+bulan+"&tahun="+tahun,
+            url: "/api/inventarisasiLog/1?bulan="+bulan+"&tahun="+tahun,
             type: "GET",
         })
         .done(function (data, textStatus, jqXHR) {
@@ -29,7 +29,7 @@ var Data = {
     },
     Penggunaan: function(bulan, tahun){
         $.ajax({
-            url: "/api/inventarisasi/log/2/?bulan="+bulan+"&tahun="+tahun,
+            url: "/api/inventarisasiLog/2?bulan="+bulan+"&tahun="+tahun,
             type: "GET",
         })
         .done(function (data, textStatus, jqXHR) {
@@ -209,20 +209,20 @@ var Button = {
     },
     FilterBeli: function(){
         $("#btnFilterBeli").on("click", function(){
-            $("#btnFilterBeli").addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
+            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
             bulan = $("#slsBulanBeli").val();
             tahun = $("#tbxTahunBeli").val();
             Data.Pembelian(bulan,tahun);
-            $("#btnFilterBeli").removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
         })
     },
     FilterGuna: function(){
         $("#btnFilterGuna").on("click", function(){
-            this.addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
+            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
             bulan = $("#slsBulanGunaBeli").val();
             tahun = $("#tbxTahunGunaBeli").val();
             Data.Penggunaan(bulan,tahun);
-            this.removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
         })
     },
     DatePicker: function () {
@@ -307,7 +307,7 @@ var Transaction = {
         );
 
         $.ajax({
-                url: "/api/inventarisasi/log",
+                url: "/api/inventarisasiLog",
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
@@ -348,7 +348,7 @@ var Transaction = {
         );
 
         $.ajax({
-                url: "/api/inventarisasi/log",
+                url: "/api/inventarisasiLog",
                 type: "POST",
                 dataType: "json",
                 contentType: "application/json",
