@@ -185,7 +185,6 @@ var Button = {
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                console.log(data)
                 if (data.tipeAlatBahan == 1) {
                     $("#hewan").prop("checked", true);
                 } else if (data.tipeAlatBahan == 2) {
@@ -193,7 +192,6 @@ var Button = {
                 } else if (data.tipeAlatBahan == 3) {
                     $("#jasa").prop("checked", true);
                 }
-                // $("input[name='tipeUbah']:checked").val();
                 $("#tbxItemUbah").val(data.namaAlatBahan);
                 $("#tbxHargaUbah").val(data.harga);
                 $("#tbxSatuanUbah").val(data.satuan);
