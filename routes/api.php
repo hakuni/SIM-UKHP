@@ -142,4 +142,5 @@ Route::get('dashboard/pemasukan', 'DashboardController@getPemasukan');
 Route::get('dashboard/kategori', 'DashboardController@getKategori');
 Route::get('dashboard/penggunaan', 'DashboardController@getPenggunaan');
 Route::get('dashboard/banyakHewan', 'DashboardController@getBanyakPenggunaan');
+Route::get('dashboard/detailHewan', 'DashboardController@getDetailPenggunaan');
 #endregion
