@@ -28,6 +28,7 @@ SQL;
 CREATE VIEW `vw_penelitians` AS
 SELECT
     `p`.`idPenelitian` AS `idPenelitian`,
+    `p`.`PIC` AS `PIC`,
     `k`.`idKategori` AS `idKategori`,
     `k`.`namaKategori` AS `namaKategori`,
     `mm`.`idMilestone` AS `idMilestone`,

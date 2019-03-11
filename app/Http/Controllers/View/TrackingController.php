@@ -16,7 +16,8 @@ class TrackingController extends Controller
         $banyak = count($vwListPenelitian);
         return view('tracking/index', compact('banyak'));
     }
-    public function listPenelitian($orderBy = 1){
+    public function listPenelitian(Request $req){
+        $orderBy = $req->orderBy == null ? 1 : $req->orderBy;
         $penelitian = new PenelitianController();
         $vwListPenelitian = json_decode($penelitian->getListPenelitian($orderBy)->getContent(),true);
         $idPenelitian = 0;

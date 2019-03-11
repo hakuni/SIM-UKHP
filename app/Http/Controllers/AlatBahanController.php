@@ -110,16 +110,6 @@ class AlatBahanController extends Controller
     #region Log
     public function saveLogs(Request $request){
         try{
-            //save alat bahan dulu
-            $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->orWhere('idAlatBahan', $request->namaAlatBahan)->first();
-            if($cek == null){
-                $cek = new MstAlatBahan;
-                $cek->namaAlatBahan = strtoupper($request->namaAlatBahan);
-                $cek->tipeAlatBahan = $request->tipeAlatBahan;
-                $cek->createdBy = 'kuni';
-                $cek->save();
-            }
-
             if($request->tipeTrx == 1){
                 $logTrx = $request->isMethod('post') ? new LogPembelian : LogPembelian::findOrFail($request->idLog);
                 $logTrx->harga = $request->harga;
@@ -127,7 +117,7 @@ class AlatBahanController extends Controller
             else if($request->tipeTrx == 2){
                 $logTrx = $request->isMethod('post') ? new LogPemakaian : LogPemakaian::findOrFail($request->idLog);
             }
-            $logTrx->namaAlatBahan = $cek->namaAlatBahan;
+            $logTrx->namaAlatBahan = MstAlatBahan::findOrFail($request->idAlatBahan)->namaAlatBahan;
             $logTrx->tglTrx = date("y-m-d", strtotime($request->tglTrx));
             $logTrx->jumlah = $request->jumlah;
 

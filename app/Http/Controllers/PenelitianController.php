@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\MstPenelitian;
 use App\vwPenelitian;
 use App\MstDataClient;
@@ -28,6 +29,7 @@ class PenelitianController extends Controller
             $penelitian->lastMilestoneID = 1;
             $penelitian->PIC = 'kuni';
             $penelitian->createdBy = 'kuni';
+            $penelitian->resi = md5(microtime());
             $penelitian->save();
 
             //save Trx Log
@@ -73,14 +75,13 @@ class PenelitianController extends Controller
         }
     }
 
-    public function getListPenelitian($order = 1)
+    public function getListPenelitian($order)
     {
         try{
             if($order == 1)
                 $penelitian = vwPenelitian::orderBy('updated_at', 'DESC')->get();
             else
                 $penelitian = vwPenelitian::where('PIC', 'kuni')->orderBy('updated_at', 'DESC')->get();
-            $penelitian = vwPenelitian::All();
             $penelitian->ErrorType = 0;
             return response($penelitian)->setStatusCode(200);
         }

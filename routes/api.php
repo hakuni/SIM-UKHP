@@ -110,7 +110,7 @@ Route::get('/keuangan/detail/{idPenelitian}', 'KeuanganController@getListDetail'
 //get single rincian
 Route::get('/keuangan/detail/{idPenelitian}/{idRincian}', 'KeuanganController@getSingleDetail');
 //update single rincian
-Route::put('/keuangan/detail', 'KeuanganController@saveDetail');
+Route::put('/keuangan/detail', 'KeuanganController@editDetail');
 //delete rincian
 Route::delete('/keuangan/detail/{idRincian}', 'KeuanganController@deleteDetail');
 #endregion
@@ -123,7 +123,7 @@ Route::get('/keuanganLog/{idPenelitian}', 'KeuanganController@getListLog');
 //get single log
 Route::get('/keuanganLog/{idPenelitian}/{idLog}', 'KeuanganController@getSingleLog');
 //update log
-Route::put('/keuanganLog', 'KeuanganController@saveLog');
+Route::put('/keuanganLog', 'KeuanganController@editLog');
 //delete log
 Route::delete('/keuanganLog/{idLog}', 'KeuanganController@deleteLog');
 #endregion
@@ -135,6 +135,8 @@ Route::delete('/keuanganLog/{idLog}', 'KeuanganController@deleteLog');
 Route::post('/prosedur', 'ProsedurController@saveProsedur');
 //get prosedur
 Route::get('/prosedur/{idProsedur}', 'ProsedurController@getProsedur');
+//edit prosedur
+Route::put('/prosedur', 'ProsedurController@saveProsedur');
 #endregion
 
 #region API Dashboard

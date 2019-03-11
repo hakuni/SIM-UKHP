@@ -44,22 +44,12 @@ class KeuanganController extends Controller
     #region Rincian
     public function saveDetail(Request $request){
         try{
-            //save alat bahan dulu
-            $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->orWhere('idAlatBahan', $request->namaAlatBahan)->first();
-            if($cek == null){
-                $cek = new MstAlatBahan;
-                $cek->namaAlatBahan = strtoupper($request->namaAlatBahan);
-                $cek->tipeAlatBahan = $request->tipeAlatBahan;
-                $cek->createdBy = 'kuni';
-                $cek->save();
-            }
-
-            $rincian = $request->isMethod('put') ? RincianBiaya::findOrFail($request->idRincianBiaya) : new RincianBiaya;
+            $rincian = new RincianBiaya;
 
             $rincian->idPenelitian = $request->idPenelitian;
             $rincian->idAlatBahan = $cek->idAlatBahan;
             $rincian->jumlah = $request->jumlah;
-            $rincian->harga = $request->harga;
+            $rincian->harga = MstAlatBahan::findOrFail($request->idAlatBahan)->harga;
             if($request->isMethod('post'))
                 $rincian->createdBy = 'kuni';
             else
@@ -104,6 +94,36 @@ class KeuanganController extends Controller
         }
     }
 
+    public function editDetail(Request $request){
+        try{
+            //save alat bahan dulu
+            // $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->orWhere('idAlatBahan', $request->namaAlatBahan)->first();
+            // if($cek == null){
+            //     $cek = new MstAlatBahan;
+            //     $cek->namaAlatBahan = strtoupper($request->namaAlatBahan);
+            //     $cek->tipeAlatBahan = $request->tipeAlatBahan;
+            //     $cek->createdBy = 'kuni';
+            //     $cek->save();
+            // }
+
+            $rincian = RincianBiaya::findOrFail($request->idRincianBiaya);
+
+            $rincian->idAlatBahan = $cek->idAlatBahan;
+            $rincian->jumlah = $request->jumlah;
+
+            $rincian->updatedBy = 'kuni';
+            $rincian->save();
+            $rincian->ErrorType = 0;
+            return response($rincian)->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            $rincian = new RincianBiaya;
+            $rincian->ErrorType = 2;
+            $rincian->ErrorMessage = $e->getMessage();
+            return response($rincian)->setStatusCode(422);
+        }
+    }
+
     public function deleteDetail($idRincian){
         try{
             $rincian = RincianBiaya::findOrFail($idRincian);
@@ -123,7 +143,7 @@ class KeuanganController extends Controller
     #region Log Pembayaran
     public function saveLog(Request $request){
         try{
-            $logPembayaran = $request->isMethod('put') ? LogPembayaran::findOrFail($request->idPenelitian) : new LogPembayaran;
+            $logPembayaran = new LogPembayaran;
 
             $logPembayaran->idPenelitian = $request->idPenelitian;
             $logPembayaran->tglPembayaran = date("y-m-d", strtotime($request->tglPembayaran));
@@ -170,7 +190,27 @@ class KeuanganController extends Controller
         }
     }
 
-    public function deleteLog(){
+    public function editLog(Request $request){
+        try{
+            $logPembayaran = LogPembayaran::findOrFail($request->idPenelitian);
+
+            $logPembayaran->tglPembayaran = date("y-m-d", strtotime($request->tglPembayaran));
+            $logPembayaran->totalPembayaran = $request->totalPembayaran;
+            $logPembayaran->createdBy = 'kuni';
+
+            $logPembayaran->save();
+            $logPembayaran->ErrorType = 0;
+            return response($logPembayaran)->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            $logPembayaran = new LogPembayaran;
+            $logPembayaran->ErrorType = 2;
+            $logPembayaran->ErrorMessage = $e->getMessage();
+            return response($logPembayaran)->setStatusCode(422);
+        }
+    }
+
+    public function deleteLog($idLog){
         try{
             $logPembayaran = LogPembayaran::findOrFail($idLog);
             $logPembayaran->delete();
