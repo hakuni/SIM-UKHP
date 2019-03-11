@@ -45,15 +45,15 @@
                         </li>
                     </ul>
                     <div class="tab-content">
+                        <!-- tab stock -->
                         <div class="tab-pane active" id="stockList" role="tabpanel">
                             <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                                 <div class="row align-items-center">
                                 </div>
                             </div>
-                            <!--end: Search Form -->
-                            <!--begin: Datatable -->
                             <div class="m_datatable" id="divStockList"></div>
                         </div>
+                        <!-- tab pembelian -->
                         <div class="tab-pane" id="pembelianList" role="tabpanel">
                             <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                                 <div class="row align-items-center">
@@ -105,9 +105,7 @@
                                             </div>
                                             <button class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
                                                 id="btnFilterBeli" style="padding-left:15px; padding-right:15px">
-                                                <span>
-                                                    <i class="fa fa-search"></i>
-                                                </span>
+                                                <i class="fa fa-search"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -201,7 +199,7 @@
                                             <span>
                                                 <i class="fa fa-plus"></i>
                                                 <span>
-                                                    Tambah Alat dan Bahan
+                                                    Tambah Pembelian
                                                 </span>
                                             </span>
                                         </a>
@@ -211,6 +209,7 @@
                             </div>
                             <div class="m_datatable" id="divPembelianList"></div>
                         </div>
+                        <!-- tab penggunaan -->
                         <div class="tab-pane" id="penggunaanList" role="tabpanel">
                             <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                                 <div class="row align-items-center">
@@ -262,9 +261,7 @@
                                             </div>
                                             <button class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
                                                 id="btnFilterGuna" style="padding-left:15px; padding-right:15px">
-                                                <span>
-                                                    <i class="fa fa-search"></i>
-                                                </span>
+                                                <i class="fa fa-search"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -346,8 +343,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--end: Search Form -->
-                            <!--begin: Datatable -->
                             <div class="m_datatable" id="divPenggunaanList"></div>
                         </div>
                     </div>

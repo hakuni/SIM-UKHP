@@ -2,7 +2,15 @@
 <div class="tab-content divShowDetail" id="{{$vwPenelitian['idPenelitian']}}">
     <div class="tab-pane active" id="m_widget2_tab1_content">
         <div class="m-widget2">
-            <div class="m-widget2__item m-widget2__item--primary">
+            @php ($color = "")
+                @if ($vwPenelitian['idMilestone'] == "1")
+                    @php ($color = "warning")
+                @elseif ($vwPenelitian['idMilestone'] == "2" || $vwPenelitian['idMilestone'] == "3" || $vwPenelitian['idMilestone'] == "4")
+                    @php ($color = "primary")
+                @elseif ($vwPenelitian['idMilestone'] == "5")
+                    @php ($color = "success")
+                @endif
+            <div class="m-widget2__item m-widget2__item--{{$color}}">
                 <div class="m-widget2__checkbox">
                     <!-- @*UNTUK JARAK ANTARA WARNA DAN TULISAN*@ -->
                 </div>
@@ -12,7 +20,7 @@
                             {{$vwPenelitian['namaPeneliti']}}
                         </span>
 
-                        <span class="m-badge m-badge--success m-badge--wide" style="float: right;">
+                        <span class="m-badge m-badge--{{$color}} m-badge--wide" style="float: right;">
                             {{$vwPenelitian['namaMilestone']}}
                         </span>
                     </div>

@@ -10,35 +10,35 @@ jQuery(document).ready(function () {
 });
 
 var Data = {
-    Init: function(){
-        Data.Pembelian("","");
-        Data.Penggunaan("","");
+    Init: function () {
+        Data.Pembelian("", "");
+        Data.Penggunaan("", "");
     },
-    Pembelian: function(bulan, tahun){
+    Pembelian: function (bulan, tahun) {
         $.ajax({
-            url: "/api/inventarisasiLog/1?bulan="+bulan+"&tahun="+tahun,
-            type: "GET",
-        })
-        .done(function (data, textStatus, jqXHR) {
-            $("#divPembelianList").mDatatable('destroy');
-            Table.Pembelian(data);
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            Common.Alert.Error(errorThrown);
-        });
+                url: "/api/inventarisasiLog/1?bulan=" + bulan + "&tahun=" + tahun,
+                type: "GET",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#divPembelianList").mDatatable('destroy');
+                Table.Pembelian(data);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     },
-    Penggunaan: function(bulan, tahun){
+    Penggunaan: function (bulan, tahun) {
         $.ajax({
-            url: "/api/inventarisasiLog/2?bulan="+bulan+"&tahun="+tahun,
-            type: "GET",
-        })
-        .done(function (data, textStatus, jqXHR) {
-            $("#divPenggunaanList").mDatatable('destroy');
-            Table.Penggunaan(data);
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            Common.Alert.Error(errorThrown);
-        });
+                url: "/api/inventarisasiLog/2?bulan=" + bulan + "&tahun=" + tahun,
+                type: "GET",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#divPenggunaanList").mDatatable('destroy');
+                Table.Penggunaan(data);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     }
 };
 
@@ -201,28 +201,28 @@ var Table = {
 };
 
 var Button = {
-    Init: function(){
+    Init: function () {
         Button.FilterBeli();
         Button.FilterGuna();
         Button.DatePicker();
         Button.Switch();
     },
-    FilterBeli: function(){
-        $("#btnFilterBeli").on("click", function(){
-            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
+    FilterBeli: function () {
+        $("#btnFilterBeli").on("click", function () {
+            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
             bulan = $("#slsBulanBeli").val();
             tahun = $("#tbxTahunBeli").val();
-            Data.Pembelian(bulan,tahun);
-            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+            Data.Pembelian(bulan, tahun);
+            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
         })
     },
-    FilterGuna: function(){
-        $("#btnFilterGuna").on("click", function(){
-            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled",true);
+    FilterGuna: function () {
+        $("#btnFilterGuna").on("click", function () {
+            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
             bulan = $("#slsBulanGunaBeli").val();
             tahun = $("#tbxTahunGunaBeli").val();
-            Data.Penggunaan(bulan,tahun);
-            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled",false);
+            Data.Penggunaan(bulan, tahun);
+            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
         })
     },
     DatePicker: function () {
@@ -316,6 +316,7 @@ var Transaction = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divStockList").mDatatable('reload');
+                Data.Pembelian("", "");
                 $("#divPembelianList").mDatatable('reload');
                 Select.AlatBahan();
                 $("#slsAlatBahan").val("");
@@ -357,6 +358,7 @@ var Transaction = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divStockList").mDatatable('reload');
+                Data.Penggunaan("", "");
                 $("#divPenggunaanList").mDatatable('reload');
                 Select.AlatBahan();
                 $("#slsAlatBahanGuna").val("");

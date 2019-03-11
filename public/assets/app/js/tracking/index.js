@@ -1,15 +1,15 @@
 var id = 0;
 //== Class Initialization
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     $("#sidebarHide").hide();
     Page.Init();
 });
 
 var Page = {
-    Init: function() {
+    Init: function () {
         Get.Filter(1);
         //filter
-        $(".TaskOrderBy").on("click", function() {
+        $(".TaskOrderBy").on("click", function () {
             var order = this.id;
             if (order == 1) {
                 $("#order").html("Terbaru");
@@ -19,7 +19,7 @@ var Page = {
             Get.Filter(order);
         });
 
-        $("#listPenelitian").on("click", "div.divShowDetail", function(e) {
+        $("#listPenelitian").on("click", "div.divShowDetail", function (e) {
             var idPen = this.id;
             console.log(idPen);
             $(this)
@@ -40,13 +40,13 @@ var Page = {
 };
 
 var Get = {
-    DetailPenelitian: function(id) {
+    DetailPenelitian: function (id) {
         var link = "/Tracking/Detail/" + id;
         console.log(link);
         $.ajax({
             url: link,
             type: "GET",
-            success: function(data) {
+            success: function (data) {
                 $("#detailPenelitian").html(data);
                 if ($("#inptMilestoneID").val() == 5) {
                     $("#btnTrx").hide();
@@ -54,14 +54,14 @@ var Get = {
                 Transaction.Init(id);
                 Control.DatePicker();
                 // Table.History(id);
-                $("#btnMaximize").on("click", function() {
+                $("#btnMaximize").on("click", function () {
                     $("#sidebarShow").show();
                     $("#detailPenelitian").removeClass("col-lg-11");
                     $("#hideList").addClass("col-lg-4");
                     $("#sidebarHide").removeClass("col-lg-1");
                     $("#sidebarHide").hide();
                 });
-                $("#btnMinimize").on("click", function() {
+                $("#btnMinimize").on("click", function () {
                     $("#sidebarShow").hide();
                     $("#detailPenelitian").addClass("col-lg-11");
                     $("#hideList").removeClass("col-lg-4");
@@ -69,24 +69,24 @@ var Get = {
                     $("#sidebarHide").show();
                 });
             },
-            error: function() {
+            error: function () {
                 alert("error");
             }
         });
     },
-    Filter: function(order) {
+    Filter: function (order) {
         var link = "/Tracking/List?orderBy=" + order;
         console.log(link);
         $.ajax({
             url: link,
             type: "GET",
-            success: function(data) {
+            success: function (data) {
                 $("#listPenelitian").html(data);
                 id = $("#idPenelitian").val();
                 Get.DetailPenelitian(id);
                 $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());
             },
-            error: function() {
+            error: function () {
                 alert("error");
             }
         });
@@ -94,28 +94,28 @@ var Get = {
 };
 
 var Transaction = {
-    Init: function(id) {
+    Init: function (id) {
         Transaction.Batal(id);
         Transaction.Alur(id);
         Transaction.Pembayaran(id);
     },
-    Batal: function(id) {
-        $("#btnHapus").on("click", function() {
+    Batal: function (id) {
+        $("#btnHapus").on("click", function () {
             var btn = $("#btnHapus");
             btn.addClass("m-loader m-loader--right m-loader--light").attr(
                 "disabled",
                 true
             );
             $.ajax({
-                url: "/api/penelitian/activity",
-                type: "PUT",
-                data: {
-                    idPenelitian: id
-                },
-                dataType: "json",
-                cache: false
-            })
-                .done(function(data, textStatus, jqXHR) {
+                    url: "/api/penelitian/activity",
+                    type: "PUT",
+                    data: {
+                        idPenelitian: id
+                    },
+                    dataType: "json",
+                    cache: false
+                })
+                .done(function (data, textStatus, jqXHR) {
                     Common.Alert.SuccessRoute(
                         "Berhasil membatalkan penelitian",
                         "/Tracking"
@@ -124,7 +124,7 @@ var Transaction = {
                         "m-loader m-loader--right m-loader--light"
                     ).attr("disabled", false);
                 })
-                .fail(function(jqXHR, textStatus, errorThrown) {
+                .fail(function (jqXHR, textStatus, errorThrown) {
                     Common.Alert.Error(errorThrown);
                     btn.removeClass(
                         "m-loader m-loader--right m-loader--light"
@@ -132,8 +132,8 @@ var Transaction = {
                 });
         });
     },
-    Alur: function(id) {
-        $("#btnTambah").on("click", function() {
+    Alur: function (id) {
+        $("#btnTambah").on("click", function () {
             var btn = $("#btnTambah");
 
             var model = new FormData();
@@ -152,14 +152,14 @@ var Transaction = {
             );
 
             $.ajax({
-                url: "/api/penelitian/activity",
-                type: "POST",
-                dataType: "json",
-                contentType: false,
-                data: model,
-                processData: false
-            })
-                .done(function(data, textStatus, jqXHR) {
+                    url: "/api/penelitian/activity",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: false,
+                    data: model,
+                    processData: false
+                })
+                .done(function (data, textStatus, jqXHR) {
                     // if (Common.CheckError.Object(data) == true)
                     Common.Alert.SuccessRoute(
                         "Berhasil menambahkan",
@@ -169,7 +169,7 @@ var Transaction = {
                         "m-loader m-loader--right m-loader--light"
                     ).attr("disabled", false);
                 })
-                .fail(function(jqXHR, textStatus, errorThrown) {
+                .fail(function (jqXHR, textStatus, errorThrown) {
                     Common.Alert.Error(errorThrown);
                     btn.removeClass(
                         "m-loader m-loader--right m-loader--light"
@@ -177,8 +177,8 @@ var Transaction = {
                 });
         });
     },
-    Pembayaran: function(id) {
-        $("#btnTambahBayar").on("click", function() {
+    Pembayaran: function (id) {
+        $("#btnTambahBayar").on("click", function () {
             var btn = $("#btnTambahBayar");
             var params = {
                 idPenelitian: id,
@@ -192,14 +192,14 @@ var Transaction = {
             );
 
             $.ajax({
-                url: "/api/keuangan/log",
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(params),
-                cache: false
-            })
-                .done(function(data, textStatus, jqXHR) {
+                    url: "/api/keuanganLog",
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(params),
+                    cache: false
+                })
+                .done(function (data, textStatus, jqXHR) {
                     // if (Common.CheckError.Object(data) == true)
                     Common.Alert.SuccessRoute(
                         "Berhasil menambahkan",
@@ -209,7 +209,7 @@ var Transaction = {
                         "m-loader m-loader--right m-loader--light"
                     ).attr("disabled", false);
                 })
-                .fail(function(jqXHR, textStatus, errorThrown) {
+                .fail(function (jqXHR, textStatus, errorThrown) {
                     Common.Alert.Error(errorThrown);
                     btn.removeClass(
                         "m-loader m-loader--right m-loader--light"
@@ -220,7 +220,7 @@ var Transaction = {
 };
 
 var Table = {
-    History: function(id) {
+    History: function (id) {
         t = $("#divHistory").mDatatable({
             data: {
                 type: "remote",
@@ -228,7 +228,7 @@ var Table = {
                     read: {
                         url: "/api/task/ListTransactionTask/" + id,
                         method: "GET",
-                        map: function(r) {
+                        map: function (r) {
                             var e = r;
                             return void 0 !== r.data && (e = r.data), e;
                         }
@@ -256,14 +256,13 @@ var Table = {
                     }
                 }
             },
-            columns: [
-                {
+            columns: [{
                     field: "idPenelitian",
                     title: "Actions",
                     sortable: false,
                     textAlign: "center",
                     width: 100,
-                    template: function(t) {
+                    template: function (t) {
                         if (t.Attachment != null)
                             var strBuilder =
                                 '<a href="/PinnedProject/Download/ ' +
@@ -304,7 +303,7 @@ var Table = {
 };
 
 var Control = {
-    DatePicker: function() {
+    DatePicker: function () {
         $(".datepicker").datepicker({
             format: "dd-M-yyyy",
             todayBtn: "linked",

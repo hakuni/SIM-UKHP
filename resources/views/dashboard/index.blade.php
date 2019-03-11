@@ -42,7 +42,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="m-form__control">
-                                                    <input class="form-control m-input" id="tbxTahun" />
+                                                    <input class="form-control m-input" id="tbxTahunKategori" />
                                                 </div>
                                             </div>
                                             <div class="d-md-none m--margin-bottom-10"></div>
@@ -69,7 +69,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="m-form__control">
-                                                    <input class="form-control m-input" id="tbxTahun" />
+                                                    <input class="form-control m-input" id="tbxTahunGuna" />
                                                 </div>
                                             </div>
                                             <div class="d-md-none m--margin-bottom-10"></div>
@@ -108,12 +108,12 @@
                                             </label>
                                         </div>
                                         <div class="m-form__control col-lg-8" style="padding-left:10px; padding-right:10px">
-                                            <input class="form-control m-input" id="tbxTahun" />
+                                            <input class="form-control m-input" id="tbxTahunKeu" />
                                         </div>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
-                                    id="btnFilterPenelitian" style="padding-left:15px; padding-right:15px">
+                                    id="btnFilterKeuangan" style="padding-left:15px; padding-right:15px">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
@@ -135,26 +135,60 @@
                 <div class="m-widget14">
                     <div class="m-widget14__header" style="padding-bottom:0px">
                         <div class="row align-items-center">
-                            <h3 class="m-widget14__title col-lg-8">
+                            <h3 class="m-widget14__title col-lg-3">
                                 Hewan
                             </h3>
-                            <div class="col-lg-4 form-group m-form__group row" style="margin-bottom:0px">
-                                <div class="col-lg-9">
-                                    <div class="m-form__group m-form__group row">
+                            <div class="col-lg-9 m-form__group row" style="margin-bottom:0px">
+                                <div class="col-lg-4">
+                                    <div class="m-form__group row">
                                         <div class="m-form__label" style="padding-top:7px">
                                             <label class="m-label m-label--single">
-                                                Tahun:
+                                                Hewan :
                                             </label>
                                         </div>
-                                        <div class="m-form__control col-lg-9" style="padding-left:10px; padding-right:10px">
-                                            <input class="form-control m-input" id="tbxTahun" />
+                                        <div class="m-form__control">
+                                            <select class="form-control m-bootstrap-select" data-dropup-auto="false" id="slsHewan">
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
-                                    id="btnFilterPenelitian" style="padding-left:15px; padding-right:15px">
-                                    <i class="fa fa-search"></i>
-                                </button>
+                                <div class="col-lg-4">
+                                    <div class="m-form__group--inline">
+                                        <div class="m-form__label" style="padding-top:7px">
+                                            <label class="m-label m-label--single">
+                                                Periode :
+                                            </label>
+                                        </div>
+                                        <div class="m-form__control">
+                                            <select class="form-control m-bootstrap-select" id="slsPeriode" data-dropup-auto="false">
+                                                <option value="6">Jan - Jun</option>
+                                                <option value="7">Jul - Des</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="m-form__group row">
+                                        <div class="m-form__label" style="padding-top:7px">
+                                            <label class="m-label m-label--single">
+                                                Tahun :
+                                            </label>
+                                        </div>
+                                        <div class="m-form__control">
+                                            <div class="row">
+                                                <div class="col-lg-9">
+                                                    <input class="form-control m-input" id="tbxTahunHewan" />
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <button class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
+                                                        id="btnFilterHewan" style="padding-left:15px; padding-right:15px">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -53,7 +53,7 @@ var Table = {
             },
             columns: [{
                     field: "idRincianBiaya",
-                    title: "Actions",
+                    title: "Aksi",
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {

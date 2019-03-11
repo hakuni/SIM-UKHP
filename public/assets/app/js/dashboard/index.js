@@ -1,7 +1,73 @@
+// var date = new Date();
+// $("tbxTahunHewan").val(date.getYear());
 jQuery(document).ready(function () {
     GetData.Init();
     Grafik.Init();
+    Control.Init();
 });
+
+var GetData = {
+    Init: function () {
+        GetData.Kategori();
+        GetData.Penggunaan();
+        GetData.Keuangan();
+        GetData.Hewan();
+    },
+    Kategori: function () {
+        $.ajax({
+            url: "/api/dashboard/kategori?tahun=" + $("#tbxTahunKategori").val(),
+            type: 'GET',
+            success: function (data) {
+                Grafik.Kategori(data);
+            },
+            error: function () {
+                alert("error");
+                console.log("eror");
+            }
+        });
+    },
+    Penggunaan: function () {
+        $.ajax({
+            url: "/api/dashboard/penggunaan?tahun=" + $("#tbxTahunGuna").val(),
+            type: 'GET',
+            success: function (data) {
+                Grafik.Penggunaan(data);
+            },
+            error: function () {
+                alert("error");
+                console.log("eror");
+            }
+        });
+    },
+    Keuangan: function () {
+        $.ajax({
+            url: "/api/dashboard/pemasukan?tahun=" + $("#tbxTahunKeu").val(),
+            type: 'GET',
+            success: function (data) {
+                Grafik.Keuangan(data);
+                // console.log(data[0].pemasukan);
+            },
+            error: function () {
+                alert("error");
+                console.log("eror");
+            }
+        });
+    },
+    Hewan: function () {
+        $.ajax({
+            url: "/api/dashboard/banyakHewan?periode=6&tahun=" + $("#tbxTahunHewan").val(),
+            type: 'GET',
+            success: function (data) {
+                Grafik.HewanPeriode(data);
+                console.log(data);
+            },
+            error: function () {
+                alert("error");
+                console.log("eror");
+            }
+        });
+    }
+};
 
 var Grafik = {
     Init: function () {
@@ -158,250 +224,251 @@ var Grafik = {
     },
     HewanPeriode: function (data) {
         // Themes begin
+        am4core.useTheme(am4themes_frozen);
         am4core.useTheme(am4themes_animated);
         // Themes end
 
         // Create chart instance
         var chart = am4core.create("hewan", am4charts.XYChart);
 
-        chart.data = [];
+        // Add data
+        chart.data = []
+        //loop
         $.each(data, function (index, item) {
             var params = {
                 hewan: item.namaAlatBahan,
-                jumlah: item.hewan
+                jumlah: item.banyak
             }
             chart.data.push(params);
         })
-        // Add data
-        // chart.data = [{
-        //     "hewan": "Tikus",
-        //     "bulan1": 1,
-        //     "bulan2": 1,
-        //     "bulan3": 2,
-        //     "bulan4": 2,
-        //     "bulan5": 1,
-        //     "bulan6": 1,
-        // }, {
-        //     "hewan": "Mencit",
-        //     "bulan1": 1,
-        //     "bulan2": 1,
-        //     "bulan3": 1,
-        //     "bulan4": 1,
-        //     "bulan5": 1,
-        //     "bulan6": 1,
-        // }, {
-        //     "hewan": "Kelinci",
-        //     "bulan1": 1,
-        //     "bulan2": 1,
-        //     "bulan3": 1,
-        //     "bulan4": 2,
-        //     "bulan5": 1,
-        //     "bulan6": 2,
-        // }];
 
         // Create axes
+
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
         categoryAxis.dataFields.category = "hewan";
-        categoryAxis.title.text = "Hewan";
         categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.renderer.minGridDistance = 20;
-        categoryAxis.renderer.cellStartLocation = 0.1;
-        categoryAxis.renderer.cellEndLocation = 0.9;
+        categoryAxis.renderer.minGridDistance = 30;
+
+        categoryAxis.renderer.labels.template.adapter.add("dy", function (dy, target) {
+            if (target.dataItem && target.dataItem.index & 2 == 2) {
+                return dy + 25;
+            }
+            return dy;
+        });
 
         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.min = 0;
-        valueAxis.title.text = "Jumlah";
 
         // Create series
-        function createSeries(field, name, stacked) {
-            var series = chart.series.push(new am4charts.ColumnSeries());
-            series.dataFields.valueY = field;
-            series.dataFields.categoryX = "hewan";
-            series.name = name;
-            series.columns.template.tooltipText = "{name}: [bold]{valueY}[/]";
-            series.stacked = stacked;
-            series.columns.template.width = am4core.percent(95);
-        }
-        // createSeries("bulan1", "Jan", false);
-        // if (data[0].bulan <= 6) {
-        //     createSeries("bulan1", "Jan", false);
-        //     createSeries("bulan2", "Feb", true);
-        //     createSeries("bulan3", "Mar", true);
-        //     createSeries("bulan4", "Apr", true);
-        //     createSeries("bulan5", "Mei", true);
-        //     createSeries("bulan6", "Jun", true);
-        // } else {
-        //     createSeries("bulan1", "Jul", false);
-        //     createSeries("bulan2", "Ags", true);
-        //     createSeries("bulan3", "Sep", true);
-        //     createSeries("bulan4", "Okt", true);
-        //     createSeries("bulan5", "Nov", true);
-        //     createSeries("bulan6", "Des", true);
-        // }
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "jumlah";
+        series.dataFields.categoryX = "hewan";
+        series.name = "Hewan";
+        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series.columns.template.fillOpacity = .8;
 
-        // Add legend
-        chart.legend = new am4charts.Legend();
+        var columnTemplate = series.columns.template;
+        columnTemplate.strokeWidth = 2;
+        columnTemplate.strokeOpacity = 1;
     },
     HewanDetail: function (data) {
         // Themes begin
+        am4core.useTheme(am4themes_frozen);
         am4core.useTheme(am4themes_animated);
         // Themes end
 
         // Create chart instance
         var chart = am4core.create("hewan", am4charts.XYChart);
 
-        chart.data = [];
-        var jumlah = [0, 0, 0, 0, 0, 0];
-        $.each(data, function (i, hewan) {
-            jumlah[((hewan.bulan) % 6) - 1] = hewan.banyak;
-            console.log("garok")
-        })
-        // loop data
+        // Add data
+        var banyak = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
         $.each(data, function (index, item) {
-            // loop banyak hewan
-            var params = {
-                hewan: item.namaAlatBahan,
-                bulan1: jumlah[0],
-                bulan2: jumlah[1],
-                bulan3: jumlah[2],
-                bulan4: jumlah[3],
-                bulan5: jumlah[4],
-                bulan6: jumlah[5],
-            }
-            console.log(params)
-            chart.data.push(params);
+            banyak[item.bulan - 1] = item.banyak;
         })
 
         // Add data
-        // chart.data = [{
-        //     "hewan": "Tikus",
-        //     "bulan1": 1,
-        //     "bulan2": 1,
-        //     "bulan3": 2,
-        //     "bulan4": 2,
-        //     "bulan5": 1,
-        //     "bulan6": 1,
-        // }, {
-        //     "hewan": "Mencit",
-        //     "bulan1": 1,
-        //     "bulan2": 1,
-        //     "bulan3": 1,
-        //     "bulan4": 1,
-        //     "bulan5": 1,
-        //     "bulan6": 1,
-        // }, {
-        //     "hewan": "Kelinci",
-        //     "bulan1": 1,
-        //     "bulan2": 1,
-        //     "bulan3": 1,
-        //     "bulan4": 2,
-        //     "bulan5": 1,
-        //     "bulan6": 2,
-        // }];
+        chart.data = [{
+            "bulan": "Jan",
+            "banyak": banyak[0]
+        }, {
+            "bulan": "Feb",
+            "banyak": banyak[1]
+        }, {
+            "bulan": "Mar",
+            "banyak": banyak[2]
+        }, {
+            "bulan": "Apr",
+            "banyak": banyak[3]
+        }, {
+            "bulan": "Mei",
+            "banyak": banyak[4]
+        }, {
+            "bulan": "Jun",
+            "banyak": banyak[5]
+        }, {
+            "bulan": "Jul",
+            "banyak": banyak[6]
+        }, {
+            "bulan": "Aug",
+            "banyak": banyak[7]
+        }, {
+            "bulan": "Sep",
+            "banyak": banyak[8]
+        }, {
+            "bulan": "Okt",
+            "banyak": banyak[9]
+        }, {
+            "bulan": "Nov",
+            "banyak": banyak[10]
+        }, {
+            "bulan": "Des",
+            "banyak": banyak[11]
+        }, ];
 
         // Create axes
+
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-        categoryAxis.dataFields.category = "hewan";
-        categoryAxis.title.text = "Hewan";
+        categoryAxis.dataFields.category = "bulan";
         categoryAxis.renderer.grid.template.location = 0;
-        categoryAxis.renderer.minGridDistance = 20;
-        categoryAxis.renderer.cellStartLocation = 0.1;
-        categoryAxis.renderer.cellEndLocation = 0.9;
+        categoryAxis.renderer.minGridDistance = 30;
+
+        categoryAxis.renderer.labels.template.adapter.add("dy", function (dy, target) {
+            if (target.dataItem && target.dataItem.index & 2 == 2) {
+                return dy + 25;
+            }
+            return dy;
+        });
 
         var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-        valueAxis.min = 0;
-        valueAxis.title.text = "Jumlah";
 
         // Create series
-        function createSeries(field, name, stacked) {
-            var series = chart.series.push(new am4charts.ColumnSeries());
-            series.dataFields.valueY = field;
-            series.dataFields.categoryX = "hewan";
-            series.name = name;
-            series.columns.template.tooltipText = "{name}: [bold]{valueY}[/]";
-            series.stacked = stacked;
-            series.columns.template.width = am4core.percent(95);
-        }
-        if (data[0].bulan <= 6) {
-            createSeries("bulan1", "Jan", false);
-            createSeries("bulan2", "Feb", true);
-            createSeries("bulan3", "Mar", true);
-            createSeries("bulan4", "Apr", true);
-            createSeries("bulan5", "Mei", true);
-            createSeries("bulan6", "Jun", true);
-        } else {
-            createSeries("bulan1", "Jul", false);
-            createSeries("bulan2", "Ags", true);
-            createSeries("bulan3", "Sep", true);
-            createSeries("bulan4", "Okt", true);
-            createSeries("bulan5", "Nov", true);
-            createSeries("bulan6", "Des", true);
-        }
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "banyak";
+        series.dataFields.categoryX = "bulan";
+        series.name = "Bulan";
+        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series.columns.template.fillOpacity = .8;
 
-        // Add legend
-        chart.legend = new am4charts.Legend();
+        var columnTemplate = series.columns.template;
+        columnTemplate.strokeWidth = 2;
+        columnTemplate.strokeOpacity = 1;
     }
 };
 
-var GetData = {
+var Control = {
     Init: function () {
-        GetData.Kategori();
-        GetData.Penggunaan();
-        GetData.Keuangan();
-        GetData.Hewan();
+        Control.SelectHewan();
+        Control.FilterKategori();
+        Control.FilterPenggunaan();
+        Control.FilterKeuangan();
+        Control.FilterHewan();
     },
-    Kategori: function () {
+    SelectHewan: function () {
         $.ajax({
-            url: "/api/dashboard/kategori",
-            type: 'GET',
-            success: function (data) {
-                Grafik.Kategori(data);
-            },
-            error: function () {
-                alert("error");
-                console.log("eror");
-            }
-        });
+                url: "/api/inventarisasi?tipe=1",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#slsHewan").html("<option value=0>Semua Hewan</option>");
+                $.each(data, function (i, item) {
+                    $("#slsHewan").append(
+                        "<option value='" +
+                        item.idAlatBahan +
+                        "'>" +
+                        item.namaAlatBahan +
+                        "</option>"
+                    );
+                });
+                $("#slsHewan").select2({
+                    placeholder: "Pilih Hewan"
+                });
+                $("#slsPeriode").select2();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     },
-    Penggunaan: function () {
-        $.ajax({
-            url: "/api/dashboard/penggunaan",
-            type: 'GET',
-            success: function (data) {
-                Grafik.Penggunaan(data);
-            },
-            error: function () {
-                alert("error");
-                console.log("eror");
-            }
-        });
+    FilterKategori: function () {
+        $("#btnFilterKategori").on("click", function () {
+            var btn = $("#btnFilterKategori");
+
+            btn.addClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                true
+            );
+            GetData.Kategori();
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        })
     },
-    Keuangan: function () {
-        $.ajax({
-            url: "/api/dashboard/pemasukan",
-            type: 'GET',
-            success: function (data) {
-                Grafik.Keuangan(data);
-                // console.log(data[0].pemasukan);
-            },
-            error: function () {
-                alert("error");
-                console.log("eror");
-            }
-        });
+    FilterPenggunaan: function () {
+        $("#btnFilterPenggunaan").on("click", function () {
+            var btn = $("#btnFilterPenggunaan");
+
+            btn.addClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                true
+            );
+            GetData.Penggunaan();
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        })
     },
-    Hewan: function () {
-        $.ajax({
-            url: "/api/dashboard/banyakHewan",
-            type: 'GET',
-            success: function (data) {
-                Grafik.HewanPeriode(data);
-                console.log(data);
-            },
-            error: function () {
-                alert("error");
-                console.log("eror");
+    FilterKeuangan: function () {
+        $("#btnFilterKeuangan").on("click", function () {
+            var btn = $("#btnFilterKeuangan");
+
+            btn.addClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                true
+            );
+            GetData.Keuangan();
+            btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                false
+            );
+        })
+    },
+    FilterHewan: function () {
+        $("#btnFilterHewan").on("click", function () {
+            var btn = $("#btnFilterHewan");
+
+            btn.addClass("m-loader m-loader--right m-loader--light").attr(
+                "disabled",
+                true
+            );
+            if ($("#slsHewan").val() == 0) {
+                GetData.Hewan();
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            } else {
+                $.ajax({
+                    url: "/api/dashboard/detailHewan?idAlatBahan=" + $("#slsHewan").val() + "&periode=" + $("#slsPeriode").val() + "&tahun=" + $("#tbxTahunHewan").val(),
+                    type: "GET",
+                    success: function (data) {
+                        // console.log(data);
+                        Grafik.HewanDetail(data);
+                        btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                            "disabled",
+                            false
+                        );
+                    },
+                    error: function () {
+                        btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                            "disabled",
+                            false
+                        );
+                        alert("error");
+                        console.log("eror");
+                    }
+                })
             }
-        });
+        })
     }
 };

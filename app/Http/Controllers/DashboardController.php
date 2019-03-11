@@ -49,7 +49,7 @@ class DashboardController extends Controller
                         ->where('bulan', $whereBulan, $req->periode)
                         ->where('idAlatBahan', $req->idAlatBahan)
                         ->get();
-        
+
             return response($banyak);
         }
         catch(\Exception $e){
@@ -61,28 +61,28 @@ class DashboardController extends Controller
         try{
             $tahun = ($req->tahun == null ? date('Y') : $req->tahun);
             if($req->periode == 6){
-                $banyak = DB::select('select 
+                $banyak = DB::select('select
                                     mab.namaAlatBahan as namaAlatBahan,
                                     SUM(rb.jumlah) as banyak,
                                     YEAR(rb.created_at) as tahun
                                   from
                                     rincian_biayas rb JOIN mst_alat_bahans mab ON mab.idAlatBahan = rb.idAlatBahan
                                     JOIN mst_penelitians mp ON mp.idPenelitian = rb.idPenelitian
-                                  where 
+                                  where
                                     mp.statusPenelitian != 4 AND mab.tipeAlatBahan = 1
                                     AND MONTH(rb.created_at) <= :bulan
                                     AND YEAR(rb.created_at) = :tahun
                                   group by mab.namaAlatBahan, YEAR(rb.created_at)', ['bulan' => $req->periode, 'tahun'=>$tahun]);
             }
             else{
-                $banyak = DB::select('select 
+                $banyak = DB::select('select
                                     mab.namaAlatBahan as namaAlatBahan,
                                     SUM(rb.jumlah) as banyak,
                                     YEAR(rb.created_at) as tahun
                                   from
-                                    rincian_biayas rb JOIN mst_alat_bahans mab ON mab.idAlatBahan = rb.idAlatBahan
-                                    JOIN mst_penelitians mp ON mp.idPenelitian = rb.idPenelitian
-                                  where 
+                                    mst_alat_bahans mab LEFT JOIN rincian_biayas rb ON mab.idAlatBahan = rb.idAlatBahan
+                                    LEFT JOIN mst_penelitians mp ON mp.idPenelitian = rb.idPenelitian
+                                  where
                                     mp.statusPenelitian != 4 AND mab.tipeAlatBahan = 1
                                     AND MONTH(rb.created_at) >= :bulan
                                     AND YEAR(rb.created_at) = :tahun
