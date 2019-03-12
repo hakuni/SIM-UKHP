@@ -127,17 +127,6 @@
                                                 <div class="modal-body">
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Tipe Alat dan Bahan <strong style="color:red" ;>*</strong>
-                                                            :
-                                                        </label>
-                                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input data-switch="true" type="checkbox" checked="checked"
-                                                                data-on-text="Hewan" data-handle-width="70"
-                                                                data-off-text="Bukan" data-on-color="info" id="btnTipe">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group m-form__group row">
-                                                        <label class="col-form-label col-lg-3 col-sm-12">
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">

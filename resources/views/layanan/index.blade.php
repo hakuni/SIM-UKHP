@@ -68,6 +68,11 @@
                                                         Jasa
                                                         <span></span>
                                                     </label>
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipe" value="4">
+                                                        Serum
+                                                        <span></span>
+                                                    </label>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -143,6 +148,11 @@
                                                     <label class="m-radio m-radio--solid m-radio--success">
                                                         <input type="radio" name="tipeUbah" value="3" id="jasa">
                                                         Jasa
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="m-radio m-radio--solid m-radio--success">
+                                                        <input type="radio" name="tipeUbah" value="4" id="serum">
+                                                        Serum
                                                         <span></span>
                                                     </label>
                                                 </div>

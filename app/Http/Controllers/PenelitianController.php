@@ -11,6 +11,8 @@ use App\LogTrxPenelitian;
 use App\TrxPenelitian;
 use App\vwTrxPenelitian;
 use App\MstMilestone;
+use App\vwRincian;
+use App\LogPemakaian;
 
 class PenelitianController extends Controller
 {
@@ -75,7 +77,7 @@ class PenelitianController extends Controller
         }
     }
 
-    public function getListPenelitian($order)
+    public function getListPenelitian($order = 1)
     {
         try{
             if($order == 1)
@@ -177,6 +179,10 @@ class PenelitianController extends Controller
 
             $penelitian->save();
 
+            //save pemakaian hewan
+            if($request->idMilestone == 1)
+                $pemakaian = $this->savePemakaian($penelitian->idPenelitian);
+
             //save log trx
             $milestone = $transaksi->milestone()->first()->namaMilestone;
             $log = $this->saveTrxLog($request->idPenelitian, $milestone, $transaksi->PIC);
@@ -247,6 +253,44 @@ class PenelitianController extends Controller
     #endregion
 
     #region Private
+    //insert ke tabel pemakaian
+    private function savePemakaian($idPenelitian){
+        try{
+            //get alat bahan dari rincian where tipe != 3
+            $rincian = vwRincian::where('idPenelitian', $idPenelitian)->where('tipeAlatBahan', '!=', 3)->get();
+
+            $logPemakaian = array();
+            //loop data
+            foreach($rincian as $data){
+                array_push($logPemakaian, array(
+                            'namaAlatBahan' => $data->namaAlatBahan,
+                            'tglTrx' => date('Y-m-d'),
+                            'jumlah' => $data->jumlah,
+                            'createdBy' => 'kuni',
+                            'created_at' => date('Y-m-d'),
+                            'updated_at' => date('Y-m-d')
+                ));
+            }
+            LogPemakaian::insert($logPemakaian);
+            return "success";
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+        }
+    }public function getSingleViewKeuangan($idPenelitian){
+        try{
+            $keuangan = vwKeuangan::where('idPenelitian', $idPenelitian);
+            $keuangan->ErrorType = 0;
+            return response($keuangan)->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            $keuangan = new vwKeuangan;
+            $keuangan->ErrorType = 2;
+            $keuangan->ErrorMessage = $e->getMessage();
+            return response($keuangan)->setStatusCode(204);
+        }
+    }
+
     //simpan data client
     private function saveDataClient(Request $request){
         try{

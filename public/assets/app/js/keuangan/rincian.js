@@ -148,21 +148,19 @@ var Control = {
             Control.Tambah();
         });
         Control.Select();
-        Control.Switch();
     },
     Select: function () {
         $.ajax({
-                url: "/api/inventarisasi",
+                url: "/api/inventarisasi?tipe=0",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#slsAlatBahan").html("<option></option>");
                 $.each(data, function (i, item) {
-                    $("#slsAlatBahan").append("<option value='" + item.namaAlatBahan + "'>" + item.namaAlatBahan + "</option>");
+                    $("#slsAlatBahan").append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
                 });
                 $("#slsAlatBahan").select2({
                     placeholder: "Alat dan Bahan",
-                    tags: true,
                 });
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -171,21 +169,19 @@ var Control = {
     },
     SelectUbah: function (nama) {
         $.ajax({
-                url: "/api/inventarisasi",
+                url: "/api/inventarisasi?tipe=0",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#slsAlatBahanUbah").html("<option></option>");
                 $.each(data, function (i, item) {
                     if (item.namaAlatBahan == nama) {
-                        $("#slsAlatBahanUbah").append("<option value='" + item.namaAlatBahan + "' selected>" + item.namaAlatBahan + "</option>");
+                        $("#slsAlatBahanUbah").append("<option value='" + item.idAlatBahan + "' selected>" + item.namaAlatBahan + "</option>");
                     } else {
-                        $("#slsAlatBahanUbah").append("<option value='" + item.namaAlatBahan + "'>" + item.namaAlatBahan + "</option>");
+                        $("#slsAlatBahanUbah").append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
                     }
                 });
-                $("#slsAlatBahanUbah").select2({
-                    tags: true,
-                });
+                $("#slsAlatBahanUbah").select2();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -204,18 +200,12 @@ var Control = {
                 Common.Alert.Error(errorThrown);
             });
     },
-    Switch: function () {
-        $("[data-switch=true]").bootstrapSwitch();
-    },
     Tambah: function () {
         var btn = $("#btnTambah");
         var params = {
             idPenelitian: id,
-            // idAlatBahan:
-            tipeAlatBahan: $("#btnTipe").prop('checked'),
             namaAlatBahan: $("#slsAlatBahan").val(),
             jumlah: $("#tbxJumlah").val(),
-            harga: $("#tbxHarga").val()
         };
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -234,9 +224,7 @@ var Control = {
             .done(function (data, textStatus, jqXHR) {
                 $("#divRincianList").mDatatable('reload');
                 Control.Select();
-                $("#tbxAlatBahan").val("");
                 $("#tbxJumlah").val("");
-                $("#tbxHarga").val("");
                 $("#formRincian").modal("toggle");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })
@@ -271,19 +259,9 @@ var Control = {
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                console.log(data);
-                // $("#btnTipeUbah").prop("checked", 'checked');?
-                if (data.tipeAlatBahan) {
-                    console.log(data.tipeAlatBahan)
-                    $("#btnTipeUbah").attr('checked', 'checked');
-                } else {
-                    $("#btnTipeUbah").removeAttr('checked');
-                    console.log(data.tipeAlatBahan)
-                }
                 Control.SelectUbah(data.namaAlatBahan);
                 $("#slsAlatBahanUbah").val(data.namaAlatBahan);
                 $("#tbxJumlahUbah").val(data.jumlah);
-                $("#tbxHargaUbah").val(data.harga);
                 $("#formEditRincian").modal({
                     backdrop: "static"
                 });
@@ -300,10 +278,8 @@ var Control = {
         var params = {
             idPenelitian: id,
             idRincianBiaya: idRincian,
-            tipeAlatBahan: $("#btnTipeUbah").prop('checked'),
             namaAlatBahan: $("#slsAlatBahanUbah").val(),
             jumlah: $("#tbxJumlahUbah").val(),
-            harga: $("#tbxHargaUbah").val()
         };
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -322,9 +298,7 @@ var Control = {
             .done(function (data, textStatus, jqXHR) {
                 $("#divRincianList").mDatatable('reload');
                 Control.Select();
-                $("#tbxAlatBahan").val("");
                 $("#tbxJumlah").val("");
-                $("#tbxHarga").val("");
                 $("#formRincian").modal("toggle");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })

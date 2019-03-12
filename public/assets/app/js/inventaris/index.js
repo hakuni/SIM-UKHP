@@ -205,7 +205,6 @@ var Button = {
         Button.FilterBeli();
         Button.FilterGuna();
         Button.DatePicker();
-        Button.Switch();
     },
     FilterBeli: function () {
         $("#btnFilterBeli").on("click", function () {
@@ -236,9 +235,6 @@ var Button = {
                 rightArrow: '<i class="la la-angle-right"></i>'
             }
         });
-    },
-    Switch: function () {
-        $("[data-switch=true]").bootstrapSwitch();
     }
 };
 
@@ -254,7 +250,7 @@ var Select = {
     },
     AlatBahan: function () {
         $.ajax({
-                url: "/api/inventarisasi",
+                url: "/api/inventarisasi?tipe=-1",
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
@@ -262,7 +258,7 @@ var Select = {
                 $.each(data, function (i, item) {
                     $(".m-select2").append(
                         "<option value='" +
-                        item.namaAlatBahan +
+                        item.idAlatBahan +
                         "'>" +
                         item.namaAlatBahan +
                         "</option>"
@@ -295,7 +291,7 @@ var Transaction = {
         var btn = $("#btnTambahPembelian");
         var params = {
             tipeTrx: 1,
-            tipeAlatBahan: $("#btnTipe").prop('checked'),
+            // tipeAlatBahan: $("#btnTipe").prop('checked'),
             namaAlatBahan: $("#slsAlatBahan").val(),
             tglTrx: $("#tbxTanggalPembelian").val(),
             jumlah: $("#tbxJumlahBeli").val(),

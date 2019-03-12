@@ -191,6 +191,8 @@ var Button = {
                     $("#alatBahan").prop("checked", true);
                 } else if (data.tipeAlatBahan == 3) {
                     $("#jasa").prop("checked", true);
+                } else if (data.tipeAlatBahan == 4) {
+                    $("#serum").prop("checked", true);
                 }
                 $("#tbxItemUbah").val(data.namaAlatBahan);
                 $("#tbxHargaUbah").val(data.harga);

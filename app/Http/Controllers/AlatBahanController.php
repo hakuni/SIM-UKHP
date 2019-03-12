@@ -39,6 +39,8 @@ class AlatBahanController extends Controller
                 $inventarisasi = vwAlatBahan::All();
             else if($req->tipe == 0)
                 $inventarisasi = MstAlatBahan::All();
+            else if($req->tipe == -1)
+                $inventarisasi = MstAlatBahan::where('tipeAlatBahan', '!=', 3)->get();
             else
                 $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $req->tipe)->get();
             $inventarisasi->ErrorType = 0;
@@ -117,7 +119,7 @@ class AlatBahanController extends Controller
             else if($request->tipeTrx == 2){
                 $logTrx = $request->isMethod('post') ? new LogPemakaian : LogPemakaian::findOrFail($request->idLog);
             }
-            $logTrx->namaAlatBahan = MstAlatBahan::findOrFail($request->idAlatBahan)->namaAlatBahan;
+            $logTrx->namaAlatBahan = MstAlatBahan::findOrFail($request->namaAlatBahan)->namaAlatBahan;
             $logTrx->tglTrx = date("y-m-d", strtotime($request->tglTrx));
             $logTrx->jumlah = $request->jumlah;
 

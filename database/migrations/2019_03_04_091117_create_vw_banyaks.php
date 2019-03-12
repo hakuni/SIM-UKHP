@@ -28,7 +28,7 @@ SQL;
         return <<<SQL
 CREATE VIEW `vw_banyaks` AS
 SELECT
-    `mab`.`idAlatBahan`
+    `mab`.`idAlatBahan`,
     `mab`.`namaAlatBahan` AS `namaAlatBahan`,
     SUM(`rb`.`jumlah`) AS `banyak`,
     MONTH(`rb`.`created_at`) AS `bulan`,

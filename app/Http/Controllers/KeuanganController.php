@@ -47,9 +47,9 @@ class KeuanganController extends Controller
             $rincian = new RincianBiaya;
 
             $rincian->idPenelitian = $request->idPenelitian;
-            $rincian->idAlatBahan = $cek->idAlatBahan;
+            $rincian->idAlatBahan = $request->namaAlatBahan;
             $rincian->jumlah = $request->jumlah;
-            $rincian->harga = MstAlatBahan::findOrFail($request->idAlatBahan)->harga;
+            $rincian->harga = MstAlatBahan::findOrFail($request->namaAlatBahan)->harga;
             if($request->isMethod('post'))
                 $rincian->createdBy = 'kuni';
             else

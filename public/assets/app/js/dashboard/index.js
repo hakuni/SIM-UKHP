@@ -100,6 +100,7 @@ var Grafik = {
         pieSeries.slices.template.stroke = am4core.color("#fff");
         pieSeries.slices.template.strokeWidth = 2;
         pieSeries.slices.template.strokeOpacity = 1;
+        pieSeries.slices.template.tooltipText = "{category}: [bold]{value}[/]";
         pieSeries.labels.template.disabled = true;
         pieSeries.ticks.template.disabled = true;
 
@@ -131,6 +132,7 @@ var Grafik = {
         pieSeries.slices.template.stroke = am4core.color("#fff");
         pieSeries.slices.template.strokeWidth = 2;
         pieSeries.slices.template.strokeOpacity = 1;
+        pieSeries.slices.template.tooltipText = "{category}: [bold]{value}[/]";
         pieSeries.labels.template.disabled = true;
         pieSeries.ticks.template.disabled = true;
 

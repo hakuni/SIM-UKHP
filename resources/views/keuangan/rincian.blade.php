@@ -58,23 +58,11 @@
                                                 <div class="modal-body">
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Tipe Alat dan Bahan <strong style="color:red" ;>*</strong>
-                                                            :
-                                                        </label>
-                                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input data-switch="true" type="checkbox" checked="checked"
-                                                                data-on-text="Hewan" data-handle-width="70"
-                                                                data-off-text="Lainnya" data-on-color="info" id="btnTipe">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group m-form__group row">
-                                                        <label class="col-form-label col-lg-3 col-sm-12">
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <select class="form-control m-select2" id="slsAlatBahan"
                                                                 style="width:550px">
-                                                                <!-- <option value="1">Ilham</option> -->
                                                             </select>
                                                         </div>
                                                     </div>
@@ -84,15 +72,6 @@
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <input type="number" id="tbxJumlah" class="form-control m-input"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group m-form__group row">
-                                                        <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Harga <span style="color:red">*</span> :
-                                                        </label>
-                                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input type="number" id="tbxHarga" class="form-control m-input"
                                                                 required>
                                                         </div>
                                                     </div>
@@ -123,17 +102,6 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                <div class="form-group m-form__group row">
-                                                        <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Tipe Alat dan Bahan <strong style="color:red" ;>*</strong>
-                                                            :
-                                                        </label>
-                                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input data-switch="true" type="checkbox"
-                                                                data-on-text="Hewan" data-handle-width="70"
-                                                                data-off-text="Lainnya" data-on-color="info" id="btnTipeUbah">
-                                                        </div>
-                                                    </div>
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
@@ -141,7 +109,6 @@
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <select class="form-control m-select2" id="slsAlatBahanUbah"
                                                                 style="width:550px">
-                                                                <!-- <option value="1">Ilham</option> -->
                                                             </select>
                                                         </div>
                                                     </div>
@@ -151,15 +118,6 @@
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <input type="number" id="tbxJumlahUbah" class="form-control m-input"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group m-form__group row">
-                                                        <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Biaya <span style="color:red">*</span> :
-                                                        </label>
-                                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input type="number" id="tbxHargaUbah" class="form-control m-input"
                                                                 required>
                                                         </div>
                                                     </div>
