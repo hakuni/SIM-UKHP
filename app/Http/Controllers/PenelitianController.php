@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\MstPenelitian;
-use App\vwPenelitian;
 use App\MstDataClient;
-use App\LogTrxPenelitian;
-use App\TrxPenelitian;
-use App\vwTrxPenelitian;
 use App\MstMilestone;
-use App\vwRincian;
+use App\TrxPenelitian;
+use App\LogTrxPenelitian;
 use App\LogPemakaian;
+use App\vwPenelitian;
+use App\vwTrxPenelitian;
+use App\vwRincian;
+use App\vwHistory;
 
 class PenelitianController extends Controller
 {
@@ -152,6 +153,7 @@ class PenelitianController extends Controller
                 }
 
                 $trx->save(); //save old trx
+                $trx->idMilestone = $trx->idMilestone+1;
                 $transaksi = $trx;
             }
 
@@ -250,6 +252,19 @@ class PenelitianController extends Controller
         }
         return $path;
     }
+
+    public function logTrx($idPenelitian){
+        try{
+            $history = vwHistory::where('idPenelitian', $idPenelitian)->get();
+            return response($history)->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            $history = new vwHistory;
+            $history->ErrorType = 2;
+            $history->ErrorMessage = $e->getMessage();
+            return response($history)->setStatusCode(422);
+        }
+    }
     #endregion
 
     #region Private
@@ -277,20 +292,8 @@ class PenelitianController extends Controller
         catch(\Exception $e){
             return $e->getMessage();
         }
-    }public function getSingleViewKeuangan($idPenelitian){
-        try{
-            $keuangan = vwKeuangan::where('idPenelitian', $idPenelitian);
-            $keuangan->ErrorType = 0;
-            return response($keuangan)->setStatusCode(200);
-        }
-        catch(\Exception $e){
-            $keuangan = new vwKeuangan;
-            $keuangan->ErrorType = 2;
-            $keuangan->ErrorMessage = $e->getMessage();
-            return response($keuangan)->setStatusCode(204);
-        }
     }
-
+    
     //simpan data client
     private function saveDataClient(Request $request){
         try{

@@ -21,7 +21,6 @@ var Page = {
 
         $("#listPenelitian").on("click", "div.divShowDetail", function (e) {
             var idPen = this.id;
-            console.log(idPen);
             $(this)
                 .css({
                     background: "whitesmoke"
@@ -42,7 +41,6 @@ var Page = {
 var Get = {
     DetailPenelitian: function (id) {
         var link = "/Tracking/Detail/" + id;
-        console.log(link);
         $.ajax({
             url: link,
             type: "GET",
@@ -53,7 +51,7 @@ var Get = {
                 }
                 Transaction.Init(id);
                 Control.DatePicker();
-                // Table.History(id);
+                Table.History(id);
                 $("#btnMaximize").on("click", function () {
                     $("#sidebarShow").show();
                     $("#detailPenelitian").removeClass("col-lg-11");
@@ -76,7 +74,6 @@ var Get = {
     },
     Filter: function (order) {
         var link = "/Tracking/List?orderBy=" + order;
-        console.log(link);
         $.ajax({
             url: link,
             type: "GET",
@@ -226,7 +223,7 @@ var Table = {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/task/ListTransactionTask/" + id,
+                        url: "/api/activity/log/" + id,
                         method: "GET",
                         map: function (r) {
                             var e = r;
@@ -256,25 +253,26 @@ var Table = {
                     }
                 }
             },
-            columns: [{
-                    field: "idPenelitian",
-                    title: "Actions",
-                    sortable: false,
-                    textAlign: "center",
-                    width: 100,
-                    template: function (t) {
-                        if (t.Attachment != null)
-                            var strBuilder =
-                                '<a href="/PinnedProject/Download/ ' +
-                                t.trxTaskID +
-                                '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
-                        strBuilder +=
-                            '<a href="/PinnedProject/Download/ ' +
-                            t.trxTaskID +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>';
-                        return strBuilder;
-                    }
-                },
+            columns: [
+                // {
+                //     field: "idPenelitian",
+                //     title: "Actions",
+                //     sortable: false,
+                //     textAlign: "center",
+                //     width: 100,
+                //     // template: function (t) {
+                //     //     if (t.Attachment != null)
+                //     //         var strBuilder =
+                //     //             '<a href="/PinnedProject/Download/ ' +
+                //     //             t.trxTaskID +
+                //     //             '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
+                //     //     strBuilder +=
+                //     //         '<a href="/PinnedProject/Download/ ' +
+                //     //         t.trxTaskID +
+                //     //         '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>';
+                //     //     return strBuilder;
+                //     // }
+                // },
                 {
                     field: "namaMilestone",
                     title: "Tahapan",
@@ -288,14 +286,39 @@ var Table = {
                 {
                     field: "durasi",
                     title: "Durasi",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template : function(t){
+                        durasi = "-"
+                        if(t.idMilestone != 1 && t.idMilestone != 5)
+                            durasi = t.durasi == null ? durasi : t.durasi;
+                        return durasi;
+                    }
+                },
+                {
+                    field: "status",
+                    title: "Status",
+                    textAlign: "center",
+                    template : function(t){
+                        if(t.idMilestone != 1 && t.idMilestone != 5)
+                            if(t.durasi == null)
+                                status = "Sedang dikerjakan"
+                            else
+                                status = t.durasi < 0 ? "Terlambat" : "Tepat Waktu";
+                        else
+                            status = "-";
+                        return status;
+                    }
                 },
                 {
                     field: "catatan",
                     className: "dt-head-center",
                     title: "Catatan",
                     textAlign: "center",
-                    width: 500
+                    width: 500,
+                    template: function(t){
+                        catatan = t.catatan == null ? "-" : t.catatan;
+                        return catatan;
+                    }
                 }
             ]
         });

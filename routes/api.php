@@ -91,6 +91,9 @@ Route::get('penelitian/activity/{idPenelitian}', 'PenelitianController@getListTr
 Route::put('/penelitian/activity', 'PenelitianController@batalTrx');
 //upload hasil analisis
 Route::post('/penelitian/activity/uploadAnalisis', 'PenelitianController@uploadFile');
+
+//log trx
+Route::get('/activity/log/{idPenelitian}', 'PenelitianController@logTrx');
 #endregion
 
 #endregion
