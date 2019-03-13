@@ -8,9 +8,9 @@ use App\vwClientTrack;
 class UserController extends Controller
 {
     //
-    public function getTracking($idPenelitian){
+    public function getTracking($resi){
         try{
-            $trackData = vwClientTrack::where('idPenelitian', $idPenelitian)->get();
+            $trackData = vwClientTrack::where('resi', $resi)->get();
             return response($trackData);
         }
         catch(\Exception $e){
