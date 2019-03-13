@@ -150,4 +150,4 @@ Route::get('dashboard/banyakHewan', 'DashboardController@getBanyakPenggunaan');
 Route::get('dashboard/detailHewan', 'DashboardController@getDetailPenggunaan');
 #endregion
 
-Route::get('/export/{idPenelitian}', 'DownloadController@exportProsedur');
+Route::get('/clientTrack/{idPenelitian}', 'UserController@getTracking');
