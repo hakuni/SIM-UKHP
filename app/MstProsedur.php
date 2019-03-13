@@ -15,4 +15,8 @@ class MstProsedur extends Model
     public function penelitian(){
         return $this->belongsTo('App\MstPenelitian', 'idPenelitian', 'idPenelitian');
     }
+
+    public function alatBahan(){
+        return $this->hasOne('App\MstAlatBahan', 'idAlatBahan', 'idAlatBahan');
+    }
 }

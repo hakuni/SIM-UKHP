@@ -35,13 +35,13 @@ class AlatBahanController extends Controller
 
     public function getListAlatBahan(Request $req){
         try{
-            if($req->tipe == null)
+            if($req->tipe == null) //get data view
                 $inventarisasi = vwAlatBahan::All();
-            else if($req->tipe == 0)
+            else if($req->tipe == 0) //get semua list
                 $inventarisasi = MstAlatBahan::All();
-            else if($req->tipe == -1)
+            else if($req->tipe == -1) //get kecuali jasa
                 $inventarisasi = MstAlatBahan::where('tipeAlatBahan', '!=', 3)->get();
-            else
+            else //get sesuai tipe
                 $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $req->tipe)->get();
             $inventarisasi->ErrorType = 0;
             return response($inventarisasi)->setStatusCode(200);
@@ -101,7 +101,7 @@ class AlatBahanController extends Controller
 
         }
         catch(\Exception $e){
-            $inventarisasi = new vwKeuangan;
+            $inventarisasi = new MstAlatBahan;
             $inventarisasi->ErrorType = 2;
             $inventarisasi->ErrorMessage = $e->getMessage();
             return response($inventarisasi)->setStatusCode(422);
@@ -112,13 +112,14 @@ class AlatBahanController extends Controller
     #region Log
     public function saveLogs(Request $request){
         try{
+            $logRepo = $request->tipeTrx == 1 ? new LogPembelian : new LogPemakaian;
+
+            $logTrx = $request->isMethod('post') ? new $logRepo : $logRepo::findOrFail($request->idLog);
+
             if($request->tipeTrx == 1){
-                $logTrx = $request->isMethod('post') ? new LogPembelian : LogPembelian::findOrFail($request->idLog);
                 $logTrx->harga = $request->harga;
             }
-            else if($request->tipeTrx == 2){
-                $logTrx = $request->isMethod('post') ? new LogPemakaian : LogPemakaian::findOrFail($request->idLog);
-            }
+
             $logTrx->namaAlatBahan = MstAlatBahan::findOrFail($request->namaAlatBahan)->namaAlatBahan;
             $logTrx->tglTrx = date("y-m-d", strtotime($request->tglTrx));
             $logTrx->jumlah = $request->jumlah;
@@ -130,7 +131,7 @@ class AlatBahanController extends Controller
             return response($logTrx)->setStatusCode(200);
         }
         catch(\Exception $e){
-            $logTrx = new LogPembelian;
+            $logTrx = $request->tipeTrx == 1 ? new LogPembelian : new LogPemakaian;
             $logTrx->ErrorType = 2;
             $logTrx->ErrorMessage = $e->getMessage();
             return response($logTrx)->setStatusCode(422);
@@ -139,47 +140,28 @@ class AlatBahanController extends Controller
 
     public function getListLog(Request $req, $tipeLog){
         try{
-            if($tipeLog == 1){
-                if($req->bulan == null){
-                    if($req->tahun == null){
-                        $log = LogPembelian::All();
-                    }
-                    else {
-                        $log = LogPembelian::whereYear('tglTrx', $req->tahun)->get();
-                    }
+            $logRepo = $tipeLog == 1 ? new LogPembelian : new LogPemakaian;
+            if($req->bulan == null){
+                if($req->tahun == null){
+                    $log = $logRepo::All();
                 }
-                else{
-                    if($req->tahun == null){
-                        $log = LogPembelian::whereMonth('tglTrx', $req->bulan)->get();
-                    }
-                    else {
-                        $log = LogPembelian::whereYear('tglTrx', $req->tahun)->whereMonth('tglTrx', $req->bulan)->get();
-                    }
+                else {
+                    $log = $logRepo::whereYear('tglTrx', $req->tahun)->get();
                 }
             }
             else{
-                if($req->bulan == null){
-                    if($req->tahun == null){
-                        $log = LogPemakaian::All();
-                    }
-                    else {
-                        $log = LogPemakaian::whereYear('tglTrx', $req->tahun)->get();
-                    }
+                if($req->tahun == null){
+                    $log = $logRepo::whereMonth('tglTrx', $req->bulan)->get();
                 }
-                else{
-                    if($req->tahun == null){
-                        $log = LogPemakaian::whereMonth('tglTrx', $req->bulan)->get();
-                    }
-                    else {
-                        $log = LogPemakaian::whereYear('tglTrx', $req->tahun)->whereMonth('tglTrx', $req->bulan)->get();
-                    }
+                else {
+                    $log = $logRepo::whereYear('tglTrx', $req->tahun)->whereMonth('tglTrx', $req->bulan)->get();
                 }
             }
             $log->ErrorType = 0;
             return response($log)->setStatusCode(200);
         }
         catch(\Exception $e){
-            $log = new LogPembelian;
+            $log = $tipeLog == 1 ? new LogPembelian : new LogPemakaian;
             $log->ErrorType = 2;
             $log->ErrorMessage = $e->getMessage();
             return response($log)->setStatusCode(442);

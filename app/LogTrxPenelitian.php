@@ -11,4 +11,8 @@ class LogTrxPenelitian extends Model
     protected $table = 'log_trx_penelitians';
     public $primaryKey = 'idTrxLog';
     public $timestamps = false;
+
+    public function penelitian(){
+        return $this->belongsTo('App\MstPenelitian', 'idPenelitian', 'idPenelitian');
+    }
 }

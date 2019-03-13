@@ -93,7 +93,7 @@ Route::put('/penelitian/activity', 'PenelitianController@batalTrx');
 Route::post('/penelitian/activity/uploadAnalisis', 'PenelitianController@uploadFile');
 
 //log trx
-Route::get('/activity/log/{idPenelitian}', 'PenelitianController@logTrx');
+Route::get('/activity/log/{idPenelitian}', 'PenelitianController@getTrxLog');
 #endregion
 
 #endregion
@@ -149,3 +149,5 @@ Route::get('dashboard/penggunaan', 'DashboardController@getPenggunaan');
 Route::get('dashboard/banyakHewan', 'DashboardController@getBanyakPenggunaan');
 Route::get('dashboard/detailHewan', 'DashboardController@getDetailPenggunaan');
 #endregion
+
+Route::get('/export/{idPenelitian}', 'DownloadController@exportProsedur');

@@ -14,4 +14,8 @@ class MstMilestone extends Model
     public function trxPenelitian(){
         return $this->hasMany('App\TrxPenelitian', 'idMilestone', 'idMilestone');
     }
+
+    public function penelitian(){
+        return $this->hasMany('App\MstPenelitian', 'idPenelitian', 'idPenelitian');
+    }
 }

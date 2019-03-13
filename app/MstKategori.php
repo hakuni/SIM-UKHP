@@ -11,4 +11,7 @@ class MstKategori extends Model
     protected $table = 'kategoris';
     protected $primaryKey = 'idKategori';
 
+    public function penelitian(){
+        return $this->hasMany('App\MstPenelitian', 'idKategori', 'idKategori');
+    }
 }

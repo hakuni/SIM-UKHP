@@ -222,7 +222,7 @@ class PenelitianController extends Controller
             return response($transaksi)->setStatusCode(200);
         }
         catch(\Exception $e){
-            $transaksi = new TrxPenelitian;
+            $transaksi = new vwTrxPenelitian;
             $transaksi->ErrorType = 2;
             $transaksi->ErrorMessage = $e->getMessage();
             return response($transaksi)->setStatusCode(422);
@@ -235,6 +235,8 @@ class PenelitianController extends Controller
         $image['filePath'] = $fileName;
         $file->move(public_path().'/uploads/', $fileName);
         $path = public_path().'/uploads/'.$fileName;
+
+        //upload hasil analisis
         if($request->idTrx != null){
             try{
                 $trx = TrxPenelitian::findOrFail($request->idTrx);
@@ -250,10 +252,11 @@ class PenelitianController extends Controller
                 return response($trx)->setStatusCode(422);
             }
         }
+        
         return $path;
     }
 
-    public function logTrx($idPenelitian){
+    public function getTrxLog($idPenelitian){
         try{
             $history = vwHistory::where('idPenelitian', $idPenelitian)->get();
             return response($history)->setStatusCode(200);
