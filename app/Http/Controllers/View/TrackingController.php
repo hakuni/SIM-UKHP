@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\PenelitianController;
 use App\vwPenelitian;
 use App\vwTrxPenelitian;
+use App\Http\Controllers\DownloadController as Download;
 
 class TrackingController extends Controller
 {
@@ -30,5 +31,15 @@ class TrackingController extends Controller
         $penelitian = new PenelitianController();
         $vwDetailPenelitian = json_decode($penelitian->getDetailTrx($idPenelitian)->getContent(), true);
         return view('tracking/detail')->with('vwDetailPenelitian', $vwDetailPenelitian);
+    }
+
+    public function exportData($idPenelitian){
+        $hasil = new Download;
+        return $hasil->downloadData($idPenelitian);
+    }
+
+     public function exportAnalisis($idPenelitian){
+        $hasil = new Download;
+        return $hasil->downloadAnalisis($idPenelitian);
     }
 }

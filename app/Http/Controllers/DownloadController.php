@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\MstPenelitian;
+use App\TrxPenelitian;
 
 class DownloadController extends Controller
 {
@@ -15,7 +16,7 @@ class DownloadController extends Controller
             $prosedur = $penelitian->prosedur()->first();
             $namaKategori = $penelitian->kategori()->first()->namaKategori;
             $namaHewan = $prosedur->alatBahan()->first()->namaAlatBahan;
-            
+
             //$replace = preg_replace('~\R~u', '</w:t><w:br/><w:t>', $replace);
 
             $perlakuan = preg_replace('~\R~u', '</w:t><w:br/><w:t>', $prosedur->perlakuan);
@@ -52,10 +53,25 @@ class DownloadController extends Controller
     }
 
     public function downloadData($idPenelitian){
-
+        try{
+            $data = TrxPenelitian::where('idPenelitian', $idPenelitian)->where('idMilestone', 4)->first();
+            $path = $data->fileDataPath;
+            return response()->download($path);
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+        }
     }
 
     public function downloadAnalisis($idPenelitian){
-
+        try{
+            $data = TrxPenelitian::where('idPenelitian', $idPenelitian)->where('idMilestone', 4)->first();
+            $path = $data->fileDataPath;
+            return response()->download($path);
+        }
+        catch(\Exception $e){
+            return $e->getMessage();
+        }
     }
 }
+

@@ -253,26 +253,26 @@ var Table = {
                     }
                 }
             },
-            columns: [
-                // {
-                //     field: "idPenelitian",
-                //     title: "Actions",
-                //     sortable: false,
-                //     textAlign: "center",
-                //     width: 100,
-                //     // template: function (t) {
-                //     //     if (t.Attachment != null)
-                //     //         var strBuilder =
-                //     //             '<a href="/PinnedProject/Download/ ' +
-                //     //             t.trxTaskID +
-                //     //             '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
-                //     //     strBuilder +=
-                //     //         '<a href="/PinnedProject/Download/ ' +
-                //     //         t.trxTaskID +
-                //     //         '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>';
-                //     //     return strBuilder;
-                //     // }
-                // },
+            columns: [{
+                    field: "idPenelitian",
+                    title: "Aksi",
+                    sortable: false,
+                    textAlign: "center",
+                    width: 50,
+                    template: function (t) {
+                        if (t.fileAnalisisPath != null)
+                            var strBuilder =
+                                '<a href="/AnalisisPenelitian/ ' +
+                                t.idPenelitian +
+                                '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
+                        if (t.fileDataPath != null)
+                            strBuilder +=
+                            '<a href="/DataPenelitian/ ' +
+                            t.idPenelitian +
+                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>';
+                        return strBuilder;
+                    }
+                },
                 {
                     field: "namaMilestone",
                     title: "Tahapan",
@@ -287,9 +287,9 @@ var Table = {
                     field: "durasi",
                     title: "Durasi",
                     textAlign: "center",
-                    template : function(t){
+                    template: function (t) {
                         durasi = "-"
-                        if(t.idMilestone != 1 && t.idMilestone != 5)
+                        if (t.idMilestone != 1 && t.idMilestone != 5)
                             durasi = t.durasi == null ? durasi : t.durasi;
                         return durasi;
                     }
@@ -298,12 +298,12 @@ var Table = {
                     field: "status",
                     title: "Status",
                     textAlign: "center",
-                    template : function(t){
-                        if(t.idMilestone != 1 && t.idMilestone != 5)
-                            if(t.durasi == null)
+                    template: function (t) {
+                        if (t.idMilestone != 1 || t.idMilestone != 5)
+                            if (t.durasi == null)
                                 status = "Sedang dikerjakan"
-                            else
-                                status = t.durasi < 0 ? "Terlambat" : "Tepat Waktu";
+                        else
+                            status = t.durasi < 0 ? "Terlambat" : "Tepat Waktu";
                         else
                             status = "-";
                         return status;
@@ -315,7 +315,7 @@ var Table = {
                     title: "Catatan",
                     textAlign: "center",
                     width: 500,
-                    template: function(t){
+                    template: function (t) {
                         catatan = t.catatan == null ? "-" : t.catatan;
                         return catatan;
                     }

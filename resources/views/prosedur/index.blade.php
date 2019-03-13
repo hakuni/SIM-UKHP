@@ -18,9 +18,9 @@
 						</div>
                     </div>
                     <div class="m-portlet__head-caption col-lg-4">
-                        <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnEksport">
+                        <a href="/Download/{{$idPen}}" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnEksport">
                             <span>
-                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-download"></i>
                                 <span>
                                     Eksport File
                                 </span>

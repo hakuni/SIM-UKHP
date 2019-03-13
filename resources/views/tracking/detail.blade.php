@@ -3,14 +3,38 @@
 <div class="m-portlet m-portlet--mobile">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
-            <div class="m-portlet__head-title">
-                <h3 class="m-portlet__head-text">
-                    {{ $vwDetailPenelitian['judulPenelitian'] }}
-                    <!-- Judul Penenlitian -->
-                    <small>
-                        {{ $vwDetailPenelitian['namaPeneliti'] }} / {{ $vwDetailPenelitian['instansiPeneliti'] }}
-                    </small>
-                </h3>
+            <div class="row">
+                <div class="col-lg-5" style="margin-right:20px">
+                    <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                            {{ $vwDetailPenelitian['judulPenelitian'] }}
+                            <!-- Judul Penenlitian -->
+                            <small>
+                                {{ $vwDetailPenelitian['namaPeneliti'] }} / {{ $vwDetailPenelitian['instansiPeneliti'] }}
+                            </small>
+                        </h3>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-3" id="data" syle="margin-right:5px">
+                    <a href="/DataPenelitian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-primary btn-m m-btn m-btn--icon m-btn--pill m-btn--air" id="btnData" style="margin-right: 10px;">
+                        <span>
+                            <i class="la la-download"></i>
+                            <span>
+                                Data Penelitian
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-lg-3" id="hasil">
+                    <a href="/AnalisisPenelitian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" id="btnHasil" style="margin-right: 10px;">
+                        <span>
+                            <i class="la la-download"></i>
+                            <span>
+                                Hasil Penelitian
+                            </span>
+                        </span>
+                    </a>
+                </div> -->
             </div>
         </div>
     </div>
@@ -81,7 +105,7 @@
                         </div>
                     </div>
                     <!-- form laporan penelitian -->
-                    @if ($vwDetailPenelitian['idMilestone'] == 4)
+                    @if ($vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4)
                     <div class="modal hide fade" id="$vwDetailPenelitian['idMilestone']" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -128,8 +152,7 @@
                         </div>
                     </div>
                     <!-- form alur penelitian -->
-                    @elseif ($vwDetailPenelitian['idMilestone'] == 1 || $vwDetailPenelitian['idMilestone'] == 2 ||
-                    $vwDetailPenelitian['idMilestone'] == 3)
+                    @elseif ($vwDetailPenelitian['idMilestone'] == 1 || $vwDetailPenelitian['idMilestone'] == 2)
                     <div class="modal hide fade" id="$vwDetailPenelitian['idMilestone']" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -140,10 +163,6 @@
                                         Mulai Penelitian
                                         @elseif ($vwDetailPenelitian['idMilestone'] == 2)
                                         Pengujian
-                                        @elseif ($vwDetailPenelitian['idMilestone'] == 3)
-                                        Analisis
-                                        @elseif ($vwDetailPenelitian['idMilestone'] == 4)
-                                        Laporan
                                         @endif
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

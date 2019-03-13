@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layout/index');
-});
+// Route::get('/', function () {
+//     return view('layout/index');
+// });
 // dashboard
 Route::get('/Dashboard', function () {
     return view('dashboard/index');
@@ -24,6 +24,9 @@ Route::get('/Dashboard', function () {
 Route::get('/Tracking', 'View\TrackingController@index') -> name('/Tracking');
 Route::get('/Tracking/List', 'View\TrackingController@listPenelitian');
 Route::get('/Tracking/Detail/{idPenelitian}', 'View\TrackingController@detailPenelitian');
+Route::get('/DataPenelitian/{idPenelitian}', 'View\TrackingController@exportData');
+Route::get('/AnalisisPenelitian/{idPenelitian}', 'View\TrackingController@exportAnalisis');
+#endregionilPenelitian');
 #endregion
 
 #region Penelitian
@@ -35,6 +38,7 @@ Route::get('/UbahPenelitian/{id}', 'View\PenelitianController@ubahPenelitian');
 Route::get('/Prosedur/{idPen}/{idPro}', 'View\ProsedurController@index');
 Route::get('/TambahProsedur/{idPen}', 'View\ProsedurController@tambahProsedur');
 Route::get('/UbahProsedur/{idPen}/{idPro}', 'View\ProsedurController@ubahProsedur');
+Route::get('/Download/{idPenelitian}', 'View\ProsedurController@exportProsedur');
 #endregion
 
 #region Keuangan
@@ -54,3 +58,7 @@ Route::get('/Kategori', 'View\MasterController@kategori');
 // layanan
 Route::get('/Layanan', 'View\MasterController@layanan');
 #endregion
+
+//client
+Route::get('/', 'View\ClientController@index');
+
