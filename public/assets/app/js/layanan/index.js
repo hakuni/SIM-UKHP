@@ -50,7 +50,7 @@ var Table = {
                         var strBuilder =
                             '<button onclick="Button.ModalUbah(' + t.idAlatBahan + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<button onclick="Button.Hapus(' + t.idAlatBahan + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
+                            '<button onclick="Button.ConfirmDelete(' + t.idAlatBahan + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
                         return strBuilder;
                     }
                 },
@@ -118,6 +118,19 @@ var Button = {
                     false
                 );
             });
+    },
+    ConfirmDelete: function (id) {
+        swal({
+            title: "Anda yakin?",
+            text: "Kategori ini akan dihapus",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yakin, hapus ini!",
+        }).then(function (e) {
+            if (e.value) {
+                Button.Hapus(id);
+            }
+        })
     },
     Hapus: function (id) {
         $.ajax({

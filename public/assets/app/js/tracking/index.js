@@ -92,42 +92,55 @@ var Get = {
 
 var Transaction = {
     Init: function (id) {
-        Transaction.Batal(id);
+        $("#btnHapus").on("click", function () {
+            Transaction.Konfirmasi(id)
+        })
         Transaction.Alur(id);
         Transaction.Pembayaran(id);
     },
+    Konfirmasi: function (id) {
+        swal({
+            title: "Anda yakin?",
+            text: "Membatalkan penelitian ini",
+            type: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yakin, batalkan!",
+        }).then(function (e) {
+            if (e.value) {
+                Button.Hapus(id);
+            }
+        })
+    },
     Batal: function (id) {
-        $("#btnHapus").on("click", function () {
-            var btn = $("#btnHapus");
-            btn.addClass("m-loader m-loader--right m-loader--light").attr(
-                "disabled",
-                true
-            );
-            $.ajax({
-                    url: "/api/penelitian/activity",
-                    type: "PUT",
-                    data: {
-                        idPenelitian: id
-                    },
-                    dataType: "json",
-                    cache: false
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    Common.Alert.SuccessRoute(
-                        "Berhasil membatalkan penelitian",
-                        "/Tracking"
-                    );
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    Common.Alert.Error(errorThrown);
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                });
-        });
+        var btn = $("#btnHapus");
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
+        $.ajax({
+                url: "/api/penelitian/activity",
+                type: "PUT",
+                data: {
+                    idPenelitian: id
+                },
+                dataType: "json",
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                Common.Alert.SuccessRoute(
+                    "Berhasil membatalkan penelitian",
+                    "/Tracking"
+                );
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
+            });
     },
     Alur: function (id) {
         $("#btnTambah").on("click", function () {

@@ -47,18 +47,6 @@ var Common = {
                         window.location.href = url;
                 })
         },
-        ConfirmDelete: function (message) {
-            swal({
-                title: "Anda yakin?",
-                text: message,
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yakin, hapus ini!"
-            }).then(function (e) {
-                // if (isConfirm)
-                e.value && swal("Deleted!", "Your file has been deleted.", "success")
-            })
-        },
         Warning: function (message) {
             swal({
                 title: "Warning!",
