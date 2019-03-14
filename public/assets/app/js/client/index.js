@@ -1,10 +1,10 @@
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     Control.Init();
 });
 
 Control = {
-    Init: function() {
-        $("#btnLacak").on("click", function() {
+    Init: function () {
+        $("#btnLacak").on("click", function () {
             var btn = $("#btnLacak");
 
             btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -13,24 +13,23 @@ Control = {
             );
             Reset.Init();
             $.ajax({
-                url: "/api/clientTrack/" + $("#tbxResi").val(),
-                type: "GET"
-            })
-                .done(function(data, textStatus, jqXHR) {
+                    url: "/api/clientTrack/" + $("#tbxResi").val(),
+                    type: "GET"
+                })
+                .done(function (data, textStatus, jqXHR) {
                     $("#judulPenelitian").html(data[0].judulPenelitian);
                     $("#namaKategori").html(data[0].namaKategori);
                     $("#biodata").html(
                         data[0].namaPeneliti + " / " + data[0].instansiPeneliti
                     );
-                    $.each(data, function(i, item) {
+                    $.each(data, function (i, item) {
                         console.log(item);
-                        var img = "assets/app/media/img//logos/process.png";
+                        var img = "assets/app/media/img/logos/loading.gif";
                         if (item.status == 1) {
-                            img = "assets/app/media/img//logos/success.png";
+                            img = "assets/app/media/img/logos/success.png";
                         }
                         if (item.idMilestone == null) {
-                            document.getElementById("prosedur").src =
-                                "assets/app/media/img//logos/process.png";
+                            document.getElementById("prosedur").src = img;
                         }
                         if (item.idMilestone == 2) {
                             document.getElementById("persiapan").src = img;
@@ -56,7 +55,7 @@ Control = {
                         "m-loader m-loader--right m-loader--light"
                     ).attr("disabled", false);
                 })
-                .fail(function(jqXHR, textStatus, errorThrown) {
+                .fail(function (jqXHR, textStatus, errorThrown) {
                     Common.Alert.Error(errorThrown);
                     btn.removeClass(
                         "m-loader m-loader--right m-loader--light"
@@ -67,24 +66,24 @@ Control = {
 };
 
 Button = {
-    Init: function(idPenelitian) {
+    Init: function (idPenelitian) {
         Button.Hasil(idPenelitian);
         Button.Data(idPenelitian);
     },
-    Hasil: function(idPenelitian) {
-        $("#btnHasil").on("click", function() {
+    Hasil: function (idPenelitian) {
+        $("#btnHasil").on("click", function () {
             location.href = "/AnalisisPenelitian/" + idPenelitian;
         });
     },
-    Data: function(idPenelitian) {
-        $("#btnData").on("click", function() {
+    Data: function (idPenelitian) {
+        $("#btnData").on("click", function () {
             location.href = "/DataPenelitian/" + idPenelitian;
         });
     }
 };
 
 Reset = {
-    Init: function() {
+    Init: function () {
         document.getElementById("prosedur").src =
             "assets/app/media/img//logos/success.png";
         document.getElementById("persiapan").src =

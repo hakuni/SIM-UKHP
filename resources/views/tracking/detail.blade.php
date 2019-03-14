@@ -112,7 +112,11 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">
+                                        @if ($vwDetailPenelitian['idMilestone'] == 3)
+                                        Analisis
+                                        @elseif ($vwDetailPenelitian['idMilestone'] == 4)
                                         Laporan
+                                        @endif
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">
@@ -123,7 +127,11 @@
                                 <div class="modal-body">
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                            @if ($vwDetailPenelitian['idMilestone'] == 3)
+                                            Data <strong style="color:red" ;>*</strong> :
+                                            @elseif ($vwDetailPenelitian['idMilestone'] == 4)
                                             Hasil <strong style="color:red" ;>*</strong> :
+                                            @endif
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                             <div class="custom-file">
@@ -131,6 +139,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($vwDetailPenelitian['idMilestone'] == 3)
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important">
+                                            Analis <strong style="color:red" ;>*</strong> :
+                                        </label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <select class="form-control m-select2" id="slsPIC" style="width:550px">
+                                                <option value="1">Saya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @endif
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
                                             Catatan <strong style="color:red" ;>*</strong> :
@@ -172,6 +192,16 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important">
+                                            PIC <strong style="color:red" ;>*</strong> :
+                                        </label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <select class="form-control m-select2" id="slsPIC" style="width:550px">
+                                                <option value="1">Saya</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
                                             Catatan :

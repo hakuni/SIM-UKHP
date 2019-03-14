@@ -116,7 +116,7 @@ var Control = {
             dataType: "json",
             contenType: "application/json",
             success: function (data) {
-                var html = "<option value=''>All</option>";
+                var html = "<option value=''>Semua</option>";
                 var select = $("#slsKategori");
 
                 $.each(data, function (i, item) {
@@ -145,7 +145,7 @@ var Control = {
             dataType: "json",
             contenType: "application/json",
             success: function (data) {
-                var html = "<option value=''>All</option>";
+                var html = "<option value=''>Semua</option>";
                 var select = $("#slsStatusPen");
 
                 $.each(data, function (i, item) {

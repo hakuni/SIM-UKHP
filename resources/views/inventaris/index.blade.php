@@ -29,17 +29,17 @@
                 <div class="m-portlet__body">
                     <ul class="nav nav-pills nav-fill nav-pills--warning" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#stockList">
+                            <a id="tabStock" class="nav-link active" data-toggle="tab" href="#stockList">
                                 Stock
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#pembelianList">
+                            <a id="tabBeli" class="nav-link" data-toggle="tab" href="#pembelianList">
                                 Pembelian
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#penggunaanList">
+                            <a id="tabGuna" class="nav-link" data-toggle="tab" href="#penggunaanList">
                                 Penggunaan
                             </a>
                         </li>

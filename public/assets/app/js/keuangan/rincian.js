@@ -56,6 +56,7 @@ var Table = {
                     title: "Aksi",
                     sortable: false,
                     textAlign: "center",
+                    width: 75,
                     template: function (t) {
                         var strBuilder =
                             '<button onclick="Control.ModalUbah(' + t.idRincianBiaya + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Rincian"><i class="la la-edit"></i></button>\t\t\t\t\t\t';
@@ -125,7 +126,6 @@ var Table = {
             columns: [{
                     field: "tglPembayaran",
                     title: "Tanggal Pembayaran",
-                    sortable: false,
                     textAlign: "center",
                     template: function (t) {
                         return t.tglPembayaran != null ? Common.Format.Date(t.tglPembayaran) : "-"
@@ -148,6 +148,10 @@ var Control = {
             Control.Tambah();
         });
         Control.Select();
+        // tab datatable rapih
+        $("#tabLog").on("click", function () {
+            $("#divLogList").mDatatable('reload');
+        });
     },
     Select: function () {
         $.ajax({

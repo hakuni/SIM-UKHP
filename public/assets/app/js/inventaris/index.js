@@ -1,3 +1,7 @@
+// get tahun sekarang
+var kalender = new Date;
+var tahunIni = kalender.getFullYear();
+// set tahun dan bulan 0 utk dapat semua list
 var bulan = 0;
 var tahun = 0;
 //== Class Initialization
@@ -22,6 +26,8 @@ var Data = {
             .done(function (data, textStatus, jqXHR) {
                 $("#divPembelianList").mDatatable('destroy');
                 Table.Pembelian(data);
+                $("#btnFilterBeli").removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -35,6 +41,7 @@ var Data = {
             .done(function (data, textStatus, jqXHR) {
                 $("#divPenggunaanList").mDatatable('destroy');
                 Table.Penggunaan(data);
+                $("#btnFilterGuna").removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -202,26 +209,36 @@ var Table = {
 
 var Button = {
     Init: function () {
+        Button.TabRefresh();
         Button.FilterBeli();
         Button.FilterGuna();
         Button.DatePicker();
     },
+    TabRefresh: function () {
+        $("#tabStock").on("click", function () {
+            $("#divStockList").mDatatable('reload');
+        });
+        $("#tabBeli").on("click", function () {
+            $("#divPembelianList").mDatatable('reload');
+        });
+        $("#tabGuna").on("click", function () {
+            $("#divPenggunaanList").mDatatable('reload');
+        });
+    },
     FilterBeli: function () {
         $("#btnFilterBeli").on("click", function () {
-            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
+            $("#btnFilterBeli").addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
             bulan = $("#slsBulanBeli").val();
             tahun = $("#tbxTahunBeli").val();
             Data.Pembelian(bulan, tahun);
-            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
         })
     },
     FilterGuna: function () {
         $("#btnFilterGuna").on("click", function () {
-            $(this).addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
+            $("#btnFilterGuna").addClass("m-loader m-loader--right m-loader--light").attr("disabled", true);
             bulan = $("#slsBulanGunaBeli").val();
             tahun = $("#tbxTahunGunaBeli").val();
             Data.Penggunaan(bulan, tahun);
-            $(this).removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
         })
     },
     DatePicker: function () {
@@ -247,6 +264,9 @@ var Select = {
         $("#slsBulanStock").select2();
         $("#slsBulanPembelian").select2();
         $("#slsBulanPenggunaan").select2();
+        document.getElementById("tbxTahunBeli").value = tahunIni;
+        document.getElementById("tbxTahunGuna").value = tahunIni;
+
     },
     AlatBahan: function () {
         $.ajax({

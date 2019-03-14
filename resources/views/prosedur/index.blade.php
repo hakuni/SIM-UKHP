@@ -10,7 +10,9 @@
                     <div class="m-portlet__head-caption col-lg-4">
 						<div class="m-portlet__head-title">
 							<div class="m-portlet__head-text ">
-                                <a href="/Penelitian" class="fa fa-arrow-left"></a>
+                                <a href="/Penelitian" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" style="padding-left:15px; padding-right:15px"">
+                                    <i class="fa fa-arrow-left"></i>
+                                </a>
                             </div>
 							<h3 class="m-portlet__head-text">
 								Prosedur Penelitian

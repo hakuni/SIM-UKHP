@@ -47,6 +47,7 @@ var Table = {
                     title: "Aksi",
                     sortable: false,
                     textAlign: "center",
+                    width: 50,
                     template: function (t) {
                         var strBuilder =
                             '<a href="/Rincian/' + t.idPenelitian + '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Keuangan"><i class="la la-info-circle"></i></a>';
@@ -98,7 +99,7 @@ var Control = {
             dataType: "json",
             contenType: "application/json",
             success: function (data) {
-                var html = "<option value=''>All</option>";
+                var html = "<option value=''>Semua</option>";
                 var select = $("#slsKategori");
 
                 $.each(data, function (i, item) {

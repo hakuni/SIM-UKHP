@@ -50,7 +50,7 @@ var Get = {
                     $("#btnTrx").hide();
                 }
                 Transaction.Init(id);
-                Control.DatePicker();
+                Control.Init();
                 Table.History(id);
                 $("#btnMaximize").on("click", function () {
                     $("#sidebarShow").show();
@@ -136,6 +136,7 @@ var Transaction = {
             var model = new FormData();
             model.append("idPenelitian", id);
             model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
+            model.append("PIC", $.trim($("#slsPIC").val()));
             model.append("catatan", $.trim($("#tbxCatatan").val()));
             if ($("#inptMilestoneID").val() == 3 || $("#inptMilestoneID").val() == 4) {
                 var fileInput = document.getElementById("inptFile");
@@ -261,12 +262,18 @@ var Table = {
                     width: 50,
                     template: function (t) {
                         var strBuilder = "-"
-                        console.log(t.filePath);
                         if (t.filePath != null) {
-                            strBuilder =
-                                '<a href="/AnalisisPenelitian/ ' +
-                                t.idPenelitian +
-                                '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
+                            if (t.idMilestone == 3) {
+                                strBuilder =
+                                    '<a href="/DataPenelitian/ ' +
+                                    t.idPenelitian +
+                                    '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
+                            } else if (t.idMilestone == 4) {
+                                strBuilder =
+                                    '<a href="/AnalisisPenelitian/ ' +
+                                    t.idPenelitian +
+                                    '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Hasil Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
+                            }
                         }
                         return strBuilder;
                     }
@@ -326,6 +333,10 @@ var Table = {
 };
 
 var Control = {
+    Init: function () {
+        Control.DatePicker();
+        Control.SelectPIC();
+    },
     DatePicker: function () {
         $(".datepicker").datepicker({
             format: "dd-M-yyyy",
@@ -337,5 +348,30 @@ var Control = {
                 rightArrow: '<i class="la la-angle-right"></i>'
             }
         });
+    },
+    SelectPIC: function () {
+        // $.ajax({
+        //         url: "/api/",
+        //         type: "GET"
+        //     })
+        //     .done(function (data, textStatus, jqXHR) {
+        //         $("#slsPIC").html("<option></option>");
+        //         $.each(data, function (i, item) {
+        //             $("#slsPIC").append(
+        //                 "<option value='" +
+        //                 item.idAlatBahan +
+        //                 "'>" +
+        //                 item.namaAlatBahan +
+        //                 "</option>"
+        //             );
+        //         });
+        //         $("#slsPIC").select2({
+        //             placeholder: "Pegawai UKHP",
+        //         });
+        //     })
+        //     .fail(function (jqXHR, textStatus, errorThrown) {
+        //         Common.Alert.Error(errorThrown);
+        //     });
+        $("#slsPIC").select2();
     }
 };

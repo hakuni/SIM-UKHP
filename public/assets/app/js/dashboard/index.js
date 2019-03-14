@@ -370,12 +370,17 @@ var Control = {
         Control.FilterHewan();
     },
     SelectHewan: function () {
+        // set tbx tahun sekarang
+        document.getElementById("tbxTahunKategori").value = tahun;
+        document.getElementById("tbxTahunGuna").value = tahun;
+        document.getElementById("tbxTahunKeu").value = tahun;
         document.getElementById("tbxTahunHewan").value = tahun;
+
         $("#slsPeriode").select2();
         if (bulan < 6)
-            $("#slsPeriode").append('<option value="1" selected>Jan - Jun</option> <option value = "7" > Jul - Des < /option>')
+            $("#slsPeriode").append('<option value="1" selected>Jan - Jun</option> <option value = "7" > Jul - Des </option>')
         else
-            $("#slsPeriode").append('<option value="1">Jan - Jun</option> <option value = "7" selected> Jul - Des < /option>')
+            $("#slsPeriode").append('<option value="1">Jan - Jun</option> <option value = "7" selected> Jul - Des </option>')
 
         $.ajax({
                 url: "/api/inventarisasi?tipe=1",

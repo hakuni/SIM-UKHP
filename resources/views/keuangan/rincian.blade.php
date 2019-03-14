@@ -10,7 +10,9 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <div class="m-portlet__head-text ">
-                                <a href="/Keuangan" class="fa fa-arrow-left"></a>
+                                <a href="/Keuangan" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" style="padding-left:15px; padding-right:15px"">
+                                    <i class="fa fa-arrow-left"></i>
+                                </a>
                             </div>
                             <h3 class="m-portlet__head-text col-lg-4">
                                 Rincian Keuangan |
@@ -27,7 +29,7 @@
                                 </a>
                             </li>
                             <li class="nav-item m-tabs__item">
-                                <a class="nav-link m-tabs__link" data-toggle="tab" href="#logTab" role="tab">
+                                <a id="tabLog" class="nav-link m-tabs__link" data-toggle="tab" href="#logTab" role="tab">
                                     Log
                                 </a>
                             </li>
@@ -142,7 +144,7 @@
                                             <div class="col-xl-3 order-1 order-xl-2 m--align-right">
                                                 <a href="/Project/Create" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
                                                     <span>
-                                                        <i class="fa fa-file-excel-o"></i>
+                                                        <i class="fa fa-file"></i>
                                                         <span>
                                                             Eksport
                                                         </span>
