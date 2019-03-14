@@ -55,7 +55,7 @@ class DownloadController extends Controller
     public function downloadData($idPenelitian){
         try{
             $data = TrxPenelitian::where('idPenelitian', $idPenelitian)->where('idMilestone', 4)->first();
-            $path = $data->fileDataPath;
+            $path = $data->filePath;
             return response()->download($path);
         }
         catch(\Exception $e){
@@ -66,7 +66,7 @@ class DownloadController extends Controller
     public function downloadAnalisis($idPenelitian){
         try{
             $data = TrxPenelitian::where('idPenelitian', $idPenelitian)->where('idMilestone', 4)->first();
-            $path = $data->fileDataPath;
+            $path = $data->filePath;
             return response()->download($path);
         }
         catch(\Exception $e){

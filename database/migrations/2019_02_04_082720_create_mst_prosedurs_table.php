@@ -19,7 +19,7 @@ class CreateMstProsedursTable extends Migration
             $table->integer('idKategori')->unsigned();
             $table->integer('idAlatBahan')->unsigned();
             $table->string('judulPenelitian');
-            $table->integer('jumlahHewan');
+            $table->string('keteranganHewan');
             $table->text('perlakuan');
             $table->text('parameterUji');
             $table->text('desainPenelitian');

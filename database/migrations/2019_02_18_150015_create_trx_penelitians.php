@@ -21,8 +21,7 @@ class CreateTrxPenelitians extends Migration
             $table->integer('durasi');
             $table->timestamp("startDate");
             $table->timestamp("endDate")->nullable();
-            $table->string('fileDataPath')->nullable();
-            $table->string('fileAnalisisPath')->nullable();
+            $table->string('filePath')->nullable();
             $table->string("catatan")->nullable();
 
             //foreign key

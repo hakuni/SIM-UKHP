@@ -83,10 +83,10 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Jumlah Hewan <strong style="color:red" ;>*</strong> :
+                                Keterangan Hewan <strong style="color:red" ;>*</strong> :
                             </label>
                             <div class="col-lg-6">
-                                <input type="number" value="{{$prosedur['jumlahHewan']}}" id="tbxJumlah" name="tbxJumlah" class="form-control m-input" disabled="disable">
+                                <input type="text" value="{{$prosedur['keteranganHewan']}}" id="tbxKeterangan" name="tbxKeterangan" class="form-control m-input" disabled="disable">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">

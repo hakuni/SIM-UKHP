@@ -143,15 +143,15 @@ class PenelitianController extends Controller
             if($cek){ //trx done
                 $trx = $cek;
                 $trx->endDate = date('y-m-d');
-                if($request->idMilestone == 4){
+                if($request->idMilestone == 3 || $request->idMilestone == 4){
                     //upload file
                     if($request->hasFile('doc')){
                         $upload = $this->uploadFile($request);
-                        $trx->fileDataPath = $upload;
+                        $trx->filePath = $upload;
                     }
                     $penelitian->statusPenelitian = 3;
                 }
-
+                $trx->catatan = $request->catatan;
                 $trx->save(); //save old trx
                 $trx->idMilestone = $trx->idMilestone+1;
                 $transaksi = $trx;
@@ -173,7 +173,6 @@ class PenelitianController extends Controller
                 $transaksi->startDate = date('y-m-d');
                 $transaksi->createdBy = 'kuni';
                 $transaksi->PIC = $penelitian->PIC;
-                $transaksi->catatan = $request->catatan;
                 $penelitian->statusPenelitian = 2;
 
                 $transaksi->save(); //save new trx
@@ -229,33 +228,6 @@ class PenelitianController extends Controller
         }
     }
 
-    public function uploadFile(Request $request){
-        $file = $request->file('doc');
-        $fileName = date('mdYHis').$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
-        $image['filePath'] = $fileName;
-        $file->move(public_path().'/uploads/', $fileName);
-        $path = public_path().'/uploads/'.$fileName;
-
-        //upload hasil analisis
-        if($request->idTrx != null){
-            try{
-                $trx = TrxPenelitian::findOrFail($request->idTrx);
-                $trx->fileAnalisisPath = $path;
-
-                $trx->save();
-                return response($trx)->setStatusCode(200);
-            }
-            catch(\Exception $e){
-                $trx = new TrxPenelitian;
-                $trx->ErrorType = 2;
-                $trx->ErrorMessage = $e->getMessage();
-                return response($trx)->setStatusCode(422);
-            }
-        }
-        
-        return $path;
-    }
-
     public function getTrxLog($idPenelitian){
         try{
             $history = vwHistory::where('idPenelitian', $idPenelitian)->get();
@@ -271,6 +243,16 @@ class PenelitianController extends Controller
     #endregion
 
     #region Private
+    private function uploadFile(Request $request){
+        $file = $request->file('doc');
+        $fileName = date('mdYHis').$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
+        $image['filePath'] = $fileName;
+        $file->move(public_path().'/uploads/', $fileName);
+        $path = public_path().'/uploads/'.$fileName;
+
+        return $path;
+    }
+
     //insert ke tabel pemakaian
     private function savePemakaian($idPenelitian){
         try{
@@ -296,7 +278,7 @@ class PenelitianController extends Controller
             return $e->getMessage();
         }
     }
-    
+
     //simpan data client
     private function saveDataClient(Request $request){
         try{

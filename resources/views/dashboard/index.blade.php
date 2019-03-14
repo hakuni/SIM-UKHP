@@ -161,8 +161,6 @@
                                         </div>
                                         <div class="m-form__control">
                                             <select class="form-control m-bootstrap-select" id="slsPeriode" data-dropup-auto="false">
-                                                <option value="6">Jan - Jun</option>
-                                                <option value="7">Jul - Des</option>
                                             </select>
                                         </div>
                                     </div>

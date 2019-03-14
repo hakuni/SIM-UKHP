@@ -33,9 +33,8 @@ SELECT
     `mm`.`idMilestone` AS `idMilestone`,
     `tp`.`durasi` -(TO_DAYS(`tp`.`endDate`) - TO_DAYS(`tp`.`startDate`)) AS `durasi`,
     `ltp`.`PIC` AS `PIC`,
-    `tp`.`catatan` AS `catatan`,
-    `tp`.`fileDataPath`,
-    `tp`.`fileAnalisisPath`
+    CASE WHEN `mm`.`idMilestone` = 1 THEN "Prosedur Selesai" ELSE `tp`.`catatan` END AS `catatan`,
+    `tp`.`filePath`
 FROM
     `log_trx_penelitians` `ltp` LEFT JOIN `mst_penelitians` `mp` ON `ltp`.`idPenelitian` = `mp`.`idPenelitian`
     LEFT JOIN `mst_milestones` `mm` ON `ltp`.`namaMilestone` = `mm`.`namaMilestone`

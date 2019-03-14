@@ -189,7 +189,7 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 Batal
                                             </button>
-                                            <button type="button" class="btn btn-success" id="btnUbahLayanan">
+                                            <button type="button" class="btn btn-primary" id="btnUbahLayanan">
                                                 Ubah
                                             </button>
                                         </div>

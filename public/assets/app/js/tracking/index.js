@@ -137,7 +137,7 @@ var Transaction = {
             model.append("idPenelitian", id);
             model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
             model.append("catatan", $.trim($("#tbxCatatan").val()));
-            if ($("#inptMilestoneID").val() == 4) {
+            if ($("#inptMilestoneID").val() == 3 || $("#inptMilestoneID").val() == 4) {
                 var fileInput = document.getElementById("inptFile");
                 var uploadedFile = fileInput.files[0];
                 model.append("doc", uploadedFile);
@@ -260,16 +260,14 @@ var Table = {
                     textAlign: "center",
                     width: 50,
                     template: function (t) {
-                        if (t.fileAnalisisPath != null)
-                            var strBuilder =
+                        var strBuilder = "-"
+                        console.log(t.filePath);
+                        if (t.filePath != null) {
+                            strBuilder =
                                 '<a href="/AnalisisPenelitian/ ' +
                                 t.idPenelitian +
-                                '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
-                        if (t.fileDataPath != null)
-                            strBuilder +=
-                            '<a href="/DataPenelitian/ ' +
-                            t.idPenelitian +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>';
+                                '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Download Hasil Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
+                        }
                         return strBuilder;
                     }
                 },
@@ -299,13 +297,15 @@ var Table = {
                     title: "Status",
                     textAlign: "center",
                     template: function (t) {
-                        if (t.idMilestone != 1 || t.idMilestone != 5)
+                        var status = "";
+                        if (t.idMilestone == 1 || t.idMilestone == 5) {
+                            status = "Selesai";
+                        } else {
                             if (t.durasi == null)
                                 status = "Sedang dikerjakan"
-                        else
-                            status = t.durasi < 0 ? "Terlambat" : "Tepat Waktu";
-                        else
-                            status = "-";
+                            else
+                                status = t.durasi < 0 ? "Terlambat" : "Tepat Waktu";
+                        }
                         return status;
                     }
                 },

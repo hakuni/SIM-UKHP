@@ -61,7 +61,7 @@ class DashboardController extends Controller
     public function getBanyakPenggunaan(Request $req){
         try{
             $tahun = ($req->tahun == null ? date('Y') : $req->tahun);
-            $bulanAkhir = $req->bulan+5;
+            $bulanAkhir = $req->periode+5;
 
             $banyak = DB::select('select
                                 mab.namaAlatBahan as namaAlatBahan,
@@ -72,11 +72,11 @@ class DashboardController extends Controller
                                 JOIN mst_penelitians mp ON mp.idPenelitian = rb.idPenelitian
                                 where
                                 mp.statusPenelitian != 4 AND mab.tipeAlatBahan = 1
-                                AND MONTH(rb.created_at) >= :bulan 
+                                AND MONTH(rb.created_at) >= :bulan
                                 AND MONTH(rb.created_at) <= :bulanAkhir
                                 AND YEAR(rb.created_at) = :tahun
                                 group by mab.namaAlatBahan, YEAR(rb.created_at)', ['bulan' => $req->periode, 'bulanAkhir' => $bulanAkhir, 'tahun'=>$tahun]);
-                
+
             return response($banyak);
         }
         catch(\Exception $e){

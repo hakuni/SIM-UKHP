@@ -1,9 +1,11 @@
-// var date = new Date();
+var date = new Date();
+var bulan = date.getMonth();
+var tahun = date.getFullYear();
 // $("tbxTahunHewan").val(date.getYear());
 jQuery(document).ready(function () {
+    Control.Init();
     GetData.Init();
     Grafik.Init();
-    Control.Init();
 });
 
 var GetData = {
@@ -54,8 +56,10 @@ var GetData = {
         });
     },
     Hewan: function () {
+        bln = $("#slsPeriode").val();
+        thn = $("#tbxTahunHewan").val()
         $.ajax({
-            url: "/api/dashboard/banyakHewan?periode=6&tahun=" + $("#tbxTahunHewan").val(),
+            url: "/api/dashboard/banyakHewan?periode=" + bln + "&tahun=" + thn,
             type: 'GET',
             success: function (data) {
                 Grafik.HewanPeriode(data);
@@ -366,6 +370,13 @@ var Control = {
         Control.FilterHewan();
     },
     SelectHewan: function () {
+        document.getElementById("tbxTahunHewan").value = tahun;
+        $("#slsPeriode").select2();
+        if (bulan < 6)
+            $("#slsPeriode").append('<option value="1" selected>Jan - Jun</option> <option value = "7" > Jul - Des < /option>')
+        else
+            $("#slsPeriode").append('<option value="1">Jan - Jun</option> <option value = "7" selected> Jul - Des < /option>')
+
         $.ajax({
                 url: "/api/inventarisasi?tipe=1",
                 type: "GET"
@@ -384,7 +395,6 @@ var Control = {
                 $("#slsHewan").select2({
                     placeholder: "Pilih Hewan"
                 });
-                $("#slsPeriode").select2();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

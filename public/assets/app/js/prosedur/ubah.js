@@ -54,7 +54,7 @@ var Form = {
                 slsHewan: {
                     required: true
                 },
-                tbxJumlah: {
+                tbxKeterangan: {
                     required: true
                 },
                 tbxPerlakuan: {
@@ -96,7 +96,7 @@ var Transaction = function () {
         idKategori: $("#idKategori").val(),
         judulPenelitian: $("#tbxJudul").val(),
         idAlatBahan: $("#slsHewan").val(),
-        jumlahHewan: $("#tbxJumlah").val(),
+        keteranganHewan: $("#tbxKeterangan").val(),
         perlakuan: $("#tbxPerlakuan").val(),
         parameterUji: $("#tbxParameter").val(),
         desainPenelitian: $("#tbxDesain").val(),
