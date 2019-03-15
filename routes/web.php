@@ -57,6 +57,8 @@ Route::get('/Inventaris', 'View\InventarisController@index');
 Route::get('/Kategori', 'View\MasterController@kategori');
 // layanan
 Route::get('/Layanan', 'View\MasterController@layanan');
+// layanan
+Route::get('/Pengguna', 'View\MasterController@pengguna');
 #endregion
 
 //client

@@ -172,7 +172,7 @@ class PenelitianController extends Controller
                 $transaksi->idMilestone = $request->idMilestone+1;
                 $transaksi->startDate = date('y-m-d');
                 $transaksi->createdBy = 'kuni';
-                $transaksi->PIC = $penelitian->PIC;
+                $transaksi->PIC = $request->PIC;
                 $penelitian->statusPenelitian = 2;
 
                 $transaksi->save(); //save new trx

@@ -13,4 +13,7 @@ class MasterController extends Controller
     public function layanan(){
         return view('layanan/index');
     }
+    public function pengguna(){
+        return view('user/index');
+    }
 }

@@ -71,15 +71,17 @@ Route::get('/inventarisasiLog/{tipeLog}', 'AlatBahanController@getListLog');
 
 #region master
 //create penelitian
-Route::post('/penelitian', 'PenelitianController@createPenelitian');
-//list penelitian
-Route::get('/penelitian', 'PenelitianController@getListPenelitian');
-//get single penelitian
-Route::get('/penelitian/{id}', 'PenelitianController@getSinglePenelitian');
-//update penelitian
-Route::put('/penelitian', 'PenelitianController@editPenelitian');
-//delete penelitian
-Route::delete('/penelitian/{id}', 'PenelitianController@deletePenelitian');
+// Route::middleware('auth:api')->group(function(){
+    Route::post('/penelitian', 'PenelitianController@createPenelitian');
+    //list penelitian
+    Route::get('/penelitian', 'PenelitianController@getListPenelitian');
+    //get single penelitian
+    Route::get('/penelitian/{id}', 'PenelitianController@getSinglePenelitian');
+    //update penelitian
+    Route::put('/penelitian', 'PenelitianController@editPenelitian');
+    //delete penelitian
+    Route::delete('/penelitian/{id}', 'PenelitianController@deletePenelitian');
+// });
 #endregion
 
 #region API Tracking
@@ -151,3 +153,10 @@ Route::get('dashboard/detailHewan', 'DashboardController@getDetailPenggunaan');
 #endregion
 
 Route::get('/clientTrack/{resi}', 'UserController@getTracking');
+
+Route::post('/user', 'UserController@createUser');
+Route::get('/user', 'UserController@getAllUser');
+Route::get('/user/{idUser}', 'UserController@getSingleUser');
+Route::put('/user', 'UserController@editUser');
+Route::delete('/user/{idUser}', 'UserController@deleteUser');
+Route::post('/login', 'UserController@loginUser');

@@ -102,6 +102,18 @@
                     </span>
                 </a>
             </li>
+            <li class="m-menu__item" aria-haspopup="true">
+                <a href="/Pengguna" class="m-menu__link ">
+                    <i class="m-menu__link-icon flaticon-users" style="color:whitesmoke"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
+                                Pengguna
+                            </span>
+                        </span>
+                    </span>
+                </a>
+            </li>
         </ul>
     </div>
 

@@ -144,9 +144,8 @@
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important">
                                             Analis <strong style="color:red" ;>*</strong> :
                                         </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="col-lg-9 col-md-9 col-sm-12 m--align-left" !important>
                                             <select class="form-control m-select2" id="slsPIC" style="width:550px">
-                                                <option value="1">Saya</option>
                                             </select>
                                         </div>
                                     </div>
@@ -196,9 +195,8 @@
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important">
                                             PIC <strong style="color:red" ;>*</strong> :
                                         </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <div class="col-lg-9 col-md-9 col-sm-12 m--align-left" !important>
                                             <select class="form-control m-select2" id="slsPIC" style="width:550px">
-                                                <option value="1">Saya</option>
                                             </select>
                                         </div>
                                     </div>

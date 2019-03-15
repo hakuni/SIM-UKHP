@@ -363,28 +363,28 @@ var Control = {
         });
     },
     SelectPIC: function () {
-        // $.ajax({
-        //         url: "/api/",
-        //         type: "GET"
-        //     })
-        //     .done(function (data, textStatus, jqXHR) {
-        //         $("#slsPIC").html("<option></option>");
-        //         $.each(data, function (i, item) {
-        //             $("#slsPIC").append(
-        //                 "<option value='" +
-        //                 item.idAlatBahan +
-        //                 "'>" +
-        //                 item.namaAlatBahan +
-        //                 "</option>"
-        //             );
-        //         });
-        //         $("#slsPIC").select2({
-        //             placeholder: "Pegawai UKHP",
-        //         });
-        //     })
-        //     .fail(function (jqXHR, textStatus, errorThrown) {
-        //         Common.Alert.Error(errorThrown);
-        //     });
-        $("#slsPIC").select2();
+        $.ajax({
+                url: "/api/user",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#slsPIC").html("<option></option>");
+                $.each(data, function (i, item) {
+                    $("#slsPIC").append(
+                        "<option value='" +
+                        item.email +
+                        "'>" +
+                        item.namaUser +
+                        "</option>"
+                    );
+                });
+                $("#slsPIC").select2({
+                    placeholder: "Pegawai UKHP",
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+        // $("#slsPIC").select2();
     }
 };

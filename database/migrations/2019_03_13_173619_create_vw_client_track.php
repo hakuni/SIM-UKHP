@@ -38,49 +38,53 @@ SELECT
     (
         CASE WHEN(`tp`.`endDate` IS NOT NULL) THEN 1 ELSE 0
     END
-) AS `status`
+) AS `status`,
+    `vk`.`statusPembayaran`
 FROM
     (
         (
             (
                 (
                     (
-                        `sim-ukhp`.`mst_penelitians` `mp`
-                    LEFT JOIN `sim-ukhp`.`trx_penelitians` `tp`
+                        (
+                            `sim-ukhp`.`mst_penelitians` `mp`
+                        LEFT JOIN `sim-ukhp`.`trx_penelitians` `tp`
+                        ON
+                            (
+                                (
+                                    `tp`.`idPenelitian` = `mp`.`idPenelitian`
+                                )
+                            )
+                        )
+                    LEFT JOIN `sim-ukhp`.`mst_milestones` `mm`
                     ON
                         (
                             (
-                                `tp`.`idPenelitian` = `mp`.`idPenelitian`
+                                `mm`.`idMilestone` = `tp`.`idMilestone`
                             )
                         )
                     )
-                LEFT JOIN `sim-ukhp`.`mst_milestones` `mm`
+                LEFT JOIN `sim-ukhp`.`kategoris` `k`
                 ON
+                    ((`mp`.`idKategori` = `k`.`idKategori`))
+                )
+            LEFT JOIN `sim-ukhp`.`mst_data_clients` `mdc`
+            ON
+                (
                     (
-                        (
-                            `mm`.`idMilestone` = `tp`.`idMilestone`
-                        )
+                        `mp`.`idDataClient` = `mdc`.`idDataClient`
                     )
                 )
-            LEFT JOIN `sim-ukhp`.`kategoris` `k`
-            ON
-                ((`mp`.`idKategori` = `k`.`idKategori`))
             )
-        LEFT JOIN `sim-ukhp`.`mst_data_clients` `mdc`
+        LEFT JOIN `sim-ukhp`.`mst_prosedurs` `pro`
         ON
             (
                 (
-                    `mp`.`idDataClient` = `mdc`.`idDataClient`
+                    `mp`.`idPenelitian` = `pro`.`idPenelitian`
                 )
             )
         )
-    LEFT JOIN `sim-ukhp`.`mst_prosedurs` `pro`
-    ON
-        (
-            (
-                `mp`.`idPenelitian` = `pro`.`idPenelitian`
-            )
-        )
+    LEFT JOIN `vw_keuangans` `vk` ON `mp`.`idPenelitian` = `vk`.`idPenelitian`
     )
 SQL;
     }
