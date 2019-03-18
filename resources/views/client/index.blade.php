@@ -136,7 +136,7 @@
                                         Hasil Penelitian
                                     </span>
                                 </span>
-                            </but>
+                            </button>
                         </div>
                     </div>
 				</div>

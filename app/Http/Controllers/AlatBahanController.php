@@ -18,7 +18,7 @@ class AlatBahanController extends Controller
             $alatBahan->tipeAlatBahan = $request->tipeAlatBahan;
             $alatBahan->harga = $request->harga;
             $alatBahan->satuan = $request->satuan;
-            $alatBahan->createdBy = 'kuni';
+            $alatBahan->createdBy = auth()->user()->email;
 
             $alatBahan->save();
 
@@ -77,7 +77,7 @@ class AlatBahanController extends Controller
             $alatBahan->tipeAlatBahan = $request->tipeAlatBahan;
             $alatBahan->harga = $request->harga;
             $alatBahan->satuan = $request->satuan;
-            $alatBahan->updatedBy = 'kuni';
+            $alatBahan->updatedBy = auth()->user()->email;
 
             $alatBahan->save();
 
@@ -124,7 +124,7 @@ class AlatBahanController extends Controller
             $logTrx->tglTrx = date("y-m-d", strtotime($request->tglTrx));
             $logTrx->jumlah = $request->jumlah;
 
-            $logTrx->createdBy = 'kuni';
+            $logTrx->createdBy = auth()->user()->email;
 
             $logTrx->save();
             $logTrx->ErrorType = 0;

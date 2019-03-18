@@ -32,9 +32,9 @@ class StatusPenelitianController extends Controller
             $status->fill($request->all());
             
             if($request->isMethod('put'))
-                $status->updatedBy = 'kuni';
+                $status->updatedBy = auth()->user()->email;
             else
-                $status->createdBy = 'kuni';
+                $status->createdBy = auth()->user()->email;
 
             $status->save();
             $status->ErrorType = 0;

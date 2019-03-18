@@ -14,9 +14,9 @@ class ProsedurController extends Controller
             $prosedur->fill($request->all());
 
             if($request->isMethod('put'))
-                $prosedur->updatedBy = 'kuni';
+                $prosedur->updatedBy = auth()->user()->email;
             else
-                $prosedur->createdBy = 'kuni';
+                $prosedur->createdBy = auth()->user()->email;
 
             $prosedur->save();
             return response($prosedur)->setStatusCode(200);

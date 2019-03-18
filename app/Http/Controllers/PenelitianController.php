@@ -30,8 +30,8 @@ class PenelitianController extends Controller
             $penelitian->idDataClient = $dataClient->idDataClient;
             $penelitian->statusPenelitian = $request->statusPenelitian;
             $penelitian->lastMilestoneID = 1;
-            $penelitian->PIC = 'kuni';
-            $penelitian->createdBy = 'kuni';
+            $penelitian->PIC = auth()->user()->email;
+            $penelitian->createdBy = auth()->user()->email;
             $penelitian->resi = md5(microtime());
             $penelitian->save();
 
@@ -64,7 +64,7 @@ class PenelitianController extends Controller
             $dataClient->save();
 
             $penelitian->idKategori = $request->idKategori;
-            $penelitian->updatedBy = 'kuni';
+            $penelitian->updatedBy = auth()->user()->email;
             $penelitian->save();
             $penelitian->ErrorType = 0;
 
@@ -84,7 +84,7 @@ class PenelitianController extends Controller
             if($order == 1)
                 $penelitian = vwPenelitian::orderBy('updated_at', 'DESC')->get();
             else
-                $penelitian = vwPenelitian::where('PIC', 'kuni')->orderBy('updated_at', 'DESC')->get();
+                $penelitian = vwPenelitian::where('PIC', auth()->user()->email)->orderBy('updated_at', 'DESC')->get();
             $penelitian->ErrorType = 0;
             return response($penelitian)->setStatusCode(200);
         }
@@ -172,7 +172,7 @@ class PenelitianController extends Controller
                 $transaksi->idPenelitian = $request->idPenelitian;
                 $transaksi->idMilestone = $request->idMilestone+1;
                 $transaksi->startDate = date('y-m-d');
-                $transaksi->createdBy = 'kuni';
+                $transaksi->createdBy = auth()->user()->email;
                 $transaksi->PIC = $request->PIC;
                 $penelitian->statusPenelitian = 2;
 
@@ -273,7 +273,7 @@ class PenelitianController extends Controller
                             'namaAlatBahan' => $data->namaAlatBahan,
                             'tglTrx' => date('Y-m-d'),
                             'jumlah' => $data->jumlah,
-                            'createdBy' => 'kuni',
+                            'createdBy' => auth()->user()->email,
                             'created_at' => date('Y-m-d'),
                             'updated_at' => date('Y-m-d')
                 ));

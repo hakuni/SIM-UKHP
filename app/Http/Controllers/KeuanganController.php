@@ -50,10 +50,8 @@ class KeuanganController extends Controller
             $rincian->idAlatBahan = $request->namaAlatBahan;
             $rincian->jumlah = $request->jumlah;
             $rincian->harga = MstAlatBahan::findOrFail($request->namaAlatBahan)->harga;
-            if($request->isMethod('post'))
-                $rincian->createdBy = 'kuni';
-            else
-                $rincian->updatedBy = 'kuni';
+            $rincian->createdBy = auth()->user()->email;
+            
             $rincian->save();
             $rincian->ErrorType = 0;
             return response($rincian)->setStatusCode(200);
@@ -96,22 +94,12 @@ class KeuanganController extends Controller
 
     public function editDetail(Request $request){
         try{
-            //save alat bahan dulu
-            // $cek = MstAlatBahan::where('namaAlatBahan', strtoupper($request->namaAlatBahan))->orWhere('idAlatBahan', $request->namaAlatBahan)->first();
-            // if($cek == null){
-            //     $cek = new MstAlatBahan;
-            //     $cek->namaAlatBahan = strtoupper($request->namaAlatBahan);
-            //     $cek->tipeAlatBahan = $request->tipeAlatBahan;
-            //     $cek->createdBy = 'kuni';
-            //     $cek->save();
-            // }
-
             $rincian = RincianBiaya::findOrFail($request->idRincianBiaya);
 
             $rincian->idAlatBahan = $cek->idAlatBahan;
             $rincian->jumlah = $request->jumlah;
 
-            $rincian->updatedBy = 'kuni';
+            $rincian->updatedBy = auth()->user()->email;
             $rincian->save();
             $rincian->ErrorType = 0;
             return response($rincian)->setStatusCode(200);
@@ -148,7 +136,7 @@ class KeuanganController extends Controller
             $logPembayaran->idPenelitian = $request->idPenelitian;
             $logPembayaran->tglPembayaran = date("y-m-d", strtotime($request->tglPembayaran));
             $logPembayaran->totalPembayaran = $request->totalPembayaran;
-            $logPembayaran->createdBy = 'kuni';
+            $logPembayaran->createdBy = auth()->user()->email;
 
             $logPembayaran->save();
             $logPembayaran->ErrorType = 0;
@@ -196,7 +184,7 @@ class KeuanganController extends Controller
 
             $logPembayaran->tglPembayaran = date("y-m-d", strtotime($request->tglPembayaran));
             $logPembayaran->totalPembayaran = $request->totalPembayaran;
-            $logPembayaran->createdBy = 'kuni';
+            $logPembayaran->createdBy = auth()->user()->email;
 
             $logPembayaran->save();
             $logPembayaran->ErrorType = 0;

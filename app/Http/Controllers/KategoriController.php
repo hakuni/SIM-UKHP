@@ -32,9 +32,9 @@ class KategoriController extends Controller
             $kategori->fill($request->all());
             
             if($request->isMethod('put'))
-                $kategori->updatedBy = 'kuni';
+                $kategori->updatedBy = auth()->user()->email;
             else
-                $kategori->createdBy = 'kuni';
+                $kategori->createdBy = auth()->user()->email;
 
             $kategori->save();
             $kategori->ErrorType = 0;
