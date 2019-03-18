@@ -152,6 +152,7 @@ Route::get('dashboard/banyakHewan', 'DashboardController@getBanyakPenggunaan');
 Route::get('dashboard/detailHewan', 'DashboardController@getDetailPenggunaan');
 #endregion
 
+Route::post('/login', 'UserController@loginUser');
 Route::get('/clientTrack/{resi}', 'UserController@getTracking');
 
 Route::post('/user', 'UserController@createUser');
@@ -159,4 +160,5 @@ Route::get('/user', 'UserController@getAllUser');
 Route::get('/user/{idUser}', 'UserController@getSingleUser');
 Route::put('/user', 'UserController@editUser');
 Route::delete('/user/{idUser}', 'UserController@deleteUser');
-Route::post('/login', 'UserController@loginUser');
+
+Route::post('/logout', 'UserController@logoutUser')->middleware('auth:api');

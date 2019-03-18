@@ -307,8 +307,9 @@ var Table = {
                     textAlign: "center",
                     template: function (t) {
                         durasi = "-"
-                        if (t.idMilestone != 1 && t.idMilestone != 5)
-                            durasi = t.durasi == null ? durasi : t.durasi;
+                        if (t.idMilestone != 1 && t.idMilestone != 5 && t.durasi != null)
+                            durasi = t.durasi < 0 ? 'Terlambat '+ t.durasi + ' hari' 
+                                    :'Cepat '+ t.durasi + ' hari';
                         return durasi;
                     }
                 },
@@ -324,7 +325,7 @@ var Table = {
                             if (t.durasi == null)
                                 status = "Sedang dikerjakan"
                             else
-                                status = t.durasi < 0 ? "Terlambat" : "Tepat Waktu";
+                                status = t.durasi < 0 ? "Selesai Terlambat" : "Selesai Tepat Waktu";
                         }
                         return status;
                     }

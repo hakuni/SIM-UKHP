@@ -139,7 +139,7 @@
                                 Durasi Tahap 3 <strong style="color:red" ;>*</strong> :
                             </label>
                             <div class="col-lg-3" style="padding-right:0px">
-                                <input type="number" value="{{$prosedur['tahap1']}}" id="tbxDurasi3" name="tbxDurasi3" class="form-control m-input" required>
+                                <input type="number" value="{{$prosedur['tahap3']}}" id="tbxDurasi3" name="tbxDurasi3" class="form-control m-input" required>
                             </div>
                             <a class="col-form-label col-lg-1 col-sm-1">
                                 Hari

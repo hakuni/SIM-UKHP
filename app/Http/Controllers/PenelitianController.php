@@ -137,6 +137,7 @@ class PenelitianController extends Controller
             //update mst penelitian
             $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
             $penelitian->lastMilestoneID = $request->idMilestone+1;
+            $penelitian->PIC = $request->PIC;
 
             //cek old trx
             $cek = TrxPenelitian::where('idPenelitian', $request->idPenelitian)->where('idMilestone', $request->idMilestone)->first();
@@ -244,9 +245,15 @@ class PenelitianController extends Controller
 
     #region Private
     private function uploadFile(Request $request){
+        $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
+        $judul = $peneltitian->prosedur()->first()->judulPenelitian;
+        $dataClient = $penelitian->dataClient()->first();
+
+        $metaFileName = $request->idMilestone == 3 ? "Data Pengujian " : "Analisis ";
+
         $file = $request->file('doc');
-        $fileName = date('mdYHis').$file->getClientOriginalName().'.'.$file->getClientOriginalExtension();
-        $image['filePath'] = $fileName;
+        $fileName = $metaFileName.$dataClient->namaPeneliti.'-'.$dataClient->instansiPeneliti;
+        $fileName = date('mdYHis').'-'.$fileName.'.'.$file->getClientOriginalExtension();
         $file->move(public_path().'/uploads/', $fileName);
         $path = public_path().'/uploads/'.$fileName;
 
