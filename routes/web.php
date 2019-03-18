@@ -11,9 +11,10 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('layout/index');
-// });
+// login
+Route::get('/Login', function () {
+    return view('login/index');
+});
 // dashboard
 Route::get('/Dashboard', function () {
     return view('dashboard/index');

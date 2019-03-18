@@ -95,8 +95,18 @@ var Transaction = {
         $("#btnHapus").on("click", function () {
             Transaction.Konfirmasi(id)
         })
-        Transaction.Alur(id);
-        Transaction.Pembayaran(id);
+        $("#btnTambah").on("click", function () {
+            if ($("#slsPIC").val() == 0) {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Transaction.Alur(id);
+        })
+        $("#btnTambahBayar").on("click", function () {
+            if ($.trim($("#tbxTglPembayaran").val()) == "" || $.trim($("#tbxNominal").val()) == "") {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Transaction.Pembayaran(id);
+        })
     },
     Konfirmasi: function (id) {
         swal({
@@ -143,90 +153,96 @@ var Transaction = {
             });
     },
     Alur: function (id) {
-        $("#btnTambah").on("click", function () {
-            var btn = $("#btnTambah");
+        var btn = $("#btnTambah");
 
-            var model = new FormData();
-            model.append("idPenelitian", id);
-            model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
-            model.append("PIC", $.trim($("#slsPIC").val()));
-            model.append("catatan", $.trim($("#tbxCatatan").val()));
-            if ($("#inptMilestoneID").val() == 3 || $("#inptMilestoneID").val() == 4) {
-                var fileInput = document.getElementById("inptFile");
-                var uploadedFile = fileInput.files[0];
-                model.append("doc", uploadedFile);
+        var model = new FormData();
+        model.append("idPenelitian", id);
+        model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
+        model.append("PIC", $.trim($("#slsPIC").val()));
+        model.append("catatan", $.trim($("#tbxCatatan").val()));
+        if ($("#inptMilestoneID").val() == 3 || $("#inptMilestoneID").val() == 4) {
+            var fileInput = document.getElementById("inptFile");
+            var uploadedFile = fileInput.files[0];
+            var FileSize = uploadedFile.size / 1024 / 1024;
+            if (FileSize > 5) {
+                Common.Alert.Warning("Ukuran file tidak boleh lebih dari 5 MB");
+                return false;
             }
+            if (uploadedFile == null) {
+                Common.Alert.Warning("Silahkan unggah file");
+                return false;
+            }
+            model.append("doc", uploadedFile);
+        }
 
-            btn.addClass("m-loader m-loader--right m-loader--light").attr(
-                "disabled",
-                true
-            );
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
 
-            $.ajax({
-                    url: "/api/penelitian/activity",
-                    type: "POST",
-                    dataType: "json",
-                    contentType: false,
-                    data: model,
-                    processData: false
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    // if (Common.CheckError.Object(data) == true)
-                    Common.Alert.SuccessRoute(
-                        "Berhasil menambahkan",
-                        "/Tracking"
-                    );
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    Common.Alert.Error(errorThrown);
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                });
-        });
+        $.ajax({
+                url: "/api/penelitian/activity",
+                type: "POST",
+                dataType: "json",
+                contentType: false,
+                data: model,
+                processData: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                // if (Common.CheckError.Object(data) == true)
+                Common.Alert.SuccessRoute(
+                    "Berhasil menambahkan",
+                    "/Tracking"
+                );
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
+            });
     },
     Pembayaran: function (id) {
-        $("#btnTambahBayar").on("click", function () {
-            var btn = $("#btnTambahBayar");
-            var params = {
-                idPenelitian: id,
-                tglPembayaran: $("#tbxTglPembayaran").val(),
-                totalPembayaran: $("#tbxNominal").val()
-            };
+        var btn = $("#btnTambahBayar");
+        var params = {
+            idPenelitian: id,
+            tglPembayaran: $("#tbxTglPembayaran").val(),
+            totalPembayaran: $("#tbxNominal").val()
+        };
 
-            btn.addClass("m-loader m-loader--right m-loader--light").attr(
-                "disabled",
-                true
-            );
+        btn.addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
 
-            $.ajax({
-                    url: "/api/keuanganLog",
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(params),
-                    cache: false
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    // if (Common.CheckError.Object(data) == true)
-                    Common.Alert.SuccessRoute(
-                        "Berhasil menambahkan",
-                        "/Tracking"
-                    );
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    Common.Alert.Error(errorThrown);
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                });
-        });
+        $.ajax({
+                url: "/api/keuanganLog",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(params),
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                // if (Common.CheckError.Object(data) == true)
+                Common.Alert.SuccessRoute(
+                    "Berhasil menambahkan",
+                    "/Tracking"
+                );
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
+            });
+
     }
 };
 
@@ -308,8 +324,8 @@ var Table = {
                     template: function (t) {
                         durasi = "-"
                         if (t.idMilestone != 1 && t.idMilestone != 5 && t.durasi != null)
-                            durasi = t.durasi < 0 ? 'Terlambat '+ t.durasi + ' hari' 
-                                    :'Cepat '+ t.durasi + ' hari';
+                            durasi = t.durasi < 0 ? 'Terlambat ' + t.durasi + ' hari' :
+                            'Cepat ' + t.durasi + ' hari';
                         return durasi;
                     }
                 },

@@ -1,3 +1,7 @@
+if (localStorage.getItem('token') == null) {
+    location.href = '/Login';
+}
+
 var Common = {
     //Check Error
     CheckError: {
@@ -104,20 +108,46 @@ var Common = {
             //Combines the two sections
             return n.join(".");
         },
+    },
+    Logout: function () {
+        $.ajax({
+                url: "/api/logout",
+                type: "POST",
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                console.log(data.token)
+                localStorage.removeItem("token");
+                location.href = "/Login";
+                // localStorage.setItem("role") = data.role;
+                // Common.Alert.SuccessRoute("Berhasil masuk", "/Dashboard");
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                // Common.Alert.Error(errorThrown);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            });
     }
-}
+};
 
 jQuery(document).ready(function () {
+    $.ajaxSetup({
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('token'));
+        }
+    })
     //turn active in sidebar
     var path = window.location.pathname;
     path2 = path.split('/')[2];
     path3 = path.split('/')[3];
     $('.sidebarActive').each(function () {
-        if (path3 != null) {
-            if (this.id == path3) {
-                $(this).addClass('m-menu__item--active').siblings().removeClass("m-menu__item--active");
-            }
-        } else if (this.id == path2)
+        console.log(this.id)
+        console.log(path)
+        if (this.id == path) {
             $(this).addClass('m-menu__item--active').siblings().removeClass("m-menu__item--active");
+        }
     })
 });

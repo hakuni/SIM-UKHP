@@ -99,18 +99,30 @@ class UserController extends Controller
                 'email' => $request->email,
                 'password' => $request->password
             ];
-            
-            $test = auth()->attempt($credentials);
-            
-            $token = auth()->user()->createToken('UserToken')->accessToken;
 
-            return response($token);
-            
+            $test = auth()->attempt($credentials);
+
+            $token = auth()->user()->createToken('UserToken')->accessToken;
+            $auth = auth()->user();
+
+            return response()->json(['token' => $token, 'idUser' => $auth->id]);
+
         }
         catch(\Exception $e){
             return response($e->getMessage());
         }
-    }    
+    }
+    public function logoutUser(){
+        try{
+            $user = auth()->user()->token();
+            $user->revoke();
+            $user->delete();
+            return response('Successfully Logged Out');
+        }
+        catch(\Exception $e){
+            return response($e->getMessage());
+        }
+    }
     #endregion
 
     #region client

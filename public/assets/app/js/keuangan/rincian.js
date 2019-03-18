@@ -145,7 +145,10 @@ var Control = {
     Init: function () {
         Control.Biodata();
         $("#btnTambah").on("click", function () {
-            Control.Tambah();
+            if ($.trim($("#tbxJumlah").val()) == "" || $("#slsAlatBahan").val() == 0) {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Control.Tambah();
         });
         Control.Select();
         // tab datatable rapih
@@ -283,7 +286,10 @@ var Control = {
                     backdrop: "static"
                 });
                 $("#btnUbah").on("click", function () {
-                    Control.Ubah(data.idRincianBiaya);
+                    if ($.trim($("#tbxJumlahUbah").val()) != "") {
+                        Control.Ubah(data.idRincianBiaya);
+                    } else
+                        Common.Alert.Warning("Periksa kembali data masukan anda");
                 })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

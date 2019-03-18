@@ -54,7 +54,7 @@
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
                                                     <label class="m-radio m-radio--solid m-radio--success">
-                                                        <input type="radio" name="tipe" value="1">
+                                                        <input type="radio" name="tipe" value="1" checked>
                                                         Hewan
                                                         <span></span>
                                                     </label>

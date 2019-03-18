@@ -36,13 +36,13 @@ Control = {
                         }
                         if (item.idMilestone == 3) {
                             document.getElementById("pengujian").src = img;
-                            if (item.status == 1) {
+                            if (item.status == 1 && item.statusPembayaran == "LUNAS") {
                                 $("#btnHasil").show();
                             }
                         }
                         if (item.idMilestone == 4) {
                             document.getElementById("analisis").src = img;
-                            if (item.status == 1) {
+                            if (item.status == 1 && item.statusPembayaran == "LUNAS") {
                                 document.getElementById("selesai").src = img;
                                 $("#btnData").show();
                             }

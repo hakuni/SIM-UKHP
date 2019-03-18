@@ -72,7 +72,10 @@ var Table = {
 var Button = {
     Init: function () {
         $("#btnTambahUser").on("click", function () {
-            Button.Tambah();
+            if ($.trim($("#tbxEmail").val()) == "" || $.trim($("#tbxNama").val()) == "" || $.trim($("#tbxPass").val()) == "") {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Button.Tambah();
         });
     },
     Tambah: function () {
@@ -194,8 +197,11 @@ var Button = {
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
-                $("#btnUbahPengguna").on("click", function () {
-                    Button.Ubah(data.id);
+                $("#btnUbahUser").on("click", function () {
+                    if ($.trim($("#tbxNamaUbah").val()) != "" || $.trim($("#tbxEmailUbah").val()) != "") {
+                        Button.Ubah(data.id);
+                    } else
+                        Common.Alert.Warning("Periksa kembali data masukan anda");
                 })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

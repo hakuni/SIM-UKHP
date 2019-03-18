@@ -200,12 +200,22 @@
                                             </select>
                                         </div>
                                     </div>
+                                    @if ($vwDetailPenelitian['idMilestone'] == 2)
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
                                             Catatan :
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                             <textarea type="text" id="tbxCatatan" class="form-control m-input"></textarea>
+                                        </div>
+                                    </div>
+                                    @endif
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                            Durasi :
+                                        </label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 m--align-left">
+                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtDurasi">10 Hari</label>
                                         </div>
                                     </div>
                                 </div>

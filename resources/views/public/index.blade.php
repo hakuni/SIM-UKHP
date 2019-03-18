@@ -14,7 +14,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <html lang="en" >
 	<!-- begin::Head -->
 	<head>
-		@include('public.head')
+        @include('public.head')
+        <script src="{{asset('assets/app/js/header.js')}}" type="text/javascript"></script>
 	</head>
 	<!-- end::Head -->
     <!-- end::Body -->

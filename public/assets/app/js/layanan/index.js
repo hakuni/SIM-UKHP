@@ -77,7 +77,10 @@ var Table = {
 var Button = {
     Init: function () {
         $("#btnTambahLayanan").on("click", function () {
-            Button.Tambah();
+            if ($.trim($("#tbxItem").val()) == "" || $.trim($("#tbxHarga").val()) == "" || $.trim($("#tbxSatuan").val()) == "") {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Button.Tambah();
         });
     },
     Tambah: function () {
@@ -122,7 +125,7 @@ var Button = {
     ConfirmDelete: function (id) {
         swal({
             title: "Anda yakin?",
-            text: "Kategori ini akan dihapus",
+            text: "Layanan ini akan dihapus",
             type: "warning",
             showCancelButton: true,
             confirmButtonText: "Yakin, hapus ini!",
@@ -214,7 +217,10 @@ var Button = {
                     backdrop: "static"
                 });
                 $("#btnUbahLayanan").on("click", function () {
-                    Button.Ubah(data.idAlatBahan);
+                    if ($.trim($("#tbxItemUbah").val()) != "" || $.trim($("#tbxHargaUbah").val()) != "" || $.trim($("#tbxSatuanUbah").val()) != "") {
+                        Button.Ubah(data.idAlatBahan);
+                    } else
+                        Common.Alert.Warning("Periksa kembali data masukan anda");
                 })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

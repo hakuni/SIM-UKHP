@@ -301,10 +301,16 @@ var Select = {
 var Transaction = {
     Init: function () {
         $("#btnTambahPembelian").on("click", function () {
-            Transaction.Pembelian();
+            if ($("#slsAlatBahan").val() == 0 || $.trim($("#tbxTanggalPembelian").val()) == "" || $.trim($("#tbxJumlahBeli").val()) == "" || $.trim($("#tbxHargaBeli").val()) == "") {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Transaction.Pembelian();
         });
         $("#btnTambahPenggunaan").on("click", function () {
-            Transaction.Penggunaan();
+            if ($("#slsAlatBahanGuna").val() == 0 || $.trim($("#tbxTanggalPenggunaan").val()) == "" || $.trim($("#tbxJumlahPenggunaan").val()) == "") {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Transaction.Penggunaan();
         })
     },
     Pembelian: function () {
@@ -331,7 +337,6 @@ var Transaction = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#divStockList").mDatatable('reload');
                 Data.Pembelian("", "");
                 $("#divPembelianList").mDatatable('reload');
                 Select.AlatBahan();
@@ -373,7 +378,6 @@ var Transaction = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#divStockList").mDatatable('reload');
                 Data.Penggunaan("", "");
                 $("#divPenggunaanList").mDatatable('reload');
                 Select.AlatBahan();

@@ -1,5 +1,6 @@
 //== Class Initialization
 jQuery(document).ready(function () {
+    Form.Init();
     Button.Init();
     Table.Init();
 });
@@ -64,10 +65,28 @@ var Table = {
     }
 };
 
+var Form = {
+    Init: function () {
+        $("#formTambah").validate({
+            rules: {
+                tbxKategori: {
+                    required: true
+                },
+                tbxKategoriUbah: {
+                    required: true
+                }
+            },
+        })
+    }
+}
+
 var Button = {
     Init: function () {
         $("#btnTambahKategori").on("click", function () {
-            Button.Tambah();
+            if ($.trim($("#tbxKategori").val()) != "") {
+                Button.Tambah();
+            } else
+                Common.Alert.Warning("Nama kategori tidak boleh kosong");
         });
     },
     Tambah: function () {
@@ -183,7 +202,10 @@ var Button = {
                     backdrop: "static"
                 });
                 $("#btnUbahKategori").on("click", function () {
-                    Button.Ubah(data.idKategori);
+                    if ($.trim($("#tbxKategoriUbah").val()) != "") {
+                        Button.Ubah(data.idKategori);
+                    } else
+                        Common.Alert.Warning("Nama kategori tidak boleh kosong");
                 })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
