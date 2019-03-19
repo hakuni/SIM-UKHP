@@ -14,6 +14,11 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <html lang="en" >
 	<!-- begin::Head -->
+	<script>
+	if (document.cookie.indexOf("token=") <= -1) {
+		location.href = "/Login";
+	}
+	</script>
 	<head>
         @include('public.head')
 		<!--begin::Base Scripts -->

@@ -27,19 +27,16 @@ var Transaction = {
                     cache: false
                 })
                 .done(function (data, textStatus, jqXHR) {
-                    console.log(data.token)
-                    localStorage.setItem("token", data.token);
-                    localStorage.setItem("idUser", data.idUser);
+                    document.cookie = "token="+data.token+"; path=/;"
+                    document.cookie = "idUser="+data.idUser+"; path=/;"
                     location.href = "/Dashboard";
-                    // localStorage.setItem("role") = data.role;
-                    // Common.Alert.SuccessRoute("Berhasil masuk", "/Dashboard");
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                         "disabled",
                         false
                     );
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
-                    // Common.Alert.Error(errorThrown);
+                    Common.Alert.Error(errorThrown);
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                         "disabled",
                         false

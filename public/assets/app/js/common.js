@@ -1,7 +1,3 @@
-if (localStorage.getItem('token') == null) {
-    location.href = '/Login';
-}
-
 var Common = {
     //Check Error
     CheckError: {
@@ -108,7 +104,10 @@ var Common = {
             //Combines the two sections
             return n.join(".");
         },
-    },
+    }
+};
+
+var App = {
     Logout: function () {
         $.ajax({
                 url: "/api/logout",
@@ -116,38 +115,64 @@ var Common = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                console.log(data.token)
-                localStorage.removeItem("token");
+                document.cookie = "token=; idUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 location.href = "/Login";
-                // localStorage.setItem("role") = data.role;
-                // Common.Alert.SuccessRoute("Berhasil masuk", "/Dashboard");
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
-                // Common.Alert.Error(errorThrown);
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                    "disabled",
-                    false
-                );
+                Common.Alert.Error(errorThrown);
             });
+    },
+    GetCookie: function(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+    },
+    GetBiodata: function(){
+        var id = App.GetCookie('idUser');
+        $.ajax({
+            url: "/api/user/" + id,
+            type: "GET",
+            cache: false
+        })
+        .done(function (data, textStatus, jqXHR) {
+            console.log(data)
+            $("#nama").html(data.namaUser);
+            console.log($("#nama").innerHTML)
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
+        });
+    },
+    SidebarTag: function(){
+        //turn active in sidebar
+        var path = window.location.pathname;
+        path2 = path.split('/')[2];
+        path3 = path.split('/')[3];
+        $('.sidebarActive').each(function () {
+            if (this.id == path) {
+                document.getElementById(this.id).setAttribute("style", "background-color:#716aca");
+            }
+        })
     }
-};
+}
 
 jQuery(document).ready(function () {
     $.ajaxSetup({
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Accept", "application/json");
-            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('token'));
+            xhr.setRequestHeader("Authorization", "Bearer " + App.GetCookie("token"));
         }
     })
-    //turn active in sidebar
-    var path = window.location.pathname;
-    path2 = path.split('/')[2];
-    path3 = path.split('/')[3];
-    $('.sidebarActive').each(function () {
-        console.log(this.id)
-        console.log(path)
-        if (this.id == path) {
-            $(this).addClass('m-menu__item--active').siblings().removeClass("m-menu__item--active");
-        }
-    })
+
+    App.GetBiodata();
+    App.SidebarTag();
 });
