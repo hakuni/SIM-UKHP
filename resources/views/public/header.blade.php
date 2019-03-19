@@ -70,7 +70,7 @@
                                 </a>
                                 <div class="m-dropdown__wrapper">
                                     <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
-                                    <div class="m-dropdown__inner">
+                                    <div class="m-dropdown__inner" syle="width:280px">
                                         <div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/notification_bg.jpg); background-size: cover;">
                                             <span class="m-dropdown__header-title">
                                                 9 New
@@ -232,6 +232,9 @@
 																</li> -->
                                                     <li class="m-nav__separator m-nav__separator--fit"></li>
                                                     <li class="m-nav__item">
+                                                        <button onclick="" class="btn m-btn--pill    btn-primary m-btn m-btn--custom m-btn--label-primary m-btn--bolder">
+                                                            Ubah Akun
+                                                        </button>
                                                         <button onclick="App.Logout()" class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
                                                             Logout
                                                         </button>
@@ -241,13 +244,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                            <li id="m_quick_sidebar_toggle" class="m-nav__item">
-                                <a href="#" class="m-nav__link m-dropdown__toggle">
-                                    <span class="m-nav__link-icon">
-                                        <i class="flaticon-grid-menu"></i>
-                                    </span>
-                                </a>
                             </li>
                         </ul>
                     </div>

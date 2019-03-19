@@ -259,6 +259,7 @@ var Select = {
     Init: function () {
         Select.Bulan();
         Select.AlatBahan();
+        Select.Status();
     },
     Bulan: function () {
         $("#slsBulanStock").select2();
@@ -274,9 +275,9 @@ var Select = {
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                $(".m-select2").html("<option></option>");
+                $(".alatBahan").html("<option></option>");
                 $.each(data, function (i, item) {
-                    $(".m-select2").append(
+                    $(".alatBahan").append(
                         "<option value='" +
                         item.idAlatBahan +
                         "'>" +
@@ -295,6 +296,14 @@ var Select = {
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
+    },
+    Status: function () {
+        $("#slsStatus").html("<option value=''></option>");
+        $("#slsStatus").select2({
+            placeholder: "Status"
+        });
+        $("#slsStatus").append('<option value="1">Pemakaian Penelitian</option> <option value = "2" >Penjualan</option> <option value = "3" >Lain-lain</option>');
+
     }
 };
 
@@ -360,10 +369,11 @@ var Transaction = {
         var params = {
             tipeTrx: 2,
             namaAlatBahan: $("#slsAlatBahanGuna").val(),
+            statusPemakaian: $("#slsStatus").val(),
             tglTrx: $("#tbxTanggalPenggunaan").val(),
             jumlah: $("#tbxJumlahPenggunaan").val()
         };
-        console.log(params);
+
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true
@@ -381,7 +391,7 @@ var Transaction = {
                 Data.Penggunaan("", "");
                 $("#divPenggunaanList").mDatatable('reload');
                 Select.AlatBahan();
-                $("#slsAlatBahanGuna").val("");
+                Select.Status();
                 $("#tbxTanggalPenggunaan").val("");
                 $("#tbxJumlahPenggunaan").val("");
                 $("#formPenggunaan").modal("toggle");

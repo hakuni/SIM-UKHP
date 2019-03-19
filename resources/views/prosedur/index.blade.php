@@ -20,7 +20,7 @@
 						</div>
                     </div>
                     <div class="m-portlet__head-caption col-lg-4">
-                        <a href="/Download/{{$idPen}}" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnEksport">
+                        <a href="/Penelitian/Download/{{$idPen}}" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnEksport">
                             <span>
                                 <i class="fa fa-download"></i>
                                 <span>
@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <div class="m-portlet__head-caption col-lg-4">
-                        <a href="/UbahProsedur/{{$idPen}}/{{$prosedur['idProsedur']}}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnUbahProsedur">
+                        <a href="/Penelitian/UbahProsedur/{{$idPen}}/{{$prosedur['idProsedur']}}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnUbahProsedur">
                             <span>
                                 <i class="fa fa-edit"></i>
                                 <span>

@@ -234,7 +234,7 @@
                     <!-- button -->
                     <!-- cek biaya penelitian -->
                     @if ($vwDetailPenelitian['biaya'] == 0)
-                        <a href="/Rincian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px">
+                        <a href="/Keuangan/Rincian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px">
                             <span>
                                 <i class="la la-dollar"></i>
                                 <span>

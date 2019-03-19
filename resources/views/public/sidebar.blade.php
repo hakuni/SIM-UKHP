@@ -6,12 +6,12 @@
     <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " m-menu-vertical="1"
         m-menu-scrollable="0" m-menu-dropdown-timeout="500">
         <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Dashboard">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Dashboard">
                 <a href="/Dashboard" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-dashboard"></i>
+                    <i class="m-menu__link-icon flaticon-dashboard" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Dashboard
                             </span>
                         </span>
@@ -24,48 +24,48 @@
                 </h4>
                 <i class="m-menu__section-icon flaticon-more-v3"></i>
             </li>
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Tracking">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Tracking">
                 <a href="/Tracking" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-paper-plane"></i>
+                    <i class="m-menu__link-icon flaticon-paper-plane" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Tracking
                             </span>
                         </span>
                     </span>
                 </a>
             </li>
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Penelitian">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Penelitian">
                 <a href="/Penelitian" class="m-menu__link ">
-                    <i class="m-menu__link-icon fa fa-flask"></i>
+                    <i class="m-menu__link-icon fa fa-flask" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Penelitian
                             </span>
                         </span>
                     </span>
                 </a>
             </li>
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Keuangan">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Keuangan">
                 <a href="/Keuangan" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-coins"></i>
+                    <i class="m-menu__link-icon flaticon-coins" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Keuangan
                             </span>
                         </span>
                     </span>
                 </a>
             </li>
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Inventaris">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Inventaris">
                 <a href="/Inventaris" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-piggy-bank"></i>
+                    <i class="m-menu__link-icon flaticon-piggy-bank" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Inventarisasi
                             </span>
                         </span>
@@ -73,41 +73,41 @@
                 </a>
             </li>
             <li class="m-menu__section">
-                <h4 class="m-menu__section-text">
+                <h4 class="m-menu__section-text" style="color:whitesmoke">
                     Master
                 </h4>
                 <i class="m-menu__section-icon flaticon-more-v3"></i>
             </li>
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Kategori">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Kategori">
                 <a href="/Kategori" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-light"></i>
+                    <i class="m-menu__link-icon flaticon-light" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Kategori
                             </span>
                         </span>
                     </span>
                 </a>
             </li>
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Layanan">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Layanan">
                 <a href="/Layanan" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-cogwheel-2"></i>
+                    <i class="m-menu__link-icon flaticon-cogwheel-2" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Layanan
                             </span>
                         </span>
                     </span>
                 </a>
             </li>
-            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="/Pengguna">
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Pengguna">
                 <a href="/Pengguna" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-users"></i>
+                    <i class="m-menu__link-icon flaticon-users" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
-                            <span class="m-menu__link-text">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
                                 Pengguna
                             </span>
                         </span>
@@ -116,6 +116,6 @@
             </li>
         </ul>
     </div>
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
     <!-- END: Aside Menu -->
 </div>

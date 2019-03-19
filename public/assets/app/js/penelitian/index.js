@@ -48,14 +48,14 @@ var Table = {
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<a href="/UbahPenelitian/' +
+                            '<a href="/Penelitian/UbahPenelitian/' +
                             t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Penelitian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
                             '<a href="/Rincian/' +
                             t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Biaya"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
-                        var routeView = "/Prosedur/" + t.idPenelitian + "/" + t.idProsedur;
+                        var routeView = "/Penelitian/Prosedur/" + t.idPenelitian + "/" + t.idProsedur;
                         if (t.idProsedur == 0) {
                             routeView = "/TambahProsedur/" + t.idPenelitian;
                         }

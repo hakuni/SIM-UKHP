@@ -49,9 +49,15 @@ var Table = {
                     textAlign: "center",
                     template: function (t) {
                         var strBuilder =
-                            '<button onclick="Button.ModalUbah(' + t.idKategori + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
-                        strBuilder +=
-                            '<button onclick="Button.Konfirmasi(' + t.idKategori + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
+                            '<button onclick="Button.ModalUbah(' +
+                            t.idKategori +
+                            ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
+                        if (t.idKategori != 1) {
+                            strBuilder +=
+                                '<button onclick="Button.Konfirmasi(' +
+                                t.idKategori +
+                                ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
+                        }
                         return strBuilder;
                     }
                 },
@@ -75,18 +81,17 @@ var Form = {
                 tbxKategoriUbah: {
                     required: true
                 }
-            },
-        })
+            }
+        });
     }
-}
+};
 
 var Button = {
     Init: function () {
         $("#btnTambahKategori").on("click", function () {
             if ($.trim($("#tbxKategori").val()) != "") {
                 Button.Tambah();
-            } else
-                Common.Alert.Warning("Nama kategori tidak boleh kosong");
+            } else Common.Alert.Warning("Nama kategori tidak boleh kosong");
         });
     },
     Tambah: function () {
@@ -109,18 +114,19 @@ var Button = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#divKategoriList").mDatatable('reload');
+                $("#divKategoriList").mDatatable("reload");
                 $("#tbxKategori").val("");
                 $("#formTambah").modal("toggle");
                 console.log(data);
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                    "disabled",
-                    false
-                );
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
             });
     },
     Konfirmasi: function (id) {
@@ -129,12 +135,12 @@ var Button = {
             text: "Kategori ini akan dihapus",
             type: "question",
             showCancelButton: true,
-            confirmButtonText: "Yakin, hapus ini!",
+            confirmButtonText: "Yakin, hapus ini!"
         }).then(function (e) {
             if (e.value) {
                 Button.Hapus(id);
             }
-        })
+        });
     },
     Hapus: function (id) {
         $.ajax({
@@ -145,8 +151,8 @@ var Button = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                Common.Alert.Success("Berhasil dihapus")
-                $("#divKategoriList").mDatatable('reload');
+                Common.Alert.Success("Berhasil dihapus");
+                $("#divKategoriList").mDatatable("reload");
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -174,27 +180,28 @@ var Button = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#divKategoriList").mDatatable('reload');
+                $("#divKategoriList").mDatatable("reload");
                 $("#tbxKategoriUbah").val("");
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
                 if (Common.CheckError.Object(data))
                     Common.Alert.Success("Berhasil diubah");
                 $("#formUbah").modal("toggle");
-                $("#divKategoriList").mDatatable('reload');
+                $("#divKategoriList").mDatatable("reload");
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                    "disabled",
-                    false
-                );
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
             });
     },
     ModalUbah: function (id) {
         $.ajax({
                 url: "/api/kategori/" + id,
                 type: "GET",
-                dataType: "json",
+                dataType: "json"
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#tbxKategoriUbah").val(data.namaKategori);
@@ -204,12 +211,11 @@ var Button = {
                 $("#btnUbahKategori").on("click", function () {
                     if ($.trim($("#tbxKategoriUbah").val()) != "") {
                         Button.Ubah(data.idKategori);
-                    } else
-                        Common.Alert.Warning("Nama kategori tidak boleh kosong");
-                })
+                    } else Common.Alert.Warning("Nama kategori tidak boleh kosong");
+                });
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     }
-}
+};

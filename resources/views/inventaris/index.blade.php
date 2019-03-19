@@ -130,7 +130,7 @@
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <select class="form-control m-select2" id="slsAlatBahan"
+                                                            <select class="form-control m-select2 alatBahan" id="slsAlatBahan"
                                                                 style="width:550px">
                                                             </select>
                                                         </div>
@@ -160,7 +160,7 @@
                                                                 required>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group m-form__group row">
+                                                    <!-- <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
                                                             Harga <span style="color:red">*</span> :
                                                         </label>
@@ -168,7 +168,7 @@
                                                             <input type="number" id="tbxHargaBeli" class="form-control m-input"
                                                                 required>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -204,7 +204,22 @@
                                 <div class="row align-items-center">
                                     <div class="col-xl-8 order-2 order-xl-1">
                                         <div class="form-group m-form__group row align-items-center">
-                                            <div class="col-md-5">
+                                            <div class="col-md-4">
+                                                <div class="m-form__group m-form__group--inline">
+                                                    <div class="m-form__label">
+                                                        <label class="m-label m-label--single">
+                                                            <span>
+                                                                Status:
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="m-form__control">
+                                                        <select class="form-control m-bootstrap-select" data-dropup-auto="false" id="slsStatus" style="width:150px"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="d-md-none m--margin-bottom-10"></div>
+                                            </div>
+                                            <div class="col-md-3" style="padding-right:0px">
                                                 <div class="m-form__group m-form__group--inline">
                                                     <div class="m-form__label">
                                                         <label class="m-label m-label--single">
@@ -213,9 +228,9 @@
                                                             </span>
                                                         </label>
                                                     </div>
-                                                    <div class="m-form__control">
+                                                    <div class="m-form__control" style="width:150px">
                                                         <select class="form-control m-bootstrap-select2" id="slsBulanGuna">
-                                                            <option value="0" selected>Semua Bulan</option>
+                                                            <option value="0" selected>Semua</option>
                                                             <option value="1">Januari</option>
                                                             <option value="2">Februari</option>
                                                             <option value="3">Maret</option>
@@ -233,7 +248,7 @@
                                                 </div>
                                                 <div class="d-md-none m--margin-bottom-10"></div>
                                             </div>
-                                            <div class="col-md-5">
+                                            <div class="col-md-3">
                                                 <div class="m-form__group m-form__group--inline">
                                                     <div class="m-form__label">
                                                         <label class="m-label m-label--single">
@@ -242,7 +257,7 @@
                                                             </span>
                                                         </label>
                                                     </div>
-                                                    <div class="m-form__control">
+                                                    <div class="m-form__control" style="width:100px">
                                                         <input class="form-control m-input" id="tbxTahunGuna" />
                                                     </div>
                                                 </div>
@@ -275,14 +290,23 @@
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <select class="form-control m-select2" id="slsAlatBahanGuna"
+                                                            <select class="form-control m-select2 alatBahan" id="slsAlatBahanGuna"
                                                                 style="width:550px">
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Tanggal Penggunaan <strong style="color:red" ;>*</strong> :
+                                                            Status <strong style="color:red" ;>*</strong> :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <select class="form-control m-select2" id="slsStatus" style="width:550px">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Tanggal <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <div class="input-group date">
