@@ -115,50 +115,48 @@ var App = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                document.cookie = "token=; idUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                localStorage.removeItem('namaUser');
                 location.href = "/Login";
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     },
-    GetCookie: function(cname) {
+    GetCookie: function (cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
-        for(var i = 0; i < ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
         return "";
     },
-    GetBiodata: function(){
+    GetBiodata: function () {
         var id = App.GetCookie('idUser');
         $.ajax({
-            url: "/api/user/" + id,
-            type: "GET",
-            cache: false
-        })
-        .done(function (data, textStatus, jqXHR) {
-            console.log(data)
-            $("#nama").html(data.namaUser);
-            console.log($("#nama").innerHTML)
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            Common.Alert.Error(errorThrown);
-        });
+                url: "/api/user/" + id,
+                type: "GET",
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#nama").html(data.namaUser);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     },
-    SidebarTag: function(){
+    SidebarTag: function () {
         //turn active in sidebar
         var path = window.location.pathname;
-        path2 = path.split('/')[2];
-        path3 = path.split('/')[3];
+        path2 = path.split('/')[1];
         $('.sidebarActive').each(function () {
-            if (this.id == path) {
+            if (this.id == path2) {
                 document.getElementById(this.id).setAttribute("style", "background-color:#716aca");
             }
         })
@@ -170,9 +168,13 @@ jQuery(document).ready(function () {
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Accept", "application/json");
             xhr.setRequestHeader("Authorization", "Bearer " + App.GetCookie("token"));
-        }
+        },
+        xhrFields: {
+            withCredentials: true
+        },
+        // crossDomain: true
     })
 
-    App.GetBiodata();
+    $("#nama").html(localStorage.getItem('namaUser'));
     App.SidebarTag();
 });

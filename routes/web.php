@@ -49,6 +49,9 @@ Route::group(['prefix'=>'Penelitian'], function(){
 Route::group(['prefix'=>'Keuangan'], function(){
     Route::get('/', 'View\KeuanganController@index');
     Route::get('/Rincian/{id}', 'View\KeuanganController@rincian');
+    Route::get('/Test', function(){
+        return view("keuangan/tambah");
+    });
 });
 #endregion
 

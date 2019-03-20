@@ -70,7 +70,7 @@
                                 </a>
                                 <div class="m-dropdown__wrapper">
                                     <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
-                                    <div class="m-dropdown__inner" syle="width:280px">
+                                    <div class="m-dropdown__inner" style="width:280px">
                                         <div class="m-dropdown__header m--align-center" style="background: url(assets/app/media/img/misc/notification_bg.jpg); background-size: cover;">
                                             <span class="m-dropdown__header-title">
                                                 9 New

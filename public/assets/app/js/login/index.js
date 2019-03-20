@@ -27,8 +27,8 @@ var Transaction = {
                     cache: false
                 })
                 .done(function (data, textStatus, jqXHR) {
-                    document.cookie = "token="+data.token+"; path=/;"
-                    document.cookie = "idUser="+data.idUser+"; path=/;"
+                    document.cookie = "token=" + data.token + "; path=/;"
+                    localStorage.setItem("namaUser", data.namaUser)
                     location.href = "/Dashboard";
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                         "disabled",
@@ -36,7 +36,7 @@ var Transaction = {
                     );
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
-                    Common.Alert.Error(errorThrown);
+                    // Common.Alert.Error(errorThrown);
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                         "disabled",
                         false

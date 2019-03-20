@@ -10,8 +10,10 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <div class="m-portlet__head-text ">
-                                <a href="/Keuangan" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" style="padding-left:15px; padding-right:15px"">
-                                    <i class="fa fa-arrow-left"></i>
+                                <a href="/Keuangan" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
+                                    style="padding-left:15px; padding-right:15px"">
+                                    <i class="
+                                    fa fa-arrow-left"></i>
                                 </a>
                             </div>
                             <h3 class="m-portlet__head-text col-lg-4">
@@ -43,8 +45,8 @@
                             <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                                 <div class="row align-items-center">
                                     <!-- modal rincian -->
-                                    <div class="modal hide fade" id="formRincian" role="dialog" aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
+                                    <div class="modal hide" id="formRincian" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -60,21 +62,84 @@
                                                 <div class="modal-body">
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Alat dan Bahan <strong style="color:red" ;>*</strong> :
+                                                            Milestone <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <select class="form-control m-select2" id="slsAlatBahan"
+                                                            <select class="form-control m-select2" id="slsMilestone"
                                                                 style="width:550px">
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group m-form__group row">
-                                                        <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Jumlah <span style="color:red">*</span> :
-                                                        </label>
-                                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <input type="number" id="tbxJumlah" class="form-control m-input"
-                                                                required>
+                                                    <div id="formRepeat">
+                                                        <div data-repeater-list="" class="col-lg-12 ui-sortable">
+                                                            <div data-repeater-item class="form-group m-form__group row align-items-center" style="display:none">
+                                                                <div class="col-lg-7 m-form__group--inline row">
+                                                                    <label class="col-form-label">Alat dan Bahan
+                                                                        <strong style="color:red" ;>*</strong>
+                                                                        :</label>
+                                                                    <div class="col-lg-7">
+                                                                        <select class="form-control m-select2 slsAlatBahan infinityInput notInit"
+                                                                            style="width:240px" id="slsAlatBahan">
+                                                                            <!-- <option value="1">Test1</option>
+                                                                        <option value="2">Test2</option> -->
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                                <div class="col-lg-4 m-form__group--inline row">
+                                                                    <label class="col-form-label">Jumlah <strong style="color:red"
+                                                                            ;>*</strong>
+                                                                        :</label>
+                                                                    <div class="col-lg-8">
+                                                                        <input type="number" id="tbxJumlah" class="form-control m-input tbxJumlah infinityInput"
+                                                                            required>
+                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                                <div class="col-lg-1">
+                                                                    <div data-repeater-delete="" class="btn btn-outline-danger m-btn m-btn--icon m-btn--pill">
+                                                                        <i class="la la-trash-o"></i>
+                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div data-repeater-item class="form-group m-form__group row align-items-center divRepeat">
+                                                                <div class="col-lg-7 m-form__group--inline row">
+                                                                    <label class="col-form-label">Alat dan Bahan
+                                                                        <strong style="color:red" ;>*</strong>
+                                                                        :</label>
+                                                                    <div class="col-lg-7">
+                                                                        <select class="form-control m-select2 slsAlatBahan infinityInput notInit"
+                                                                            style="width:240px" id="slsAlatBahan">
+                                                                            <!-- <option value="1">Test1</option>
+                                                                        <option value="2">Test2</option> -->
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                                <div class="col-lg-4 m-form__group--inline row">
+                                                                    <label class="col-form-label">Jumlah <strong style="color:red"
+                                                                            ;>*</strong>
+                                                                        :</label>
+                                                                    <div class="col-lg-8">
+                                                                        <input type="number" id="tbxJumlah" class="form-control m-input tbxJumlah infinityInput"
+                                                                            required>
+                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                                <div class="col-lg-1">
+                                                                    <div data-repeater-delete="" class="btn btn-outline-danger m-btn m-btn--icon m-btn--pill">
+                                                                        <i class="la la-trash-o"></i>
+                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="m--align-right col-lg 6">
+                                                            <div data-repeater-create="" class="btn btn-brand m-btn m-btn--icon m-btn--pill">
+                                                                <i class="la la-plus"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,6 +169,14 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <div class="form-group m-form__group row">
+                                                        <label class="col-form-label col-lg-3 col-sm-12">
+                                                            Milestone :
+                                                        </label>
+                                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtMilestone">Persiapan</label>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
                                                             Alat dan Bahan <strong style="color:red" ;>*</strong> :
@@ -153,18 +226,18 @@
                                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
                                             </div>
                                             @if($statusPenelitian == 1)
-                                                <div class="col-xl-3 order-1 order-xl-2 m--align-right">
-                                                    <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
-                                                        id="btnRincian" data-toggle="modal" data-target="#formRincian">
+                                            <div class="col-xl-3 order-1 order-xl-2 m--align-right">
+                                                <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
+                                                    id="btnRincian" data-toggle="modal" data-target="#formRincian">
+                                                    <span>
+                                                        <i class="fa fa-plus"></i>
                                                         <span>
-                                                            <i class="fa fa-plus"></i>
-                                                            <span>
-                                                                Tambah Rincian
-                                                            </span>
+                                                            Tambah Rincian
                                                         </span>
-                                                    </a>
-                                                    <div class="m-separator m-separator--dashed d-xl-none"></div>
-                                                </div>
+                                                    </span>
+                                                </a>
+                                                <div class="m-separator m-separator--dashed d-xl-none"></div>
+                                            </div>
                                             @endif
                                         </div>
                                     </div>

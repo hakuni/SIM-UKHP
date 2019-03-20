@@ -8,6 +8,7 @@ jQuery(document).ready(function () {
     }
     Control.Init();
     Table.Init();
+    // Select.Init();
 });
 
 var Table = {
@@ -64,6 +65,11 @@ var Table = {
                             '<button onclick="Control.Konfirmasi(' + t.idRincianBiaya + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Rincian"><i class="la la-trash"></i></button>';
                         return strBuilder;
                     }
+                },
+                {
+                    field: "namaMilestone",
+                    title: "Milestone",
+                    textAlign: "center"
                 }, {
                     field: "namaAlatBahan",
                     title: "Alat dan Bahan",
@@ -144,13 +150,15 @@ var Table = {
 var Control = {
     Init: function () {
         Control.Biodata();
+        Control.Repeat();
         $("#btnTambah").on("click", function () {
-            if ($.trim($("#tbxJumlah").val()) == "" || $("#slsAlatBahan").val() == 0) {
-                Common.Alert.Warning("Periksa kembali data masukan anda");
-            } else
-                Control.Tambah();
+            Control.Tambah();
+
+            // if ($("#slsMilestone").val() == 0) {
+            //     Common.Alert.Warning("Periksa kembali data masukan anda");
+            // } else
+            //     Control.Tambah();
         });
-        Control.Select();
         // tab datatable rapih
         $("#tabLog").on("click", function () {
             $("#divLogList").mDatatable('reload');
@@ -162,11 +170,11 @@ var Control = {
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#slsAlatBahan").html("<option></option>");
+                $(".slsAlatBahan").html("<option></option>");
                 $.each(data, function (i, item) {
-                    $("#slsAlatBahan").append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
+                    $(".slsAlatBahan").append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
                 });
-                $("#slsAlatBahan").select2({
+                $(".slsAlatBahan").select2({
                     placeholder: "Alat dan Bahan",
                 });
             })
@@ -209,39 +217,63 @@ var Control = {
     },
     Tambah: function () {
         var btn = $("#btnTambah");
-        var params = {
-            idPenelitian: id,
-            namaAlatBahan: $("#slsAlatBahan").val(),
-            jumlah: $("#tbxJumlah").val(),
-        };
+        var result = [];
+        var params = {};
+        var done = 0;
+        $(".divRepeat").each(function (index, item) {
+            params = {
+                idPenelitian: id,
+                namaMilestone: $("#slsMilestone").val(),
+                namaAlatBahan: "",
+                jumlah: "",
+            };
+            $(this).find(".infinityInput").each(function (index, item) {
+                if (index == 1) {
+                    if ($(this).val() == "") {
+                        done = -1;
+                    }
+                    params.namaAlatBahan = $(this).val();
+                }
+                if (index == 2) {
+                    if ($(this).val() == "") {
+                        done = -1;
+                    }
+                    params.jumlah = $(this).val();
+                }
+            });
+            result.push(params);
+        });
+        if (done == -1) {
+            Common.Alert.Warning("Periksa kembali data masukan anda");
+            return false;
+        }
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true
         );
-
-        $.ajax({
-                url: "/api/keuangan/detail",
-                type: "POST",
-                dataType: "json",
-                contentType: "application/json",
-                data: JSON.stringify(params),
-                cache: false
-            })
-            .done(function (data, textStatus, jqXHR) {
-                $("#divRincianList").mDatatable('reload');
-                Control.Select();
-                $("#tbxJumlah").val("");
-                $("#formRincian").modal("toggle");
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                    "disabled",
-                    false
-                );
-            });
+        // $.ajax({
+        //         url: "/api/keuangan/detail",
+        //         type: "POST",
+        //         dataType: "json",
+        //         contentType: "application/json",
+        //         data: JSON.stringify(result),
+        //         cache: false
+        //     })
+        //     .done(function (data, textStatus, jqXHR) {
+        //         $("#divRincianList").mDatatable('reload');
+        //         Select.Init();
+        //         $(".tbxJumlah").val("");
+        //         $("#formRincian").modal("toggle");
+        //         btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+        //     })
+        //     .fail(function (jqXHR, textStatus, errorThrown) {
+        //         Common.Alert.Error(errorThrown);
+        //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+        //             "disabled",
+        //             false
+        //         );
+        //     });
     },
     Konfirmasi: function (id) {
         swal({
@@ -280,16 +312,17 @@ var Control = {
             })
             .done(function (data, textStatus, jqXHR) {
                 Control.SelectUbah(data.namaAlatBahan);
+                $("#txtMilestone").html(data.namaMilestone);
                 $("#slsAlatBahanUbah").val(data.namaAlatBahan);
                 $("#tbxJumlahUbah").val(data.jumlah);
                 $("#formEditRincian").modal({
                     backdrop: "static"
                 });
                 $("#btnUbah").on("click", function () {
-                    if ($.trim($("#tbxJumlahUbah").val()) != "") {
-                        Control.Ubah(data.idRincianBiaya);
-                    } else
+                    if ($.trim($("#tbxJumlahUbah").val()) == "" || $("#slsAlatBahanUbah").val() == 0) {
                         Common.Alert.Warning("Periksa kembali data masukan anda");
+                    } else
+                        Control.Ubah(data.idRincianBiaya);
                 })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -333,4 +366,51 @@ var Control = {
                 );
             });
     },
+    Repeat: function () {
+        Select.Init();
+        $("#formRepeat").repeater({
+            initEmpty: !1,
+            defaultValues: {
+                "text-input": "foo"
+            },
+            show: function () {
+                $(this).slideDown();
+                $(this).addClass("divRepeat");
+                Select.Init();
+            },
+            hide: function (e) {
+                $(this).slideUp(e)
+            }
+        })
+    }
+};
+
+var Select = {
+    Init: function () {
+        var select = $(".slsAlatBahan");
+        select.each(function (index, item) {
+            var ths = $(this);
+            //autofill severity from db
+            if (ths.hasClass("notInit")) {
+                Select.Fill(ths);
+            }
+        })
+    },
+    Fill: function (ths) {
+        $.ajax({
+                url: "/api/inventarisasi?tipe=0",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                ths.html("<option value='' selected style='display:none'>Pilih Layanan</option>");
+                $.each(data, function (i, item) {
+                    ths.append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
+                });
+                ths.removeClass("notInit")
+                ths.selectpicker('refresh');
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    }
 };

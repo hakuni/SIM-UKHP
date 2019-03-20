@@ -105,7 +105,7 @@ class UserController extends Controller
             $token = auth()->user()->createToken('UserToken')->accessToken;
             $auth = auth()->user();
 
-            return response()->json(['token' => $token, 'idUser' => $auth->id]);
+            return response()->json(['token' => $token, 'namaUser' => $auth->namaUser]);
 
         }
         catch(\Exception $e){

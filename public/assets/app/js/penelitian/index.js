@@ -52,7 +52,7 @@ var Table = {
                             t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Penelitian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                         strBuilder +=
-                            '<a href="/Rincian/' +
+                            '<a href="/Keuangan/Rincian/' +
                             t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Biaya"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
                         var routeView = "/Penelitian/Prosedur/" + t.idPenelitian + "/" + t.idProsedur;
