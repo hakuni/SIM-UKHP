@@ -35,6 +35,30 @@ Route::middleware('auth:api')->group(function(){
     Route::delete('/kategori/{id}', 'KategoriController@deleteKategori');
     #endregion
 
+    #region API Milestone
+    Route::post('/milestone', 'MilestoneController@saveMilestone');
+    //list kategori
+    Route::get('/milestone', 'MilestoneController@getListMilestone');
+    //get single kategori
+    Route::get('/milestone/{id}', 'MilestoneController@getSingleMilestone');
+    //update kategori
+    Route::put('/milestone', 'MilestoneController@saveMilestone');
+    //delete kategori
+    Route::delete('/milestone/{id}', 'MilestoneController@deleteMilestone');
+    #endregion
+
+    #region API Status Penggunaan
+    Route::post('/statusPenggunaan', 'StatusPenggunaanController@saveStatusPenggunaan');
+    //list kategori
+    Route::get('/statusPenggunaan', 'StatusPenggunaanController@getListStatusPenggunaan');
+    //get single kategori
+    Route::get('/statusPenggunaan/{id}', 'StatusPenggunaanController@getSingleStatusPenggunaan');
+    //update kategori
+    Route::put('/statusPenggunaan', 'StatusPenggunaanController@saveStatusPenggunaan');
+    //delete kategori
+    Route::delete('/statusPenggunaan/{id}', 'StatusPenggunaanController@deleteStatusPenggunaan');
+    #endregion
+
     #region API Status Penelitian
     //create status
     Route::post('/status', 'StatusPenelitianController@saveStatus');

@@ -28,7 +28,8 @@ SQL;
 CREATE VIEW `vw_penelitians` AS
 SELECT
     `p`.`idPenelitian` AS `idPenelitian`,
-    `p`.`PIC` AS `PIC`,
+    `u`.`email` AS `email`,
+    `u`.`namaUser` AS `namaUser`,
     `k`.`idKategori` AS `idKategori`,
     `k`.`namaKategori` AS `namaKategori`,
     `mm`.`idMilestone` AS `idMilestone`,
@@ -48,6 +49,7 @@ FROM
     LEFT JOIN `status_penelitians` `sp` ON `p`.`statusPenelitian` = `sp`.`idStatusPenelitian`
     LEFT JOIN `mst_prosedurs` `mp` ON `p`.`idPenelitian` = `mp`.`idPenelitian`
     LEFT JOIN `mst_milestones` `mm` ON `p`.`lastMilestoneID` = `mm`.`idMilestone`
+    LEFT JOIN `users` `u` ON `u`.`email` = `p`.`PIC`
 SQL;
     }
 }

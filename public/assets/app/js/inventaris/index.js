@@ -40,6 +40,7 @@ var Data = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divPenggunaanList").mDatatable('destroy');
+                Select.SelectStatus();
                 Table.Penggunaan(data);
                 $("#btnFilterGuna").removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })
@@ -51,7 +52,7 @@ var Data = {
 
 var Table = {
     Stock: function () {
-        t = $("#divStockList").mDatatable({
+        s = $("#divStockList").mDatatable({
             data: {
                 type: "remote",
                 source: {
@@ -103,7 +104,7 @@ var Table = {
         });
     },
     Pembelian: function (data) {
-        t = $("#divPembelianList").mDatatable({
+        b = $("#divPembelianList").mDatatable({
             data: {
                 type: "local",
                 source: data,
@@ -157,7 +158,7 @@ var Table = {
         });
     },
     Penggunaan: function (data) {
-        t = $("#divPenggunaanList").mDatatable({
+        g = $("#divPenggunaanList").mDatatable({
             data: {
                 type: "local",
                 source: data,
@@ -186,6 +187,11 @@ var Table = {
             columns: [{
                     field: "namaAlatBahan",
                     title: "Alat dan Bahan",
+                    textAlign: "center"
+                },
+                {
+                    field: "namaStatusPenggunaan",
+                    title: "Status",
                     textAlign: "center"
                 },
                 {
@@ -286,8 +292,7 @@ var Select = {
                     );
                 });
                 $("#slsAlatBahan").select2({
-                    placeholder: "Alat dan Bahan",
-                    tags: true,
+                    placeholder: "Alat dan Bahan"
                 });
                 $("#slsAlatBahanGuna").select2({
                     placeholder: "Alat dan Bahan"
@@ -298,13 +303,56 @@ var Select = {
             });
     },
     Status: function () {
-        $("#slsStatus").html("<option value=''></option>");
-        $("#slsStatus").select2({
-            placeholder: "Status"
+        $.ajax({
+            url: "/api/statusPenggunaan",
+            type: "GET"
+        })
+        .done(function (data, textStatus, jqXHR) {
+            $("#slsStatusGuna").html("<option></option>");
+            $.each(data, function (i, item) {
+                $("#slsStatusGuna").append(
+                    "<option value='" +
+                    item.idStatusPenggunaan +
+                    "'>" +
+                    item.namaStatusPenggunaan +
+                    "</option>"
+                );
+            });
+            $("#slsStatusGuna").select2({
+                placeholder: "Status Penggunaan",
+            });
+        })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            Common.Alert.Error(errorThrown);
         });
-        $("#slsStatus").append('<option value="1">Pemakaian Penelitian</option> <option value = "2" >Penjualan</option> <option value = "3" >Lain-lain</option>');
-
-    }
+    },
+    SelectStatus: function () {
+        $.ajax({
+            url: "/api/statusPenggunaan",
+            type: "GET",
+            dataType: "json",
+            contenType: "application/json",
+            success: function (data) {
+                var html = "<option value=''>Semua</option>";
+                $.each(data, function (i, item) {
+                    html +=
+                        '<option value="' +
+                        item.namaStatusPenggunaan +
+                        '">' +
+                        item.namaStatusPenggunaan +
+                        "</option>";
+                });
+                $("#slsStatus").append(html);
+                $("#slsStatus").selectpicker("refresh");
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+        $("#slsStatus").on("change", function () {
+            g.search($(this).val(), "namaStatusPenggunaan");
+        });
+    },
 };
 
 var Transaction = {
@@ -369,7 +417,7 @@ var Transaction = {
         var params = {
             tipeTrx: 2,
             namaAlatBahan: $("#slsAlatBahanGuna").val(),
-            statusPemakaian: $("#slsStatus").val(),
+            idStatusPenggunaan: $("#slsStatusGuna").val(),
             tglTrx: $("#tbxTanggalPenggunaan").val(),
             jumlah: $("#tbxJumlahPenggunaan").val()
         };

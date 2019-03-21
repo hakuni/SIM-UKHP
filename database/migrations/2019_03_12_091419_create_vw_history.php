@@ -32,12 +32,14 @@ SELECT
     `ltp`.`namaMilestone` AS `namaMilestone`,
     `mm`.`idMilestone` AS `idMilestone`,
     `tp`.`durasi` -(TO_DAYS(`tp`.`endDate`) - TO_DAYS(`tp`.`startDate`)) AS `durasi`,
-    `ltp`.`PIC` AS `PIC`,
+    `u`.`email` AS `email`,
+    `u`.`namaUser` AS `namaUser`,
     CASE WHEN `mm`.`idMilestone` = 1 THEN "Prosedur Selesai" ELSE `tp`.`catatan` END AS `catatan`,
     `tp`.`filePath`
 FROM
     `log_trx_penelitians` `ltp` LEFT JOIN `mst_penelitians` `mp` ON `ltp`.`idPenelitian` = `mp`.`idPenelitian`
     LEFT JOIN `mst_milestones` `mm` ON `ltp`.`namaMilestone` = `mm`.`namaMilestone`
+    LEFT JOIN `users` `u` ON `u`.`email` = `ltp`.`PIC`
     LEFT JOIN `trx_penelitians` `tp` ON `tp`.`idPenelitian` = `mp`.`idPenelitian`
     AND `tp`.`idMilestone` = `mm`.`idMilestone`
 ORDER BY

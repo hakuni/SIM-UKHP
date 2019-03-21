@@ -300,7 +300,7 @@
                                                             Status <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                                            <select class="form-control m-select2" id="slsStatus" style="width:550px">
+                                                            <select class="form-control m-select2" id="slsStatusGuna" style="width:550px">
                                                             </select>
                                                         </div>
                                                     </div>

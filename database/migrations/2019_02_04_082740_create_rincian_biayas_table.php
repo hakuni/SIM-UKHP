@@ -17,12 +17,14 @@ class CreateRincianBiayasTable extends Migration
             $table->increments('idRincianBiaya');
             $table->integer('idPenelitian')->unsigned();
             $table->integer('idAlatBahan')->unsigned();
+            $table->integer('idMilestone')->unsigned();
             $table->integer('jumlah');
             $table->integer('harga');
 
             //foreign key
             $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');
             $table->foreign('idAlatBahan')->references('idAlatBahan')->on('mst_alat_bahans')->onDelete('cascade');
+            $table->foreign('idMilestone')->references('idMilestone')->on('mst_milestones')->onDelete('cascade');
 
             $table->string('createdBy');
             $table->string('updatedBy')->nullable();

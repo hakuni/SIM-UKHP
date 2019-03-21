@@ -31,6 +31,7 @@ SELECT
     `p`.`idPenelitian`,
     `b`.`namaAlatBahan`,
     `b`.`tipeAlatBahan`,
+    `mm`.`namaMilestone`,
     `r`.`jumlah`,
     `r`.`harga`,
     (`r`.`jumlah` * `r`.`harga`) AS `total`
@@ -38,6 +39,7 @@ FROM
     `rincian_biayas` `r` LEFT JOIN `mst_penelitians` `p` 
     ON `r`.`idPenelitian` = `p`.`idPenelitian`
     LEFT JOIN `mst_alat_bahans` `b` ON `r`.`idAlatBahan` = `b`.`idAlatBahan`
+    LEFT JOIN `mst_milestones` `mm` ON `mm`.`idMilestone` = `r`.`idMilestone`
 SQL;
     }
 }

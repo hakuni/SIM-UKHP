@@ -86,7 +86,7 @@
                                 <img id="persiapan" src="{{asset('assets/app/media/img//logos/error.png')}}" alt="">
                             </div>
                             <div class="m-widget4__text">
-                                <h5 style="color:white;margin-top:12px; margin-left:20px">Persiapan Alat Bahan</h5>
+                                <h5 style="color:white;margin-top:12px; margin-left:20px">Pemeliharaan</h5>
                             </div>
                         </div>
                         <div class="m-widget4__item" style="border-bottom:0px;padding-bottom:0px">
@@ -94,7 +94,7 @@
                                 <img id="pengujian" src="{{asset('assets/app/media/img//logos/error.png')}}" alt="">
                             </div>
                             <div class="m-widget4__text">
-                                <h5 style="color:white;margin-top:12px; margin-left:20px">Pengujian</h5>
+                                <h5 style="color:white;margin-top:12px; margin-left:20px">Perlakuan</h5>
                             </div>
                         </div>
                         <div class="m-widget4__item" style="border-bottom:0px;padding-bottom:0px">

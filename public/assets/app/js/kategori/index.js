@@ -151,8 +151,8 @@ var Button = {
                 cache: false
             })
             .done(function (data, textStatus, jqXHR) {
-                Common.Alert.Success("Berhasil dihapus");
-                $("#divKategoriList").mDatatable("reload");
+                Common.Alert.SuccessRoute("Berhasil dihapus", "/Kategori");
+                // $("#divKategoriList").mDatatable("reload");
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

@@ -44,15 +44,18 @@ class KeuanganController extends Controller
     #region Rincian
     public function saveDetail(Request $request){
         try{
-            $rincian = new RincianBiaya;
-
-            $rincian->idPenelitian = $request->idPenelitian;
-            $rincian->idAlatBahan = $request->namaAlatBahan;
-            $rincian->jumlah = $request->jumlah;
-            $rincian->harga = MstAlatBahan::findOrFail($request->namaAlatBahan)->harga;
-            $rincian->createdBy = auth()->user()->email;
+            $all = count($request->all());
+            for($i=0; $i<$all; $i++){
+                $rincian = new RincianBiaya;
+                $rincian->idPenelitian = $request[$i]['idPenelitian'];
+                $rincian->idMilestone = $request[$i]['namaMilestone'];
+                $rincian->idAlatBahan = $request[$i]['namaAlatBahan'];
+                $rincian->jumlah = $request[$i]['jumlah'];
+                $rincian->harga = MstAlatBahan::findOrFail($request[$i]['namaAlatBahan'])->harga;
+                $rincian->createdBy = auth()->user()->email;
+                $rincian->save();
+            };
             
-            $rincian->save();
             $rincian->ErrorType = 0;
             return response($rincian)->setStatusCode(200);
         }
@@ -96,7 +99,7 @@ class KeuanganController extends Controller
         try{
             $rincian = RincianBiaya::findOrFail($request->idRincianBiaya);
 
-            $rincian->idAlatBahan = $cek->idAlatBahan;
+            $rincian->idAlatBahan = $request->namaAlatBahan;
             $rincian->jumlah = $request->jumlah;
 
             $rincian->updatedBy = auth()->user()->email;

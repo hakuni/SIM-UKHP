@@ -16,11 +16,13 @@ class CreateLogPemakaians extends Migration
         Schema::create('log_pemakaians', function (Blueprint $table) {
             $table->increments('idLogPemakaian');
             $table->string('namaAlatBahan');
+            $table->string('namaStatusPenggunaan');
             $table->timestamp('tglTrx');
             $table->integer('jumlah');
 
             //foreign key
             $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans')->onDelete('cascade');
+            $table->foreign('namaStatusPenggunaan')->references('namaStatusPenggunaan')->on('mst_status_penggunaans')->onDelete('cascade');
 
             $table->string('createdBy');
             $table->timestamps();

@@ -33,7 +33,8 @@ SELECT DISTINCT
     `mp`.`judulPenelitian` AS `judulPenelitian`,
     `mdc`.`namaPeneliti` AS `namaPeneliti`,
     `mdc`.`instansiPeneliti` AS `instansiPeneliti`,
-    `p`.`PIC` AS `PIC`,
+    `u`.`email` AS `email`,
+    `u`.`namaUser` AS `namaUser`,
     `mm`.`idMilestone` AS `idMilestone`,
     `mm`.`namaMilestone` AS `namaMilestone`,
     (SELECT SUM(`lb`.`totalPembayaran`) FROM `log_pembayarans` `lb` WHERE `lb`.`idPenelitian` = `p`.`idPenelitian`) AS `totalBayar`,
@@ -49,6 +50,7 @@ SELECT DISTINCT
          LEFT JOIN `mst_prosedurs` `mp` ON `p`.`idPenelitian` = `mp`.`idPenelitian`
          LEFT JOIN `vw_keuangans` `vk` ON `vk`.`idPenelitian` = `p`.`idPenelitian`
          LEFT JOIN `mst_data_clients` `mdc` ON `p`.`idDataClient` = `mdc`.`idDataClient`
+         LEFT JOIN `users` `u` ON `u`.`email` = `p`.`PIC`
 SQL;
     }
 }

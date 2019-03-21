@@ -8,7 +8,7 @@ jQuery(document).ready(function () {
     }
     Control.Init();
     Table.Init();
-    // Select.Init();
+    Select.Milestone();
 });
 
 var Table = {
@@ -152,35 +152,16 @@ var Control = {
         Control.Biodata();
         Control.Repeat();
         $("#btnTambah").on("click", function () {
-            Control.Tambah();
-
-            // if ($("#slsMilestone").val() == 0) {
-            //     Common.Alert.Warning("Periksa kembali data masukan anda");
-            // } else
-            //     Control.Tambah();
+            // Control.Tambah();
+            if ($("#slsMilestone").val() == 0) {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Control.Tambah();
         });
         // tab datatable rapih
         $("#tabLog").on("click", function () {
             $("#divLogList").mDatatable('reload');
         });
-    },
-    Select: function () {
-        $.ajax({
-                url: "/api/inventarisasi?tipe=0",
-                type: "GET"
-            })
-            .done(function (data, textStatus, jqXHR) {
-                $(".slsAlatBahan").html("<option></option>");
-                $.each(data, function (i, item) {
-                    $(".slsAlatBahan").append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
-                });
-                $(".slsAlatBahan").select2({
-                    placeholder: "Alat dan Bahan",
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
     },
     SelectUbah: function (nama) {
         $.ajax({
@@ -243,6 +224,7 @@ var Control = {
             });
             result.push(params);
         });
+        console.log(result)
         if (done == -1) {
             Common.Alert.Warning("Periksa kembali data masukan anda");
             return false;
@@ -252,28 +234,29 @@ var Control = {
             "disabled",
             true
         );
-        // $.ajax({
-        //         url: "/api/keuangan/detail",
-        //         type: "POST",
-        //         dataType: "json",
-        //         contentType: "application/json",
-        //         data: JSON.stringify(result),
-        //         cache: false
-        //     })
-        //     .done(function (data, textStatus, jqXHR) {
-        //         $("#divRincianList").mDatatable('reload');
-        //         Select.Init();
-        //         $(".tbxJumlah").val("");
-        //         $("#formRincian").modal("toggle");
-        //         btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
-        //     })
-        //     .fail(function (jqXHR, textStatus, errorThrown) {
-        //         Common.Alert.Error(errorThrown);
-        //         btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-        //             "disabled",
-        //             false
-        //         );
-        //     });
+        $.ajax({
+                url: "/api/keuangan/detail",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(result),
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#divRincianList").mDatatable('reload');
+                Select.Init();
+                Select.Milestone();
+                $(".tbxJumlah").val("");
+                $("#formRincian").modal("toggle");
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    false
+                );
+            });
     },
     Konfirmasi: function (id) {
         swal({
@@ -330,7 +313,7 @@ var Control = {
             });
     },
     Ubah: function (idRincian) {
-        var btn = $("#btnUbahKbtnUbahategori");
+        var btn = $("#btnUbah");
         var params = {
             idPenelitian: id,
             idRincianBiaya: idRincian,
@@ -353,9 +336,9 @@ var Control = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divRincianList").mDatatable('reload');
-                Control.Select();
+                Control.SelectUbah();
                 $("#tbxJumlah").val("");
-                $("#formRincian").modal("toggle");
+                $("#formEditRincian").modal("toggle");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -412,5 +395,23 @@ var Select = {
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
-    }
+    },
+    Milestone: function () {
+        $.ajax({
+                url: "/api/milestone",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#slsMilestone").html("<option></option>");
+                $.each(data, function (i, item) {
+                    $("#slsMilestone").append("<option value='" + item.idMilestone + "'>" + item.namaMilestone + "</option>");
+                });
+                $("#slsMilestone").select2({
+                    placeholder: "Milestone",
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    },
 };

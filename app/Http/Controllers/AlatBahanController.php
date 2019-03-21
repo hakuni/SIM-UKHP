@@ -7,6 +7,7 @@ use App\MstAlatBahan;
 use App\LogPemakaian;
 use App\LogPembelian;
 use App\vwAlatBahan;
+use App\MstStatusPenggunaan;
 
 class AlatBahanController extends Controller
 {
@@ -118,6 +119,11 @@ class AlatBahanController extends Controller
 
             if($request->tipeTrx == 1){
                 $logTrx->harga = $request->harga;
+            }
+
+            if($request->tipeTrx == 2){
+                $namaStatusPenggunaan = MstStatusPenggunaan::findOrFail($request->idStatusPenggunaan)->namaStatusPenggunaan;
+                $logTrx->namaStatusPenggunaan = $namaStatusPenggunaan;
             }
 
             $logTrx->namaAlatBahan = MstAlatBahan::findOrFail($request->namaAlatBahan)->namaAlatBahan;

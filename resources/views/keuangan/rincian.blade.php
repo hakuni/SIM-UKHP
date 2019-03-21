@@ -108,11 +108,9 @@
                                                                     <label class="col-form-label">Alat dan Bahan
                                                                         <strong style="color:red" ;>*</strong>
                                                                         :</label>
-                                                                    <div class="col-lg-7">
+                                                                    <div class="col-lg-8">
                                                                         <select class="form-control m-select2 slsAlatBahan infinityInput notInit"
                                                                             style="width:240px" id="slsAlatBahan">
-                                                                            <!-- <option value="1">Test1</option>
-                                                                        <option value="2">Test2</option> -->
                                                                         </select>
                                                                     </div>
                                                                     <div class="d-md-none m--margin-bottom-10"></div>

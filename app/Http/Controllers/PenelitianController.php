@@ -265,13 +265,14 @@ class PenelitianController extends Controller
         try{
             //get alat bahan dari rincian where tipe != 3
             $rincian = vwRincian::where('idPenelitian', $idPenelitian)->where('tipeAlatBahan', '!=', 3)->get();
-
+            
             $logPemakaian = array();
             //loop data
             foreach($rincian as $data){
                 array_push($logPemakaian, array(
                             'namaAlatBahan' => $data->namaAlatBahan,
                             'tglTrx' => date('Y-m-d'),
+                            'namaStatusPenggunaan' => 'Penelitian',
                             'jumlah' => $data->jumlah,
                             'createdBy' => auth()->user()->email,
                             'created_at' => date('Y-m-d'),

@@ -18,4 +18,8 @@ class MstMilestone extends Model
     public function penelitian(){
         return $this->hasMany('App\MstPenelitian', 'idPenelitian', 'idPenelitian');
     }
+
+    public function rincianBiaya(){
+        return $this->hasMany('App\RincianBiaya', 'idMilestone', 'idMilestone');
+    }
 }
