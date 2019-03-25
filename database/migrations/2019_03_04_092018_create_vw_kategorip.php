@@ -56,7 +56,7 @@ FROM
         ((`mp`.`idKategori` = `k`.`idKategori`))
     )
 WHERE
-    (`mp`.`statusPenelitian` <> 4)
+    (`mp`.`statusPenelitian` <> 4) AND (`mp`.`statusPenelitian` <> 1)
 GROUP BY
     MONTH(`mp`.`created_at`),
     YEAR(`mp`.`created_at`),

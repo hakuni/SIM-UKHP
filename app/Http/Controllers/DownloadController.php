@@ -48,7 +48,7 @@ class DownloadController extends Controller
 
     }
 
-    public function exportInventarisasi($idPenelitian){
+    public function exportInventarisasi(){
 
     }
 

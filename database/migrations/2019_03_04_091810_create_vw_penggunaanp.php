@@ -54,7 +54,7 @@ FROM
     )
 WHERE
     (
-        (`mp`.`statusPenelitian` <> 4) AND(`mab`.`tipeAlatBahan` = 1)
+        (`mp`.`statusPenelitian` <> 4) AND (`mab`.`tipeAlatBahan` = 1) AND (`mp`.`statusPenelitian` <> 1)
     )
 GROUP BY
     `mab`.`namaAlatBahan`,

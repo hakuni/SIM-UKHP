@@ -29,6 +29,8 @@ var Transaction = {
                 .done(function (data, textStatus, jqXHR) {
                     document.cookie = "token=" + data.token + "; path=/;"
                     localStorage.setItem("namaUser", data.namaUser)
+                    localStorage.setItem("role", data.role)
+                    localStorage.setItem("namaRole", data.namaRole)
                     location.href = "/Dashboard";
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                         "disabled",

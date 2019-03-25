@@ -50,6 +50,7 @@ FROM
     LEFT JOIN `mst_prosedurs` `mp` ON `p`.`idPenelitian` = `mp`.`idPenelitian`
     LEFT JOIN `mst_milestones` `mm` ON `p`.`lastMilestoneID` = `mm`.`idMilestone`
     LEFT JOIN `users` `u` ON `u`.`email` = `p`.`PIC`
+WHERE `p`.`statusPenelitian` <> 4
 SQL;
     }
 }

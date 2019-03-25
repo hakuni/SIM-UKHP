@@ -32,4 +32,8 @@ class User extends Authenticatable
     public function penelitian(){        
         return $this->hasMany('App\vwPenelitian', 'email', 'PIC');
     }
+
+    public function role(){
+        return $this->belongsTo('App\MstRole', 'idRole', 'idRole');
+    }
 }

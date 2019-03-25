@@ -188,5 +188,14 @@ Route::middleware('auth:api')->group(function(){
 
     Route::post('/logout', 'UserController@logoutUser')->middleware('auth:api');
     #endregion
+
+    #region API Role
+    Route::post('/role', 'RoleController@saveRole');
+    Route::get('/role', 'RoleController@getListRole');
+    Route::get('/role/{idRole}', 'RoleController@getSingleRole');
+    Route::put('/role', 'RoleController@saveRole');
+    Route::delete('/role/{idRole}', 'RoleController@deleteRole');
+
+    #endregion
 });
 

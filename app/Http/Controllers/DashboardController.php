@@ -71,7 +71,9 @@ class DashboardController extends Controller
                                 mst_alat_bahans mab LEFT JOIN rincian_biayas rb ON mab.idAlatBahan = rb.idAlatBahan
                                 LEFT JOIN mst_penelitians mp ON mp.idPenelitian = rb.idPenelitian
                                 where
-                                mp.statusPenelitian != 4 AND mab.tipeAlatBahan = 1
+                                mp.statusPenelitian != 1
+                                AND statusPenelitian != 4
+                                AND mab.tipeAlatBahan = 1
                                 AND MONTH(rb.created_at) >= :bulan
                                 AND MONTH(rb.created_at) <= :bulanAkhir
                                 AND YEAR(rb.created_at) = :tahun

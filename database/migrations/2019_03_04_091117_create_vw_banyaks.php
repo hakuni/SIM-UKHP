@@ -36,7 +36,7 @@ SELECT
 FROM
     `rincian_biayas` `rb` JOIN `mst_alat_bahans` `mab` ON `mab`.`idAlatBahan` = `rb`.`idAlatBahan`
     JOIN `mst_penelitians` `mp` ON `mp`.`idPenelitian` = `rb`.`idPenelitian`
-    WHERE `mp`.`statusPenelitian` <> 4 AND `mab`.`tipeAlatBahan` = 1
+    WHERE `mp`.`statusPenelitian` <> 4 AND `mab`.`tipeAlatBahan` = 1 AND `mp`.`statusPenelitian` <> 1
 GROUP BY `mab`.`idAlatBahan`,`mab`.`namaAlatBahan`, MONTH(`rb`.`created_at`), YEAR(`rb`.`created_at`)
 SQL;
     }

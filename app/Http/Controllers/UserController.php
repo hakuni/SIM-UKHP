@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\vwClientTrack;
 use App\User;
+use App\vwUser;
 
 class UserController extends Controller
 {
@@ -16,6 +17,7 @@ class UserController extends Controller
             $user->namaUser = $request->namaUser;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            $user->idRole = $request->idRole;
             $user->save();
 
             // $token = $user->createToken('UserToken')->accessToken;
@@ -33,12 +35,12 @@ class UserController extends Controller
 
     public function getAllUser(){
         try{
-            $user = User::all();
+            $user = vwUser::all();
             $user->ErrorType = 0;
             return response($user);
         }
         catch(\Exception $e){
-            $user = new User;
+            $user = new vwUser;
             $user->ErrorType = 2;
             $user->ErrorMesasge = $e->getMessage();
             return response($user);
@@ -47,11 +49,11 @@ class UserController extends Controller
 
     public function getSingleUser($idUser){
         try{
-            $user = User::findOrFail($idUser);
+            $user = vwUser::where('id', $idUser);
             return response($user);
         }
         catch(\Exception $e){
-            $user = new User;
+            $user = new vwUser;
             $user->ErrorType = 2;
             $user->ErrorMesasge = $e->getMessage();
             return response($user);
@@ -63,6 +65,7 @@ class UserController extends Controller
             $user = User::findOrFail($request->idUser);
             $user->namaUser = $request->namaUser;
             $user->email = $request->email;
+            $user->role = $request->role;
             if($request->password != null)
                 $user->password = Hash::make($request->password);
             $user->save();
@@ -105,8 +108,10 @@ class UserController extends Controller
             $token = auth()->user()->createToken('UserToken')->accessToken;
             $auth = auth()->user();
 
-            return response()->json(['token' => $token, 'namaUser' => $auth->namaUser]);
+            $role = $auth->role()->first();
 
+            return response()->json(['token' => $token, 'namaUser' => $auth->namaUser,
+                                     'role' =>$role->idRole, 'namaRole' => $role->namaRole]);
         }
         catch(\Exception $e){
             return response($e->getMessage());

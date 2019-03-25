@@ -137,20 +137,6 @@ var App = {
         }
         return "";
     },
-    GetBiodata: function () {
-        var id = App.GetCookie('idUser');
-        $.ajax({
-                url: "/api/user/" + id,
-                type: "GET",
-                cache: false
-            })
-            .done(function (data, textStatus, jqXHR) {
-                $("#nama").html(data.namaUser);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
-    },
     SidebarTag: function () {
         //turn active in sidebar
         var path = window.location.pathname;
@@ -175,6 +161,18 @@ jQuery(document).ready(function () {
         // crossDomain: true
     })
 
+    if(localStorage.getItem('role') == 2){
+        //hide sesuatu
+    }
+    if(localStorage.getItem('role') == 3){
+        //hide sesuatu
+    }
+    if(localStorage.getItem('role') == 4){
+        //hide sesuatu
+    }
+
     $("#nama").html(localStorage.getItem('namaUser'));
+    $("#jabatan").html(localStorage.getItem('namaRole'));
+
     App.SidebarTag();
 });
