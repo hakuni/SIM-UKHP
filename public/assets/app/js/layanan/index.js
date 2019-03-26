@@ -1,3 +1,4 @@
+var idAlatBahan = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
     Button.Init();
@@ -82,6 +83,12 @@ var Button = {
             } else
                 Button.Tambah();
         });
+        $("#btnUbahLayanan").on("click", function () {
+            if ($.trim($("#tbxItemUbah").val()) == "" || $.trim($("#tbxHargaUbah").val()) == "" || $.trim($("#tbxSatuanUbah").val()) == "") {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Button.Ubah();
+        })
     },
     Tambah: function () {
         var btn = $("#btnTambahLayanan");
@@ -151,10 +158,10 @@ var Button = {
                 Common.Alert.Error(errorThrown);
             });
     },
-    Ubah: function (id) {
+    Ubah: function () {
         var btn = $("#btnUbahLayanan");
         var params = {
-            idAlatBahan: id,
+            idAlatBahan: idAlatBahan,
             tipeAlatBahan: $("input[name='tipeUbah']:checked").val(),
             namaAlatBahan: $("#tbxItemUbah").val(),
             harga: $("#tbxHargaUbah").val(),
@@ -216,12 +223,7 @@ var Button = {
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
-                $("#btnUbahLayanan").on("click", function () {
-                    if ($.trim($("#tbxItemUbah").val()) != "" || $.trim($("#tbxHargaUbah").val()) != "" || $.trim($("#tbxSatuanUbah").val()) != "") {
-                        Button.Ubah(data.idAlatBahan);
-                    } else
-                        Common.Alert.Warning("Periksa kembali data masukan anda");
-                })
+                window.idAlatBahan = data.idAlatBahan
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

@@ -7,6 +7,7 @@ jQuery(document).ready(function () {
 
 var Page = {
     Init: function () {
+        Get.Minimize();
         Get.Filter(1);
         //filter
         $(".TaskOrderBy").on("click", function () {
@@ -49,7 +50,7 @@ var Get = {
             url: link,
             type: "GET",
             success: function (data) {
-                $("#detailPenelitian").removeClass("m-loaderm-loader--lg m-loader--primary").attr(
+                $("#detailPenelitian").removeClass("m-loader m-loader--lg m-loader--primary").attr(
                     "disabled",
                     false
                 );
@@ -60,20 +61,6 @@ var Get = {
                 Transaction.Init(id);
                 Control.Init();
                 Table.History(id);
-                $("#btnMaximize").on("click", function () {
-                    $("#sidebarShow").show();
-                    $("#detailPenelitian").removeClass("col-lg-11");
-                    $("#hideList").addClass("col-lg-4");
-                    $("#sidebarHide").removeClass("col-lg-1");
-                    $("#sidebarHide").hide();
-                });
-                $("#btnMinimize").on("click", function () {
-                    $("#sidebarShow").hide();
-                    $("#detailPenelitian").addClass("col-lg-11");
-                    $("#hideList").removeClass("col-lg-4");
-                    $("#sidebarHide").addClass("col-lg-1");
-                    $("#sidebarHide").show();
-                });
             },
             error: function () {
                 alert("error");
@@ -96,7 +83,8 @@ var Get = {
                 );
                 $("#listPenelitian").html(data);
                 var test = document.getElementsByClassName("divShowDetail")[0];
-                test.style.backgroundColor = "whitesmoke";
+                if(test)
+                    test.style.backgroundColor = "whitesmoke";
                 id = $("#idPenelitian").val();
                 Get.DetailPenelitian(id);
                 $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());
@@ -104,6 +92,22 @@ var Get = {
             error: function () {
                 alert("error");
             }
+        });
+    },
+    Minimize: function(){
+        $("#btnMaximize").on("click", function () {
+            $("#sidebarShow").show();
+            $("#detailPenelitian").removeClass("col-lg-11");
+            $("#hideList").addClass("col-lg-4");
+            $("#sidebarHide").removeClass("col-lg-1");
+            $("#sidebarHide").hide();
+        });
+        $("#btnMinimize").on("click", function () {
+            $("#sidebarShow").hide();
+            $("#detailPenelitian").addClass("col-lg-11");
+            $("#hideList").removeClass("col-lg-4");
+            $("#sidebarHide").addClass("col-lg-1");
+            $("#sidebarHide").show();
         });
     }
 };

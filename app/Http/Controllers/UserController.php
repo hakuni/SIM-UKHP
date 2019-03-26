@@ -49,7 +49,7 @@ class UserController extends Controller
 
     public function getSingleUser($idUser){
         try{
-            $user = vwUser::where('id', $idUser);
+            $user = vwUser::where('id', $idUser)->first();
             return response($user);
         }
         catch(\Exception $e){
@@ -62,10 +62,10 @@ class UserController extends Controller
 
     public function editUser(Request $request){
         try{
-            $user = User::findOrFail($request->idUser);
+            $user = User::findOrFail($request->id);
             $user->namaUser = $request->namaUser;
             $user->email = $request->email;
-            $user->role = $request->role;
+            $user->idRole = $request->idRole;
             if($request->password != null)
                 $user->password = Hash::make($request->password);
             $user->save();
@@ -76,7 +76,7 @@ class UserController extends Controller
             $user = new User;
             $user->ErrorType = 2;
             $user->ErrorMesasge = $e->getMessage();
-            return response($user);
+            return response($user)->setStatusCode(422);
         }
     }
 
@@ -111,7 +111,9 @@ class UserController extends Controller
             $role = $auth->role()->first();
 
             return response()->json(['token' => $token, 'namaUser' => $auth->namaUser,
-                                     'role' =>$role->idRole, 'namaRole' => $role->namaRole]);
+                                     'role' =>$role->idRole, 'namaRole' => $role->namaRole])
+                             ->withCookie(cookie()->forever('access_token', $token))
+                             ->withCookie(cookie()->forever('email', $auth->email));
         }
         catch(\Exception $e){
             return response($e->getMessage());

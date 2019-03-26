@@ -78,14 +78,14 @@ class PenelitianController extends Controller
         }
     }
 
-    public function getListPenelitian($order = 1)
+    public function getListPenelitian($email = null)
     {
         try{
-            if($order == 1) //all penelitian
+            if($email == null) //all penelitian
                 $penelitian = vwPenelitian::where('idKategori', '!=', 1)
                                 ->orderBy('updated_at', 'DESC')->get();
             else //peneltiian by user
-                $penelitian = vwPenelitian::where('PIC', auth()->user()->email)
+                $penelitian = vwPenelitian::where('email', $email)
                                 ->where('idKategori', '!=', 1)
                                 ->orderBy('updated_at', 'DESC')->get();
             $penelitian->ErrorType = 0;

@@ -57,7 +57,7 @@ var Table = {
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Biaya"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
                         var routeView = "/Penelitian/Prosedur/" + t.idPenelitian + "/" + t.idProsedur;
                         if (t.idProsedur == 0) {
-                            routeView = "/TambahProsedur/" + t.idPenelitian;
+                            routeView = "/Penelitian/TambahProsedur/" + t.idPenelitian;
                         }
                         if (t.idKategori != 1)
                             strBuilder +=

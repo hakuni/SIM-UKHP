@@ -31,6 +31,8 @@ SELECT
     `p`.`idPenelitian`,
     `b`.`namaAlatBahan`,
     `b`.`tipeAlatBahan`,
+    `b`.`satuan`,
+    `mm`.`idMilestone`,
     `mm`.`namaMilestone`,
     `r`.`jumlah`,
     `r`.`harga`,

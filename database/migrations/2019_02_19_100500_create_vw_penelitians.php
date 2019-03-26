@@ -29,7 +29,7 @@ CREATE VIEW `vw_penelitians` AS
 SELECT
     `p`.`idPenelitian` AS `idPenelitian`,
     `u`.`email` AS `email`,
-    `u`.`namaUser` AS `namaUser`,
+    `u`.`namaUser` AS `PIC`,
     `k`.`idKategori` AS `idKategori`,
     `k`.`namaKategori` AS `namaKategori`,
     `mm`.`idMilestone` AS `idMilestone`,

@@ -1,7 +1,8 @@
+var id = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
-    Button.Init();
     Table.Init();
+    Button.Init();
     Select.Role("");
 });
 
@@ -86,6 +87,12 @@ var Button = {
             } else
                 Button.Tambah();
         });
+        $("#btnUbahUser").on("click", function () {
+            if ($.trim($("#tbxNamaUbah").val()) == "" || $.trim($("#tbxEmailUbah").val()) == "") {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+            Button.Ubah();
+        })
     },
     Tambah: function () {
         var btn = $("#btnTambahUser");
@@ -170,21 +177,17 @@ var Button = {
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
-                $("#btnUbahUser").on("click", function () {
-                    if ($.trim($("#tbxNamaUbah").val()) != "" || $.trim($("#tbxEmailUbah").val()) != "") {
-                        Button.Ubah(data.id);
-                    } else
-                        Common.Alert.Warning("Periksa kembali data masukan anda");
-                })
+                window.id = data.id
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     },
-    Ubah: function (id) {
+    Ubah: function () {
         var btn = $("#btnUbahUser");
         var params = {
             id: id,
+            email: $("#tbxEmailUbah").val(),
             namaUser: $("#tbxNamaUbah").val(),
             idRole: $("#slsRoleUbah").val(),
             password: $("#tbxPassUbah").val()
@@ -212,7 +215,7 @@ var Button = {
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
                 // if (Common.CheckError.Object(data))
                 Common.Alert.Success("Berhasil diubah");
-                $("#formUbah").modal("toggle");
+                $(".closebtn").click();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

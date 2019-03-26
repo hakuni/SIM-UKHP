@@ -117,7 +117,9 @@ var App = {
             .done(function (data, textStatus, jqXHR) {
                 document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 localStorage.removeItem('namaUser');
-                location.href = "/Login";
+                localStorage.removeItem('role');
+                localStorage.removeItem('namaRole');
+                location.href = "/Logout";
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

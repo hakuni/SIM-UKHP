@@ -9,9 +9,15 @@ use App\Http\Controllers\DownloadController as Download;
 class InventarisController extends Controller
 {
     public function index(){
+        if(!isset($_COOKIE['access_token'])){
+            return redirect('/Login');
+        }
         return view('inventaris/index');
     }
     public function exportInventarisasi(){
+        if(!isset($_COOKIE['access_token'])){
+            return redirect('/Login');
+        }
         $hasil = new Download;
         return $hasil->exportInventarisasi();
     }

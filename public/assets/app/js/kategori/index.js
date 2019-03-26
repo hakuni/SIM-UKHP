@@ -1,3 +1,4 @@
+var idKategori = 0;
 //== Class Initialization
 jQuery(document).ready(function() {
     Table.Init();
@@ -93,6 +94,11 @@ var Button = {
                 Button.Tambah();
             } else Common.Alert.Warning("Nama kategori tidak boleh kosong");
         });
+        $("#btnUbahKategori").on("click", function() {
+            if ($.trim($("#tbxKategoriUbah").val()) != "") {
+                Button.Ubah();
+            } else Common.Alert.Warning("Nama kategori tidak boleh kosong");
+        });
     },
     Tambah: function() {
         var btn = $("#btnTambahKategori");
@@ -157,11 +163,10 @@ var Button = {
                 Common.Alert.Error(errorThrown);
             });
     },
-    Ubah: function(id) {
+    Ubah: function() {
         var btn = $("#btnUbahKategori");
-        console.log(id);
         var params = {
-            idKategori: id,
+            idKategori: idKategori,
             namaKategori: $("#tbxKategoriUbah").val()
         };
 
@@ -207,11 +212,7 @@ var Button = {
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
-                $("#btnUbahKategori").on("click", function() {
-                    if ($.trim($("#tbxKategoriUbah").val()) != "") {
-                        Button.Ubah(data.idKategori);
-                    } else Common.Alert.Warning("Nama kategori tidak boleh kosong");
-                });
+                window.idKategori = data.idKategori
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

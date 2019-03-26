@@ -17,6 +17,9 @@ Route::get('/Login', function () {
 });
 // dashboard
 Route::get('/Dashboard', function () {
+    if(!isset($_COOKIE['access_token'])){
+        return redirect('/Login');
+    }
     return view('dashboard/index');
 });
 
@@ -67,6 +70,15 @@ Route::get('/Pengguna', 'View\MasterController@pengguna');
 // role
 Route::get('/Role', 'View\MasterController@role');
 #endregion
+
+//logout
+Route::get('/Logout', function(){
+    unset($_COOKIE['access_token']);
+    unset($_COOKIE['email']);
+    setcookie('access_token', '', time() - 3600);
+    setcookie('email', '', time() - 3600);
+    return redirect('/Login');
+});
 
 //client
 Route::get('/', 'View\ClientController@index');

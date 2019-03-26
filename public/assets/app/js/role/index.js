@@ -1,3 +1,4 @@
+var idRole = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
     Form.Init();
@@ -94,6 +95,12 @@ var Button = {
             } else
                 Button.Tambah();
         });
+        $("#btnUbahRole").on("click", function () {
+            if ($.trim($("#tbxRoleUbah").val()) == "") {
+                Common.Alert.Warning("Nama role tidak boleh kosong");
+            } else
+                Button.Ubah();
+        });
     },
     Tambah: function () {
         var btn = $("#btnTambahRole");
@@ -157,10 +164,10 @@ var Button = {
                 Common.Alert.Error(errorThrown);
             });
     },
-    Ubah: function (id) {
+    Ubah: function () {
         var btn = $("#btnUbahRole");
         var params = {
-            idRole: id,
+            idRole: idRole,
             namaRole: $("#tbxRoleUbah").val()
         };
 
@@ -205,12 +212,7 @@ var Button = {
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
-                $("#btnUbahKategori").on("click", function () {
-                    if ($.trim($("#tbxRoleUbah").val()) == "") {
-                        Common.Alert.Warning("Nama role tidak boleh kosong");
-                    } else
-                        Button.Ubah(data.idRole);
-                });
+                window.idRole = data.idRole
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);

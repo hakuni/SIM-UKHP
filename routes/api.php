@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'UserController@loginUser');
 Route::get('/clientTrack/{resi}', 'UserController@getTracking');
 
+Route::get('/downloadRincian/{idPenelitian}', 'DownloadController@exportRincian');
+
 Route::middleware('auth:api')->group(function(){
 
     #region API Kategori

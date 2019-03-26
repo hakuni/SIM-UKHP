@@ -34,7 +34,7 @@ SELECT DISTINCT
     `mdc`.`namaPeneliti` AS `namaPeneliti`,
     `mdc`.`instansiPeneliti` AS `instansiPeneliti`,
     `u`.`email` AS `email`,
-    `u`.`namaUser` AS `namaUser`,
+    `u`.`namaUser` AS `PIC`,
     `mm`.`idMilestone` AS `idMilestone`,
     `mm`.`namaMilestone` AS `namaMilestone`,
     (SELECT SUM(`lb`.`totalPembayaran`) FROM `log_pembayarans` `lb` WHERE `lb`.`idPenelitian` = `p`.`idPenelitian`) AS `totalBayar`,

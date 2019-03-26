@@ -1,10 +1,34 @@
-@if ($vwDetailPenelitian['idProsedur'] != 0 )
+@if (!$vwDetailPenelitian)
+<div class="m-content">
+    <div class="m-alert m-alert--icon alert alert-warning" role="alert">
+        <div class="m-alert__icon">
+            <i class="la la-warning"></i>
+        </div>
+        <div class="m-alert__text">
+            <!-- <strong>
+                Maaf,
+            </strong> -->
+            Anda tidak memiliki tugas
+        </div>
+        <div class="m-alert__actions" style="width: 160px;">
+            <a href="/Penelitian/TambahPenelitian" class="btn btn-secondary btn-sm m-btn m-btn--pill m-btn--wide">
+                <span>
+                    <i class="fa fa-plus"></i>
+                    <span>
+                        Tambah Penelitian
+                    </span>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+@elseif ($vwDetailPenelitian['idProsedur'] != 0 )
 <input type="hidden" value="{{$vwDetailPenelitian['idMilestone']}}" id="inptMilestoneID">
 <div class="m-portlet m-portlet--mobile">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
             <div class="row">
-                <div class="col-lg-5" style="margin-right:20px">
+                <div class="col-lg-12" style="margin-right:20px">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
                             {{ $vwDetailPenelitian['judulPenelitian'] }}
@@ -215,7 +239,7 @@
                                             Durasi :
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12 m--align-left">
-                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtDurasi">10 Hari</label>
+                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtDurasi">{{$vwDetailPenelitian['idMilestone']}}</label>
                                         </div>
                                     </div>
                                 </div>

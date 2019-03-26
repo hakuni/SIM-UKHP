@@ -1,4 +1,5 @@
 var id = $("#idPenelitian").val();
+var idRincianBiaya = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
     if ($("#statusPenelitian").val() == 1) {
@@ -6,6 +7,7 @@ jQuery(document).ready(function () {
             backdrop: "static"
         });
     }
+    Button.Init();
     Control.Init();
     Table.Init();
     Select.Milestone();
@@ -151,17 +153,6 @@ var Control = {
     Init: function () {
         Control.Biodata();
         Control.Repeat();
-        $("#btnTambah").on("click", function () {
-            // Control.Tambah();
-            if ($("#slsMilestone").val() == 0) {
-                Common.Alert.Warning("Periksa kembali data masukan anda");
-            } else
-                Control.Tambah();
-        });
-        // tab datatable rapih
-        $("#tabLog").on("click", function () {
-            $("#divLogList").mDatatable('reload');
-        });
     },
     SelectUbah: function (nama) {
         $.ajax({
@@ -223,9 +214,6 @@ var Control = {
                     params.jumlah = $(this).val();
                 }
                 if (index == 3) {
-                    if ($(this).val() == "") {
-                        done = -1;
-                    }
                     params.keterangan = $(this).val();
                 }
             });
@@ -251,8 +239,9 @@ var Control = {
             })
             .done(function (data, textStatus, jqXHR) {
                 $("#divRincianList").mDatatable('reload');
-                Select.Init();
                 Select.Milestone();
+                Select.Fill();
+                $(".slsAlatBahan").val("");
                 $(".tbxJumlah").val("");
                 $(".tbxKeterangan").val("");
                 $("#formRincian").modal("toggle");
@@ -309,22 +298,17 @@ var Control = {
                 $("#formEditRincian").modal({
                     backdrop: "static"
                 });
-                $("#btnUbah").on("click", function () {
-                    if ($.trim($("#tbxJumlahUbah").val()) == "" || $("#slsAlatBahanUbah").val() == 0) {
-                        Common.Alert.Warning("Periksa kembali data masukan anda");
-                    } else
-                        Control.Ubah(data.idRincianBiaya);
-                })
+                window.idRincianBiaya = data.idRincianBiaya
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     },
-    Ubah: function (idRincian) {
+    Ubah: function () {
         var btn = $("#btnUbah");
         var params = {
             idPenelitian: id,
-            idRincianBiaya: idRincian,
+            idRincianBiaya: idRincianBiaya,
             namaAlatBahan: $("#slsAlatBahanUbah").val(),
             jumlah: $("#tbxJumlahUbah").val(),
         };
@@ -375,6 +359,29 @@ var Control = {
         })
     }
 };
+
+var Button = {
+    Init: function(){
+        $("#btnTambah").on("click", function () {
+            // Control.Tambah();
+            if ($("#slsMilestone").val() == 0) {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Control.Tambah();
+        });
+        // tab datatable rapih
+        $("#tabLog").on("click", function () {
+            $("#divLogList").mDatatable('reload');
+        });
+        
+        $("#btnUbah").on("click", function () {
+            if ($.trim($("#tbxJumlahUbah").val()) == "" || $("#slsAlatBahanUbah").val() == 0) {
+                Common.Alert.Warning("Periksa kembali data masukan anda");
+            } else
+                Control.Ubah();
+        })
+    }
+}
 
 var Select = {
     Init: function () {

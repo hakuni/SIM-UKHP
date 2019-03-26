@@ -20,7 +20,7 @@ class CreateRincianBiayasTable extends Migration
             $table->integer('idMilestone')->unsigned();
             $table->integer('jumlah');
             $table->integer('harga');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
 
             //foreign key
             $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');
