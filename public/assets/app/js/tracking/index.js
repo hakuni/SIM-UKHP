@@ -40,11 +40,19 @@ var Page = {
 
 var Get = {
     DetailPenelitian: function (id) {
+        $("#detailPenelitian").addClass("m-loader m-loader--lg m-loader--primary").attr(
+            "disabled",
+            true
+        );
         var link = "/Tracking/Detail/" + id;
         $.ajax({
             url: link,
             type: "GET",
             success: function (data) {
+                $("#detailPenelitian").removeClass("m-loaderm-loader--lg m-loader--primary").attr(
+                    "disabled",
+                    false
+                );
                 $("#detailPenelitian").html(data);
                 if ($("#inptMilestoneID").val() == 5) {
                     $("#btnTrx").hide();
@@ -73,12 +81,22 @@ var Get = {
         });
     },
     Filter: function (order) {
+        $(".m-scrollable").addClass("m-loader m-loader--lg m-loader--primary").attr(
+            "disabled",
+            true
+        );
         var link = "/Tracking/List?orderBy=" + order;
         $.ajax({
             url: link,
             type: "GET",
             success: function (data) {
+                $(".m-scrollable").removeClass("m-loader m-loader--lg m-loader--primary").attr(
+                    "disabled",
+                    false
+                );
                 $("#listPenelitian").html(data);
+                var test = document.getElementsByClassName("divShowDetail")[0];
+                test.style.backgroundColor = "whitesmoke";
                 id = $("#idPenelitian").val();
                 Get.DetailPenelitian(id);
                 $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());

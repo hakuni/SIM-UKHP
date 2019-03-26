@@ -92,7 +92,7 @@ var Button = {
         var params = {
             email: $("#tbxEmail").val(),
             namaUser: $("#tbxNama").val(),
-            namaRole: $("slsRole").val(),
+            idRole: $("#slsRole").val(),
             password: $("#tbxPass").val()
         };
 
@@ -120,6 +120,7 @@ var Button = {
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
+                console.log("test");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                     "disabled",
                     false
@@ -185,8 +186,7 @@ var Button = {
         var params = {
             id: id,
             namaUser: $("#tbxNamaUbah").val(),
-            email: $("#tbxEmailUbah").val(),
-            namaRole: $("#slsRoleUbah").val(),
+            idRole: $("#slsRoleUbah").val(),
             password: $("#tbxPassUbah").val()
         };
 
