@@ -1,19 +1,20 @@
 //== Class Initialization
-jQuery(document).ready(function() {
-    Table.Init();
+jQuery(document).ready(function () {
+    Form.Init();
     Button.Init();
+    Table.Init();
 });
 
 var Table = {
-    Init: function() {
-        t = $("#divKategoriList").mDatatable({
+    Init: function () {
+        t = $("#divRoleList").mDatatable({
             data: {
                 type: "remote",
                 source: {
                     read: {
-                        url: "/api/kategori",
+                        url: "/api/role",
                         method: "GET",
-                        map: function(r) {
+                        map: function (r) {
                             var e = r;
                             return void 0 !== r.data && (e = r.data), e;
                         }
@@ -41,29 +42,28 @@ var Table = {
                     }
                 }
             },
-            columns: [
-                {
-                    field: "idKategori",
+            columns: [{
+                    field: "idRole",
                     title: "Aksi",
                     sortable: false,
                     textAlign: "center",
-                    template: function(t, a) {
-                        var strBuilder =
-                            '<button onclick="Button.ModalUbah(' +
-                            t.idKategori +
-                            ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
-                        if (t.idKategori != 1) {
+                    template: function (t, a) {
+                        if (t.idRole != 1) {
+                            var strBuilder =
+                                '<button onclick="Button.ModalUbah(' +
+                                t.idRole +
+                                ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Kategori"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
                             strBuilder +=
                                 '<button onclick="Button.Konfirmasi(' +
-                                t.idKategori +
+                                t.idRole +
                                 ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Kategori"><i class="la la-trash"></i></a>';
+                            return strBuilder;
                         }
-                        return strBuilder;
                     }
                 },
                 {
-                    field: "namaKategori",
-                    title: "Kategori Penelitian",
+                    field: "namaRole",
+                    title: "Nama Role",
                     textAlign: "center"
                 }
             ]
@@ -72,13 +72,13 @@ var Table = {
 };
 
 var Form = {
-    Init: function() {
+    Init: function () {
         $("#formTambah").validate({
             rules: {
-                tbxKategori: {
+                tbxRole: {
                     required: true
                 },
-                tbxKategoriUbah: {
+                tbxRoleUbah: {
                     required: true
                 }
             }
@@ -87,17 +87,18 @@ var Form = {
 };
 
 var Button = {
-    Init: function() {
-        $("#btnTambahKategori").on("click", function() {
-            if ($.trim($("#tbxKategori").val()) != "") {
+    Init: function () {
+        $("#btnTambahRole").on("click", function () {
+            if ($.trim($("#tbxRole").val()) == "") {
+                Common.Alert.Warning("Nama role tidak boleh kosong");
+            } else
                 Button.Tambah();
-            } else Common.Alert.Warning("Nama kategori tidak boleh kosong");
         });
     },
-    Tambah: function() {
-        var btn = $("#btnTambahKategori");
+    Tambah: function () {
+        var btn = $("#btnTambahRole");
         var params = {
-            namaKategori: $("#tbxKategori").val()
+            namaRole: $("#tbxRole").val()
         };
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -106,63 +107,61 @@ var Button = {
         );
 
         $.ajax({
-            url: "/api/kategori",
-            type: "POST",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(params),
-            cache: false
-        })
-            .done(function(data, textStatus, jqXHR) {
-                $("#divKategoriList").mDatatable("reload");
-                $("#tbxKategori").val("");
+                url: "/api/role",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(params),
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#divRoleList").mDatatable("reload");
+                $("#tbxRole").val("");
                 $("#formTambah").modal("toggle");
                 btn.removeClass(
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);
             })
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
                 btn.removeClass(
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);
             });
     },
-    Konfirmasi: function(id) {
+    Konfirmasi: function (id) {
         swal({
             title: "Anda yakin?",
-            text: "Kategori ini akan dihapus",
+            text: "Role ini akan dihapus",
             type: "question",
             showCancelButton: true,
             confirmButtonText: "Yakin, hapus ini!"
-        }).then(function(e) {
+        }).then(function (e) {
             if (e.value) {
                 Button.Hapus(id);
             }
         });
     },
-    Hapus: function(id) {
+    Hapus: function (id) {
         $.ajax({
-            url: "/api/kategori/" + id,
-            type: "DELETE",
-            dataType: "json",
-            contentType: "application/json",
-            cache: false
-        })
-            .done(function(data, textStatus, jqXHR) {
-                // Common.Alert.SuccessRoute("Berhasil dihapus", "/Kategori");
-                $("#divKategoriList").mDatatable("reload");
+                url: "/api/role/" + id,
+                type: "DELETE",
+                dataType: "json",
+                contentType: "application/json",
+                cache: false
             })
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .done(function (data, textStatus, jqXHR) {
+                $("#divRoleList").mDatatable("reload");
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     },
-    Ubah: function(id) {
-        var btn = $("#btnUbahKategori");
-        console.log(id);
+    Ubah: function (id) {
+        var btn = $("#btnUbahRole");
         var params = {
-            idKategori: id,
-            namaKategori: $("#tbxKategoriUbah").val()
+            idRole: id,
+            namaRole: $("#tbxRoleUbah").val()
         };
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
@@ -171,49 +170,49 @@ var Button = {
         );
 
         $.ajax({
-            url: "/api/kategori",
-            type: "PUT",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(params),
-            cache: false
-        })
-            .done(function(data, textStatus, jqXHR) {
-                $("#divKategoriList").mDatatable("reload");
-                $("#tbxKategoriUbah").val("");
+                url: "/api/role",
+                type: "PUT",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(params),
+                cache: false
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#divRoleList").mDatatable("reload");
+                $("#tbxRoleUbah").val("");
                 btn.removeClass(
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);
                 if (Common.CheckError.Object(data))
                     Common.Alert.Success("Berhasil diubah");
                 $("#formUbah").modal("toggle");
-                $("#divKategoriList").mDatatable("reload");
             })
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
                 btn.removeClass(
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);
             });
     },
-    ModalUbah: function(id) {
+    ModalUbah: function (id) {
         $.ajax({
-            url: "/api/kategori/" + id,
-            type: "GET",
-            dataType: "json"
-        })
-            .done(function(data, textStatus, jqXHR) {
-                $("#tbxKategoriUbah").val(data.namaKategori);
+                url: "/api/role/" + id,
+                type: "GET",
+                dataType: "json"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#tbxRoleUbah").val(data.namaRole);
                 $("#formUbah").modal({
                     backdrop: "static"
                 });
-                $("#btnUbahKategori").on("click", function() {
-                    if ($.trim($("#tbxKategoriUbah").val()) != "") {
-                        Button.Ubah(data.idKategori);
-                    } else Common.Alert.Warning("Nama kategori tidak boleh kosong");
+                $("#btnUbahKategori").on("click", function () {
+                    if ($.trim($("#tbxRoleUbah").val()) == "") {
+                        Common.Alert.Warning("Nama role tidak boleh kosong");
+                    } else
+                        Button.Ubah(data.idRole);
                 });
             })
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
     }

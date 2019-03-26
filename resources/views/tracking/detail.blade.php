@@ -396,7 +396,7 @@
         Silahkan membuat prosedur penelitian
     </div>
     <div class="m-alert__actions" style="width: 160px;">
-        <a href="/TambahProsedur/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-secondary btn-sm m-btn m-btn--pill m-btn--wide">
+        <a href="/Penelitian/TambahProsedur/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-secondary btn-sm m-btn m-btn--pill m-btn--wide">
             <span>
                 <i class="fa fa-plus"></i>
                 <span>

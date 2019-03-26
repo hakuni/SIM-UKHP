@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@section('title', 'Masuk')
 <!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4
 Author: KeenThemes

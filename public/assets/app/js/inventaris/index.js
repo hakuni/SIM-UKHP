@@ -304,27 +304,27 @@ var Select = {
     },
     Status: function () {
         $.ajax({
-            url: "/api/statusPenggunaan",
-            type: "GET"
-        })
-        .done(function (data, textStatus, jqXHR) {
-            $("#slsStatusGuna").html("<option></option>");
-            $.each(data, function (i, item) {
-                $("#slsStatusGuna").append(
-                    "<option value='" +
-                    item.idStatusPenggunaan +
-                    "'>" +
-                    item.namaStatusPenggunaan +
-                    "</option>"
-                );
+                url: "/api/statusPenggunaan",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#slsStatusGuna").html("<option></option>");
+                $.each(data, function (i, item) {
+                    $("#slsStatusGuna").append(
+                        "<option value='" +
+                        item.idStatusPenggunaan +
+                        "'>" +
+                        item.namaStatusPenggunaan +
+                        "</option>"
+                    );
+                });
+                $("#slsStatusGuna").select2({
+                    placeholder: "Status Penggunaan",
+                });
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
             });
-            $("#slsStatusGuna").select2({
-                placeholder: "Status Penggunaan",
-            });
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            Common.Alert.Error(errorThrown);
-        });
     },
     SelectStatus: function () {
         $.ajax({

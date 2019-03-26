@@ -161,14 +161,26 @@ jQuery(document).ready(function () {
         // crossDomain: true
     })
 
-    if(localStorage.getItem('role') == 2){
+    if (localStorage.getItem('role') == 2) {
         //hide sesuatu
+        $("#Kategori").hide();
+        $("#Layanan").hide();
+        $("#Pengguna").hide();
+        $("#Role").hide();
     }
-    if(localStorage.getItem('role') == 3){
+    if (localStorage.getItem('role') == 3) {
         //hide sesuatu
+        $("#Kategori").hide();
+        $("#Layanan").hide();
+        $("#Pengguna").hide();
+        $("#Role").hide();
     }
-    if(localStorage.getItem('role') == 4){
+    if (localStorage.getItem('role') == 4) {
         //hide sesuatu
+        $("#Kategori").hide();
+        $("#Layanan").hide();
+        $("#Pengguna").hide();
+        $("#Role").hide();
     }
 
     $("#nama").html(localStorage.getItem('namaUser'));

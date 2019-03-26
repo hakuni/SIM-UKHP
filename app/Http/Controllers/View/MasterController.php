@@ -16,4 +16,7 @@ class MasterController extends Controller
     public function pengguna(){
         return view('user/index');
     }
+    public function role(){
+        return view('role/index');
+    }
 }

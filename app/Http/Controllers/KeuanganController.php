@@ -52,10 +52,11 @@ class KeuanganController extends Controller
                 $rincian->idAlatBahan = $request[$i]['namaAlatBahan'];
                 $rincian->jumlah = $request[$i]['jumlah'];
                 $rincian->harga = MstAlatBahan::findOrFail($request[$i]['namaAlatBahan'])->harga;
+                $rincian->keterangan = $request[$i]['keterangan'];
                 $rincian->createdBy = auth()->user()->email;
                 $rincian->save();
             };
-            
+
             $rincian->ErrorType = 0;
             return response($rincian)->setStatusCode(200);
         }

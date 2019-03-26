@@ -70,30 +70,41 @@
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    <!-- header -->
+                                                    <div class="form-group m-form__group row" style="padding-bottom:0px">
+                                                        <div class="col-lg-5">
+                                                            <label class="col-form-label">
+                                                                Alat dan Bahan <strong style="color:red" ;>*</strong> :
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <label class="col-form-label">
+                                                                Jumlah <strong style="color:red" ;>*</strong> :
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <label class="col-form-label">
+                                                                Keterangan :
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                     <div id="formRepeat">
                                                         <div data-repeater-list="" class="col-lg-12 ui-sortable">
                                                             <div data-repeater-item class="form-group m-form__group row align-items-center" style="display:none">
-                                                                <div class="col-lg-7 m-form__group--inline row">
-                                                                    <label class="col-form-label">Alat dan Bahan
-                                                                        <strong style="color:red" ;>*</strong>
-                                                                        :</label>
-                                                                    <div class="col-lg-7">
-                                                                        <select class="form-control m-select2 slsAlatBahan infinityInput notInit"
+                                                                <div class="col-lg-5" style="padding-left:0px">
+                                                                    <select class="form-control m-select2 slsAlatBahan infinityInput notInit"
                                                                             style="width:240px" id="slsAlatBahan">
-                                                                            <!-- <option value="1">Test1</option>
-                                                                        <option value="2">Test2</option> -->
-                                                                        </select>
-                                                                    </div>
+                                                                    </select>
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>
-                                                                <div class="col-lg-4 m-form__group--inline row">
-                                                                    <label class="col-form-label">Jumlah <strong style="color:red"
-                                                                            ;>*</strong>
-                                                                        :</label>
-                                                                    <div class="col-lg-8">
-                                                                        <input type="number" id="tbxJumlah" class="form-control m-input tbxJumlah infinityInput"
+                                                                <div class="col-lg-3">
+                                                                    <input type="number" id="tbxJumlah" class="form-control m-input tbxJumlah infinityInput"
                                                                             required>
-                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                                <div class="col-lg-3">
+                                                                    <input type="text" id="tbxKeterangan" class="form-control m-input tbxKeterangan infinityInput"
+                                                                            required>
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>
                                                                 <div class="col-lg-1">
@@ -104,25 +115,20 @@
                                                                 </div>
                                                             </div>
                                                             <div data-repeater-item class="form-group m-form__group row align-items-center divRepeat">
-                                                                <div class="col-lg-7 m-form__group--inline row">
-                                                                    <label class="col-form-label">Alat dan Bahan
-                                                                        <strong style="color:red" ;>*</strong>
-                                                                        :</label>
-                                                                    <div class="col-lg-8">
-                                                                        <select class="form-control m-select2 slsAlatBahan infinityInput notInit"
+                                                                <div class="col-lg-5" style="padding-left:0px">
+                                                                    <select class="form-control m-select2 slsAlatBahan infinityInput notInit"
                                                                             style="width:240px" id="slsAlatBahan">
-                                                                        </select>
-                                                                    </div>
+                                                                    </select>
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>
-                                                                <div class="col-lg-4 m-form__group--inline row">
-                                                                    <label class="col-form-label">Jumlah <strong style="color:red"
-                                                                            ;>*</strong>
-                                                                        :</label>
-                                                                    <div class="col-lg-8">
-                                                                        <input type="number" id="tbxJumlah" class="form-control m-input tbxJumlah infinityInput"
+                                                                <div class="col-lg-3">
+                                                                    <input type="number" id="tbxJumlah" class="form-control m-input tbxJumlah infinityInput"
                                                                             required>
-                                                                    </div>
+                                                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                                                </div>
+                                                                <div class="col-lg-3">
+                                                                    <input type="text" id="tbxKeterangan" class="form-control m-input tbxKeterangan infinityInput"
+                                                                            required>
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>
                                                                 <div class="col-lg-1">

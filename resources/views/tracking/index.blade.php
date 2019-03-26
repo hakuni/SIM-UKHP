@@ -133,7 +133,7 @@
                 Silahkan membuat penelitian
             </div>
             <div class="m-alert__actions" style="width: 160px;">
-                <a href="/TambahPenelitian" class="btn btn-secondary btn-sm m-btn m-btn--pill m-btn--wide">
+                <a href="/Penelitian/TambahPenelitian" class="btn btn-secondary btn-sm m-btn m-btn--pill m-btn--wide">
                     <span>
                         <i class="fa fa-plus"></i>
                         <span>

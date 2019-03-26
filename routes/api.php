@@ -186,7 +186,7 @@ Route::middleware('auth:api')->group(function(){
     Route::put('/user', 'UserController@editUser');
     Route::delete('/user/{idUser}', 'UserController@deleteUser');
 
-    Route::post('/logout', 'UserController@logoutUser')->middleware('auth:api');
+    Route::post('/logout', 'UserController@logoutUser');
     #endregion
 
     #region API Role

@@ -21,8 +21,8 @@ var Table = {
                 },
                 pageSize: 10,
                 saveState: {
-                    cookie: true,
-                    webstorage: true
+                    cookie: false,
+                    webstorage: false
                 },
                 serverPaging: false,
                 serverFiltering: false,

@@ -49,9 +49,6 @@ Route::group(['prefix'=>'Penelitian'], function(){
 Route::group(['prefix'=>'Keuangan'], function(){
     Route::get('/', 'View\KeuanganController@index');
     Route::get('/Rincian/{id}', 'View\KeuanganController@rincian');
-    Route::get('/Test', function(){
-        return view("keuangan/tambah");
-    });
 });
 #endregion
 
@@ -65,8 +62,10 @@ Route::get('/Inventaris', 'View\InventarisController@index');
 Route::get('/Kategori', 'View\MasterController@kategori');
 // layanan
 Route::get('/Layanan', 'View\MasterController@layanan');
-// layanan
+// user
 Route::get('/Pengguna', 'View\MasterController@pengguna');
+// role
+Route::get('/Role', 'View\MasterController@role');
 #endregion
 
 //client

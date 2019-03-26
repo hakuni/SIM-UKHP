@@ -1,5 +1,5 @@
 @extends('public.index')
-@section('title', 'Pengguna')
+@section('title', 'Role')
 @section('content')
 
 <div class="m-content">
@@ -10,7 +10,7 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                Daftar Pengguna
+                                Daftar Role
                             </h3>
                         </div>
                     </div>
@@ -32,14 +32,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- modal tambah user -->
+                            <!-- modal tambah role -->
                             <div class="modal hide fade" id="formTambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">
-                                                Tambah Pengguna
+                                                Tambah Role
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">
@@ -50,36 +50,10 @@
                                         <div class="modal-body">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Email <strong style="color:red" ;>*</strong> :
+                                                    Nama Role <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="email" id="tbxEmail" class="form-control m-input"
-                                                        required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Nama <strong style="color:red" ;>*</strong> :
-                                                </label>
-                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="text" id="tbxNama" class="form-control m-input"
-                                                        required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Role <strong style="color:red" ;>*</strong> :
-                                                </label>
-                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <select class="form-control m-select2 role" id="slsRole" style="width:550px"></select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Kata Sandi <strong style="color:red" ;>*</strong> :
-                                                </label>
-                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="password" id="tbxPass" class="form-control m-input"
+                                                    <input type="text" id="tbxRole" class="form-control m-input"
                                                         required>
                                                 </div>
                                             </div>
@@ -88,21 +62,21 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 Batal
                                             </button>
-                                            <button type="button" class="btn btn-success" id="btnTambahUser">
+                                            <button type="button" class="btn btn-success" id="btnTambahRole">
                                                 Tambah
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- modal ubah kategori -->
+                            <!-- modal ubah role -->
                             <div class="modal hide fade" id="formUbah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                 aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">
-                                                Ubah Pengguna
+                                                Ubah Role
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">
@@ -113,36 +87,11 @@
                                         <div class="modal-body">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Email <strong style="color:red" ;>*</strong> :
+                                                    Nama Role <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="email" id="tbxEmailUbah" class="form-control m-input"
+                                                    <input type="text" id="tbxRoleUbah" class="form-control m-input"
                                                         required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Nama <strong style="color:red" ;>*</strong> :
-                                                </label>
-                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="text" id="tbxNamaUbah" class="form-control m-input"
-                                                        required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Role <strong style="color:red" ;>*</strong> :
-                                                </label>
-                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <select class="form-control m-select2 role" id="slsRoleUbah" style="width:550px"></select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group m-form__group row">
-                                                <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Kata Sandi :
-                                                </label>
-                                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="password" id="tbxPassUbah" class="form-control m-input">
                                                 </div>
                                             </div>
                                         </div>
@@ -150,21 +99,21 @@
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 Batal
                                             </button>
-                                            <button type="button" class="btn btn-primary" id="btnUbahUser">
+                                            <button type="button" class="btn btn-primary" id="btnUbahRole">
                                                 Ubah
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- btn tambah user -->
+                            <!-- btn tambah role -->
                             <div class="col-xl-4 order-1 order-xl-2 m--align-right">
                                 <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill"
                                     id="btnTambah" data-toggle="modal" data-target="#formTambah">
                                     <span>
                                         <i class="fa fa-plus"></i>
                                         <span>
-                                            Tambah Pengguna
+                                            Tambah Role
                                         </span>
                                     </span>
                                 </a>
@@ -174,12 +123,12 @@
                     </div>
                     <!--end: Search Form -->
                     <!--begin: Datatable -->
-                    <div class="m_datatable" id="divUserList"></div>
+                    <div class="m_datatable" id="divRoleList"></div>
                     <!--end: Datatable -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="{{asset('assets/app/js/user/index.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/app/js/role/index.js')}}" type="text/javascript"></script>
 @endsection

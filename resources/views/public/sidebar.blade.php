@@ -92,7 +92,7 @@
             </li>
             <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Layanan">
                 <a href="/Layanan" class="m-menu__link ">
-                    <i class="m-menu__link-icon flaticon-cogwheel-2" style="color:whitesmoke"></i>
+                    <i class="m-menu__link-icon flaticon-interface-6" style="color:whitesmoke"></i>
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
                             <span class="m-menu__link-text" style="color:whitesmoke">
@@ -109,6 +109,18 @@
                         <span class="m-menu__link-wrap">
                             <span class="m-menu__link-text" style="color:whitesmoke">
                                 Pengguna
+                            </span>
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li class="m-menu__item sidebarActive" aria-haspopup="true" id="Role">
+                <a href="/Role" class="m-menu__link ">
+                    <i class="m-menu__link-icon flaticon-cogwheel-2" style="color:whitesmoke"></i>
+                    <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                            <span class="m-menu__link-text" style="color:whitesmoke">
+                                Role
                             </span>
                         </span>
                     </span>

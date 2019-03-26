@@ -2,6 +2,7 @@
 jQuery(document).ready(function () {
     Button.Init();
     Table.Init();
+    Select.Role("");
 });
 
 var Table = {
@@ -21,8 +22,8 @@ var Table = {
                 },
                 pageSize: 10,
                 saveState: {
-                    cookie: true,
-                    webstorage: true
+                    cookie: false,
+                    webstorage: false
                 },
                 serverPaging: false,
                 serverFiltering: false,
@@ -47,16 +48,24 @@ var Table = {
                     sortable: false,
                     textAlign: "center",
                     template: function (t) {
-                        var strBuilder =
-                            '<button onclick="Button.ModalUbah(' + t.id + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Pengguna"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
-                        strBuilder +=
-                            '<button onclick="Button.ConfirmDelete(' + t.id + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Pengguna"><i class="la la-trash"></i></a>';
-                        return strBuilder;
+                        if (t.id != 1) {
+                            var strBuilder =
+                                '<button onclick="Button.ModalUbah(' + t.id + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Pengguna"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
+                            strBuilder +=
+                                '<button onclick="Button.ConfirmDelete(' + t.id + ')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Hapus Pengguna"><i class="la la-trash"></i></a>';
+                            return strBuilder;
+
+                        }
                     }
                 },
                 {
                     field: "namaUser",
                     title: "Nama",
+                    textAlign: "center"
+                },
+                {
+                    field: "namaRole",
+                    title: "Role",
                     textAlign: "center"
                 },
                 {
@@ -72,7 +81,7 @@ var Table = {
 var Button = {
     Init: function () {
         $("#btnTambahUser").on("click", function () {
-            if ($.trim($("#tbxEmail").val()) == "" || $.trim($("#tbxNama").val()) == "" || $.trim($("#tbxPass").val()) == "") {
+            if ($("#slsRole").val() == 0 || $.trim($("#tbxEmail").val()) == "" || $.trim($("#tbxNama").val()) == "" || $.trim($("#tbxPass").val()) == "") {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } else
                 Button.Tambah();
@@ -83,6 +92,7 @@ var Button = {
         var params = {
             email: $("#tbxEmail").val(),
             namaUser: $("#tbxNama").val(),
+            namaRole: $("slsRole").val(),
             password: $("#tbxPass").val()
         };
 
@@ -103,6 +113,7 @@ var Button = {
                 $("#divUserList").mDatatable('reload');
                 $("#tbxEmail").val("");
                 $("#tbxNama").val("");
+                $("slsRole").val("");
                 $("#tbxPass").val("");
                 $("#formTambah").modal("toggle");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
@@ -144,12 +155,38 @@ var Button = {
                 Common.Alert.Error(errorThrown);
             });
     },
+    ModalUbah: function (id) {
+        $.ajax({
+                url: "/api/user/" + id,
+                type: "GET",
+                dataType: "json",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#tbxNamaUbah").val(data.namaUser);
+                $("#tbxEmailUbah").val(data.email);
+                Select.Role(data.namaRole);
+                $("#tbxPassUbah").val(data.password);
+                $("#formUbah").modal({
+                    backdrop: "static"
+                });
+                $("#btnUbahUser").on("click", function () {
+                    if ($.trim($("#tbxNamaUbah").val()) != "" || $.trim($("#tbxEmailUbah").val()) != "") {
+                        Button.Ubah(data.id);
+                    } else
+                        Common.Alert.Warning("Periksa kembali data masukan anda");
+                })
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    },
     Ubah: function (id) {
         var btn = $("#btnUbahUser");
         var params = {
             id: id,
             namaUser: $("#tbxNamaUbah").val(),
             email: $("#tbxEmailUbah").val(),
+            namaRole: $("#slsRoleUbah").val(),
             password: $("#tbxPassUbah").val()
         };
 
@@ -170,6 +207,7 @@ var Button = {
                 $("#divUserList").mDatatable('reload');
                 $("#tbxNamaUbah").val("");
                 $("#tbxEmailUbah").val("");
+                $("#tbxRoleUbah").val("");
                 $("#tbxPassUbah").val("");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
                 // if (Common.CheckError.Object(data))
@@ -184,28 +222,31 @@ var Button = {
                 );
             });
     },
-    ModalUbah: function (id) {
+
+};
+
+var Select = {
+    Role: function (nama) {
         $.ajax({
-                url: "/api/user/" + id,
-                type: "GET",
-                dataType: "json",
+                url: "/api/role",
+                type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#tbxNamaUbah").val(data.namaUser);
-                $("#tbxEmailUbah").val(data.email);
-                $("#tbxPassUbah").val(data.password);
-                $("#formUbah").modal({
-                    backdrop: "static"
+                $(".role").html("<option></option>");
+                $.each(data, function (i, item) {
+                    if (item.namaRole == nama) {
+                        $(".role").append("<option value='" + item.idRole + "' selected>" + item.namaRole + "</option>");
+                    } else {
+                        $(".role").append("<option value='" + item.idRole + "'>" + item.namaRole + "</option>");
+                    }
                 });
-                $("#btnUbahUser").on("click", function () {
-                    if ($.trim($("#tbxNamaUbah").val()) != "" || $.trim($("#tbxEmailUbah").val()) != "") {
-                        Button.Ubah(data.id);
-                    } else
-                        Common.Alert.Warning("Periksa kembali data masukan anda");
+                $("#slsRole").select2({
+                    placeholder: "Role"
                 })
+                $("#slsRoleUbah").select2();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
-    }
+    },
 }

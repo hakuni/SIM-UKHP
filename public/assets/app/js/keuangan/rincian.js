@@ -207,6 +207,7 @@ var Control = {
                 namaMilestone: $("#slsMilestone").val(),
                 namaAlatBahan: "",
                 jumlah: "",
+                keterangan: "",
             };
             $(this).find(".infinityInput").each(function (index, item) {
                 if (index == 1) {
@@ -220,6 +221,12 @@ var Control = {
                         done = -1;
                     }
                     params.jumlah = $(this).val();
+                }
+                if (index == 3) {
+                    if ($(this).val() == "") {
+                        done = -1;
+                    }
+                    params.keterangan = $(this).val();
                 }
             });
             result.push(params);
@@ -247,6 +254,7 @@ var Control = {
                 Select.Init();
                 Select.Milestone();
                 $(".tbxJumlah").val("");
+                $(".tbxKeterangan").val("");
                 $("#formRincian").modal("toggle");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })
@@ -404,7 +412,9 @@ var Select = {
             .done(function (data, textStatus, jqXHR) {
                 $("#slsMilestone").html("<option></option>");
                 $.each(data, function (i, item) {
-                    $("#slsMilestone").append("<option value='" + item.idMilestone + "'>" + item.namaMilestone + "</option>");
+                    if (item.idMilestone == 2 || item.idMilestone == 3 || item.idMilestone == 4) {
+                        $("#slsMilestone").append("<option value='" + item.idMilestone + "'>" + item.namaMilestone + "</option>");
+                    }
                 });
                 $("#slsMilestone").select2({
                     placeholder: "Milestone",

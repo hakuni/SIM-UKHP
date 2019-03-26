@@ -16,23 +16,38 @@ var GetData = {
         GetData.Hewan();
     },
     Kategori: function () {
+        $("#kategori").addClass("m-loader m-loader--lg m-loader--primary").attr(
+            "disabled",
+            true
+        );
         $.ajax({
             url: "/api/dashboard/kategori?tahun=" + $("#tbxTahunKategori").val(),
             type: 'GET',
             success: function (data) {
+                $("#kategori").removeClass("m-loader m-loader--lg m-loader--primary").attr(
+                    "disabled",
+                    false
+                );
                 Grafik.Kategori(data);
             },
             error: function () {
                 alert("error");
-                console.log("eror");
             }
         });
     },
     Penggunaan: function () {
+        $("#penggunaan").addClass("m-loader m-loader--lg m-loader--primary").attr(
+            "disabled",
+            true
+        );
         $.ajax({
             url: "/api/dashboard/penggunaan?tahun=" + $("#tbxTahunGuna").val(),
             type: 'GET',
             success: function (data) {
+                $("#penggunaan").removeClass("m-loader m-loader--lg m-loader--primary").attr(
+                    "disabled",
+                    false
+                );
                 Grafik.Penggunaan(data);
             },
             error: function () {
@@ -42,12 +57,19 @@ var GetData = {
         });
     },
     Keuangan: function () {
+        $("#keuangan").addClass("m-loader m-loader--lg m-loader--primary").attr(
+            "disabled",
+            true
+        );
         $.ajax({
             url: "/api/dashboard/pemasukan?tahun=" + $("#tbxTahunKeu").val(),
             type: 'GET',
             success: function (data) {
+                $("#keuangan").removeClass("m-loader m-loader--lg m-loader--primary").attr(
+                    "disabled",
+                    false
+                );
                 Grafik.Keuangan(data);
-                // console.log(data[0].pemasukan);
             },
             error: function () {
                 alert("error");
@@ -57,13 +79,20 @@ var GetData = {
     },
     Hewan: function () {
         bln = $("#slsPeriode").val();
-        thn = $("#tbxTahunHewan").val()
+        thn = $("#tbxTahunHewan").val();
+        $("#hewan").addClass("m-loader m-loader--lg m-loader--primary").attr(
+            "disabled",
+            true
+        );
         $.ajax({
             url: "/api/dashboard/banyakHewan?periode=" + bln + "&tahun=" + thn,
             type: 'GET',
             success: function (data) {
+                $("#hewan").removeClass("m-loader m-loader--lg m-loader--primary").attr(
+                    "disabled",
+                    false
+                );
                 Grafik.HewanPeriode(data);
-                console.log(data);
             },
             error: function () {
                 alert("error");

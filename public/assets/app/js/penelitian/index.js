@@ -59,7 +59,8 @@ var Table = {
                         if (t.idProsedur == 0) {
                             routeView = "/TambahProsedur/" + t.idPenelitian;
                         }
-                        strBuilder +=
+                        if (t.idKategori != 1)
+                            strBuilder +=
                             '<a href=' + routeView + ' class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Prosedur"><i class="la la-file-text"></i></a>';
                         return strBuilder;
                     }
