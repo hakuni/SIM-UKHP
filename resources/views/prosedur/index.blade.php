@@ -22,7 +22,7 @@
                     <div class="m-portlet__head-caption col-lg-4">
                         <a href="/Penelitian/Download/{{$idPen}}" class="btn btn-success m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" id="btnEksport">
                             <span>
-                                <i class="fa fa-download"></i>
+                                <i class="fa fa-file"></i>
                                 <span>
                                     Eksport File
                                 </span>
@@ -61,7 +61,7 @@
 
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Kategori <strong style="color:red" ;>*</strong> :
+                                Kategori :
                             </label>
                             <div class="col-lg-6">
                                 <input type="text" class="form-control m-input" id="tbxKategori" disabled="disable">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Judul Penelitian <strong style="color:red" ;>*</strong> :
+                                Judul Penelitian :
                             </label>
                             <div class="col-lg-6">
                                 <input type="text" value="{{$prosedur['judulPenelitian']}}" id="tbxJudul" class="form-control m-input" disabled="disable">
@@ -77,7 +77,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Hewan <strong style="color:red" ;>*</strong> :
+                                Hewan :
                             </label>
                             <div class="col-lg-6">
                                 <input class="form-control m-input" id="tbxHewan" name="slsHewan" disabled="disable"/>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Keterangan Hewan <strong style="color:red" ;>*</strong> :
+                                Keterangan Hewan :
                             </label>
                             <div class="col-lg-6">
                                 <input type="text" value="{{$prosedur['keteranganHewan']}}" id="tbxKeterangan" name="tbxKeterangan" class="form-control m-input" disabled="disable">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Perlakuan <strong style="color:red" ;>*</strong> :
+                                Perlakuan :
                             </label>
                             <div class="col-lg-6">
                                 <textarea type="text" class="form-control m-input" id="tbxPerlakuan" name="tbxPerlakuan" rows="4" disabled="disabled">{{$prosedur['perlakuan']}}</textarea>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Parameter Uji <strong style="color:red" ;>*</strong> :
+                                Parameter Uji :
                             </label>
                             <div class="col-lg-6">
                                 <textarea type="text" class="form-control m-input" id="tbxParameter" name="tbxParameter" rows="4" disabled>{{$prosedur['parameterUji']}}</textarea>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Desain Penelitian <strong style="color:red" ;>*</strong> :
+                                Desain Penelitian :
                             </label>
                             <div class="col-lg-6">
                                 <textarea type="text" class="form-control m-input" id="tbxDesain" name="tbxDesain" rows="4" disabled>{{$prosedur['desainPenelitian']}}</textarea>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 1 <strong style="color:red" ;>*</strong> :
+                                Durasi Tahap 1 :
                             </label>
                             <div class="col-lg-3" style="padding-right:0px">
                                 <input type="number" value="{{$prosedur['tahap1']}}" id="tbxDurasi1" name="tbxDurasi1" class="form-control m-input" disabled>
@@ -147,7 +147,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 2 <strong style="color:red" ;>*</strong> :
+                                Durasi Tahap 2 :
                             </label>
                             <div class="col-lg-3" style="padding-right:0px">
                                 <input type="number" value="{{$prosedur['tahap2']}}" id="tbxDurasi2" name="tbxDurasi2" class="form-control m-input" disabled>
@@ -158,7 +158,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 3 <strong style="color:red" ;>*</strong> :
+                                Durasi Tahap 3 :
                             </label>
                             <div class="col-lg-3" style="padding-right:0px">
                                 <input type="number" value="{{$prosedur['tahap3']}}" id="tbxDurasi3" name="tbxDurasi3" class="form-control m-input" disabled>

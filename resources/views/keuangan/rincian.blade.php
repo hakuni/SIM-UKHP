@@ -219,7 +219,7 @@
                                                 <div class="m-separator m-separator--dashed d-xl-none"></div>
                                             </div>
                                             <div class="col-xl-3 order-1 order-xl-2 m--align-right">
-                                                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                                <a href="/Keuangan/Biaya/{{$id}}" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
                                                     <span>
                                                         <i class="fa fa-file"></i>
                                                         <span>

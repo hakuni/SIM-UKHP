@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="m-portlet__head-caption col-lg-4">
-                        <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                        <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill" style="display:none">
                             <span>
                                 <i class="fa fa-file"></i>
                                 <span>

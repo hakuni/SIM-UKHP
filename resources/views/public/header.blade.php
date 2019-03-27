@@ -7,7 +7,8 @@
                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
                         <a href="/Dashboard" class="m-brand__logo-wrapper">
                             <!-- ganti nama -->
-                            <img alt="" src="{{asset('assets/demo/default/media/img/logo/logo_default_dark.png')}}" />
+                            <img alt="" src="{{asset('assets/demo/default/media/img/logo/sidebar.png')}}"
+                                style="width:145px; height:30px" />
                         </a>
                     </div>
                     <div class="m-stack__item m-stack__item--middle m-brand__tools">
@@ -94,16 +95,15 @@
                                                         </a>
                                                     </li>
                                                     <li class="nav-item m-tabs__item">
-                                                        <a class="nav-link m-tabs__link" data-toggle="tab"
-                                                            href="#late" role="tab">
+                                                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#late"
+                                                            role="tab">
                                                             Terlambat
                                                         </a>
                                                     </li>
 
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <div class="tab-pane active" id="ongoing"
-                                                        role="tabpanel">
+                                                    <div class="tab-pane active" id="ongoing" role="tabpanel">
                                                         <div class="m-scrollable" data-scrollable="true"
                                                             data-max-height="250" data-mobile-max-height="200">
                                                             <div class="m-list-timeline m-list-timeline--skin-light">
@@ -113,7 +113,8 @@
                                                                         <span class="m-list-timeline__badge"></span>
                                                                         <span class="m-list-timeline__text">
                                                                             Judul Penelitiian 1
-                                                                            <span class="m-badge m-badge--primary m-badge--wide">
+                                                                            <span
+                                                                                class="m-badge m-badge--primary m-badge--wide">
                                                                                 Milestone 2
                                                                             </span>
                                                                         </span>
@@ -125,7 +126,8 @@
                                                                         <span class="m-list-timeline__badge"></span>
                                                                         <span class="m-list-timeline__text">
                                                                             Judul Penelitiian 2
-                                                                            <span class="m-badge m-badge--primary m-badge--wide">
+                                                                            <span
+                                                                                class="m-badge m-badge--primary m-badge--wide">
                                                                                 Milestone 3
                                                                             </span>
                                                                         </span>
@@ -137,7 +139,8 @@
                                                                         <span class="m-list-timeline__badge"></span>
                                                                         <span class="m-list-timeline__text">
                                                                             Judul Penelitiian 3
-                                                                            <span class="m-badge m-badge--primary m-badge--wide">
+                                                                            <span
+                                                                                class="m-badge m-badge--primary m-badge--wide">
                                                                                 Milestone 4
                                                                             </span>
                                                                         </span>
@@ -193,8 +196,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane" id="late"
-                                                        role="tabpanel">
+                                                    <div class="tab-pane" id="late" role="tabpanel">
                                                         <div class="m-scrollable" data-scrollable="true"
                                                             data-max-height="250" data-mobile-max-height="200">
                                                             <div class="m-list-timeline m-list-timeline--skin-light">
@@ -324,9 +326,9 @@
 																	</a>
 																</li> -->
                                                     <li class="m-nav__separator m-nav__separator--fit"></li>
+
                                                     <li class="m-nav__item">
-                                                        <button onclick=""
-                                                            class="btn m-btn--pill    btn-primary m-btn m-btn--custom m-btn--label-primary m-btn--bolder">
+                                                        <button onclick="" class="btn m-btn--pill btn-primary m-btn m-btn--custom m-btn--label-primary m-btn--bolder" data-toggle="modal" data-target="#formUbah">
                                                             Ubah Akun
                                                         </button>
                                                         <button onclick="App.Logout()"

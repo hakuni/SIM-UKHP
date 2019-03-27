@@ -5,6 +5,7 @@ namespace App\Http\Controllers\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PenelitianController as Penelitian;
+use App\Http\Controllers\DownloadController as Download;
 
 class KeuanganController extends Controller
 {
@@ -21,5 +22,13 @@ class KeuanganController extends Controller
         $vwPenelitian = new Penelitian;
         $statusPenelitian = json_decode($vwPenelitian->getSinglePenelitian($id)->getContent(), true)['idStatusPenelitian'];
         return view('keuangan/rincian', compact('id', 'statusPenelitian'));
+    }
+
+    public function exportRincian($id){
+        if(!isset($_COOKIE['access_token'])){
+            return redirect('/Login');
+        }
+        $hasil = new Download;
+        return $hasil->exportRincian($id);
     }
 }

@@ -8,7 +8,7 @@ jQuery(document).ready(function () {
 var Page = {
     Init: function () {
         Get.Minimize();
-        Get.Filter(1);
+        Get.List(1);
         //filter
         $(".TaskOrderBy").on("click", function () {
             var order = this.id;
@@ -17,7 +17,7 @@ var Page = {
             } else {
                 $("#order").html("Saya");
             }
-            Get.Filter(order);
+            Get.List(order);
         });
 
         $("#listPenelitian").on("click", "div.divShowDetail", function (e) {
@@ -67,7 +67,7 @@ var Get = {
             }
         });
     },
-    Filter: function (order) {
+    List: function (order) {
         $(".m-scrollable").addClass("m-loader m-loader--lg m-loader--primary").attr(
             "disabled",
             true
@@ -83,7 +83,7 @@ var Get = {
                 );
                 $("#listPenelitian").html(data);
                 var test = document.getElementsByClassName("divShowDetail")[0];
-                if(test)
+                if (test)
                     test.style.backgroundColor = "whitesmoke";
                 id = $("#idPenelitian").val();
                 Get.DetailPenelitian(id);
@@ -94,7 +94,7 @@ var Get = {
             }
         });
     },
-    Minimize: function(){
+    Minimize: function () {
         $("#btnMaximize").on("click", function () {
             $("#sidebarShow").show();
             $("#detailPenelitian").removeClass("col-lg-11");

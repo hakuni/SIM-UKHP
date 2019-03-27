@@ -66,7 +66,7 @@
                     <span class="m-menu__link-title">
                         <span class="m-menu__link-wrap">
                             <span class="m-menu__link-text" style="color:whitesmoke">
-                                Inventarisasi
+                                Inventaris
                             </span>
                         </span>
                     </span>

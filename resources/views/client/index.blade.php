@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+@section('title', 'Client')
 <html lang="en" >
 	<!-- begin::Head -->
 	<head>
@@ -17,7 +17,7 @@
 							<div class="m-login__wrapper">
 								<div class="m-login__logo">
 									<a href="#">
-                                        <img alt="" src="{{asset('assets/app/media/img//logos/logo-2.png')}}" />
+                                        <img alt="" src="{{asset('assets/app/media/img//logos/client.png')}}" style="width:350px; height:150px" />
 										<!-- <img src="../../../assets/app/media/img//logos/logo-2.png"> -->
 									</a>
 								</div>

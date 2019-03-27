@@ -148,7 +148,56 @@ var App = {
                 document.getElementById(this.id).setAttribute("style", "background-color:#716aca");
             }
         })
-    }
+    },
+    Role: function (nama) {
+        $.ajax({
+                url: "/api/role",
+                type: "GET"
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $(".role").html("<option></option>");
+                $.each(data, function (i, item) {
+                    if (item.namaRole == nama) {
+                        $(".role").append("<option value='" + item.idRole + "' selected>" + item.namaRole + "</option>");
+                    } else {
+                        $(".role").append("<option value='" + item.idRole + "'>" + item.namaRole + "</option>");
+                    }
+                });
+                $("#slsRole").select2({
+                    placeholder: "Role"
+                })
+                $("#slsRoleUbah").select2();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+    },
+    ModalAkun: function () {
+        // gak ada id user?
+        var id = localStorage.getItem('role');
+        $.ajax({
+                url: "/api/user/" + id,
+                type: "GET",
+                dataType: "json",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                console.log(data)
+                $("#formUbah").modal({
+                    backdrop: "static"
+                });
+                $("#tbxNamaUbah").val(data.namaUser);
+                $("#tbxEmailUbah").val(data.email);
+                App.Role(data.namaRole);
+                $("#tbxPassUbah").val(data.password);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+        $("#formUbah").modal({
+            backdrop: "static"
+        });
+    },
+
 }
 
 jQuery(document).ready(function () {

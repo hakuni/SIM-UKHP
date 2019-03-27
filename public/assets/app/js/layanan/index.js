@@ -133,7 +133,7 @@ var Button = {
         swal({
             title: "Anda yakin?",
             text: "Layanan ini akan dihapus",
-            type: "warning",
+            type: "question",
             showCancelButton: true,
             confirmButtonText: "Yakin, hapus ini!",
         }).then(function (e) {
