@@ -328,7 +328,7 @@
                                                     <li class="m-nav__separator m-nav__separator--fit"></li>
 
                                                     <li class="m-nav__item">
-                                                        <button onclick="" class="btn m-btn--pill btn-primary m-btn m-btn--custom m-btn--label-primary m-btn--bolder" data-toggle="modal" data-target="#formUbah">
+                                                        <button onclick="App.ModalAkun()" class="btn m-btn--pill btn-primary m-btn m-btn--custom m-btn--label-primary m-btn--bolder" data-toggle="modal" data-target="#formUbah">
                                                             Ubah Akun
                                                         </button>
                                                         <button onclick="App.Logout()"

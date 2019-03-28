@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstKategori;
 
 class KategoriController extends Controller
@@ -20,7 +21,7 @@ class KategoriController extends Controller
             $kategori = new MstKategori;
             $kategori->ErrorType = 2;
             $kategori->ErrorMessage = $e->getMessage();
-            return response($kategori)->setStatusCode(204);
+            return response($kategori)->setStatusCode(404);
         }
     }
 
@@ -60,7 +61,7 @@ class KategoriController extends Controller
             $kategori = new MstKategori;
             $kategori->ErrorType = 2;
             $kategori->ErrorMessage = $e->getMessage();
-            return response($kategori)->setStatusCode(204);
+            return response($kategori)->setStatusCode(404);
         }
     }
 

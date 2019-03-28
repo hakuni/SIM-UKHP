@@ -4,7 +4,7 @@ namespace App\Http\Controllers\View;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\PenelitianController as Penelitian;
+use App\Http\Controllers\ControllerApis\PenelitianController as Penelitian;
 
 class PenelitianController extends Controller
 {

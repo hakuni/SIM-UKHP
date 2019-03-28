@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstAlatBahan;
 use App\MstKeuangan;
 use App\RincianBiaya;
@@ -23,7 +24,7 @@ class KeuanganController extends Controller
             $keuangan = new vwKeuangan;
             $keuangan->ErrorType = 2;
             $keuangan->ErrorMessage = $e->getMessage();
-            return response($keuangan)->setStatusCode(204);
+            return response($keuangan)->setStatusCode(404);
         }
     }
     public function getSingleViewKeuangan($idPenelitian){
@@ -36,7 +37,7 @@ class KeuanganController extends Controller
             $keuangan = new vwKeuangan;
             $keuangan->ErrorType = 2;
             $keuangan->ErrorMessage = $e->getMessage();
-            return response($keuangan)->setStatusCode(204);
+            return response($keuangan)->setStatusCode(404);
         }
     }
     #endregion
@@ -78,7 +79,7 @@ class KeuanganController extends Controller
             $rincian = new vwRincian;
             $rincian->ErrorType = 2;
             $rincian->ErrorMessage = $e->getMessage();
-            return response($rincian)->setStatusCode(204);
+            return response($rincian)->setStatusCode(404);
         }
     }
 
@@ -92,7 +93,7 @@ class KeuanganController extends Controller
             $rincian = new vwRincian;
             $rincian->ErrorType = 2;
             $rincian->ErrorMessage = $e->getMessage();
-            return response($rincian)->setStatusCode(204);
+            return response($rincian)->setStatusCode(404);
         }
     }
 
@@ -164,7 +165,7 @@ class KeuanganController extends Controller
             $logPembayaran = new LogPembayaran;
             $logPembayaran->ErrorType = 2;
             $logPembayaran->ErrorMessage = $e->getMessage();
-            return response($logPembayaran)->setStatusCode(204);
+            return response($logPembayaran)->setStatusCode(404);
         }
     }
 
@@ -178,7 +179,7 @@ class KeuanganController extends Controller
             $logPembayaran = new LogPembayaran;
             $logPembayaran->ErrorType = 2;
             $logPembayaran->ErrorMessage = $e->getMessage();
-            return response($logPembayaran)->setStatusCode(204);
+            return response($logPembayaran)->setStatusCode(404);
         }
     }
 

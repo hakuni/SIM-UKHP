@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstProsedur;
 
 class ProsedurController extends Controller
@@ -38,7 +39,7 @@ class ProsedurController extends Controller
             $prosedur = new MstProsedur;
             $prosedur->ErrorType = 2;
             $prosedur->ErrorMessage = $e->getMessage();
-            return response($prosedur)->setStatusCode(422);
+            return response($prosedur)->setStatusCode(404);
         }
     }
     #endregion

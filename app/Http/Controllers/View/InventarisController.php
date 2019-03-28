@@ -4,7 +4,7 @@ namespace App\Http\Controllers\View;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DownloadController as Download;
+use App\Http\Controllers\ControllerApis\DownloadController as Download;
 
 class InventarisController extends Controller
 {

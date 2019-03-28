@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstStatusPenggunaan;
 
 class StatusPenggunaanController extends Controller
@@ -20,7 +21,7 @@ class StatusPenggunaanController extends Controller
             $statusPenggunaan = new MstStatusPenggunaan;
             $statusPenggunaan->ErrorType = 2;
             $statusPenggunaan->ErrorMessage = $e->getMessage();
-            return response($statusPenggunaan)->setStatusCode(204);
+            return response($statusPenggunaan)->setStatusCode(404);
         }
     }
 
@@ -60,7 +61,7 @@ class StatusPenggunaanController extends Controller
             $statusPenggunaan = new MstStatusPenggunaan;
             $statusPenggunaan->ErrorType = 2;
             $statusPenggunaan->ErrorMessage = $e->getMessage();
-            return response($statusPenggunaan)->setStatusCode(204);
+            return response($statusPenggunaan)->setStatusCode(404);
         }
     }
 
@@ -79,7 +80,7 @@ class StatusPenggunaanController extends Controller
             $statusPenggunaan = new MstStatusPenggunaan;
             $statusPenggunaan->ErrorType = 2;
             $statusPenggunaan->ErrorMessage = $e->getMessage();
-            return response($statusPenggunaan)->setStatusCode(204);
+            return response($statusPenggunaan)->setStatusCode(422);
         }
     }
     #endregion

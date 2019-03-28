@@ -116,6 +116,7 @@ var App = {
             })
             .done(function (data, textStatus, jqXHR) {
                 document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                localStorage.removeItem('idUser');
                 localStorage.removeItem('namaUser');
                 localStorage.removeItem('role');
                 localStorage.removeItem('namaRole');
@@ -149,7 +150,8 @@ var App = {
             }
         })
     },
-    Role: function (nama) {
+    Role: function () {
+        var role = localStorage.getItem('role');
         $.ajax({
                 url: "/api/role",
                 type: "GET"
@@ -157,7 +159,7 @@ var App = {
             .done(function (data, textStatus, jqXHR) {
                 $(".role").html("<option></option>");
                 $.each(data, function (i, item) {
-                    if (item.namaRole == nama) {
+                    if (item.idRole == role) {
                         $(".role").append("<option value='" + item.idRole + "' selected>" + item.namaRole + "</option>");
                     } else {
                         $(".role").append("<option value='" + item.idRole + "'>" + item.namaRole + "</option>");
@@ -173,30 +175,45 @@ var App = {
             });
     },
     ModalAkun: function () {
-        // gak ada id user?
-        var id = localStorage.getItem('role');
+        var id = localStorage.getItem('idUser');
         $.ajax({
                 url: "/api/user/" + id,
                 type: "GET",
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                console.log(data)
-                $("#formUbah").modal({
-                    backdrop: "static"
-                });
                 $("#tbxNamaUbah").val(data.namaUser);
                 $("#tbxEmailUbah").val(data.email);
-                App.Role(data.namaRole);
-                $("#tbxPassUbah").val(data.password);
+                App.Role();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
             });
-        $("#formUbah").modal({
-            backdrop: "static"
-        });
     },
+    SaveAkun: function(){
+        params = {
+            id: localStorage.getItem('idUser'),
+            email: $("#tbxEmailUbah").val(),
+            namaUser: $("#tbxNamaUbah").val(),
+            idRole: $("#slsRoleUbah").val(),
+            password:$("#tbxPassUbah").val()
+        }
+        $.ajax({
+            url: '/api/user/',
+            type: "PUT",
+            data: JSON.stringify(params),
+            dataType: 'json',
+            contentType: "application/json",
+            cache: false,
+            success: function(data, textStatus, jqXHR){
+                $("#formUbah").modal("toggle");
+                Common.Alert.Success('Berhasil mengubah data')
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+
+            }
+        })
+    }
 
 }
 
@@ -238,4 +255,16 @@ jQuery(document).ready(function () {
     $("#jabatan").html(localStorage.getItem('namaRole'));
 
     App.SidebarTag();
+
+    $('#btnUbahUser').on('click', function(){
+        $(this).addClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            true
+        );
+        App.SaveAkun();
+        $(this).removeClass("m-loader m-loader--right m-loader--light").attr(
+            "disabled",
+            false
+        );
+    })
 });

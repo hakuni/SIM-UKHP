@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstStatusPenelitian;
 
 class StatusPenelitianController extends Controller
@@ -20,7 +21,7 @@ class StatusPenelitianController extends Controller
             $status = new MstStatusPenelitian;
             $status->ErrorType = 2;
             $status->ErrorMessage = $e->getMessage();
-            return response($status)->setStatusCode(204);
+            return response($status)->setStatusCode(404);
         }
     }
 
@@ -60,7 +61,7 @@ class StatusPenelitianController extends Controller
             $status = new MstStatusPenelitian;
             $status->ErrorType = 2;
             $status->ErrorMessage = $e->getMessage();
-            return response($status)->setStatusCode(204);
+            return response($status)->setStatusCode(404);
         }
     }
 
@@ -79,7 +80,7 @@ class StatusPenelitianController extends Controller
             $status = new MstStatusPenelitian;
             $status->ErrorType = 2;
             $status->ErrorMessage = $e->getMessage();
-            return response($status)->setStatusCode(204);
+            return response($status)->setStatusCode(422);
         }
     }
     #endregion

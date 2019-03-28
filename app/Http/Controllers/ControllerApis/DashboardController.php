@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,7 @@ class DashboardController extends Controller
             return response($pemasukan);
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(404);
         }
     }
 
@@ -25,7 +26,7 @@ class DashboardController extends Controller
             return response($kategori);
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(404);
         }
     }
 
@@ -36,7 +37,7 @@ class DashboardController extends Controller
             return response($penggunaan);
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(404);
         }
     }
 
@@ -54,7 +55,7 @@ class DashboardController extends Controller
             return response($banyak);
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(404);
         }
     }
 
@@ -82,7 +83,7 @@ class DashboardController extends Controller
             return response($banyak);
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(404);
         }
     }
 }

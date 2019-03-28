@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstMilestone;
 
 class MilestoneController extends Controller
@@ -20,7 +21,7 @@ class MilestoneController extends Controller
             $milestone = new MstMilestone;
             $milestone->ErrorType = 2;
             $milestone->ErrorMessage = $e->getMessage();
-            return response($milestone)->setStatusCode(204);
+            return response($milestone)->setStatusCode(404);
         }
     }
 
@@ -60,7 +61,7 @@ class MilestoneController extends Controller
             $milestone = new MstMilestone;
             $milestone->ErrorType = 2;
             $milestone->ErrorMessage = $e->getMessage();
-            return response($milestone)->setStatusCode(204);
+            return response($milestone)->setStatusCode(404);
         }
     }
 
@@ -79,7 +80,7 @@ class MilestoneController extends Controller
             $milestone = new MstMilestone;
             $milestone->ErrorType = 2;
             $milestone->ErrorMessage = $e->getMessage();
-            return response($milestone)->setStatusCode(204);
+            return response($milestone)->setStatusCode(422);
         }
     }
     #endregion

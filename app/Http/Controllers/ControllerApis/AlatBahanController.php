@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstAlatBahan;
 use App\LogPemakaian;
 use App\LogPembelian;
@@ -30,7 +31,7 @@ class AlatBahanController extends Controller
             $alatBahan = new MstAlatBahan;
             $alatBahan->ErrorType = 2;
             $alatBahan->ErrorMessage = $e->getMessage();
-            return response($alatBahan);
+            return response($alatBahan)->setStatusCode(422);
         }
     }
 
@@ -51,7 +52,7 @@ class AlatBahanController extends Controller
             $inventarisasi = new vwAlatBahan;
             $inventarisasi->ErrorType = 2;
             $inventarisasi->ErrorMessage = $e->getMessage();
-            return response($inventarisasi)->setStatusCode(204);
+            return response($inventarisasi)->setStatusCode(404);
         }
     }
 
@@ -66,7 +67,7 @@ class AlatBahanController extends Controller
             $inventarisasi = new MstAlatBahan;
             $inventarisasi->ErrorType = 2;
             $inventarisasi->ErrorMessage = $e->getMessage();
-            return response($inventarisasi)->setStatusCode(204);
+            return response($inventarisasi)->setStatusCode(404);
         }
     }
 
@@ -89,7 +90,7 @@ class AlatBahanController extends Controller
             $alatBahan = new MstAlatBahan;
             $alatBahan->ErrorType = 2;
             $alatBahan->ErrorMessage = $e->getMessage();
-            return response($alatBahan);
+            return response($alatBahan)->setStatusCode(422);
         }
     }
 
@@ -170,7 +171,7 @@ class AlatBahanController extends Controller
             $log = $tipeLog == 1 ? new LogPembelian : new LogPemakaian;
             $log->ErrorType = 2;
             $log->ErrorMessage = $e->getMessage();
-            return response($log)->setStatusCode(442);
+            return response($log)->setStatusCode(404);
         }
     }
     #endregion

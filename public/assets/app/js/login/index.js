@@ -28,6 +28,7 @@ var Transaction = {
                 })
                 .done(function (data, textStatus, jqXHR) {
                     document.cookie = "token=" + data.token + "; path=/;"
+                    localStorage.setItem("idUser", data.idUser)
                     localStorage.setItem("namaUser", data.namaUser)
                     localStorage.setItem("role", data.role)
                     localStorage.setItem("namaRole", data.namaRole)

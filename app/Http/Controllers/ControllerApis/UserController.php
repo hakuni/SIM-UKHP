@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\vwClientTrack;
 use App\User;
@@ -29,7 +30,7 @@ class UserController extends Controller
             $user = new User;
             $user->ErrorType = 2;
             $user->ErrorMesasge = $e->getMessage();
-            return response($user);
+            return response($user)->setStatusCode(422);
         }
     }
 
@@ -43,7 +44,7 @@ class UserController extends Controller
             $user = new vwUser;
             $user->ErrorType = 2;
             $user->ErrorMesasge = $e->getMessage();
-            return response($user);
+            return response($user)->setStatusCode(404);
         }
     }
 
@@ -56,12 +57,20 @@ class UserController extends Controller
             $user = new vwUser;
             $user->ErrorType = 2;
             $user->ErrorMesasge = $e->getMessage();
-            return response($user);
+            return response($user)->setStatusCode(404);
         }
     }
 
     public function editUser(Request $request){
         try{
+            $cek = User::where('id', '!=', $request->id)->where('email', $request->email)->first();
+            if($cek){
+                $cek = new User;
+                $cek->ErrorType = 1;
+                $cek->ErrorMessage = "Email sudah digunakan";
+                return response($cek);
+            }
+
             $user = User::findOrFail($request->id);
             $user->namaUser = $request->namaUser;
             $user->email = $request->email;
@@ -69,7 +78,7 @@ class UserController extends Controller
             if($request->password != null)
                 $user->password = Hash::make($request->password);
             $user->save();
-
+            $user->ErrorType = 0;
             return response($user);
         }
         catch(\Exception $e){
@@ -90,7 +99,7 @@ class UserController extends Controller
             $user = new User;
             $user->ErrorType = 2;
             $user->ErrorMesasge = $e->getMessage();
-            return response($user);
+            return response($user)->setStatusCode(422);
         }
     }
     #endregion
@@ -110,13 +119,13 @@ class UserController extends Controller
 
             $role = $auth->role()->first();
 
-            return response()->json(['token' => $token, 'namaUser' => $auth->namaUser,
+            return response()->json(['token' => $token, 'idUser'=> $auth->id, 'namaUser' => $auth->namaUser,
                                      'role' =>$role->idRole, 'namaRole' => $role->namaRole])
                              ->withCookie(cookie()->forever('access_token', $token))
                              ->withCookie(cookie()->forever('email', $auth->email));
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(422);
         }
     }
     public function logoutUser(){
@@ -127,7 +136,7 @@ class UserController extends Controller
             return response('Successfully Logged Out');
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(422);
         }
     }
     #endregion
@@ -139,7 +148,7 @@ class UserController extends Controller
             return response($trackData);
         }
         catch(\Exception $e){
-            return response($e->getMessage());
+            return response($e->getMessage())->setStatusCode(404);
         }
     }
     #endregion

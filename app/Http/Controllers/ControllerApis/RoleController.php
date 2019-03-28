@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\MstRole;
 
 class RoleController extends Controller
@@ -20,7 +21,7 @@ class RoleController extends Controller
             $role = new MstRole;
             $role->ErrorType = 2;
             $role->ErrorMessage = $e->getMessage();
-            return response($role)->setStatusCode(204);
+            return response($role)->setStatusCode(404);
         }
     }
 
@@ -60,7 +61,7 @@ class RoleController extends Controller
             $role = new MstRole;
             $role->ErrorType = 2;
             $role->ErrorMessage = $e->getMessage();
-            return response($role)->setStatusCode(204);
+            return response($role)->setStatusCode(404);
         }
     }
 
@@ -79,7 +80,7 @@ class RoleController extends Controller
             $role = new MstRole;
             $role->ErrorType = 2;
             $role->ErrorMessage = $e->getMessage();
-            return response($role)->setStatusCode(204);
+            return response($role)->setStatusCode(422);
         }
     }
     #endregion

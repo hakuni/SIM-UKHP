@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\MstPenelitian;
 use App\MstDataClient;
@@ -95,7 +96,7 @@ class PenelitianController extends Controller
             $penelitian = new vwPenelitian;
             $penelitian->ErrorType = 2;
             $penelitian->ErrorMessage = $e->getMessage();
-            return response($penelitian)->setStatusCode(204);
+            return response($penelitian)->setStatusCode(404);
         }
     }
 
@@ -110,7 +111,7 @@ class PenelitianController extends Controller
             $penelitian = new vwPenelitian;
             $penelitian->ErrorType = 2;
             $penelitian->ErrorMessage = $e->getMessage();
-            return response($penelitian)->setStatusCode(204);
+            return response($penelitian)->setStatusCode(404);
         }
     }
 
@@ -228,7 +229,7 @@ class PenelitianController extends Controller
             $transaksi = new vwTrxPenelitian;
             $transaksi->ErrorType = 2;
             $transaksi->ErrorMessage = $e->getMessage();
-            return response($transaksi)->setStatusCode(422);
+            return response($transaksi)->setStatusCode(404);
         }
     }
 
@@ -241,26 +242,31 @@ class PenelitianController extends Controller
             $history = new vwHistory;
             $history->ErrorType = 2;
             $history->ErrorMessage = $e->getMessage();
-            return response($history)->setStatusCode(422);
+            return response($history)->setStatusCode(404);
         }
     }
     #endregion
 
     #region Private
     private function uploadFile(Request $request){
-        $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
-        $judul = $peneltitian->prosedur()->first()->judulPenelitian;
-        $dataClient = $penelitian->dataClient()->first();
+        try{
+            $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
+            $judul = $peneltitian->prosedur()->first()->judulPenelitian;
+            $dataClient = $penelitian->dataClient()->first();
 
-        $metaFileName = $request->idMilestone == 3 ? "Data Pengujian " : "Analisis ";
+            $metaFileName = $request->idMilestone == 3 ? "Data Pengujian " : "Analisis ";
 
-        $file = $request->file('doc');
-        $fileName = $metaFileName.$dataClient->namaPeneliti.'-'.$dataClient->instansiPeneliti;
-        $fileName = date('mdYHis').'-'.$fileName.'.'.$file->getClientOriginalExtension();
-        $file->move(public_path().'/uploads/', $fileName);
-        $path = public_path().'/uploads/'.$fileName;
+            $file = $request->file('doc');
+            $fileName = $metaFileName.$dataClient->namaPeneliti.'-'.$dataClient->instansiPeneliti;
+            $fileName = date('mdYHis').'-'.$fileName.'.'.$file->getClientOriginalExtension();
+            $file->move(public_path().'/uploads/', $fileName);
+            $path = public_path().'/uploads/'.$fileName;
 
-        return $path;
+            return $path;
+        }
+        catch(\Exception $e){
+            return response($e->getMessage())->setStatusCode(422);
+        }
     }
 
     //insert ke tabel pemakaian
@@ -286,7 +292,7 @@ class PenelitianController extends Controller
             return "success";
         }
         catch(\Exception $e){
-            return $e->getMessage();
+            return response($e->getMessage())->setStatusCode(422);
         }
     }
 
@@ -304,7 +310,7 @@ class PenelitianController extends Controller
             return $dataClient;
         }
         catch(\Exception $e){
-            return $e->getMessage();
+            return response($e->getMessage())->setStatusCode(422);
         }
     }
 

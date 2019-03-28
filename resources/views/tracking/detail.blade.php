@@ -239,7 +239,7 @@
                                             Durasi :
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12 m--align-left">
-                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtDurasi">{{$vwDetailPenelitian['idMilestone']}}</label>
+                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtDurasi">{{$vwDetailPenelitian['durasi']}}</label>
                                         </div>
                                     </div>
                                 </div>

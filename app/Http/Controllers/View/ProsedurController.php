@@ -4,9 +4,9 @@ namespace App\Http\Controllers\View;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\ProsedurController as Prosedur;
-use App\Http\Controllers\PenelitianController as Penelitian;
-use App\Http\Controllers\DownloadController as Download;
+use App\Http\Controllers\ControllerApis\ProsedurController as Prosedur;
+use App\Http\Controllers\ControllerApis\PenelitianController as Penelitian;
+use App\Http\Controllers\ControllerApis\DownloadController as Download;
 
 class ProsedurController extends Controller
 {
