@@ -16,7 +16,7 @@ class TrackingController extends Controller
             return redirect('/Login');
         }
         $penelitian = new PenelitianController();
-        $vwListPenelitian = json_decode($penelitian->getListPenelitian()->getContent(),true);
+        $vwListPenelitian = json_decode($penelitian->getListPenelitian(null, true)->getContent(),true);
         $banyak = count($vwListPenelitian);
         return view('tracking/index', compact('banyak'));
     }
@@ -26,7 +26,7 @@ class TrackingController extends Controller
         }
         $emailUser = $req->orderBy == 1 ? null : $_COOKIE['email'];
         $penelitian = new PenelitianController();
-        $vwListPenelitian = json_decode($penelitian->getListPenelitian($emailUser)->getContent(),true);
+        $vwListPenelitian = json_decode($penelitian->getListPenelitian($emailUser, true)->getContent(),true);
         $idPenelitian = 0;
         if(count($vwListPenelitian) > 0)
             $idPenelitian = $vwListPenelitian[0]['idPenelitian'];

@@ -83,11 +83,12 @@ var Get = {
                 );
                 $("#listPenelitian").html(data);
                 var test = document.getElementsByClassName("divShowDetail")[0];
-                if (test)
+                if (test){
                     test.style.backgroundColor = "whitesmoke";
-                id = $("#idPenelitian").val();
-                Get.DetailPenelitian(id);
-                $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());
+                    id = $("#idPenelitian").val();
+                    Get.DetailPenelitian(id);
+                    $("#jumlahPenelitian").html($("#inptJmlhPenelitian").val());
+                }
             },
             error: function () {
                 alert("error");

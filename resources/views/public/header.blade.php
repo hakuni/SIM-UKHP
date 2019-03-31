@@ -79,7 +79,7 @@
                                     <span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
                                     <div class="m-dropdown__inner" style="width:280px">
                                         <div class="m-dropdown__header m--align-center"
-                                            style="background: url(assets/app/media/img/misc/notification_bg.jpg); background-size: cover;">
+                                            style="background: url({{asset('assets/app/media/img/misc/notification_bg.jpg')}}); background-size: cover;">
                                             <span class="m-dropdown__header-title">
                                                 9 Penelitian
                                             </span>
@@ -275,7 +275,7 @@
                                 m-dropdown-toggle="click">
                                 <a href="#" class="m-nav__link m-dropdown__toggle">
                                     <span class="m-topbar__userpic">
-                                        <img src="{{asset ('assets/app/media/img/users/user4.jpg')}}"
+                                        <img src="{{asset('assets/app/media/img/users/user4.jpg')}}"
                                             class="m--img-rounded m--marginless m--img-centered" alt="" />
                                     </span>
                                 </a>
@@ -284,10 +284,10 @@
                                         class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
                                     <div class="m-dropdown__inner">
                                         <div class="m-dropdown__header m--align-center"
-                                            style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
+                                            style="background: url({{asset('assets/app/media/img/misc/user_profile_bg.jpg')}}); background-size: cover;">
                                             <div class="m-card-user m-card-user--skin-dark">
                                                 <div class="m-card-user__pic">
-                                                    <img src="{{asset ('assets/app/media/img/users/user4.jpg') }}"
+                                                    <img src="{{asset('assets/app/media/img/users/user4.jpg') }}"
                                                         class="m--img-rounded m--marginless" alt="" />
                                                 </div>
                                                 <div class="m-card-user__details">
@@ -328,7 +328,7 @@
                                                     <li class="m-nav__separator m-nav__separator--fit"></li>
 
                                                     <li class="m-nav__item">
-                                                        <button onclick="App.ModalAkun()" class="btn m-btn--pill btn-primary m-btn m-btn--custom m-btn--label-primary m-btn--bolder" data-toggle="modal" data-target="#formUbah">
+                                                        <button onclick="App.ModalAkun()" class="btn m-btn--pill btn-primary m-btn m-btn--custom m-btn--label-primary m-btn--bolder" data-toggle="modal" data-target="#formProfil">
                                                             Ubah Akun
                                                         </button>
                                                         <button onclick="App.Logout()"

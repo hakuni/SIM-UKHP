@@ -168,7 +168,7 @@ var App = {
                 $("#slsRole").select2({
                     placeholder: "Role"
                 })
-                $("#slsRoleUbah").select2();
+                $("#slsRoleProfil").select2();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -182,8 +182,8 @@ var App = {
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#tbxNamaUbah").val(data.namaUser);
-                $("#tbxEmailUbah").val(data.email);
+                $("#tbxNamaProfil").val(data.namaUser);
+                $("#tbxEmailProfil").val(data.email);
                 App.Role();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
@@ -193,10 +193,10 @@ var App = {
     SaveAkun: function(){
         params = {
             id: localStorage.getItem('idUser'),
-            email: $("#tbxEmailUbah").val(),
-            namaUser: $("#tbxNamaUbah").val(),
-            idRole: $("#slsRoleUbah").val(),
-            password:$("#tbxPassUbah").val()
+            email: $("#tbxEmailProfil").val(),
+            namaUser: $("#tbxNamaProfil").val(),
+            idRole: $("#slsRoleProfil").val(),
+            password:$("#tbxPassProfil").val()
         }
         $.ajax({
             url: '/api/user/',
@@ -206,7 +206,7 @@ var App = {
             contentType: "application/json",
             cache: false,
             success: function(data, textStatus, jqXHR){
-                $("#formUbah").modal("toggle");
+                $("#formProfil").modal("toggle");
                 Common.Alert.Success('Berhasil mengubah data')
             },
             error: function(jqXHR, textStatus, errorThrown){
@@ -221,13 +221,13 @@ jQuery(document).ready(function () {
     $.ajaxSetup({
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Accept", "application/json");
-            xhr.setRequestHeader("Authorization", "Bearer " + App.GetCookie("token"));
+            xhr.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
         },
         xhrFields: {
             withCredentials: true
         },
-        // crossDomain: true
-    })
+    // crossDomain: true
+    });
 
     if (localStorage.getItem('role') == 2) {
         //hide sesuatu
@@ -256,13 +256,13 @@ jQuery(document).ready(function () {
 
     App.SidebarTag();
 
-    $('#btnUbahUser').on('click', function(){
-        $(this).addClass("m-loader m-loader--right m-loader--light").attr(
+    $('#btnProfilUser').on('click', function(){
+        $('#btnProfilUser').addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true
         );
         App.SaveAkun();
-        $(this).removeClass("m-loader m-loader--right m-loader--light").attr(
+        $('#btnProfilUser').removeClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             false
         );

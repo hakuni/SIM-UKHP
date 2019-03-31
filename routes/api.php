@@ -188,7 +188,10 @@ Route::middleware('auth:api')->group(function(){
     Route::put('/user', 'ControllerApis\UserController@editUser');
     Route::delete('/user/{idUser}', 'ControllerApis\UserController@deleteUser');
 
+    Route::get('/user/notifikasi/{user}', 'ControllerApis\UserController@getNotificationLog');
+
     Route::post('/logout', 'ControllerApis\UserController@logoutUser');
+    Route::get('/cekToken', 'ControllerApis\UserController@cekToken');
     #endregion
 
     #region API Role

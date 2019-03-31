@@ -13,6 +13,9 @@
 
 // login
 Route::get('/Login', function () {
+    if(isset($_COOKIE['access_token'])){
+        return redirect('/');
+    }
     return view('login/index');
 });
 // dashboard
@@ -21,6 +24,10 @@ Route::get('/Dashboard', function () {
         return redirect('/Login');
     }
     return view('dashboard/index');
+});
+
+Route::get('/', function(){
+    return redirect('/Dashboard');
 });
 
 #region Tracking
@@ -82,5 +89,5 @@ Route::get('/Logout', function(){
 });
 
 //client
-Route::get('/', 'View\ClientController@index');
+Route::get('/Client', 'View\ClientController@index');
 

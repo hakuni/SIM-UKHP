@@ -36,7 +36,16 @@ SELECT DISTINCT
         CASE WHEN ISNULL(SUM(`lp`.`jumlah`)) THEN 0 ELSE SUM(`lp`.`jumlah`) END
     FROM `log_pemakaians` `lp`
     WHERE
-    `lp`.`namaAlatBahan` = `mb`.`namaAlatBahan`) AS `jumlahPakai`
+    `lp`.`namaAlatBahan` = `mb`.`namaAlatBahan`) AS `jumlahPakai`,
+    (SELECT 
+        CASE WHEN ISNULL(SUM(`lb`.`jumlah`)) THEN 0 ELSE SUM(`lb`.`jumlah`) END 
+    FROM `log_pembelians` `lb`
+    WHERE `lb`.`namaAlatBahan` = `mb`.`namaAlatBahan`) -
+    (SELECT
+        CASE WHEN ISNULL(SUM(`lp`.`jumlah`)) THEN 0 ELSE SUM(`lp`.`jumlah`) END
+    FROM `log_pemakaians` `lp`
+    WHERE
+    `lp`.`namaAlatBahan` = `mb`.`namaAlatBahan`) AS `stok`
 FROM
     `mst_alat_bahans` `mb`
 SQL;

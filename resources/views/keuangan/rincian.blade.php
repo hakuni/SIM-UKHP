@@ -103,7 +103,7 @@
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>
                                                                 <div class="col-lg-3">
-                                                                    <input type="text" id="tbxKeterangan" class="form-control m-input tbxKeterangan infinityInput"
+                                                                    <input type="text" class="form-control m-input tbxKeterangan infinityInput"
                                                                             required>
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>
@@ -127,7 +127,7 @@
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>
                                                                 <div class="col-lg-3">
-                                                                    <input type="text" id="tbxKeterangan" class="form-control m-input tbxKeterangan infinityInput"
+                                                                    <input type="text" class="form-control m-input tbxKeterangan infinityInput"
                                                                             required>
                                                                     <div class="d-md-none m--margin-bottom-10"></div>
                                                                 </div>

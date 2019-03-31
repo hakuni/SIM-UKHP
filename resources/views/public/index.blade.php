@@ -40,7 +40,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN: Header -->
         @include('public.header')
         <!-- END: Header -->
-        <div class="modal hide fade" id="formUbah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal hide fade" id="formProfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -60,7 +60,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 Email <strong style="color:red" ;>*</strong> :
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="email" id="tbxEmailUbah" class="form-control m-input" required>
+                                <input type="email" id="tbxEmailProfil" class="form-control m-input" required>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
@@ -68,7 +68,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 Nama <strong style="color:red" ;>*</strong> :
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" id="tbxNamaUbah" class="form-control m-input" required>
+                                <input type="text" id="tbxNamaProfil" class="form-control m-input" required>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
@@ -76,7 +76,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 Role <strong style="color:red" ;>*</strong> :
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control m-select2 role" id="slsRoleUbah"
+                                <select class="form-control m-select2 role" id="slsRoleProfil"
                                     style="width:550px"></select>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 Kata Sandi :
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="password" id="tbxPassUbah" class="form-control m-input">
+                                <input type="password" id="tbxPassProfil" class="form-control m-input">
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <button type="button" class="btn btn-secondary closebtn" data-dismiss="modal">
                             Batal
                         </button>
-                        <button type="button" class="btn btn-primary" id="btnUbahUser">
+                        <button type="button" class="btn btn-primary" id="btnProfilUser">
                             Ubah
                         </button>
                     </div>

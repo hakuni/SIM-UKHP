@@ -8,6 +8,11 @@ use App\MstPenelitian;
 use App\TrxPenelitian;
 use App\MstMilestone;
 use App\vwRincian;
+use App\Classes\DeleteRow;
+use App\vwAlatBahan;
+use App\LogPemakaian;
+use App\LogPembelian;
+use Excel;
 
 class DownloadController extends Controller
 {
@@ -30,8 +35,10 @@ class DownloadController extends Controller
             $template->setValue('namaPeneliti', $dataClient->namaPeneliti);
             $template->setValue('instansiPeneliti', $dataClient->instansiPeneliti);
             $template->setValue('judulPenelitian', $prosedur->judulPenelitian);
+            $template->setValue('resi', $penelitian->resi);
             $template->setValue('namaKategori', $namaKategori);
             $template->setValue('namaHewan', $namaHewan);
+            $template->setValue('keteranganHewan', $prosedur->keteranganHewan);
             $template->setValue('perlakuan', $perlakuan);
             $template->setValue('parameterUji', $parameterUji);
             $template->setValue('desainPenelitian', $desainPenelitian);
@@ -46,7 +53,7 @@ class DownloadController extends Controller
             return response($e->getMessage())->setStatusCode(422);
         }
     }
-
+    
     public function exportRincian($idPenelitian){
         try{
             $penelitian = MstPenelitian::findOrFail($idPenelitian);
@@ -57,11 +64,12 @@ class DownloadController extends Controller
             $rincian3 = vwRincian::where('idPenelitian', $idPenelitian)->where('idMilestone', 4)->get();
     
             $sum = 0;
+            
+            $template = new DeleteRow(storage_path('template_invoice.docx'));
 
-            $template = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('template_invoice.docx'));
             $template->setValue('tahun', date('Y'));
             $template->setValue('namaPeneliti', $dataClient->namaPeneliti);
-            
+
             if(count($rincian1) > 0){
                 $template->setValue('namaMilestone1', $rincian1[0]->namaMilestone);
                 $durasi = ceil($prosedur->tahap1/7);
@@ -144,7 +152,36 @@ class DownloadController extends Controller
     }
 
     public function exportInventarisasi(){
+        try{
+            $date = date('Y');
+            $stok = vwAlatBahan::get(['namaAlatBahan AS Alat Bahan',
+                                      'stok AS Stok'])->toArray();
+            $pembelian = LogPembelian::whereYear('created_at', $date)
+                            ->get(['namaAlatBahan AS Alat Bahan',
+                                   'tglTrx AS Tanggal Pembelian',
+                                   'jumlah AS Jumlah',
+                                   'harga AS Harga'])->toArray();
+            $penggunaan = LogPemakaian::whereYear('created_at', $date)
+                            ->get(['namaAlatBahan AS Alat Bahan',
+                                   'namaStatusPenggunaan AS Status Penggunaan',
+                                   'tglTrx AS Tanggal Penggunaan',
+                                   'jumlah AS Jumlah'])->toArray();
 
+            return Excel::create('Inventarisasi Tahun '.$date, function($excel) use ($stok, $pembelian, $penggunaan){
+                $excel->sheet('Stok Alat Bahan', function($sheet) use ($stok){
+                    $sheet->fromArray($stok);
+                });
+                $excel->sheet('Pembelian', function($sheet2) use ($pembelian){
+                    $sheet2->fromArray($pembelian);
+                });
+                $excel->sheet('Penggunaan', function($sheet3) use ($penggunaan){
+                    $sheet3->fromArray($penggunaan);
+                });
+            })->download('xlsx');
+        }
+        catch(\Exception $e){
+            return response()->json(['message'=> $e->getMessage()])->setStatusCode(422);
+        }
     }
 
     public function downloadData($idPenelitian){

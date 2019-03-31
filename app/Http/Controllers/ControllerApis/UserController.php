@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\vwClientTrack;
 use App\User;
 use App\vwUser;
+use App\vwNotifikasi;
 
 class UserController extends Controller
 {
@@ -102,6 +103,19 @@ class UserController extends Controller
             return response($user)->setStatusCode(422);
         }
     }
+
+    public function getNotificationLog($user){
+        try{
+            $notifLog = vwNotifikasi::where('PIC', $user)->first();
+            return response($notifLog);
+        }
+        catch(\Exception $e){
+            $notifLog = new vwNotifikasi;
+            $notifLog->ErrorCode = 2;
+            $notifLog->ErrorMessage = $e->getMessage();
+            return response($notifLog)->setStatusCode(404);
+        }
+    }
     #endregion
 
     #region auth
@@ -137,6 +151,15 @@ class UserController extends Controller
         }
         catch(\Exception $e){
             return response($e->getMessage())->setStatusCode(422);
+        }
+    }
+    public function cekToken(){
+        try{
+            $user = auth();
+            return response()->json(['message' => 'Selamat datang kembali'])->setStatusCode(200);
+        }
+        catch(\Exception $e){
+            return response($e->getMessage())->setStatusCode(404);
         }
     }
     #endregion

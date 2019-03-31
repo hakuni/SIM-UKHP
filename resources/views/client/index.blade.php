@@ -59,10 +59,10 @@
 						</div>
 					</div>
                 </div>
-                <div id="divHome" class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content" style="background-image: url({{ URL::asset('assets/app/media/img//bg/biofarmaka.jpg') }})">
+                <div id="divHome" class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content" style="background-image: url({{ asset('assets/app/media/img//bg/biofarmaka.jpg') }})">
 
                 </div>
-				<div id="divLacak" class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content" style="background-image: url({{ URL::asset('assets/app/media/img//bg/biofarmaka1.jpg') }}); padding-top:30px; padding-bottom:30px; padding-left:20px; padding-right:20px; display:none">
+				<div id="divLacak" class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-grid__item--order-tablet-and-mobile-1	m-login__content" style="background-image: url({{ asset('assets/app/media/img//bg/biofarmaka1.jpg') }}); padding-top:30px; padding-bottom:30px; padding-left:20px; padding-right:20px; display:none">
 					<div class="m-grid__item m-grid__item--middle">
                         <h3 style="color:white" id="judulPenelitian">
                         </h3>
