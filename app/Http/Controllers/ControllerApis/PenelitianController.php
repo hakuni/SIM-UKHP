@@ -34,6 +34,7 @@ class PenelitianController extends Controller
             $penelitian->PIC = auth()->user()->email;
             $penelitian->createdBy = auth()->user()->email;
             $penelitian->resi = md5(microtime());
+            $penelitian->currentDuration = $request->durasi;
             $penelitian->save();
 
             //save Trx Log
@@ -65,6 +66,7 @@ class PenelitianController extends Controller
             $dataClient->save();
 
             $penelitian->idKategori = $request->idKategori;
+            $penelitian->currentDuration = $request->durasi;
             $penelitian->updatedBy = auth()->user()->email;
             $penelitian->save();
             $penelitian->ErrorType = 0;
@@ -169,12 +171,18 @@ class PenelitianController extends Controller
                 //create trx
                 $transaksi = new TrxPenelitian;
                 $prosedur = $penelitian->prosedur()->first(); //get durasi tahapan penelitian
-                if($request->idMilestone == 1)
+                if($request->idMilestone == 1){
                     $transaksi->durasi = $prosedur->tahap1;
-                else if($request->idMilestone == 2)
+                    $penelitian->currentDuration = $prosedur->tahap1;
+                }
+                else if($request->idMilestone == 2){
                     $transaksi->durasi = $prosedur->tahap2;
-                else if($request->idMilestone == 3)
+                    $penelitian->currentDuration = $prosedur->tahap2;
+                }
+                else if($request->idMilestone == 3){
                     $transaksi->durasi = $prosedur->tahap3;
+                    $penelitian->currentDuration = $prosedur->tahap3;
+                }
 
                 $transaksi->idPenelitian = $request->idPenelitian;
                 $transaksi->idMilestone = $request->idMilestone+1;

@@ -19,6 +19,7 @@ class CreateLogPembelians extends Migration
             $table->timestamp('tglTrx');
             $table->integer('jumlah');
             $table->integer('harga');
+            $table->integer('total');
 
             //foreign key
             $table->foreign('namaAlatBahan')->references('namaAlatBahan')->on('mst_alat_bahans')->onDelete('cascade');

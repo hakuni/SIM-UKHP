@@ -21,6 +21,7 @@ class CreateMstPenelitiansTable extends Migration
             $table->integer('lastMilestoneID')->unsigned();
             $table->string('PIC');
             $table->string('resi',32)->unique();
+            $table->integer('currentDuration')->nullable();
             
             //foreign key
             $table->foreign('idKategori')->references('idKategori')->on('kategoris')->onDelete('cascade');

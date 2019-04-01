@@ -72,7 +72,10 @@ class DownloadController extends Controller
 
             if(count($rincian1) > 0){
                 $template->setValue('namaMilestone1', $rincian1[0]->namaMilestone);
-                $durasi = ceil($prosedur->tahap1/7);
+                if($penelitian->idKategori == 1)
+                    $durasi = ceil($penelitian->currentDuration);
+                else
+                    $durasi = ceil($prosedur->tahap1/7);
                 $template->setValue('tahap1', $durasi);
                 //clone row table1
                 $template->cloneRow('namaAlatBahan1', count($rincian1));
@@ -160,7 +163,8 @@ class DownloadController extends Controller
                             ->get(['namaAlatBahan AS Alat Bahan',
                                    'tglTrx AS Tanggal Pembelian',
                                    'jumlah AS Jumlah',
-                                   'harga AS Harga'])->toArray();
+                                   'harga AS Harga',
+                                   'total AS Total'])->toArray();
             $penggunaan = LogPemakaian::whereYear('created_at', $date)
                             ->get(['namaAlatBahan AS Alat Bahan',
                                    'namaStatusPenggunaan AS Status Penggunaan',

@@ -37,7 +37,7 @@ SELECT
 FROM
     `mst_penelitians` `mp`  LEFT JOIN `mst_prosedurs` `pro` ON `mp`.`idPenelitian` = `pro`.`idPenelitian`
     JOIN `mst_milestones` `mm` ON `mp`.`lastMilestoneID` = `mm`.`idMilestone`
-    LEFT JOIN `trx_penelitian`s `tp` ON `mp`.`idPenelitian` = `tp`.`idPenelitian`
+    LEFT JOIN `trx_penelitians` `tp` ON `mp`.`idPenelitian` = `tp`.`idPenelitian`
 SQL;
     }
 }
