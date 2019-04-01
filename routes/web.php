@@ -65,7 +65,10 @@ Route::group(['prefix'=>'Keuangan'], function(){
 
 #region Inventaris
 // inventaris
-Route::get('/Inventaris', 'View\InventarisController@index');
+Route::group(['prefix'=>'Inventaris'], function(){
+    Route::get('/', 'View\InventarisController@index');
+    Route::get('/Download', 'View\InventarisController@exportInventarisasi');
+});
 #endregion
 
 #region Master

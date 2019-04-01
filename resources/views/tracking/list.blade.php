@@ -20,9 +20,11 @@
                             {{$vwPenelitian['namaPeneliti']}}
                         </span>
 
+                        @if ($vwPenelitian['idKategori'] != 1)
                         <span class="m-badge m-badge--{{$color}} m-badge--wide" style="float: right;">
                             {{$vwPenelitian['namaMilestone']}}
                         </span>
+                        @endif
                     </div>
                 </div>
                 <span class="m-widget2__user-name">

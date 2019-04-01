@@ -118,18 +118,18 @@ class AlatBahanController extends Controller
 
             $logTrx = $request->isMethod('post') ? new $logRepo : $logRepo::findOrFail($request->idLog);
 
-            
+
             if($request->tipeTrx == 2){
                 $namaStatusPenggunaan = MstStatusPenggunaan::findOrFail($request->idStatusPenggunaan)->namaStatusPenggunaan;
                 $logTrx->namaStatusPenggunaan = $namaStatusPenggunaan;
             }
-            
+
             $logTrx->namaAlatBahan = MstAlatBahan::findOrFail($request->namaAlatBahan)->namaAlatBahan;
             $logTrx->jumlah = $request->jumlah;
             $logTrx->tglTrx = date("y-m-d", strtotime($request->tglTrx));
 
             if($request->tipeTrx == 1){
-                $logTrx->harga = MstAlatBahan::findOrFail($request->namaAlatBahan)->namaAlatBahan;
+                $logTrx->harga = MstAlatBahan::findOrFail($request->namaAlatBahan)->harga;
                 $logTrx->total = intval($logTrx->harga) * intval($logTrx->jumlah);
             }
 

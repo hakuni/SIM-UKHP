@@ -28,12 +28,13 @@ SQL;
 CREATE VIEW `vw_trxPenelitians` AS
 SELECT DISTINCT
     `p`.`idPenelitian` AS `idPenelitian`,
+    `p`.`idKategori` AS `idKategori`,
     `tp`.`idTrxPenelitian` AS `idTrxPenelitian`,
     `mp`.`idProsedur` AS `idProsedur`,
     `mp`.`judulPenelitian` AS `judulPenelitian`,
     `mdc`.`namaPeneliti` AS `namaPeneliti`,
     `mdc`.`instansiPeneliti` AS `instansiPeneliti`,
-    `mp`.`tahap1` AS `tahap1`,
+    case when `p`.`idKategori` = 1 then `p`.`currentDuration` else `mp`.`tahap1` end AS `tahap1`,
     `mp`.`tahap2` AS `tahap2`,
     `mp`.`tahap3` AS `tahap3`,
     `u`.`email` AS `email`,
@@ -42,8 +43,10 @@ SELECT DISTINCT
     `mm`.`namaMilestone` AS `namaMilestone`,
     (SELECT SUM(`lb`.`totalPembayaran`) FROM `log_pembayarans` `lb` WHERE `lb`.`idPenelitian` = `p`.`idPenelitian`) AS `totalBayar`,
     `vk`.`biaya` AS `biaya`,
-    TO_DAYS(`tp`.`startDate`) + `tp`.`durasi` - TO_DAYS(NOW()) AS `sisaDurasi`,
-    `tp`.`durasi` AS `durasi`,
+    TO_DAYS(`tp`.`startDate`) +
+        case when `p`.`idKategori` = 1 then `p`.`currentDuration` else `tp`.`durasi` end
+        - TO_DAYS(NOW()) AS `sisaDurasi`,
+    case when `p`.`idKategori` = 1 then `p`.`currentDuration` else `tp`.`durasi` end AS `durasi`,
     `mp`.`perlakuan` AS `perlakuan`,
     `p`.`updated_at` AS `updated_at`
 

@@ -2,15 +2,31 @@ var id = $("#idPenelitian").val();
 var idRincianBiaya = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
-    if ($("#statusPenelitian").val() == 1) {
-        $("#formRincian").modal({
-            backdrop: "static"
-        });
-    }
-    Button.Init();
-    Control.Init();
-    Table.Init();
-    Select.Milestone();
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            if ($("#statusPenelitian").val() == 1) {
+                $("#formRincian").modal({
+                    backdrop: "static"
+                });
+            }
+            Button.Init();
+            Control.Init();
+            Table.Init();
+            Select.Milestone();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var Table = {
@@ -361,7 +377,7 @@ var Control = {
 };
 
 var Button = {
-    Init: function(){
+    Init: function () {
         $("#btnTambah").on("click", function () {
             // Control.Tambah();
             if ($("#slsMilestone").val() == 0) {
@@ -373,7 +389,7 @@ var Button = {
         $("#tabLog").on("click", function () {
             $("#divLogList").mDatatable('reload');
         });
-        
+
         $("#btnUbah").on("click", function () {
             if ($.trim($("#tbxJumlahUbah").val()) == "" || $("#slsAlatBahanUbah").val() == 0) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");

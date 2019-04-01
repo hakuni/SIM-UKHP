@@ -1,9 +1,25 @@
 var id = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
-    Table.Init();
-    Button.Init();
-    Select.Role("");
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            Table.Init();
+            Button.Init();
+            Select.Role("");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var Table = {
@@ -91,7 +107,7 @@ var Button = {
             if ($.trim($("#tbxNamaUbah").val()) == "" || $.trim($("#tbxEmailUbah").val()) == "") {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } else
-            Button.Ubah();
+                Button.Ubah();
         })
     },
     Tambah: function () {

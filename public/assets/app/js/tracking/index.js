@@ -1,14 +1,30 @@
 var id = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
-    $("#sidebarHide").hide();
-    Page.Init();
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            $("#sidebarHide").hide();
+            Page.Init();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var Page = {
     Init: function () {
         Get.Minimize();
-        Get.List(1);
+        Get.List(2);
         //filter
         $(".TaskOrderBy").on("click", function () {
             var order = this.id;
@@ -83,7 +99,7 @@ var Get = {
                 );
                 $("#listPenelitian").html(data);
                 var test = document.getElementsByClassName("divShowDetail")[0];
-                if (test){
+                if (test) {
                     test.style.backgroundColor = "whitesmoke";
                     id = $("#idPenelitian").val();
                     Get.DetailPenelitian(id);
@@ -184,18 +200,20 @@ var Transaction = {
         model.append("PIC", $.trim($("#slsPIC").val()));
         model.append("catatan", $.trim($("#tbxCatatan").val()));
         if ($("#inptMilestoneID").val() == 3 || $("#inptMilestoneID").val() == 4) {
-            var fileInput = document.getElementById("inptFile");
-            var uploadedFile = fileInput.files[0];
-            var FileSize = uploadedFile.size / 1024 / 1024;
-            if (FileSize > 5) {
-                Common.Alert.Warning("Ukuran file tidak boleh lebih dari 5 MB");
-                return false;
+            if ($("#inptKategoriID").val() != 1) {
+                var fileInput = document.getElementById("inptFile");
+                var uploadedFile = fileInput.files[0];
+                var FileSize = uploadedFile.size / 1024 / 1024;
+                if (FileSize > 5) {
+                    Common.Alert.Warning("Ukuran file tidak boleh lebih dari 5 MB");
+                    return false;
+                }
+                if (uploadedFile == null) {
+                    Common.Alert.Warning("Silahkan unggah file");
+                    return false;
+                }
+                model.append("doc", uploadedFile);
             }
-            if (uploadedFile == null) {
-                Common.Alert.Warning("Silahkan unggah file");
-                return false;
-            }
-            model.append("doc", uploadedFile);
         }
 
         btn.addClass("m-loader m-loader--right m-loader--light").attr(

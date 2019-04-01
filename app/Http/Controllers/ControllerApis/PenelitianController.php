@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ControllerApis;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\MstPenelitian;
@@ -86,15 +87,19 @@ class PenelitianController extends Controller
         try{
             if($email == null) //all penelitian
                 if($tracking)
-                    $penelitian = vwPenelitian::where('idKategori', '!=', 1)
-                                    ->orderBy('updated_at', 'DESC')->get();
+                    $penelitian = DB::select('select * from vw_penelitians
+                                                where (idStatusPenelitian <> 4 AND statusPembayaran = 0)
+                                                or (idStatusPenelitian < 3 AND statusPembayaran = 1)
+                                                order by updated_at DESC');
                 else
                     $penelitian = vwPenelitian::orderBy('updated_at', 'DESC')->get();
             else //peneltiian by user
-                $penelitian = vwPenelitian::where('email', $email)
-                                ->where('idKategori', '!=', 1)
-                                ->orderBy('updated_at', 'DESC')->get();
-            $penelitian->ErrorType = 0;
+                $penelitian = DB::select('select * from vw_penelitians
+                                            WHERE email = :email AND
+                                            (idStatusPenelitian <> 4 AND statusPembayaran = 0)
+                                            OR (idStatusPenelitian < 3 AND statusPembayaran = 1)
+                                            order by updated_at DESC', ['email' => $email]);
+            // $penelitian->ErrorType = 0;
             return response($penelitian)->setStatusCode(200);
         }
         catch(\Exception $e){
@@ -145,11 +150,17 @@ class PenelitianController extends Controller
         try{
             //update mst penelitian
             $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
-            $penelitian->lastMilestoneID = $request->idMilestone+1;
-            $penelitian->PIC = $request->PIC;
+            if($penelitian->idKategori == 1 && $penelitian->lastMilestoneID != 4)
+                $penelitian->lastMilestoneID = 4;
+            else
+                $penelitian->lastMilestoneID = $request->idMilestone+1;
+            if($request->PIC != null)
+                $penelitian->PIC = $request->PIC;
+
+            $milestonePenyiapan = $penelitian->idKategori == 1 ? 2 : $request->idMilestone;
 
             //cek old trx
-            $cek = TrxPenelitian::where('idPenelitian', $request->idPenelitian)->where('idMilestone', $request->idMilestone)->first();
+            $cek = TrxPenelitian::where('idPenelitian', $request->idPenelitian)->where('idMilestone', $milestonePenyiapan)->first();
             if($cek){ //trx done
                 $trx = $cek;
                 $trx->endDate = date('y-m-d');
@@ -172,8 +183,10 @@ class PenelitianController extends Controller
                 $transaksi = new TrxPenelitian;
                 $prosedur = $penelitian->prosedur()->first(); //get durasi tahapan penelitian
                 if($request->idMilestone == 1){
-                    $transaksi->durasi = $prosedur->tahap1;
-                    $penelitian->currentDuration = $prosedur->tahap1;
+                    if($penelitian->idKategori == 1)
+                        $transaksi->durasi = $penelitian->currentDuration;
+                    else
+                        $transaksi->durasi = $prosedur->tahap1;
                 }
                 else if($request->idMilestone == 2){
                     $transaksi->durasi = $prosedur->tahap2;
@@ -202,6 +215,9 @@ class PenelitianController extends Controller
 
             //save log trx
             $milestone = $transaksi->milestone()->first()->namaMilestone;
+            if($penelitian->idKategori == 1 && $request->idMilestone == 4)
+                $milestone = $penelitian->milestone()->first()->namaMilestone;
+
             $log = $this->saveTrxLog($request->idPenelitian, $milestone, $transaksi->PIC);
 
             return response($transaksi)->setStatusCode(200);
@@ -285,7 +301,7 @@ class PenelitianController extends Controller
         try{
             //get alat bahan dari rincian where tipe != 3
             $rincian = vwRincian::where('idPenelitian', $idPenelitian)->where('tipeAlatBahan', '!=', 3)->get();
-            
+
             $logPemakaian = array();
             //loop data
             foreach($rincian as $data){

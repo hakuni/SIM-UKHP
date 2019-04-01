@@ -29,14 +29,16 @@ CREATE VIEW `vw_log_notifikasi` AS
 SELECT
     `mp`.`idPenelitian` AS `idPenelitian`,
     `mp`.`PIC` AS `PIC`,
-    `pro`.`judulPenelitian` AS `judulPenelitian`,
+    `mdc`.`namaPeneliti` AS `namaPeneliti`,
+    `k`.`namaKategori` AS `namaKategori`,
     `mm`.`idMilestone` AS `idMilestone`,
     `mm`.`namaMilestone` AS `namaMilestone`,
     case when `tp`.`durasi` is null then 0 else abs(`tp`.`durasi` - (date(NOW()) - date(`tp`.`startDate`))) end AS `durasi`,
     case when `tp`.`durasi` - (date(NOW()) - date(`tp`.`startDate`)) < 0 then 1 else 0 end as `statusTelat`
 FROM
-    `mst_penelitians` `mp`  LEFT JOIN `mst_prosedurs` `pro` ON `mp`.`idPenelitian` = `pro`.`idPenelitian`
+    `mst_penelitians` `mp`  JOIN `mst_data_clients` `mdc` ON `mp`.`idDataClient` = `mdc`.`idDataClient`
     JOIN `mst_milestones` `mm` ON `mp`.`lastMilestoneID` = `mm`.`idMilestone`
+    JOIN `kategoris` `k` ON `mp`.`idKategori` = `k`.`idKategori`
     LEFT JOIN `trx_penelitians` `tp` ON `mp`.`idPenelitian` = `tp`.`idPenelitian`
 SQL;
     }

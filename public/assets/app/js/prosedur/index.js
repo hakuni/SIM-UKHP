@@ -1,8 +1,23 @@
 var id = $("#idPenelitian").val();
 //== Class Initialization
 jQuery(document).ready(function () {
-    Control.Init();
-    // Transaction.Download(id);
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            Control.Init();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var Control = {
@@ -53,35 +68,3 @@ var Control = {
             });
     }
 };
-
-var Transaction = {
-    Download: function (id) {
-        $("#btnEksport").on("click", function () {
-            var btn = $("#btnEksport");
-
-            btn.addClass("m-loader m-loader--right m-loader--light").attr(
-                "disabled",
-                true
-            );
-
-            $.ajax({
-                    url: "/api/export/" + id,
-                    type: "GET"
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    Common.Alert.Success("Berhasil diunduh");
-                    btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                        "disabled",
-                        false
-                    );
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    Common.Alert.Error(errorThrown);
-                    btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                        "disabled",
-                        false
-                    );
-                });
-        })
-    }
-}

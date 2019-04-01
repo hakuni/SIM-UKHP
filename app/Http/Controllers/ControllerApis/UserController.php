@@ -104,9 +104,15 @@ class UserController extends Controller
         }
     }
 
-    public function getNotificationLog($user){
+    public function getNotificationLog($statusTelat){
         try{
-            $notifLog = vwNotifikasi::where('PIC', $user)->first();
+            $user = auth()->user();
+            $notifLog = vwNotifikasi::where('statusTelat', $statusTelat)
+                            ->where('PIC', $user->email)
+                            ->where('idMilestone', '!=', 5)->get();
+            $total = count(vwNotifikasi::where('idMilestone', '!=', 5)->get());
+            if(count($notifLog))
+                $notifLog[0]->total = $total;
             return response($notifLog);
         }
         catch(\Exception $e){

@@ -44,6 +44,17 @@
 							<div class="col-lg-6">
 								<select class="form-control m-select2" id="slsKategori" name="slsKategori" required></select>
 							</div>
+                        </div>
+                        <div class="form-group m-form__group row" style="display:none" id="durasiKat1">
+							<label class="col-form-label col-lg-3 col-sm-12">
+								Durasi <strong style="color:red";>*</strong> :
+							</label>
+							<div class="col-lg-2">
+								<input type="number" class="form-control m-input" value=0 id="tbxDurasi" name="tbxDurasi" required>
+                            </div>
+                            <label class="col-form-label">
+								Hari
+							</label>
 						</div>
 						<div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">

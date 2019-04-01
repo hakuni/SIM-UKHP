@@ -22,8 +22,9 @@
         </div>
     </div>
 </div>
-@elseif ($vwDetailPenelitian['idProsedur'] != 0 )
+@elseif ($vwDetailPenelitian['idProsedur'] != 0  || $vwDetailPenelitian['idKategori'] == 1)
 <input type="hidden" value="{{$vwDetailPenelitian['idMilestone']}}" id="inptMilestoneID">
+<input type="hidden" value="{{$vwDetailPenelitian['idKategori']}}" id="inptKategoriID">
 <div class="m-portlet m-portlet--mobile">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
@@ -31,7 +32,11 @@
                 <div class="col-lg-12" style="margin-right:20px">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            {{ $vwDetailPenelitian['judulPenelitian'] }}
+                            @if ($vwDetailPenelitian['idKategori'] != 1)
+                                {{ $vwDetailPenelitian['judulPenelitian'] }}
+                            @else
+                                Penyediaan Hewan Coba
+                            @endif
                             <!-- Judul Penenlitian -->
                             <small>
                                 {{ $vwDetailPenelitian['namaPeneliti'] }} / {{ $vwDetailPenelitian['instansiPeneliti'] }}
@@ -39,26 +44,6 @@
                         </h3>
                     </div>
                 </div>
-                <!-- <div class="col-lg-3" id="data" syle="margin-right:5px">
-                    <a href="/DataPenelitian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-primary btn-m m-btn m-btn--icon m-btn--pill m-btn--air" id="btnData" style="margin-right: 10px;">
-                        <span>
-                            <i class="la la-download"></i>
-                            <span>
-                                Data Penelitian
-                            </span>
-                        </span>
-                    </a>
-                </div>
-                <div class="col-lg-3" id="hasil">
-                    <a href="/AnalisisPenelitian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" id="btnHasil" style="margin-right: 10px;">
-                        <span>
-                            <i class="la la-download"></i>
-                            <span>
-                                Hasil Penelitian
-                            </span>
-                        </span>
-                    </a>
-                </div> -->
             </div>
         </div>
     </div>
@@ -139,7 +124,7 @@
                                         @if ($vwDetailPenelitian['idMilestone'] == 3)
                                         Analisis
                                         @elseif ($vwDetailPenelitian['idMilestone'] == 4)
-                                        Laporan
+                                        Selesai
                                         @endif
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -149,6 +134,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    @if ($vwDetailPenelitian['idKategori'] != 1)
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
                                             @if ($vwDetailPenelitian['idMilestone'] == 3)
@@ -163,6 +149,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                     @if ($vwDetailPenelitian['idMilestone'] == 3)
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important">
@@ -239,7 +226,15 @@
                                             Durasi :
                                         </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12 m--align-left">
-                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtDurasi">{{$vwDetailPenelitian['durasi']}}</label>
+                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtDurasi">
+                                            @if($vwDetailPenelitian['idMilestone'] == 1)
+                                                {{$vwDetailPenelitian['tahap1']}} Hari
+                                            @elseif($vwDetailPenelitian['idMilestone'] == 2)
+                                                {{$vwDetailPenelitian['tahap2']}} Hari
+                                            @elseif($vwDetailPenelitian['idMilestone'] == 3)
+                                                {{$vwDetailPenelitian['tahap3']}} Hari
+                                            @endif
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
@@ -338,7 +333,11 @@
                                 <i class="flaticon-route"></i>
                             </span>
                             <span>
+                                @if($vwDetailPenelitian['idKategori'] == 1 && $vwDetailPenelitian['idMilestone'] == 4)
+                                Pemeliharaan
+                                @else
                                 {{ $vwDetailPenelitian['namaMilestone'] }}
+                                @endif
                             </span>
                         </div>
                     </div>

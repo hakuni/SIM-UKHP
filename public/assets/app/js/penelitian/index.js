@@ -1,7 +1,23 @@
 //== Class Initialization
 jQuery(document).ready(function () {
-    Control.Init();
-    Table.Init();
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            Control.Init();
+            Table.Init();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var Table = {

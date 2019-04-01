@@ -75,7 +75,7 @@
                     <div class="m-widget4">
                         <div class="m-widget4__item" style="border-bottom:0px;padding-bottom:0px">
                             <div class="m-widget4__img m-widget4__img--logo">
-                                <img id="prosedur" src="{{asset('assets/app/media/img//logos/success.png')}}" alt="">
+                                <img id="prosedur" class="m-loader m-loader--lg m-loader--primary" alt="">
                             </div>
                             <div class="m-widget4__text">
                                 <h5 style="color:white;margin-top:12px; margin-left:20px">Pembuatan Prosedur</h5>

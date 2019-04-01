@@ -3,9 +3,25 @@ var bulan = date.getMonth();
 var tahun = date.getFullYear();
 // $("tbxTahunHewan").val(date.getYear());
 jQuery(document).ready(function () {
-    Control.Init();
-    GetData.Init();
-    Grafik.Init();
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            Control.Init();
+            GetData.Init();
+            Grafik.Init();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var GetData = {

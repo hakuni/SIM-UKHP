@@ -6,11 +6,27 @@ var bulan = 0;
 var tahun = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
-    Data.Init();
-    Table.Stock();
-    Button.Init();
-    Select.Init();
-    Transaction.Init();
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            Data.Init();
+            Table.Stock();
+            Button.Init();
+            Select.Init();
+            Transaction.Init();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var Data = {
@@ -153,6 +169,11 @@ var Table = {
                     field: "harga",
                     title: "Harga",
                     textAlign: "center"
+                },
+                {
+                    field: "total",
+                    title: "Total",
+                    textAlign: "center",
                 }
             ]
         });
@@ -358,7 +379,7 @@ var Select = {
 var Transaction = {
     Init: function () {
         $("#btnTambahPembelian").on("click", function () {
-            if ($("#slsAlatBahan").val() == 0 || $.trim($("#tbxTanggalPembelian").val()) == "" || $.trim($("#tbxJumlahBeli").val()) == "" || $.trim($("#tbxHargaBeli").val()) == "") {
+            if ($("#slsAlatBahan").val() == 0 || $.trim($("#tbxTanggalPembelian").val()) == "" || $.trim($("#tbxJumlahBeli").val()) == "") {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } else
                 Transaction.Pembelian();
@@ -378,7 +399,6 @@ var Transaction = {
             namaAlatBahan: $("#slsAlatBahan").val(),
             tglTrx: $("#tbxTanggalPembelian").val(),
             jumlah: $("#tbxJumlahBeli").val(),
-            harga: $("#tbxHargaBeli").val()
         };
         btn.addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
@@ -400,7 +420,6 @@ var Transaction = {
                 $("#slsAlatBahan").val("");
                 $("#tbxTanggalPembelian").val("");
                 $("#tbxJumlahBeli").val("");
-                $("#tbxHargaBeli").val("")
                 $("#formPembelian").modal("toggle");
                 btn.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", false);
             })

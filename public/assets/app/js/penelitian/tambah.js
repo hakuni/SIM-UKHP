@@ -1,12 +1,29 @@
 //== Class Initialization
 jQuery(document).ready(function () {
-    Form.Init();
-    Control.Init();
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            Form.Init();
+            Control.Init();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
 });
 
 var Control = {
     Init: function () {
         Control.Select2();
+
     },
     Select2: function () {
         $.ajax({
@@ -27,6 +44,13 @@ var Control = {
                 $("#slsKategori").select2({
                     placeholder: "Kategori"
                 });
+                $("#slsKategori").on("change", function () {
+                    if ($("#slsKategori").val() == 1) {
+                        $("#durasiKat1").show();
+                    } else {
+                        $("#durasiKat1").hide();
+                    }
+                })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -57,6 +81,9 @@ var Form = {
                 },
                 tbxAlamat: {
                     required: true
+                },
+                tbxDurasi: {
+                    required: true
                 }
             },
             invalidHandler: function (e, r) {
@@ -80,6 +107,7 @@ var Transaction = function () {
         telpPeneliti: $("#tbxNoHP").val(),
         emailPeneliti: $("#tbxEmail").val(),
         alamatPeneliti: $("#tbxAlamat").val(),
+        durasi: $("#tbxDurasi").val(),
         statusPenelitian: 1
     };
 

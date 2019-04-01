@@ -68,9 +68,8 @@
                         <ul class="m-topbar__nav m-nav m-nav--inline">
                             <li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-center 	m-dropdown--mobile-full-width"
                                 m-dropdown-toggle="click" m-dropdown-persistent="1">
-                                <a href="#" class="m-nav__link m-dropdown__toggle" id="m_topbar_notification_icon">
-                                    <span
-                                        class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger"></span>
+                                <a href="#" class="m-nav__link m-dropdown__toggle notifAktif">
+                                    <span class="m-nav__link-badge m-badge m-badge--dot m-badge--dot-small m-badge--danger" id="titik" style="display:none"></span>
                                     <span class="m-nav__link-icon">
                                         <i class="flaticon-music-2"></i>
                                     </span>
@@ -80,8 +79,8 @@
                                     <div class="m-dropdown__inner" style="width:280px">
                                         <div class="m-dropdown__header m--align-center"
                                             style="background: url({{asset('assets/app/media/img/misc/notification_bg.jpg')}}); background-size: cover;">
-                                            <span class="m-dropdown__header-title">
-                                                9 Penelitian
+                                            <span class="m-dropdown__header-title" id="jmlPenelitian">
+                                                Tidak Ada Penelitian
                                             </span>
                                         </div>
                                         <div class="m-dropdown__body">
@@ -109,88 +108,6 @@
                                                             <div class="m-list-timeline m-list-timeline--skin-light">
                                                                 <div class="m-list-timeline__items" id="listNotifMulai">
                                                                     <!-- looping disini -->
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span class="m-list-timeline__badge"></span>
-                                                                        <span class="m-list-timeline__text">
-                                                                            Judul Penelitiian 1
-                                                                            <span
-                                                                                class="m-badge m-badge--primary m-badge--wide">
-                                                                                Milestone 2
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="m-list-timeline__time">
-                                                                            Durasi
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span class="m-list-timeline__badge"></span>
-                                                                        <span class="m-list-timeline__text">
-                                                                            Judul Penelitiian 2
-                                                                            <span
-                                                                                class="m-badge m-badge--primary m-badge--wide">
-                                                                                Milestone 3
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="m-list-timeline__time">
-                                                                            Durasi
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span class="m-list-timeline__badge"></span>
-                                                                        <span class="m-list-timeline__text">
-                                                                            Judul Penelitiian 3
-                                                                            <span
-                                                                                class="m-badge m-badge--primary m-badge--wide">
-                                                                                Milestone 4
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="m-list-timeline__time">
-                                                                            Durasi
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span class="m-list-timeline__badge"></span>
-                                                                        <span class="m-list-timeline__text">
-                                                                            New invoice received
-                                                                        </span>
-                                                                        <span class="m-list-timeline__time">
-                                                                            20 mins
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span class="m-list-timeline__badge"></span>
-                                                                        <span class="m-list-timeline__text">
-                                                                            DB overloaded 80%
-                                                                            <span
-                                                                                class="m-badge m-badge--info m-badge--wide">
-                                                                                settled
-                                                                            </span>
-                                                                        </span>
-                                                                        <span class="m-list-timeline__time">
-                                                                            1 hr
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span class="m-list-timeline__badge"></span>
-                                                                        <span class="m-list-timeline__text">
-                                                                            System error -
-                                                                            <a href="#" class="m-link">
-                                                                                Check
-                                                                            </a>
-                                                                        </span>
-                                                                        <span class="m-list-timeline__time">
-                                                                            2 hrs
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span class="m-list-timeline__badge"></span>
-                                                                        <span class="m-list-timeline__text">
-                                                                            Production server up
-                                                                        </span>
-                                                                        <span class="m-list-timeline__time">
-                                                                            5 hrs
-                                                                        </span>
-                                                                    </div>
                                                                     <!-- sampe sini -->
                                                                 </div>
                                                             </div>
@@ -200,67 +117,8 @@
                                                         <div class="m-scrollable" data-scrollable="true"
                                                             data-max-height="250" data-mobile-max-height="200">
                                                             <div class="m-list-timeline m-list-timeline--skin-light">
-                                                                <div class="m-list-timeline__items">
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span
-                                                                            class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
-                                                                        <a href="" class="m-list-timeline__text">
-                                                                            New order received
-                                                                        </a>
-                                                                        <span class="m-list-timeline__time">
-                                                                            Just now
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span
-                                                                            class="m-list-timeline__badge m-list-timeline__badge--state1-danger"></span>
-                                                                        <a href="" class="m-list-timeline__text">
-                                                                            New invoice received
-                                                                        </a>
-                                                                        <span class="m-list-timeline__time">
-                                                                            20 mins
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span
-                                                                            class="m-list-timeline__badge m-list-timeline__badge--state1-success"></span>
-                                                                        <a href="" class="m-list-timeline__text">
-                                                                            Production server up
-                                                                        </a>
-                                                                        <span class="m-list-timeline__time">
-                                                                            5 hrs
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span
-                                                                            class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
-                                                                        <a href="" class="m-list-timeline__text">
-                                                                            New order received
-                                                                        </a>
-                                                                        <span class="m-list-timeline__time">
-                                                                            7 hrs
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span
-                                                                            class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
-                                                                        <a href="" class="m-list-timeline__text">
-                                                                            System shutdown
-                                                                        </a>
-                                                                        <span class="m-list-timeline__time">
-                                                                            11 mins
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="m-list-timeline__item">
-                                                                        <span
-                                                                            class="m-list-timeline__badge m-list-timeline__badge--state1-info"></span>
-                                                                        <a href="" class="m-list-timeline__text">
-                                                                            Production server down
-                                                                        </a>
-                                                                        <span class="m-list-timeline__time">
-                                                                            3 hrs
-                                                                        </span>
-                                                                    </div>
+                                                                <div class="m-list-timeline__items" id="listNotifTelat">
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -275,7 +133,7 @@
                                 m-dropdown-toggle="click">
                                 <a href="#" class="m-nav__link m-dropdown__toggle">
                                     <span class="m-topbar__userpic">
-                                        <img src="{{asset('assets/app/media/img/users/user4.jpg')}}"
+                                        <img src="{{asset('assets/app/media/img/users/man.png')}}"
                                             class="m--img-rounded m--marginless m--img-centered" alt="" />
                                     </span>
                                 </a>
@@ -287,7 +145,7 @@
                                             style="background: url({{asset('assets/app/media/img/misc/user_profile_bg.jpg')}}); background-size: cover;">
                                             <div class="m-card-user m-card-user--skin-dark">
                                                 <div class="m-card-user__pic">
-                                                    <img src="{{asset('assets/app/media/img/users/user4.jpg') }}"
+                                                    <img src="{{asset('assets/app/media/img/users/man.png') }}"
                                                         class="m--img-rounded m--marginless" alt="" />
                                                 </div>
                                                 <div class="m-card-user__details">

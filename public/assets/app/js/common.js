@@ -190,13 +190,13 @@ var App = {
                 Common.Alert.Error(errorThrown);
             });
     },
-    SaveAkun: function(){
+    SaveAkun: function () {
         params = {
             id: localStorage.getItem('idUser'),
             email: $("#tbxEmailProfil").val(),
             namaUser: $("#tbxNamaProfil").val(),
             idRole: $("#slsRoleProfil").val(),
-            password:$("#tbxPassProfil").val()
+            password: $("#tbxPassProfil").val()
         }
         $.ajax({
             url: '/api/user/',
@@ -205,14 +205,63 @@ var App = {
             dataType: 'json',
             contentType: "application/json",
             cache: false,
-            success: function(data, textStatus, jqXHR){
+            success: function (data, textStatus, jqXHR) {
                 $("#formProfil").modal("toggle");
                 Common.Alert.Success('Berhasil mengubah data')
             },
-            error: function(jqXHR, textStatus, errorThrown){
+            error: function (jqXHR, textStatus, errorThrown) {
 
             }
         })
+    },
+    Notif: function () {
+        var cek = document.getElementsByClassName("notifAktif")[0];
+        var warna = "primary";
+        // m_topbar_notification_icon
+        $.ajax({
+                url: "/api/user/notifikasi/0",
+                type: "GET",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#listNotifMulai").html();
+                if (data.length == 0) {
+                    $("#listNotifMulai").append('Tidak ada pemberitahuan')
+                } else {
+                    cek.id = "m_topbar_notification_icon";
+                    $("#titik").show();
+                    $("#jmlPenelitian").html(data[0].total + " Penelitian");
+                    $.each(data, function (i, item) {
+                        if (item.idMilestone == 1) {
+                            warna = "warning";
+                        }
+                        $("#listNotifMulai").append('<div class="m-list-timeline__item"> <span class="m-list-timeline__badge"></span> <span class="m-list-timeline__text"> ' + item.namaPeneliti + ' <span class="m-badge m-badge--' + warna + ' m-badge--wide"> ' + item.namaKategori + ' </span> </span> <span class="m-list-timeline__time"> ' + item.durasi + ' Hari </span> </div>');
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
+
+        $.ajax({
+                url: "/api/user/notifikasi/1",
+                type: "GET",
+            })
+            .done(function (data, textStatus, jqXHR) {
+                $("#listNotifTelat").html();
+                if (data.length == 0) {
+                    $("#listNotifTelat").append('Tidak ada pemberitahuan')
+                } else {
+                    cek.id = "m_topbar_notification_icon";
+                    $("#titik").show();
+                    $("#jmlPenelitian").html(data[0].total + " Penelitian");
+                    $.each(data, function (i, item) {
+                        $("#listNotifTelat").append('<div class="m-list-timeline__item"> <span class="m-list-timeline__badge"></span> <span class="m-list-timeline__text"> ' + item.namaPeneliti + ' <span class="m-badge m-badge--primary m-badge--wide"> ' + item.namaKategori + ' </span> </span> <span class="m-list-timeline__time"> ' + item.durasi + ' Hari </span> </div>');
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                Common.Alert.Error(errorThrown);
+            });
     }
 
 }
@@ -226,37 +275,37 @@ jQuery(document).ready(function () {
         xhrFields: {
             withCredentials: true
         },
-    // crossDomain: true
+        // crossDomain: true
     });
 
-    if (localStorage.getItem('role') == 2) {
-        //hide sesuatu
-        $("#Kategori").hide();
-        $("#Layanan").hide();
-        $("#Pengguna").hide();
-        $("#Role").hide();
-    }
-    if (localStorage.getItem('role') == 3) {
-        //hide sesuatu
-        $("#Kategori").hide();
-        $("#Layanan").hide();
-        $("#Pengguna").hide();
-        $("#Role").hide();
-    }
-    if (localStorage.getItem('role') == 4) {
-        //hide sesuatu
-        $("#Kategori").hide();
-        $("#Layanan").hide();
-        $("#Pengguna").hide();
-        $("#Role").hide();
-    }
+    if (localStorage.getItem('role') == 2) {}
+    if (localStorage.getItem('role') == 3) {}
+    if (localStorage.getItem('role') == 4) {}
 
     $("#nama").html(localStorage.getItem('namaUser'));
     $("#jabatan").html(localStorage.getItem('namaRole'));
 
     App.SidebarTag();
 
-    $('#btnProfilUser').on('click', function(){
+    $.ajax({
+        url: '/api/cekToken',
+        type: 'GET',
+        success: function () {
+            App.Notif();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 401) {
+                location.href = "/Logout"
+                localStorage.removeItem("token")
+                localStorage.removeItem("idUser")
+                localStorage.removeItem("namaUser")
+                localStorage.removeItem("role")
+                localStorage.removeItem("namaRole")
+            }
+        }
+    })
+
+    $('#btnProfilUser').on('click', function () {
         $('#btnProfilUser').addClass("m-loader m-loader--right m-loader--light").attr(
             "disabled",
             true

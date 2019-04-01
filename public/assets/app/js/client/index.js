@@ -24,7 +24,7 @@ Control = {
                     );
                     $.each(data, function (i, item) {
                         console.log(item);
-                        var img = "assets/app/media/img/logos/loading.gif";
+                        var img = "assets/app/media/img/logos/process.gif";
                         if (item.status == 1) {
                             img = "assets/app/media/img/logos/success.png";
                         }
