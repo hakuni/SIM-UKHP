@@ -4,24 +4,23 @@ var tahun = date.getFullYear();
 // $("tbxTahunHewan").val(date.getYear());
 jQuery(document).ready(function () {
     $.ajax({
-        url: '/api/cekToken',
-        type: 'GET',
+        url: "/api/cekToken",
+        type: "GET",
         success: function () {
             Control.Init();
             GetData.Init();
-            Grafik.Init();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
-                location.href = "/Logout"
-                localStorage.removeItem("token")
-                localStorage.removeItem("idUser")
-                localStorage.removeItem("namaUser")
-                localStorage.removeItem("role")
-                localStorage.removeItem("namaRole")
+                location.href = "/Logout";
+                localStorage.removeItem("token");
+                localStorage.removeItem("idUser");
+                localStorage.removeItem("namaUser");
+                localStorage.removeItem("role");
+                localStorage.removeItem("namaRole");
             }
         }
-    })
+    });
 });
 
 var GetData = {
@@ -32,18 +31,17 @@ var GetData = {
         GetData.Hewan();
     },
     Kategori: function () {
-        $("#kategori").addClass("m-loader m-loader--lg m-loader--primary").attr(
-            "disabled",
-            true
-        );
+        mApp.block("#divPenelitian", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "primary",
+            message: "Mohon Bersabar . . . "
+        });
         $.ajax({
             url: "/api/dashboard/kategori?tahun=" + $("#tbxTahunKategori").val(),
-            type: 'GET',
+            type: "GET",
             success: function (data) {
-                $("#kategori").removeClass("m-loader m-loader--lg m-loader--primary").attr(
-                    "disabled",
-                    false
-                );
+                mApp.unblock("#divPenelitian");
                 Grafik.Kategori(data);
             },
             error: function () {
@@ -52,18 +50,17 @@ var GetData = {
         });
     },
     Penggunaan: function () {
-        $("#penggunaan").addClass("m-loader m-loader--lg m-loader--primary").attr(
-            "disabled",
-            true
-        );
+        mApp.block("#divPenelitian", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "primary",
+            message: "Mohon Bersabar . . ."
+        });
         $.ajax({
             url: "/api/dashboard/penggunaan?tahun=" + $("#tbxTahunGuna").val(),
-            type: 'GET',
+            type: "GET",
             success: function (data) {
-                $("#penggunaan").removeClass("m-loader m-loader--lg m-loader--primary").attr(
-                    "disabled",
-                    false
-                );
+                mApp.unblock("#divPenelitian");
                 Grafik.Penggunaan(data);
             },
             error: function () {
@@ -73,18 +70,17 @@ var GetData = {
         });
     },
     Keuangan: function () {
-        $("#keuangan").addClass("m-loader m-loader--lg m-loader--primary").attr(
-            "disabled",
-            true
-        );
+        mApp.block("#divKeuangan", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "primary",
+            message: "Mohon Bersabar . . . "
+        });
         $.ajax({
             url: "/api/dashboard/pemasukan?tahun=" + $("#tbxTahunKeu").val(),
-            type: 'GET',
+            type: "GET",
             success: function (data) {
-                $("#keuangan").removeClass("m-loader m-loader--lg m-loader--primary").attr(
-                    "disabled",
-                    false
-                );
+                mApp.unblock("#divKeuangan");
                 Grafik.Keuangan(data);
             },
             error: function () {
@@ -96,18 +92,17 @@ var GetData = {
     Hewan: function () {
         bln = $("#slsPeriode").val();
         thn = $("#tbxTahunHewan").val();
-        $("#hewan").addClass("m-loader m-loader--lg m-loader--primary").attr(
-            "disabled",
-            true
-        );
+        mApp.block("#divHewan", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "primary",
+            message: "Mohon Bersabar . . . "
+        });
         $.ajax({
             url: "/api/dashboard/banyakHewan?periode=" + bln + "&tahun=" + thn,
-            type: 'GET',
+            type: "GET",
             success: function (data) {
-                $("#hewan").removeClass("m-loader m-loader--lg m-loader--primary").attr(
-                    "disabled",
-                    false
-                );
+                mApp.unblock("#divHewan");
                 Grafik.HewanPeriode(data);
             },
             error: function () {
@@ -119,9 +114,6 @@ var GetData = {
 };
 
 var Grafik = {
-    Init: function () {
-        // Grafik.Hewan();
-    },
     Kategori: function (data) {
         // Themes begin
         am4core.useTheme(am4themes_frozen);
@@ -132,15 +124,15 @@ var Grafik = {
         var chart = am4core.create("kategori", am4charts.PieChart);
 
         // Add data
-        chart.data = []
+        chart.data = [];
         //loop
         $.each(data, function (index, item) {
             var params = {
                 kategoriPen: item.namaKategori,
                 jumlah: item.banyakPenelitian
-            }
+            };
             chart.data.push(params);
-        })
+        });
 
         // Add and configure Series
         var pieSeries = chart.series.push(new am4charts.PieSeries());
@@ -164,15 +156,15 @@ var Grafik = {
         var chart = am4core.create("penggunaan", am4charts.PieChart);
 
         // Add data
-        chart.data = []
+        chart.data = [];
         //loop
         $.each(data, function (index, item) {
             var params = {
                 hewan: item.namaAlatBahan,
                 jumlah: item.banyakPenelitian
-            }
+            };
             chart.data.push(params);
-        })
+        });
 
         // Add and configure Series
         var pieSeries = chart.series.push(new am4charts.PieSeries());
@@ -201,50 +193,62 @@ var Grafik = {
         // Create chart instance
         var chart = am4core.create("keuangan", am4charts.XYChart);
 
-        var pemasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        var pemasukan = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         $.each(data, function (index, item) {
             pemasukan[item.bulan - 1] = item.pemasukan;
-        })
+        });
 
         // Add data
         chart.data = [{
-            "bulan": "Jan",
-            "pemasukan": pemasukan[0]
-        }, {
-            "bulan": "Feb",
-            "pemasukan": pemasukan[1]
-        }, {
-            "bulan": "Mar",
-            "pemasukan": pemasukan[2]
-        }, {
-            "bulan": "Apr",
-            "pemasukan": pemasukan[3]
-        }, {
-            "bulan": "Mei",
-            "pemasukan": pemasukan[4]
-        }, {
-            "bulan": "Jun",
-            "pemasukan": pemasukan[5]
-        }, {
-            "bulan": "Jul",
-            "pemasukan": pemasukan[6]
-        }, {
-            "bulan": "Aug",
-            "pemasukan": pemasukan[7]
-        }, {
-            "bulan": "Sep",
-            "pemasukan": pemasukan[8]
-        }, {
-            "bulan": "Okt",
-            "pemasukan": pemasukan[9]
-        }, {
-            "bulan": "Nov",
-            "pemasukan": pemasukan[10]
-        }, {
-            "bulan": "Des",
-            "pemasukan": pemasukan[11]
-        }, ];
+                bulan: "Jan",
+                pemasukan: pemasukan[0]
+            },
+            {
+                bulan: "Feb",
+                pemasukan: pemasukan[1]
+            },
+            {
+                bulan: "Mar",
+                pemasukan: pemasukan[2]
+            },
+            {
+                bulan: "Apr",
+                pemasukan: pemasukan[3]
+            },
+            {
+                bulan: "Mei",
+                pemasukan: pemasukan[4]
+            },
+            {
+                bulan: "Jun",
+                pemasukan: pemasukan[5]
+            },
+            {
+                bulan: "Jul",
+                pemasukan: pemasukan[6]
+            },
+            {
+                bulan: "Aug",
+                pemasukan: pemasukan[7]
+            },
+            {
+                bulan: "Sep",
+                pemasukan: pemasukan[8]
+            },
+            {
+                bulan: "Okt",
+                pemasukan: pemasukan[9]
+            },
+            {
+                bulan: "Nov",
+                pemasukan: pemasukan[10]
+            },
+            {
+                bulan: "Des",
+                pemasukan: pemasukan[11]
+            }
+        ];
 
         // Create category axis
         var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -260,7 +264,7 @@ var Grafik = {
         var pemasukan = chart.series.push(new am4charts.LineSeries());
         pemasukan.dataFields.valueY = "pemasukan";
         pemasukan.dataFields.categoryX = "bulan";
-        pemasukan.name = 'Pemasukan';
+        pemasukan.name = "Pemasukan";
         pemasukan.strokeWidth = 3;
         pemasukan.bullets.push(new am4charts.CircleBullet());
         pemasukan.tooltipText = "{name} bulan {categoryX}: {valueY}";
@@ -283,15 +287,15 @@ var Grafik = {
         var chart = am4core.create("hewan", am4charts.XYChart);
 
         // Add data
-        chart.data = []
+        chart.data = [];
         //loop
         $.each(data, function (index, item) {
             var params = {
                 hewan: item.namaAlatBahan,
                 jumlah: item.banyak
-            }
+            };
             chart.data.push(params);
-        })
+        });
 
         // Create axes
 
@@ -300,8 +304,11 @@ var Grafik = {
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
 
-        categoryAxis.renderer.labels.template.adapter.add("dy", function (dy, target) {
-            if (target.dataItem && target.dataItem.index & 2 == 2) {
+        categoryAxis.renderer.labels.template.adapter.add("dy", function (
+            dy,
+            target
+        ) {
+            if (target.dataItem && target.dataItem.index & (2 == 2)) {
                 return dy + 25;
             }
             return dy;
@@ -315,7 +322,7 @@ var Grafik = {
         series.dataFields.categoryX = "hewan";
         series.name = "Hewan";
         series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
-        series.columns.template.fillOpacity = .8;
+        series.columns.template.fillOpacity = 0.8;
 
         var columnTemplate = series.columns.template;
         columnTemplate.strokeWidth = 2;
@@ -331,50 +338,62 @@ var Grafik = {
         var chart = am4core.create("hewan", am4charts.XYChart);
 
         // Add data
-        var banyak = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        var banyak = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         $.each(data, function (index, item) {
             banyak[item.bulan - 1] = item.banyak;
-        })
+        });
 
         // Add data
         chart.data = [{
-            "bulan": "Jan",
-            "banyak": banyak[0]
-        }, {
-            "bulan": "Feb",
-            "banyak": banyak[1]
-        }, {
-            "bulan": "Mar",
-            "banyak": banyak[2]
-        }, {
-            "bulan": "Apr",
-            "banyak": banyak[3]
-        }, {
-            "bulan": "Mei",
-            "banyak": banyak[4]
-        }, {
-            "bulan": "Jun",
-            "banyak": banyak[5]
-        }, {
-            "bulan": "Jul",
-            "banyak": banyak[6]
-        }, {
-            "bulan": "Aug",
-            "banyak": banyak[7]
-        }, {
-            "bulan": "Sep",
-            "banyak": banyak[8]
-        }, {
-            "bulan": "Okt",
-            "banyak": banyak[9]
-        }, {
-            "bulan": "Nov",
-            "banyak": banyak[10]
-        }, {
-            "bulan": "Des",
-            "banyak": banyak[11]
-        }, ];
+                bulan: "Jan",
+                banyak: banyak[0]
+            },
+            {
+                bulan: "Feb",
+                banyak: banyak[1]
+            },
+            {
+                bulan: "Mar",
+                banyak: banyak[2]
+            },
+            {
+                bulan: "Apr",
+                banyak: banyak[3]
+            },
+            {
+                bulan: "Mei",
+                banyak: banyak[4]
+            },
+            {
+                bulan: "Jun",
+                banyak: banyak[5]
+            },
+            {
+                bulan: "Jul",
+                banyak: banyak[6]
+            },
+            {
+                bulan: "Aug",
+                banyak: banyak[7]
+            },
+            {
+                bulan: "Sep",
+                banyak: banyak[8]
+            },
+            {
+                bulan: "Okt",
+                banyak: banyak[9]
+            },
+            {
+                bulan: "Nov",
+                banyak: banyak[10]
+            },
+            {
+                bulan: "Des",
+                banyak: banyak[11]
+            }
+        ];
 
         // Create axes
 
@@ -383,8 +402,11 @@ var Grafik = {
         categoryAxis.renderer.grid.template.location = 0;
         categoryAxis.renderer.minGridDistance = 30;
 
-        categoryAxis.renderer.labels.template.adapter.add("dy", function (dy, target) {
-            if (target.dataItem && target.dataItem.index & 2 == 2) {
+        categoryAxis.renderer.labels.template.adapter.add("dy", function (
+            dy,
+            target
+        ) {
+            if (target.dataItem && target.dataItem.index & (2 == 2)) {
                 return dy + 25;
             }
             return dy;
@@ -398,7 +420,7 @@ var Grafik = {
         series.dataFields.categoryX = "bulan";
         series.name = "Bulan";
         series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
-        series.columns.template.fillOpacity = .8;
+        series.columns.template.fillOpacity = 0.8;
 
         var columnTemplate = series.columns.template;
         columnTemplate.strokeWidth = 2;
@@ -423,9 +445,13 @@ var Control = {
 
         $("#slsPeriode").select2();
         if (bulan < 6)
-            $("#slsPeriode").append('<option value="1" selected>Jan - Jun</option> <option value = "7" > Jul - Des </option>')
+            $("#slsPeriode").append(
+                '<option value="1" selected>Jan - Jun</option> <option value = "7" > Jul - Des </option>'
+            );
         else
-            $("#slsPeriode").append('<option value="1">Jan - Jun</option> <option value = "7" selected> Jul - Des </option>')
+            $("#slsPeriode").append(
+                '<option value="1">Jan - Jun</option> <option value = "7" selected> Jul - Des </option>'
+            );
 
         $.ajax({
                 url: "/api/inventarisasi?tipe=1",
@@ -463,7 +489,7 @@ var Control = {
                 "disabled",
                 false
             );
-        })
+        });
     },
     FilterPenggunaan: function () {
         $("#btnFilterPenggunaan").on("click", function () {
@@ -478,7 +504,7 @@ var Control = {
                 "disabled",
                 false
             );
-        })
+        });
     },
     FilterKeuangan: function () {
         $("#btnFilterKeuangan").on("click", function () {
@@ -493,7 +519,7 @@ var Control = {
                 "disabled",
                 false
             );
-        })
+        });
     },
     FilterHewan: function () {
         $("#btnFilterHewan").on("click", function () {
@@ -505,32 +531,34 @@ var Control = {
             );
             if ($("#slsHewan").val() == 0) {
                 GetData.Hewan();
-                btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                    "disabled",
-                    false
-                );
+                btn.removeClass(
+                    "m-loader m-loader--right m-loader--light"
+                ).attr("disabled", false);
             } else {
                 $.ajax({
-                    url: "/api/dashboard/detailHewan?idAlatBahan=" + $("#slsHewan").val() + "&periode=" + $("#slsPeriode").val() + "&tahun=" + $("#tbxTahunHewan").val(),
+                    url: "/api/dashboard/detailHewan?idAlatBahan=" +
+                        $("#slsHewan").val() +
+                        "&periode=" +
+                        $("#slsPeriode").val() +
+                        "&tahun=" +
+                        $("#tbxTahunHewan").val(),
                     type: "GET",
                     success: function (data) {
                         // console.log(data);
                         Grafik.HewanDetail(data);
-                        btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                            "disabled",
-                            false
-                        );
+                        btn.removeClass(
+                            "m-loader m-loader--right m-loader--light"
+                        ).attr("disabled", false);
                     },
                     error: function () {
-                        btn.removeClass("m-loader m-loader--right m-loader--light").attr(
-                            "disabled",
-                            false
-                        );
+                        btn.removeClass(
+                            "m-loader m-loader--right m-loader--light"
+                        ).attr("disabled", false);
                         alert("error");
                         console.log("eror");
                     }
-                })
+                });
             }
-        })
+        });
     }
 };

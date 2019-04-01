@@ -2,23 +2,23 @@ var id = 0;
 //== Class Initialization
 jQuery(document).ready(function () {
     $.ajax({
-        url: '/api/cekToken',
-        type: 'GET',
+        url: "/api/cekToken",
+        type: "GET",
         success: function () {
             $("#sidebarHide").hide();
             Page.Init();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
-                location.href = "/Logout"
-                localStorage.removeItem("token")
-                localStorage.removeItem("idUser")
-                localStorage.removeItem("namaUser")
-                localStorage.removeItem("role")
-                localStorage.removeItem("namaRole")
+                location.href = "/Logout";
+                localStorage.removeItem("token");
+                localStorage.removeItem("idUser");
+                localStorage.removeItem("namaUser");
+                localStorage.removeItem("role");
+                localStorage.removeItem("namaRole");
             }
         }
-    })
+    });
 });
 
 var Page = {
@@ -57,19 +57,18 @@ var Page = {
 
 var Get = {
     DetailPenelitian: function (id) {
-        $("#detailPenelitian").addClass("m-loader m-loader--lg m-loader--primary").attr(
-            "disabled",
-            true
-        );
+        mApp.block("#detailPenelitian", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "primary",
+            message: "Mohon Bersabar..."
+        });
         var link = "/Tracking/Detail/" + id;
         $.ajax({
             url: link,
             type: "GET",
             success: function (data) {
-                $("#detailPenelitian").removeClass("m-loader m-loader--lg m-loader--primary").attr(
-                    "disabled",
-                    false
-                );
+                mApp.unblock("#detailPenelitian");
                 $("#detailPenelitian").html(data);
                 if ($("#inptMilestoneID").val() == 5) {
                     $("#btnTrx").hide();
@@ -84,19 +83,18 @@ var Get = {
         });
     },
     List: function (order) {
-        $(".m-scrollable").addClass("m-loader m-loader--lg m-loader--primary").attr(
-            "disabled",
-            true
-        );
+        mApp.block("#sidebarShow", {
+            overlayColor: "#000000",
+            type: "loader",
+            state: "primary",
+            message: "Mohon Bersabar..."
+        });
         var link = "/Tracking/List?orderBy=" + order;
         $.ajax({
             url: link,
             type: "GET",
             success: function (data) {
-                $(".m-scrollable").removeClass("m-loader m-loader--lg m-loader--primary").attr(
-                    "disabled",
-                    false
-                );
+                mApp.unblock("#sidebarShow");
                 $("#listPenelitian").html(data);
                 var test = document.getElementsByClassName("divShowDetail")[0];
                 if (test) {
@@ -132,20 +130,21 @@ var Get = {
 var Transaction = {
     Init: function (id) {
         $("#btnHapus").on("click", function () {
-            Transaction.Konfirmasi(id)
-        })
+            Transaction.Konfirmasi(id);
+        });
         $("#btnTambah").on("click", function () {
             if ($("#slsPIC").val() == 0) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
-            } else
-                Transaction.Alur(id);
-        })
+            } else Transaction.Alur(id);
+        });
         $("#btnTambahBayar").on("click", function () {
-            if ($.trim($("#tbxTglPembayaran").val()) == "" || $.trim($("#tbxNominal").val()) == "") {
+            if (
+                $.trim($("#tbxTglPembayaran").val()) == "" ||
+                $.trim($("#tbxNominal").val()) == ""
+            ) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
-            } else
-                Transaction.Pembayaran(id);
-        })
+            } else Transaction.Pembayaran(id);
+        });
     },
     Konfirmasi: function (id) {
         swal({
@@ -153,12 +152,12 @@ var Transaction = {
             text: "Membatalkan penelitian ini",
             type: "question",
             showCancelButton: true,
-            confirmButtonText: "Yakin, batalkan!",
+            confirmButtonText: "Yakin, batalkan!"
         }).then(function (e) {
             if (e.value) {
                 Button.Hapus(id);
             }
-        })
+        });
     },
     Batal: function (id) {
         var btn = $("#btnHapus");
@@ -199,13 +198,18 @@ var Transaction = {
         model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
         model.append("PIC", $.trim($("#slsPIC").val()));
         model.append("catatan", $.trim($("#tbxCatatan").val()));
-        if ($("#inptMilestoneID").val() == 3 || $("#inptMilestoneID").val() == 4) {
+        if (
+            $("#inptMilestoneID").val() == 3 ||
+            $("#inptMilestoneID").val() == 4
+        ) {
             if ($("#inptKategoriID").val() != 1) {
                 var fileInput = document.getElementById("inptFile");
                 var uploadedFile = fileInput.files[0];
                 var FileSize = uploadedFile.size / 1024 / 1024;
                 if (FileSize > 5) {
-                    Common.Alert.Warning("Ukuran file tidak boleh lebih dari 5 MB");
+                    Common.Alert.Warning(
+                        "Ukuran file tidak boleh lebih dari 5 MB"
+                    );
                     return false;
                 }
                 if (uploadedFile == null) {
@@ -231,10 +235,7 @@ var Transaction = {
             })
             .done(function (data, textStatus, jqXHR) {
                 // if (Common.CheckError.Object(data) == true)
-                Common.Alert.SuccessRoute(
-                    "Berhasil menambahkan",
-                    "/Tracking"
-                );
+                Common.Alert.SuccessRoute("Berhasil menambahkan", "/Tracking");
                 btn.removeClass(
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);
@@ -269,10 +270,7 @@ var Transaction = {
             })
             .done(function (data, textStatus, jqXHR) {
                 // if (Common.CheckError.Object(data) == true)
-                Common.Alert.SuccessRoute(
-                    "Berhasil menambahkan",
-                    "/Tracking"
-                );
+                Common.Alert.SuccessRoute("Berhasil menambahkan", "/Tracking");
                 btn.removeClass(
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);
@@ -283,7 +281,6 @@ var Transaction = {
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);
             });
-
     }
 };
 
@@ -313,7 +310,10 @@ var Table = {
             },
             layout: {
                 scroll: false,
-                footer: false
+                footer: false,
+                spinner: {
+                    message: 'Mohon Bersabar . . . '
+                },
             },
             sortable: true,
             pagination: true,
@@ -331,7 +331,7 @@ var Table = {
                     textAlign: "center",
                     width: 50,
                     template: function (t) {
-                        var strBuilder = "-"
+                        var strBuilder = "-";
                         if (t.filePath != null) {
                             if (t.idMilestone == 3) {
                                 strBuilder =
@@ -363,10 +363,16 @@ var Table = {
                     title: "Durasi",
                     textAlign: "center",
                     template: function (t) {
-                        durasi = "-"
-                        if (t.idMilestone != 1 && t.idMilestone != 5 && t.durasi != null)
-                            durasi = t.durasi < 0 ? 'Terlambat ' + t.durasi + ' hari' :
-                            'Cepat ' + t.durasi + ' hari';
+                        durasi = "-";
+                        if (
+                            t.idMilestone != 1 &&
+                            t.idMilestone != 5 &&
+                            t.durasi != null
+                        )
+                            durasi =
+                            t.durasi < 0 ?
+                            "Terlambat " + t.durasi + " hari" :
+                            "Cepat " + t.durasi + " hari";
                         return durasi;
                     }
                 },
@@ -379,10 +385,12 @@ var Table = {
                         if (t.idMilestone == 1 || t.idMilestone == 5) {
                             status = "Selesai";
                         } else {
-                            if (t.durasi == null)
-                                status = "Sedang dikerjakan"
+                            if (t.durasi == null) status = "Sedang dikerjakan";
                             else
-                                status = t.durasi < 0 ? "Selesai Terlambat" : "Selesai Tepat Waktu";
+                                status =
+                                t.durasi < 0 ?
+                                "Selesai Terlambat" :
+                                "Selesai Tepat Waktu";
                         }
                         return status;
                     }
@@ -437,7 +445,7 @@ var Control = {
                     );
                 });
                 $("#slsPIC").select2({
-                    placeholder: "Pegawai UKHP",
+                    placeholder: "Pegawai UKHP"
                 });
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

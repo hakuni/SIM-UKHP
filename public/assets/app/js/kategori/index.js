@@ -47,7 +47,10 @@ var Table = {
             },
             layout: {
                 scroll: false,
-                footer: false
+                footer: false,
+                spinner: {
+                    message: 'Mohon Bersabar . . . '
+                },
             },
             sortable: true,
             pagination: true,

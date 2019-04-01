@@ -368,7 +368,7 @@
                             <span style="margin-right: 5px;">
                                 <i class="flaticon-calendar-1"></i>
                             </span>
-                            <span class="text-sm-left" id="txtEndPlan">
+                            <span class="text-sm-left">
                                 @if($vwDetailPenelitian['idMilestone'] != 5)
                                     @if ($vwDetailPenelitian['sisaDurasi'] < 0)
                                         Lewat {{ $vwDetailPenelitian['sisaDurasi'] }} Hari
@@ -390,16 +390,11 @@
 
         </div>
 
-        <!-- <div class="m-portlet__head-title ">
-            <h3 class="m-portlet__head-text" style="margin-bottom: 0px;margin-top: 20px;">
-                Perlakuan :
-            </h3>
+        <div class="m-portlet__head-title ">
+            <h6 class="m-portlet__head-text" style="margin-bottom: 0px;margin-top: 20px;">
+                Riwayat Penelitian :
+            </h6>
         </div>
-
-        <div class="m-scrollable mCustomScrollbar _mCS_5 mCS-autoHide m--margin-top-15" data-scrollbar-shown="true"
-            data-scrollable="true" data-max-height="380" style="overflow: visible; position: relative;">
-            <textarea readonly class="form-control m-input m-input--air" id="exampleTextarea" rows="4" style="margin-bottom: 30px;">{{ $vwDetailPenelitian['perlakuan'] }}</textarea>
-        </div> -->
 
         <div class="m_datatable" id="divHistory" style="margin-top: 20px">
 

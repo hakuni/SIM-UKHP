@@ -6,7 +6,7 @@
     <div class="row">
         <!-- chart penelitian -->
         <div class="col-xl-6">
-            <div class="m-portlet">
+            <div class="m-portlet" id="divPenelitian">
                 <div class="m-widget14">
                     <div class="m-widget14__header" style="padding-bottom:0px">
                         <div class="row align-items-center">
@@ -92,7 +92,7 @@
         <!-- end chart -->
         <!-- chart pemasukan keuangan -->
         <div class="col-xl-6">
-            <div class="m-portlet">
+            <div class="m-portlet" id="divKeuangan">
                 <div class="m-widget14">
                     <div class="m-widget14__header" style="padding-bottom:0px">
                         <div class="row align-items-center">
@@ -131,7 +131,7 @@
     <div class="row">
         <!-- chart jumlah hewan digunakan -->
         <div class="col-xl-12">
-            <div class="m-portlet">
+            <div class="m-portlet" id="divHewan">
                 <div class="m-widget14">
                     <div class="m-widget14__header" style="padding-bottom:0px">
                         <div class="row align-items-center">

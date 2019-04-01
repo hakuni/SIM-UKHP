@@ -10,6 +10,12 @@ jQuery(document).ready(function () {
                 $("#formRincian").modal({
                     backdrop: "static"
                 });
+                mApp.block("#formRincian", {
+                    overlayColor: "#000000",
+                    type: "loader",
+                    state: "primary",
+                    message: "Mohon Bersabar . . . "
+                });
             }
             Button.Init();
             Control.Init();
@@ -59,7 +65,10 @@ var Table = {
             },
             layout: {
                 scroll: false,
-                footer: false
+                footer: false,
+                spinner: {
+                    message: 'Mohon Bersabar . . . '
+                },
             },
             sortable: true,
             pagination: true,
@@ -136,7 +145,10 @@ var Table = {
             },
             layout: {
                 scroll: false,
-                footer: false
+                footer: false,
+                spinner: {
+                    message: 'Mohon Bersabar . . . '
+                },
             },
             sortable: true,
             pagination: true,
@@ -433,6 +445,7 @@ var Select = {
                 type: "GET"
             })
             .done(function (data, textStatus, jqXHR) {
+                mApp.unblock("#formRincian");
                 $("#slsMilestone").html("<option></option>");
                 $.each(data, function (i, item) {
                     if (item.idMilestone == 2 || item.idMilestone == 3 || item.idMilestone == 4) {
