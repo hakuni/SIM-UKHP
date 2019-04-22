@@ -70,18 +70,20 @@ var Table = {
                             '<a href="/Penelitian/UbahPenelitian/' +
                             t.idPenelitian +
                             '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Ubah Penelitian"><i class="la la-edit"></i></a>\t\t\t\t\t\t';
-                        strBuilder +=
-                            '<a href="/Keuangan/Rincian/' +
-                            t.idPenelitian +
-                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Biaya"><i class="la la-dollar"></i></a>\t\t\t\t\t\t';
+                        
                         var routeView = "/Penelitian/Prosedur/" + t.idPenelitian + "/" + t.idProsedur;
                         if (t.idProsedur == 0) {
                             routeView = "/Penelitian/TambahProsedur/" + t.idPenelitian;
                         }
-                        if (t.idKategori != 1)
+                        if (t.idKategori != 1){
                             strBuilder +=
-                            '<a href=' + routeView + ' class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Prosedur"><i class="la la-file-text"></i></a>';
-                        return strBuilder;
+                            '<a href=' + routeView + ' class="m-portlet__nav-link btn m-btn m-btn--hover-success m-btn--icon m-btn--icon-only m-btn--pill" title="Prosedur Penelitian"><i class="la la-file-text"></i></a>\t\t\t\t\t\t';
+                        }
+                            strBuilder +=
+                            '<a href="/Keuangan/Rincian/' +
+                            t.idPenelitian +
+                            '" class="m-portlet__nav-link btn m-btn m-btn--hover-warning m-btn--icon m-btn--icon-only m-btn--pill" title="Rincian Biaya"><i class="la la-dollar"></i></a>';
+                            return strBuilder;
                     }
                 },
                 {
@@ -91,7 +93,7 @@ var Table = {
                 },
                 {
                     field: "namaPeneliti",
-                    title: "Nama",
+                    title: "Nama Peneliti",
                     textAlign: "center"
                 },
                 {

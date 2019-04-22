@@ -5,9 +5,9 @@
             @php ($color = "")
                 @if ($vwPenelitian['idMilestone'] == "1")
                     @php ($color = "warning")
-                @elseif ($vwPenelitian['idMilestone'] == "2" || $vwPenelitian['idMilestone'] == "3" || $vwPenelitian['idMilestone'] == "4")
+                @elseif ($vwPenelitian['idMilestone'] == "2" || $vwPenelitian['idMilestone'] == "3" || $vwPenelitian['idMilestone'] == "4" || $vwPenelitian['idMilestone'] == "5")
                     @php ($color = "primary")
-                @elseif ($vwPenelitian['idMilestone'] == "5")
+                @elseif ($vwPenelitian['idMilestone'] == "6")
                     @php ($color = "success")
                 @endif
             <div class="m-widget2__item m-widget2__item--{{$color}}">

@@ -16,10 +16,10 @@ class CreateMstDataClients extends Migration
         Schema::create('mst_data_clients', function (Blueprint $table) {
             $table->increments('idDataClient');
             $table->string('namaPeneliti');
-            $table->string('instansiPeneliti');
+            $table->string('instansiPeneliti')->nullable();
             $table->string('telpPeneliti');
             $table->string('emailPeneliti');
-            $table->string('alamatPeneliti');
+            $table->string('alamatPeneliti')->nullable();
         });
     }
 

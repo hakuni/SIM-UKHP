@@ -34,8 +34,10 @@ class PenelitianController extends Controller
             $penelitian->lastMilestoneID = 1;
             $penelitian->PIC = auth()->user()->email;
             $penelitian->createdBy = auth()->user()->email;
-            $penelitian->resi = md5(microtime());
             $penelitian->currentDuration = $request->durasi;
+            $penelitian->save();
+            $penelitian = MstPenelitian::findOrFail($penelitian->idPenelitian);
+            $penelitian->resi = sprintf("%03d",$penelitian->idPenelitian).date('Y');
             $penelitian->save();
 
             //save Trx Log
@@ -150,8 +152,8 @@ class PenelitianController extends Controller
         try{
             //update mst penelitian
             $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
-            if($penelitian->idKategori == 1 && $penelitian->lastMilestoneID != 4)
-                $penelitian->lastMilestoneID = 4;
+            if($penelitian->idKategori == 1 && $penelitian->lastMilestoneID != 5)
+                $penelitian->lastMilestoneID = 5;
             else
                 $penelitian->lastMilestoneID = $request->idMilestone+1;
             if($request->PIC != null)
@@ -164,7 +166,7 @@ class PenelitianController extends Controller
             if($cek){ //trx done
                 $trx = $cek;
                 $trx->endDate = date('y-m-d');
-                if($request->idMilestone == 3 || $request->idMilestone == 4){
+                if($request->idMilestone == 4 || $request->idMilestone == 5){
                     //upload file
                     if($request->hasFile('doc')){
                         $upload = $this->uploadFile($request);
@@ -178,7 +180,7 @@ class PenelitianController extends Controller
                 $transaksi = $trx;
             }
 
-            if($request->idMilestone != 4){
+            if($request->idMilestone != 5){
                 //create trx
                 $transaksi = new TrxPenelitian;
                 $prosedur = $penelitian->prosedur()->first(); //get durasi tahapan penelitian
@@ -195,6 +197,10 @@ class PenelitianController extends Controller
                 else if($request->idMilestone == 3){
                     $transaksi->durasi = $prosedur->tahap3;
                     $penelitian->currentDuration = $prosedur->tahap3;
+                }
+                else if($request->idMilestone == 4){
+                    $transaksi->durasi = $prosedur->tahap4;
+                    $penelitian->currentDuration = $prosedur->tahap4;
                 }
 
                 $transaksi->idPenelitian = $request->idPenelitian;
@@ -215,7 +221,7 @@ class PenelitianController extends Controller
 
             //save log trx
             $milestone = $transaksi->milestone()->first()->namaMilestone;
-            if($penelitian->idKategori == 1 && $request->idMilestone == 4)
+            if($penelitian->idKategori == 1 && $request->idMilestone == 5)
                 $milestone = $penelitian->milestone()->first()->namaMilestone;
 
             $log = $this->saveTrxLog($request->idPenelitian, $milestone, $transaksi->PIC);
@@ -278,7 +284,7 @@ class PenelitianController extends Controller
     private function uploadFile(Request $request){
         try{
             $penelitian = MstPenelitian::findOrFail($request->idPenelitian);
-            $judul = $peneltitian->prosedur()->first()->judulPenelitian;
+            $judul = $penelitian->prosedur()->first()->judulPenelitian;
             $dataClient = $penelitian->dataClient()->first();
 
             $metaFileName = $request->idMilestone == 3 ? "Data Pengujian " : "Analisis ";
@@ -292,7 +298,7 @@ class PenelitianController extends Controller
             return $path;
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(422);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
         }
     }
 
@@ -319,7 +325,7 @@ class PenelitianController extends Controller
             return "success";
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(422);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
         }
     }
 
@@ -337,7 +343,7 @@ class PenelitianController extends Controller
             return $dataClient;
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(422);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
         }
     }
 

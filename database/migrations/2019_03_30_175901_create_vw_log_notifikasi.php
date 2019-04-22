@@ -28,6 +28,7 @@ SQL;
 CREATE VIEW `vw_log_notifikasi` AS
 SELECT
     `mp`.`idPenelitian` AS `idPenelitian`,
+    `tp`.`idTrxPenelitian` AS `idTrxPenelitian`,
     `mp`.`PIC` AS `PIC`,
     `mdc`.`namaPeneliti` AS `namaPeneliti`,
     `k`.`namaKategori` AS `namaKategori`,
@@ -39,7 +40,7 @@ FROM
     `mst_penelitians` `mp`  JOIN `mst_data_clients` `mdc` ON `mp`.`idDataClient` = `mdc`.`idDataClient`
     JOIN `mst_milestones` `mm` ON `mp`.`lastMilestoneID` = `mm`.`idMilestone`
     JOIN `kategoris` `k` ON `mp`.`idKategori` = `k`.`idKategori`
-    LEFT JOIN `trx_penelitians` `tp` ON `mp`.`idPenelitian` = `tp`.`idPenelitian`
+    LEFT JOIN `trx_penelitians` `tp` ON `mp`.`idPenelitian` = `tp`.`idPenelitian` AND `tp`.`idMilestone` = `mp`.`lastMilestoneID`
 SQL;
     }
 }

@@ -59,17 +59,20 @@ var Common = {
                 title: "Success!",
                 text: message,
                 type: "success",
+                showConfirmButton: !1,
+                timer:1500,
             })
         },
         SuccessRoute: function (message, url) {
             swal({
                     title: "Success!",
                     text: message,
-                    type: "success"
+                    type: "success",
+                    showConfirmButton: !1,
+                    timer:1500,
                 })
-                .then(function (isConfirm) {
-                    if (isConfirm)
-                        window.location.href = url;
+                .then(function () {
+                    window.location.href = url;
                 })
         },
         PromptRedirect: function (message, url) {
@@ -150,30 +153,6 @@ var App = {
             }
         })
     },
-    Role: function () {
-        var role = localStorage.getItem('role');
-        $.ajax({
-                url: "/api/role",
-                type: "GET"
-            })
-            .done(function (data, textStatus, jqXHR) {
-                $(".role").html("<option></option>");
-                $.each(data, function (i, item) {
-                    if (item.idRole == role) {
-                        $(".role").append("<option value='" + item.idRole + "' selected>" + item.namaRole + "</option>");
-                    } else {
-                        $(".role").append("<option value='" + item.idRole + "'>" + item.namaRole + "</option>");
-                    }
-                });
-                $("#slsRole").select2({
-                    placeholder: "Role"
-                })
-                $("#slsRoleProfil").select2();
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                Common.Alert.Error(errorThrown);
-            });
-    },
     ModalAkun: function () {
         var id = localStorage.getItem('idUser');
         $.ajax({
@@ -184,7 +163,6 @@ var App = {
             .done(function (data, textStatus, jqXHR) {
                 $("#tbxNamaProfil").val(data.namaUser);
                 $("#tbxEmailProfil").val(data.email);
-                App.Role();
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -195,7 +173,6 @@ var App = {
             id: localStorage.getItem('idUser'),
             email: $("#tbxEmailProfil").val(),
             namaUser: $("#tbxNamaProfil").val(),
-            idRole: $("#slsRoleProfil").val(),
             password: $("#tbxPassProfil").val()
         }
         $.ajax({
@@ -277,10 +254,19 @@ jQuery(document).ready(function () {
         },
         // crossDomain: true
     });
-
-    if (localStorage.getItem('role') == 2) {}
-    if (localStorage.getItem('role') == 3) {}
-    if (localStorage.getItem('role') == 4) {}
+    if (localStorage.getItem('role') == 1 || localStorage.getItem('role') == 4) {
+        $(".ukhp").show();
+        $(".inven").show();
+        $(".master").show();
+    }
+    // if (localStorage.getItem('role') == 2) {
+    // }
+    if (localStorage.getItem('role') == 3) {
+        $(".ukhp").show();
+    }
+    if (localStorage.getItem('role') == 5) {
+        $(".inven").show();
+    }
 
     $("#nama").html(localStorage.getItem('namaUser'));
     $("#jabatan").html(localStorage.getItem('namaRole'));

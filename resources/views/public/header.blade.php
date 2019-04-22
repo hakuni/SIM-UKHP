@@ -191,7 +191,7 @@
                                                         </button>
                                                         <button onclick="App.Logout()"
                                                             class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">
-                                                            Logout
+                                                            Keluar
                                                         </button>
                                                     </li>
                                                 </ul>

@@ -110,7 +110,8 @@ class UserController extends Controller
             $notifLog = vwNotifikasi::where('statusTelat', $statusTelat)
                             ->where('PIC', $user->email)
                             ->where('idMilestone', '!=', 5)->get();
-            $total = count(vwNotifikasi::where('idMilestone', '!=', 5)->get());
+            $total = count(vwNotifikasi::where('idMilestone', '!=', 5)
+                                        ->where('PIC', auth()->user()->email)->get());
             if(count($notifLog))
                 $notifLog[0]->total = $total;
             return response($notifLog);
@@ -145,7 +146,7 @@ class UserController extends Controller
                              ->withCookie(cookie()->forever('email', $auth->email));
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(422);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
         }
     }
     public function logoutUser(){
@@ -156,7 +157,7 @@ class UserController extends Controller
             return response('Successfully Logged Out');
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(422);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
         }
     }
     public function cekToken(){
@@ -165,7 +166,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Selamat datang kembali'])->setStatusCode(200);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
     #endregion
@@ -177,7 +178,7 @@ class UserController extends Controller
             return response($trackData);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
     #endregion

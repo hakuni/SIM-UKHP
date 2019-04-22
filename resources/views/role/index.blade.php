@@ -1,5 +1,5 @@
 @extends('public.index')
-@section('title', 'Role')
+@section('title', 'Jabatan')
 @section('content')
 
 <div class="m-content">
@@ -10,7 +10,7 @@
                     <div class="m-portlet__head-caption">
                         <div class="m-portlet__head-title">
                             <h3 class="m-portlet__head-text">
-                                Daftar Role
+                                Daftar Jabatan
                             </h3>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">
-                                                Tambah Role
+                                                Tambah Jabatan
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">
@@ -50,7 +50,7 @@
                                         <div class="modal-body">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Nama Role <strong style="color:red" ;>*</strong> :
+                                                    Nama Jabatan <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                                     <input type="text" id="tbxRole" class="form-control m-input"
@@ -76,7 +76,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">
-                                                Ubah Role
+                                                Ubah Jabatan
                                             </h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">
@@ -87,7 +87,7 @@
                                         <div class="modal-body">
                                             <div class="form-group m-form__group row">
                                                 <label class="col-form-label col-lg-3 col-sm-12">
-                                                    Nama Role <strong style="color:red" ;>*</strong> :
+                                                    Nama Jabatan <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                                     <input type="text" id="tbxRoleUbah" class="form-control m-input"
@@ -113,7 +113,7 @@
                                     <span>
                                         <i class="fa fa-plus"></i>
                                         <span>
-                                            Tambah Role
+                                            Tambah Jabatan
                                         </span>
                                     </span>
                                 </a>

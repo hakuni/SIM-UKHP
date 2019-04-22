@@ -25,6 +25,7 @@
 @elseif ($vwDetailPenelitian['idProsedur'] != 0  || $vwDetailPenelitian['idKategori'] == 1)
 <input type="hidden" value="{{$vwDetailPenelitian['idMilestone']}}" id="inptMilestoneID">
 <input type="hidden" value="{{$vwDetailPenelitian['idKategori']}}" id="inptKategoriID">
+<input type="hidden" value="{{$prosedur['laporan']}}" id="statusLaporan">
 <div class="m-portlet m-portlet--mobile">
     <div class="m-portlet__head">
         <div class="m-portlet__head-caption">
@@ -51,16 +52,115 @@
         <div class="form-group m-form__group">
             <div class="alert m-alert m-alert--default" role="alert" style="margin-bottom: 20px;">
                 <div class="col-lg-12 m--align-center">
-                    <a href="/UbahPenelitian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-primary btn-m m-btn m-btn--icon m-btn--pill m-btn--air"
-                        style="margin-right: 10px;">
-                        <span>
-                            <i class="la la-edit"></i>
-                            <span>
-                                Ubah Penelitian
-                            </span>
-                        </span>
-                    </a>
                     <!-- modal -->
+                    <!-- prosedur -->
+                    <div class="modal hide fade" id="prosedur" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">
+                                        Prosedur Penelitian
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">
+                                            &times;
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-form-label col-lg-3 m--align-right" !important>
+                                        Hewan :
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control m-input" value="{{$prosedur['keteranganHewan']}}" disabled/>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                        Keterangan Hewan :
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" value="{{$prosedur['keteranganHewan']}}" class="form-control m-input" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                        Kelompok Perlakuan :
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <textarea type="text" class="form-control m-input" rows="4" disabled>{{$prosedur['perlakuan']}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                        Parameter Uji :
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <textarea type="text" class="form-control m-input" rows="4" disabled>{{$prosedur['parameterUji']}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group m-form__group row">
+                                    <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                        Desain Penelitian :
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <textarea type="text" class="form-control m-input" rows="4" disabled>{{$prosedur['desainPenelitian']}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="m-form__group form-group row">
+                                    @if($prosedur['etikHewan'] == 1)
+                                        @php ($checked1 = 'checked')
+                                        @php ($checked2 = '')
+                                    @else
+                                        @php($checked1 = '')
+                                        @php ($checked2 = 'checked')
+                                    @endif
+                                    <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                        Etik Hewan :
+                                    </label>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                        <label class="m-radio m-radio--solid m-radio--success">
+                                            <input type="radio" name="etikHewan" value="1" id="ya" {{$checked1}} disabled>
+                                            Ya
+                                            <span></span>
+                                        </label>
+                                        <label class="m-radio m-radio--solid m-radio--success">
+                                            <input type="radio" name="etikHewan" value="0" id="tidak" {{$checked2}} disabled>
+                                            Tidak
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="m-form__group form-group row">
+                                    @if($prosedur['laporan'] == 1)
+                                        @php ($checked1 = 'checked')
+                                        @php ($checked2 = '')
+                                    @else
+                                        @php($checked1 = '')
+                                        @php ($checked2 = 'checked')
+                                    @endif
+                                    <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                        Laporan :
+                                    </label>
+                                    <div class="col-lg-3 col-md-3 col-sm-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                        <label class="m-radio m-radio--solid m-radio--success">
+                                            <input type="radio" name="laporan" value="1" id="ya" {{$checked1}} disabled>
+                                            Ya
+                                            <span></span>
+                                        </label>
+                                        <label class="m-radio m-radio--solid m-radio--success">
+                                            <input type="radio" name="laporan" value="0" id="tidak" {{$checked2}} disabled>
+                                            Tidak
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- form pembayaran -->
                     <div class="modal hide fade" id="formPembayaran" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
@@ -114,16 +214,20 @@
                         </div>
                     </div>
                     <!-- form laporan penelitian -->
-                    @if ($vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4)
+                    @if ($vwDetailPenelitian['idMilestone'] == 4 || $vwDetailPenelitian['idMilestone'] == 5)
                     <div class="modal hide fade" id="$vwDetailPenelitian['idMilestone']" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title">
-                                        @if ($vwDetailPenelitian['idMilestone'] == 3)
-                                        Analisis
-                                        @elseif ($vwDetailPenelitian['idMilestone'] == 4)
+                                        @if ($vwDetailPenelitian['idMilestone'] == 4)
+                                            @if($prosedur['laporan'] == 1)
+                                                Pembuatan Laporan
+                                            @else  
+                                                Selesai
+                                            @endif
+                                        @elseif ($vwDetailPenelitian['idMilestone'] == 5)
                                         Selesai
                                         @endif
                                     </h5>
@@ -137,9 +241,9 @@
                                     @if ($vwDetailPenelitian['idKategori'] != 1)
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
-                                            @if ($vwDetailPenelitian['idMilestone'] == 3)
+                                            @if ($vwDetailPenelitian['idMilestone'] == 4)
                                             Data <strong style="color:red" ;>*</strong> :
-                                            @elseif ($vwDetailPenelitian['idMilestone'] == 4)
+                                            @elseif ($vwDetailPenelitian['idMilestone'] == 5)
                                             Hasil <strong style="color:red" ;>*</strong> :
                                             @endif
                                         </label>
@@ -150,7 +254,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($vwDetailPenelitian['idMilestone'] == 3)
+                                    @if ($vwDetailPenelitian['idMilestone'] == 4)
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important">
                                             Analis <strong style="color:red" ;>*</strong> :
@@ -175,14 +279,14 @@
                                         Batal
                                     </button>
                                     <button type="button" class="btn btn-success" id="btnTambah">
-                                        Tambah
+                                        Lanjut
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- form alur penelitian -->
-                    @elseif ($vwDetailPenelitian['idMilestone'] == 1 || $vwDetailPenelitian['idMilestone'] == 2)
+                    @elseif ($vwDetailPenelitian['idMilestone'] == 1 || $vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3)
                     <div class="modal hide fade" id="$vwDetailPenelitian['idMilestone']" role="dialog" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -192,7 +296,9 @@
                                         @if ($vwDetailPenelitian['idMilestone'] == 1)
                                         Mulai Penelitian
                                         @elseif ($vwDetailPenelitian['idMilestone'] == 2)
-                                        Pengujian
+                                        Pemeliharaan
+                                        @elseif ($vwDetailPenelitian['idMilestone'] == 3)
+                                        Perlakuan
                                         @endif
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -211,7 +317,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    @if ($vwDetailPenelitian['idMilestone'] == 2)
+                                    @if ($vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3)
                                     <div class="form-group m-form__group row">
                                         <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
                                             Catatan :
@@ -243,7 +349,7 @@
                                         Batal
                                     </button>
                                     <button type="button" class="btn btn-success" id="btnTambah">
-                                        Tambah
+                                        Lanjut
                                     </button>
                                 </div>
                             </div>
@@ -251,6 +357,15 @@
                     </div>
                     @endif
                     <!-- button -->
+                    <!-- prosedur -->
+                    <a href="#" class="btn btn-primary btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px" data-toggle="modal" data-target="#prosedur">
+                        <span>
+                            <i class="la la-file"></i>
+                            <span>
+                                Lihat Prosedur
+                            </span>
+                        </span>
+                    </a>
                     <!-- cek biaya penelitian -->
                     @if ($vwDetailPenelitian['biaya'] == 0)
                         <a href="/Keuangan/Rincian/{{ $vwDetailPenelitian['idPenelitian'] }}" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px">
@@ -292,7 +407,7 @@
                             </button>
                         @endif
                     <!-- else if (penelitian sudah mulai) -->
-                    @elseif ($vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4)
+                    @elseif ($vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4 || $vwDetailPenelitian['idMilestone'] == 5)
                     <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air btn-generate" id="btnTrx"
                         style="margin-left:10px; margin-right:10px" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']">
                         <span>
@@ -303,6 +418,12 @@
                                 @elseif($vwDetailPenelitian['idMilestone'] == 3)
                                     Mulai Analisis
                                 @elseif($vwDetailPenelitian['idMilestone'] == 4)
+                                    @if($prosedur['laporan'] == 1)
+                                        Pembuatan Laporan
+                                    @else
+                                        Selesai
+                                    @endif
+                                @elseif($vwDetailPenelitian['idMilestone'] == 5)
                                     Selesai
                                 @endif
                                 <!-- {{ $vwDetailPenelitian['namaMilestone'] }} -->
@@ -369,7 +490,7 @@
                                 <i class="flaticon-calendar-1"></i>
                             </span>
                             <span class="text-sm-left">
-                                @if($vwDetailPenelitian['idMilestone'] != 5)
+                                @if($vwDetailPenelitian['idMilestone'] != 6)
                                     @if ($vwDetailPenelitian['sisaDurasi'] < 0)
                                         Lewat {{ $vwDetailPenelitian['sisaDurasi'] }} Hari
                                     @elseif ($vwDetailPenelitian['sisaDurasi'] == NULL)

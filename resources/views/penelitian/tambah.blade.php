@@ -50,7 +50,7 @@
 								Durasi <strong style="color:red";>*</strong> :
 							</label>
 							<div class="col-lg-2">
-								<input type="number" class="form-control m-input" value=0 id="tbxDurasi" name="tbxDurasi" required>
+								<input type="number" class="form-control m-input" min="0" value=0 id="tbxDurasi" name="tbxDurasi" required>
                             </div>
                             <label class="col-form-label">
 								Hari
@@ -58,7 +58,7 @@
 						</div>
 						<div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">
-								Nama <strong style="color:red";>*</strong> :
+								Nama Peneliti <strong style="color:red";>*</strong> :
 							</label>
 							<div class="col-lg-6">
 								<input type="text" class="form-control m-input" id="tbxNamaPeneliti" name="tbxNamaPeneliti" required>
@@ -66,10 +66,10 @@
 						</div>
 						<div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">
-								Instansi <strong style="color:red" ;>*</strong> :
+								Instansi :
 							</label>
 							<div class="col-lg-6">
-								<input type="text" class="form-control m-input" id="tbxInstansi" name="tbxInstansi" class="form-control m-input" required>
+								<input type="text" class="form-control m-input" id="tbxInstansi" name="tbxInstansi" class="form-control m-input">
 							</div>
                         </div>
                         <div class="form-group m-form__group row">
@@ -90,7 +90,7 @@
 						</div>
 						<div class="form-group m-form__group row">
 							<label class="col-form-label col-lg-3 col-sm-12">
-								Alamat <strong style="color:red" ;>*</strong> :
+								Alamat :
 							</label>
 							<div class="col-lg-6">
 								<textarea type="text" class="form-control m-input" class="form-control m-input" id="tbxAlamat" name="tbxAlamat" rows="4"></textarea>

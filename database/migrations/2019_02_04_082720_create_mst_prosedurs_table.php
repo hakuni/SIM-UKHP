@@ -23,9 +23,12 @@ class CreateMstProsedursTable extends Migration
             $table->text('perlakuan');
             $table->text('parameterUji');
             $table->text('desainPenelitian');
+            $table->boolean('etikHewan');
+            $table->boolean('laporan');
             $table->integer('tahap1');
             $table->integer('tahap2');
             $table->integer('tahap3');
+            $table->integer('tahap4');
 
             //foreign key
             $table->foreign('idPenelitian')->references('idPenelitian')->on('mst_penelitians')->onDelete('cascade');

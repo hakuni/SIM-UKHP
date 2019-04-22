@@ -79,7 +79,7 @@ Route::get('/Layanan', 'View\MasterController@layanan');
 // user
 Route::get('/Pengguna', 'View\MasterController@pengguna');
 // role
-Route::get('/Role', 'View\MasterController@role');
+Route::get('/Jabatan', 'View\MasterController@role');
 #endregion
 
 //logout

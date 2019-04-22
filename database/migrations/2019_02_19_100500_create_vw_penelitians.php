@@ -41,6 +41,7 @@ SELECT
     `mdc`.`alamatPeneliti` AS `alamatPeneliti`,
     `sp`.`idStatusPenelitian` AS `idStatusPenelitian`,
     `sp`.`namaStatus` AS `namaStatus`,
+    case when `p`.`currentDuration` is null then 0 else `p`.`currentDuration` end AS `durasi`,
     CASE WHEN ISNULL(`mp`.`idProsedur`) THEN 0 ELSE `mp`.`idProsedur` END AS `idProsedur`,
     `p`.`updated_at`,
     CASE WHEN (SELECT SUM(`l`.`totalPembayaran`) AS `bayar` FROM `log_pembayarans` `l` WHERE `l`.`idPenelitian` = `p`.`idPenelitian`)

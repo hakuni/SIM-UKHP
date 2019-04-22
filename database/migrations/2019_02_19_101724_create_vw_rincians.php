@@ -36,7 +36,7 @@ SELECT
     `mm`.`namaMilestone`,
     `r`.`jumlah`,
     `r`.`harga`,
-    (`r`.`jumlah` * `r`.`harga`) AS `total`
+    (`r`.`jumlah` * `r`.`harga` * `r`.`keterangan`) AS `total`
 FROM
     `rincian_biayas` `r` LEFT JOIN `mst_penelitians` `p` 
     ON `r`.`idPenelitian` = `p`.`idPenelitian`

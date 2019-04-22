@@ -24,7 +24,7 @@ class CreateMstMilestones extends Migration
         return <<<SQL
 INSERT INTO `mst_milestones` (`idMilestone`, `namaMilestone`) 
 VALUES (NULL, 'Pembuatan Prosedur'), (NULL, 'Pemeliharaan'), (NULL, 'Perlakuan'),
-(NULL, 'Analisis'), (NULL, 'Selesai');
+(NULL, 'Analisis'), (NULL, 'Pembuatan Laporan'), (NULL, 'Selesai');
 SQL;
     }
 

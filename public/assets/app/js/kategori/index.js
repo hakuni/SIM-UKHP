@@ -82,6 +82,7 @@ var Table = {
                 },
                 {
                     field: "namaKategori",
+                    sortable: 'asc',
                     title: "Kategori Penelitian",
                     textAlign: "center"
                 }

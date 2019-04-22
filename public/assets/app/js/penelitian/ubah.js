@@ -42,6 +42,15 @@ var Control = {
                 $("#slsKategori").select2({
                     placeholder: "Pilih Kategori"
                 });
+                if ($("#slsKategori").val() == 1) 
+                    $("#durasiKat1").show();
+                $("#slsKategori").on("change", function () {
+                    if ($("#slsKategori").val() == 1) {
+                        $("#durasiKat1").show();
+                    } else {
+                        $("#durasiKat1").hide();
+                    }
+                })
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -59,9 +68,6 @@ var Form = {
                 tbxNamaPeneliti: {
                     required: true
                 },
-                tbxInstansi: {
-                    required: true
-                },
                 tbxNoHP: {
                     required: true,
                     maxlength: 14
@@ -70,7 +76,7 @@ var Form = {
                     required: true,
                     email: true
                 },
-                tbxAlamat: {
+                tbxDurasi: {
                     required: true
                 }
             },
@@ -96,6 +102,7 @@ var Transaction = function () {
         telpPeneliti: $("#tbxNoHP").val(),
         emailPeneliti: $("#tbxEmail").val(),
         alamatPeneliti: $("#tbxAlamat").val(),
+        durasi: $("#tbxDurasi").val(),
         statusPenelitian: 1
     };
 

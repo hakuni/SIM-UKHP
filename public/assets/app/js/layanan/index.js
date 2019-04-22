@@ -76,7 +76,8 @@ var Table = {
                 },
                 {
                     field: "namaAlatBahan",
-                    title: "Item",
+                    sortable: 'asc',
+                    title: "Nama Item",
                     textAlign: "center"
                 },
                 {

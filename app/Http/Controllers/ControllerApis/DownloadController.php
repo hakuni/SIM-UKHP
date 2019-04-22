@@ -50,7 +50,7 @@ class DownloadController extends Controller
             return response()->download(storage_path($filename))->deleteFileAfterSend(true);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(422);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
         }
     }
     
@@ -150,7 +150,7 @@ class DownloadController extends Controller
             return response()->download(storage_path($filename))->deleteFileAfterSend(true);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(422);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
         }
     }
 
@@ -195,7 +195,7 @@ class DownloadController extends Controller
             return response()->download($path);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
 
@@ -206,7 +206,7 @@ class DownloadController extends Controller
             return response()->download($path);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
 }

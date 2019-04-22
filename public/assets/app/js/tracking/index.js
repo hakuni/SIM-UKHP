@@ -29,7 +29,7 @@ var Page = {
         $(".TaskOrderBy").on("click", function () {
             var order = this.id;
             if (order == 1) {
-                $("#order").html("Terbaru");
+                $("#order").html("Semua");
             } else {
                 $("#order").html("Saya");
             }
@@ -70,7 +70,7 @@ var Get = {
             success: function (data) {
                 mApp.unblock("#detailPenelitian");
                 $("#detailPenelitian").html(data);
-                if ($("#inptMilestoneID").val() == 5) {
+                if ($("#inptMilestoneID").val() == 6) {
                     $("#btnTrx").hide();
                 }
                 Transaction.Init(id);
@@ -195,13 +195,15 @@ var Transaction = {
 
         var model = new FormData();
         model.append("idPenelitian", id);
-        model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
+        if($("#statusLaporan").val() != 1 && $("#inptMilestoneID").val() == 4){
+            model.append("idMilestone", 5);
+        }
+        else
+            model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
         model.append("PIC", $.trim($("#slsPIC").val()));
         model.append("catatan", $.trim($("#tbxCatatan").val()));
         if (
-            $("#inptMilestoneID").val() == 3 ||
-            $("#inptMilestoneID").val() == 4
-        ) {
+            $("#inptMilestoneID").val() == 4 || $("#inptMilestoneID").val() == 5) {
             if ($("#inptKategoriID").val() != 1) {
                 var fileInput = document.getElementById("inptFile");
                 var uploadedFile = fileInput.files[0];
@@ -333,12 +335,12 @@ var Table = {
                     template: function (t) {
                         var strBuilder = "-";
                         if (t.filePath != null) {
-                            if (t.idMilestone == 3) {
+                            if (t.idMilestone == 4) {
                                 strBuilder =
                                     '<a href="/DataPenelitian/ ' +
                                     t.idPenelitian +
                                     '" class="m-portlet__nav-link btn m-btn m-btn--hover-primary m-btn--icon m-btn--icon-only m-btn--pill" title="Data Penelitian"><i class="la la-download"></i></a>\t\t\t\t\t\t';
-                            } else if (t.idMilestone == 4) {
+                            } else if (t.idMilestone == 5) {
                                 strBuilder =
                                     '<a href="/AnalisisPenelitian/ ' +
                                     t.idPenelitian +
@@ -366,7 +368,7 @@ var Table = {
                         durasi = "-";
                         if (
                             t.idMilestone != 1 &&
-                            t.idMilestone != 5 &&
+                            t.idMilestone != 6 &&
                             t.durasi != null
                         )
                             durasi =
@@ -382,7 +384,7 @@ var Table = {
                     textAlign: "center",
                     template: function (t) {
                         var status = "";
-                        if (t.idMilestone == 1 || t.idMilestone == 5) {
+                        if (t.idMilestone == 1 || t.idMilestone == 6) {
                             status = "Selesai";
                         } else {
                             if (t.durasi == null) status = "Sedang dikerjakan";

@@ -93,6 +93,54 @@
                                 <textarea type="text" class="form-control m-input" id="tbxDesain" name="tbxDesain" rows="4" required>{{$prosedur['desainPenelitian']}}</textarea>
                             </div>
                         </div>
+                        <div class="m-form__group form-group row">
+                            <label class="col-form-label col-lg-3 col-sm-12">
+                                Etik Hewan :
+                            </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                @if($prosedur['etikHewan'] == 1)
+                                    @php ($checked1 = 'checked')
+                                    @php ($checked2 = '')
+                                @else
+                                    @php($checked1 = '')
+                                    @php ($checked2 = 'checked')
+                                @endif
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="etikHewan" value="1" id="ya" {{$checked1}}>
+                                    Ya
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="etikHewan" value="0" id="tidak" {{$checked2}}>
+                                    Tidak
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="m-form__group form-group row">
+                            @if($prosedur['laporan'] == 1)
+                                @php ($checked1 = 'checked')
+                                @php ($checked2 = '')
+                            @else
+                                @php($checked1 = '')
+                                @php ($checked2 = 'checked')
+                            @endif
+                            <label class="col-form-label col-lg-3 col-sm-12">
+                                Laporan :
+                            </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="laporan" value="1" id="ya" {{$checked1}}>
+                                    Ya
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="laporan" value="0" id="tidak" {{$checked2}}>
+                                    Tidak
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
                         <div class="m-portlet__head">
                             <div class="m-portlet__head-title">
                                 <span class="m-portlet__head-icon m--hide">
@@ -114,36 +162,82 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 1 <strong style="color:red" ;>*</strong> :
+                                Pemeliharaan :
                             </label>
-                            <div class="col-lg-3" style="padding-right:0px">
-                                <input type="number" value="{{$prosedur['tahap1']}}" id="tbxDurasi1" name="tbxDurasi1" class="form-control m-input" required>
+                            <div class="col-lg-2" style="padding-right:0px">
+                                <input type="number" value="{{$prosedur['tahap1']}}" id="tbxDurasi1" name="tbxDurasi1" class="form-control m-input">
+                            </div><div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="pemeliharaan" value="1" id="hari" checked>
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="pemeliharaan" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
                             </div>
-                            <a class="col-form-label col-lg-1 col-sm-1">
-                                Hari
-                            </a>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 2 <strong style="color:red" ;>*</strong> :
+                                Perlakuan :
                             </label>
-                            <div class="col-lg-3" style="padding-right:0px">
-                                <input type="number" value="{{$prosedur['tahap2']}}" id="tbxDurasi2" name="tbxDurasi2" class="form-control m-input" required>
+                            <div class="col-lg-2" style="padding-right:0px">
+                                <input type="number" value="{{$prosedur['tahap2']}}" id="tbxDurasi2" name="tbxDurasi2" class="form-control m-input">
                             </div>
-                            <a class="col-form-label col-lg-1 col-sm-1">
-                                Hari
-                            </a>
+                            <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="perlakuan" value="1" id="hari" checked>
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="perlakuan" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 3 <strong style="color:red" ;>*</strong> :
+                                Analisis :
                             </label>
-                            <div class="col-lg-3" style="padding-right:0px">
-                                <input type="number" value="{{$prosedur['tahap3']}}" id="tbxDurasi3" name="tbxDurasi3" class="form-control m-input" required>
+                            <div class="col-lg-2" style="padding-right:0px">
+                                <input type="number" value="{{$prosedur['tahap3']}}" id="tbxDurasi3" name="tbxDurasi3" class="form-control m-input">
                             </div>
-                            <a class="col-form-label col-lg-1 col-sm-1">
-                                Hari
-                            </a>
+                            <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="analisis" value="1" id="hari" checked>
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="analisis" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-form-label col-lg-3 col-sm-12">
+                                Pembuatan Laporan :
+                            </label>
+                            <div class="col-lg-2" style="padding-right:0px">
+                                <input type="number" value="{{$prosedur['tahap4']}}" id="tbxDurasi4" name="tbxDurasi4" class="form-control m-input">
+                            </div>
+                            <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="durasiLaporan" value="1" id="hari" checked>
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="durasiLaporan" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 

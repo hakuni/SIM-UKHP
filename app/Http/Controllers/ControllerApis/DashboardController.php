@@ -15,7 +15,7 @@ class DashboardController extends Controller
             return response($pemasukan);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
 
@@ -26,7 +26,7 @@ class DashboardController extends Controller
             return response($kategori);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
 
@@ -37,7 +37,7 @@ class DashboardController extends Controller
             return response($penggunaan);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
 
@@ -55,7 +55,7 @@ class DashboardController extends Controller
             return response($banyak);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
 
@@ -83,7 +83,7 @@ class DashboardController extends Controller
             return response($banyak);
         }
         catch(\Exception $e){
-            return response($e->getMessage())->setStatusCode(404);
+            return response()->json(['message' => $e->getMessage()])->setStatusCode(404);
         }
     }
 }

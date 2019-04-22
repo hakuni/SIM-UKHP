@@ -12,7 +12,16 @@ class ProsedurController extends Controller
     public function saveProsedur(Request $request){
         try{
             $prosedur = $request->isMethod('post') ? new MstProsedur : MstProsedur::findOrFail($request->idProsedur);
-            $prosedur->fill($request->all());
+            $prosedur->fill($request->except(['tipe1', 'tipe2', 'tipe3', 'tipe4']));
+
+            if($request->tipe1 != 1)
+                $prosedur->tahap1 = $request->tahap1 * 7;
+            if($request->tipe2 != 1)
+                $prosedur->tahap2 = $request->tahap2 * 7;
+            if($request->tipe3 != 1)
+                $prosedur->tahap3 = $request->tahap3 * 7;
+            if($request->tipe4 != 1)
+                $prosedur->tahap4 = $request->tahap4 * 7;
 
             if($request->isMethod('put'))
                 $prosedur->updatedBy = auth()->user()->email;

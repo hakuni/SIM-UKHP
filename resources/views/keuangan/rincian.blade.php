@@ -62,7 +62,7 @@
                                                 <div class="modal-body">
                                                     <div class="form-group m-form__group row">
                                                         <label class="col-form-label col-lg-3 col-sm-12">
-                                                            Milestone <strong style="color:red" ;>*</strong> :
+                                                            Tahapan <strong style="color:red" ;>*</strong> :
                                                         </label>
                                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                                             <select class="form-control m-select2" id="slsMilestone"
@@ -84,7 +84,7 @@
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <label class="col-form-label">
-                                                                Keterangan :
+                                                                Faktor Pengali <strong style="color:red" ;>*</strong> :
                                                             </label>
                                                         </div>
                                                     </div>

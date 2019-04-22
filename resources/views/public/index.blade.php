@@ -73,15 +73,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Role <strong style="color:red" ;>*</strong> :
-                            </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control m-select2 role" id="slsRoleProfil"
-                                    style="width:550px"></select>
-                            </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                            <label class="col-form-label col-lg-3 col-sm-12">
                                 Kata Sandi :
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">

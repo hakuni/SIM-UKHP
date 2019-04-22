@@ -78,6 +78,9 @@ var Form = {
                 },
                 tbxDurasi3: {
                     required: true
+                },                
+                tbxDurasi4: {
+                    required: true
                 }
             },
             invalidHandler: function (e, r) {
@@ -103,9 +106,16 @@ var Transaction = function () {
         perlakuan: $("#tbxPerlakuan").val(),
         parameterUji: $("#tbxParameter").val(),
         desainPenelitian: $("#tbxDesain").val(),
+        etikHewan: $("input[name='etikHewan']:checked").val(),
+        laporan: $("input[name='laporan']:checked").val(),
         tahap1: $("#tbxDurasi1").val(),
+        tipe1: $("input[name='pemeliharaan']:checked").val(),
         tahap2: $("#tbxDurasi2").val(),
-        tahap3: $("#tbxDurasi3").val()
+        tipe2: $("input[name='perlakuan']:checked").val(),
+        tahap3: $("#tbxDurasi3").val(),
+        tipe3: $("input[name='analisis']:checked").val(),
+        tahap4: $("#tbxDurasi4").val(),
+        tipe4: $("input[name='durasiLaporan']:checked").val(),
     };
 
     btn.addClass("m-loader m-loader--right m-loader--light").attr(

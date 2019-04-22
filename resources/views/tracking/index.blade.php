@@ -64,7 +64,7 @@
                                                         <li class="m-nav__item TaskOrderBy" id="1">
                                                             <a style="cursor:pointer" class="m-nav__link">
                                                                 <span class="m-nav__link-text text-sm-right">
-                                                                    Terbaru
+                                                                    Semua
                                                                 </span>
                                                             </a>
                                                         </li>

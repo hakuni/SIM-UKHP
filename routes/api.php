@@ -20,10 +20,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'ControllerApis\UserController@loginUser');
 Route::get('/clientTrack/{resi}', 'ControllerApis\UserController@getTracking');
 
-Route::get('/downloadRincian/{idPenelitian}', 'ControllerApis\DownloadController@exportRincian');
 
 Route::middleware('auth:api')->group(function(){
-
+    
+    Route::get('/exportRincian/{idPenelitian}', 'ControllerApis\DownloadController@exportRincian');
+    Route::get('/exportProsedur/{idPenelitian}', 'ControllerApis\DownloadController@exportProsedur');
+    Route::get('/exportInventarisasi', 'ControllerApis\DownloadController@exportProsedur');
+    Route::get('/downloadData/{idPenelitian}', 'ControllerApis\DownloadController@downloadData');
+    Route::get('/downloadAnalisis/{idPenelitian}', 'ControllerApis\DownloadController@downloadAnalisis');
+    
     #region API Kategori
     //create kategori
     Route::post('/kategori', 'ControllerApis\KategoriController@saveKategori');

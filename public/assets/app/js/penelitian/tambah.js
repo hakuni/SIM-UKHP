@@ -68,9 +68,6 @@ var Form = {
                 tbxNamaPeneliti: {
                     required: true
                 },
-                tbxInstansi: {
-                    required: true
-                },
                 tbxNoHP: {
                     required: true,
                     maxlength: 14
@@ -78,9 +75,6 @@ var Form = {
                 tbxEmail: {
                     required: true,
                     email: true
-                },
-                tbxAlamat: {
-                    required: true
                 },
                 tbxDurasi: {
                     required: true

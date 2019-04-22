@@ -71,7 +71,7 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Perlakuan <strong style="color:red" ;>*</strong> :
+                            Kelompok Perlakuan <strong style="color:red" ;>*</strong> :
                             </label>
                             <div class="col-lg-6">
                                 <textarea type="text" class="form-control m-input" id="tbxPerlakuan" name="tbxPerlakuan" rows="4" required></textarea>
@@ -91,6 +91,40 @@
                             </label>
                             <div class="col-lg-6">
                                 <textarea type="text" class="form-control m-input" id="tbxDesain" name="tbxDesain" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        <div class="m-form__group form-group row">
+                            <label class="col-form-label col-lg-3 col-sm-12">
+                                Etik Hewan <strong style="color:red" ;>*</strong> :
+                            </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="etikHewan" value="1" id="ya">
+                                    Ya
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="etikHewan" value="0" id="tidak">
+                                    Tidak
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="m-form__group form-group row">
+                            <label class="col-form-label col-lg-3 col-sm-12">
+                                Laporan <strong style="color:red" ;>*</strong> :
+                            </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="laporan" value="1" id="ya">
+                                    Ya
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="laporan" value="0" id="tidak">
+                                    Tidak
+                                    <span></span>
+                                </label>
                             </div>
                         </div>
                         <div class="m-portlet__head">
@@ -114,30 +148,82 @@
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 1 <strong style="color:red" ;>*</strong> :
+                                Pemeliharaan <strong style="color:red" ;>*</strong> :
                             </label>
-                            <div class="col-lg-6">
-                                <input type="number" id="tbxDurasi1" name="tbxDurasi1" class="form-control m-input" required>
+                            <div class="col-lg-2">
+                                <input type="number" min="0" value="0" id="tbxDurasi1" name="tbxDurasi1" class="form-control m-input" required>
                             </div>
-                            Hari
+                            <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="pemeliharaan" value="1" id="hari">
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="pemeliharaan" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 2 <strong style="color:red" ;>*</strong> :
+                                Perlakuan <strong style="color:red" ;>*</strong> :
                             </label>
-                            <div class="col-lg-6">
-                                <input type="number" id="tbxDurasi2" name="tbxDurasi2" class="form-control m-input" required>
+                            <div class="col-lg-2">
+                                <input type="number" min="0" value="0" id="tbxDurasi2" name="tbxDurasi2" class="form-control m-input" required>
                             </div>
-                            Hari
+                            <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="perlakuan" value="1" id="hari">
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="perlakuan" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-3 col-sm-12">
-                                Durasi Tahap 3 <strong style="color:red" ;>*</strong> :
+                                Analisis <strong style="color:red" ;>*</strong> :
                             </label>
-                            <div class="col-lg-6">
-                                <input type="number" id="tbxDurasi3" name="tbxDurasi3" class="form-control m-input" required>
+                            <div class="col-lg-2">
+                                <input type="number" min="0" value="0" id="tbxDurasi3" name="tbxDurasi2" class="form-control m-input" required>
                             </div>
-                            Hari
+                            <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="analisis" value="1" id="hari">
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="analisis" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-form-label col-lg-3 col-sm-12">
+                                Pembuatan Laporan <strong style="color:red" ;>*</strong> :
+                            </label>
+                            <div class="col-lg-2">
+                                <input type="number" min="0" value="0" id="tbxDurasi4" name="tbxDurasi4" class="form-control m-input" required>
+                            </div><div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="durasiLaporan" value="1" id="hari">
+                                    Hari
+                                    <span></span>
+                                </label>
+                                <label class="m-radio m-radio--solid m-radio--success">
+                                    <input type="radio" name="durasiLaporan" value="0" id="minggu">
+                                    Minggu
+                                    <span></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 

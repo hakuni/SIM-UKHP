@@ -268,8 +268,15 @@ var Control = {
             .done(function (data, textStatus, jqXHR) {
                 $("#divRincianList").mDatatable('reload');
                 Select.Milestone();
-                Select.Fill();
-                $(".slsAlatBahan").val("");
+                $('.slsAlatBahan select').each(function(index, item){
+                    $(this).addClass('notInit');
+                    if(index > 1){
+                        $(this).slideUp()
+                    }
+                    // console.log(item)
+                })
+                Select.Init();
+                // $(".slsAlatBahan").val("");
                 $(".tbxJumlah").val("");
                 $(".tbxKeterangan").val("");
                 $("#formRincian").modal("toggle");
@@ -397,6 +404,9 @@ var Button = {
             } else
                 Control.Tambah();
         });
+        $("#tutup").on("click", function(){
+            Select.Init();
+        })
         // tab datatable rapih
         $("#tabLog").on("click", function () {
             $("#divLogList").mDatatable('reload');

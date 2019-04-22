@@ -63,7 +63,7 @@
                                     <span>
                                         <i class="fa fa-plus"></i>
                                         <span>
-                                            Tambah Penenlitian
+                                            Tambah Biodata Penenliti
                                         </span>
                                     </span>
                                 </a>
