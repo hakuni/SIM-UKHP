@@ -6,6 +6,17 @@ jQuery(document).ready(function () {
 var Transaction = {
     Init: function () {
         $("#btnLogin").on("click", function () {
+            if(
+                $.trim($("#tbxEmail").val()) == "" ||
+                $.trim($("#tbxPass").val()) == ""
+            ){
+                swal({
+                    title: "Warning!",
+                    text: "Periksa kembali masukan anda",
+                    type: "warning",
+                })
+                return false;
+            }
             var btn = $("#btnLogin")
 
             var params = {
@@ -40,7 +51,11 @@ var Transaction = {
                     );
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
-                    // Common.Alert.Error(errorThrown);
+                    swal({
+                        title: "Perhatian!",
+                        text: "Username atau Password salah",
+                        type: "warning",
+                    })
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(
                         "disabled",
                         false

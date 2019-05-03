@@ -135,15 +135,19 @@ class UserController extends Controller
 
             $test = auth()->attempt($credentials);
 
-            $token = auth()->user()->createToken('UserToken')->accessToken;
-            $auth = auth()->user();
+            if($test){
+                $token = auth()->user()->createToken('UserToken')->accessToken;
+                $auth = auth()->user();
 
-            $role = $auth->role()->first();
+                $role = $auth->role()->first();
 
-            return response()->json(['token' => $token, 'idUser'=> $auth->id, 'namaUser' => $auth->namaUser,
-                                     'role' =>$role->idRole, 'namaRole' => $role->namaRole])
-                             ->withCookie(cookie()->forever('access_token', $token))
-                             ->withCookie(cookie()->forever('email', $auth->email));
+                return response()->json(['token' => $token, 'idUser'=> $auth->id, 'namaUser' => $auth->namaUser,
+                                        'role' =>$role->idRole, 'namaRole' => $role->namaRole])
+                                ->withCookie(cookie()->forever('access_token', $token))
+                                ->withCookie(cookie()->forever('email', $auth->email));
+            }
+            else
+                return response()->json(['message'=>'Login Gagal'])->setStatusCode(422);
         }
         catch(\Exception $e){
             return response()->json(['message' => $e->getMessage()])->setStatusCode(422);

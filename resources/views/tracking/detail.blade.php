@@ -201,6 +201,16 @@
                                                 required/>
                                         </div>
                                     </div>
+                                    <div class="form-group m-form__group row">
+                                        <label class="col-form-label col-lg-3 col-sm-12 m--align-right" !important>
+                                            Sisa Biaya :
+                                        </label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 m--align-left">
+                                            <label class="col-form-label col-lg-3 col-sm-12" id="txtSisaBiaya">
+                                                Rp.{{$sisaBiaya}}
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -391,45 +401,47 @@
                     @endif
                     <!-- cek alur -->
                     <!-- penelitian rencana -->
-                    @if ($vwDetailPenelitian['idMilestone'] == 1)
-                        @if($vwDetailPenelitian['totalBayar'] >= ($vwDetailPenelitian['biaya']/2.0) && $vwDetailPenelitian['biaya'] != 0)
-                        <div class="btn-group m-btn-group m-btn-group--pill m-btn-group--air" role="group" aria-label="...">
-                            <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
-                                Batal
-                            </button>
-                            <button type="button" class="m-btn btn btn-success" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']" id="btnLanjut">
-                                Lanjut
-                            </button>
-                        </div>
-                        @else
-                            <button type="button" class="btn btn-secondary btn-m m-btn m-btn--icon m-btn--pill m-btn--air" id="btnHapus">
-                                Batal
-                            </button>
-                        @endif
-                    <!-- else if (penelitian sudah mulai) -->
-                    @elseif ($vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4 || $vwDetailPenelitian['idMilestone'] == 5)
-                    <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air btn-generate" id="btnTrx"
-                        style="margin-left:10px; margin-right:10px" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']">
-                        <span>
-                            <i class="la la-info"></i>
+                    @if($vwDetailPenelitian['email'] == $email)
+                        @if ($vwDetailPenelitian['idMilestone'] == 1)
+                            @if($vwDetailPenelitian['totalBayar'] >= ($vwDetailPenelitian['biaya']/2.0) && $vwDetailPenelitian['biaya'] != 0)
+                            <div class="btn-group m-btn-group m-btn-group--pill m-btn-group--air" role="group" aria-label="...">
+                                <button type="button" class="m-btn btn btn-secondary" id="btnHapus">
+                                    Batal
+                                </button>
+                                <button type="button" class="m-btn btn btn-success" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']" id="btnLanjut">
+                                    Lanjut
+                                </button>
+                            </div>
+                            @else
+                                <button type="button" class="btn btn-secondary btn-m m-btn m-btn--icon m-btn--pill m-btn--air" id="btnHapus">
+                                    Batal
+                                </button>
+                            @endif
+                        <!-- else if (penelitian sudah mulai) -->
+                        @elseif ($vwDetailPenelitian['idMilestone'] == 2 || $vwDetailPenelitian['idMilestone'] == 3 || $vwDetailPenelitian['idMilestone'] == 4 || $vwDetailPenelitian['idMilestone'] == 5)
+                        <a href="#" class="btn btn-success btn-m m-btn m-btn--icon m-btn--pill m-btn--air btn-generate" id="btnTrx"
+                            style="margin-left:10px; margin-right:10px" data-toggle="modal" data-target="#$vwDetailPenelitian['idMilestone']">
                             <span>
-                                @if($vwDetailPenelitian['idMilestone'] == 2)
-                                    Mulai Pengujian
-                                @elseif($vwDetailPenelitian['idMilestone'] == 3)
-                                    Mulai Analisis
-                                @elseif($vwDetailPenelitian['idMilestone'] == 4)
-                                    @if($prosedur['laporan'] == 1)
-                                        Pembuatan Laporan
-                                    @else
+                                <i class="la la-info"></i>
+                                <span>
+                                    @if($vwDetailPenelitian['idMilestone'] == 2)
+                                        Mulai Pengujian
+                                    @elseif($vwDetailPenelitian['idMilestone'] == 3)
+                                        Mulai Analisis
+                                    @elseif($vwDetailPenelitian['idMilestone'] == 4)
+                                        @if($prosedur['laporan'] == 1)
+                                            Pembuatan Laporan
+                                        @else
+                                            Selesai
+                                        @endif
+                                    @elseif($vwDetailPenelitian['idMilestone'] == 5)
                                         Selesai
                                     @endif
-                                @elseif($vwDetailPenelitian['idMilestone'] == 5)
-                                    Selesai
-                                @endif
-                                <!-- {{ $vwDetailPenelitian['namaMilestone'] }} -->
+                                    <!-- {{ $vwDetailPenelitian['namaMilestone'] }} -->
+                                </span>
                             </span>
-                        </span>
-                    </a>
+                        </a>
+                        @endif
                     @endif
                 </div>
             </div>

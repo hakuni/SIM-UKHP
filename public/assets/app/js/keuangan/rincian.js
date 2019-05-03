@@ -440,7 +440,16 @@ var Select = {
             .done(function (data, textStatus, jqXHR) {
                 ths.html("<option value='' selected style='display:none'>Pilih Layanan</option>");
                 $.each(data, function (i, item) {
-                    ths.append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
+                    if(parseInt(item.stok) < 0){
+                        ths.append(
+                            "<option value='" +
+                            item.idAlatBahan +
+                            "' disabled>" +
+                            item.namaAlatBahan + " - Stok Habis</option>"
+                        );
+                    }
+                    else
+                        ths.append("<option value='" + item.idAlatBahan + "'>" + item.namaAlatBahan + "</option>");
                 });
                 ths.removeClass("notInit")
                 ths.selectpicker('refresh');

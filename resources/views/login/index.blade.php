@@ -45,12 +45,12 @@ License: You must have a valid license purchased only from themeforest(the above
 									SIM-UKHP
 								</h3> -->
 							</div>
-							<form class="m-login__form m-form" action="">
+							<form class="m-login__form m-form" action="" id="formLogin">
 								<div class="form-group m-form__group">
-									<input class="form-control m-input" id="tbxEmail" type="text" placeholder="Email" name="email" autocomplete="off">
+									<input class="form-control m-input" id="tbxEmail" name="tbxEmail" type="text" placeholder="Email" name="email" autocomplete="off">
 								</div>
 								<div class="form-group m-form__group">
-									<input class="form-control m-input m-login__form-input--last" id="tbxPass" type="password" placeholder="Password" name="password">
+									<input class="form-control m-input m-login__form-input--last" id="tbxPass" name="tbxPass" type="password" placeholder="Password" name="password">
 								</div>
 								<div class="m-login__form-action">
 									<button id="btnLogin" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primary">

@@ -37,14 +37,12 @@ class AlatBahanController extends Controller
 
     public function getListAlatBahan(Request $req){
         try{
-            if($req->tipe == null) //get data view
+            if($req->tipe == null || $req->tipe == 0) //get data view
                 $inventarisasi = vwAlatBahan::All();
-            else if($req->tipe == 0) //get semua list
-                $inventarisasi = MstAlatBahan::All();
             else if($req->tipe == -1) //get kecuali jasa
-                $inventarisasi = MstAlatBahan::where('tipeAlatBahan', '!=', 3)->get();
+                $inventarisasi = vwAlatBahan::where('tipeAlatBahan', '!=', 3)->get();
             else //get sesuai tipe
-                $inventarisasi = MstAlatBahan::where('tipeAlatBahan', $req->tipe)->get();
+                $inventarisasi = vwAlatBahan::where('tipeAlatBahan', $req->tipe)->get();
             $inventarisasi->ErrorType = 0;
             return response($inventarisasi)->setStatusCode(200);
         }

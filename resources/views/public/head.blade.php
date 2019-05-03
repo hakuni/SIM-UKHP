@@ -1,6 +1,6 @@
 <meta charset="utf-8" />
 		<title>
-			SIANIDA | @yield('title')
+			SIM-UKHP | @yield('title')
 		</title>
 		<meta name="description" content="Latest updates and statistic charts">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">

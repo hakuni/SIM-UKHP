@@ -33,13 +33,23 @@ var Control = {
             .done(function (data, textStatus, jqXHR) {
                 $("#slsHewan").html("<option></option>");
                 $.each(data, function (i, item) {
-                    $("#slsHewan").append(
-                        "<option value='" +
-                        item.idAlatBahan +
-                        "'>" +
-                        item.namaAlatBahan +
-                        "</option>"
-                    );
+                    if(parseInt(item.stok) < 0){
+                        $("#slsHewan").append(
+                            "<option value='" +
+                            item.idAlatBahan +
+                            "' disabled>" +
+                            item.namaAlatBahan + " - Stok Habis</option>"
+                        );
+                    }
+                    else{
+                        $("#slsHewan").append(
+                            "<option value='" +
+                            item.idAlatBahan +
+                            "'>" +
+                            item.namaAlatBahan +
+                            "</option>"
+                        );
+                    }
                 });
                 $("#slsHewan").select2({
                     placeholder: "Pilih Hewan"

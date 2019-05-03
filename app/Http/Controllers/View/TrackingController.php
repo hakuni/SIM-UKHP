@@ -42,7 +42,9 @@ class TrackingController extends Controller
         $vwDetailPenelitian = json_decode($penelitian->getDetailTrx($idPenelitian)->getContent(), true);
         $vwProsedur = new ProsedurController();
         $prosedur = json_decode($vwProsedur->getProsedur($vwDetailPenelitian['idProsedur'])->getContent(), true);
-        return view('tracking/detail', compact('vwDetailPenelitian', 'prosedur'));
+        $email = $_COOKIE['email'];
+        $sisaBiaya = $vwDetailPenelitian["biaya"] - $vwDetailPenelitian["totalBayar"];
+        return view('tracking/detail', compact('vwDetailPenelitian', 'prosedur', 'email', 'sisaBiaya'));
     }
 
     public function exportData($idPenelitian){

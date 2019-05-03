@@ -143,7 +143,11 @@ var Transaction = {
                 $.trim($("#tbxNominal").val()) == ""
             ) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
-            } else Transaction.Pembayaran(id);
+            } 
+            else if($("#tbxNominal").val() > $.trim($("#txtSisaBiaya").text()).split('.')[1]){
+                Common.Alert.Warning("Total pembayaran melebihi sisa pembayaran")
+            }
+            else Transaction.Pembayaran(id);
         });
     },
     Konfirmasi: function (id) {

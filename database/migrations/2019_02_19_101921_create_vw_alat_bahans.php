@@ -28,6 +28,7 @@ SQL;
 CREATE VIEW `vw_alatBahans` AS
 SELECT DISTINCT
     `mb`.`namaAlatBahan` AS `namaAlatBahan`,
+    `mb`.`tipeAlatBahan` AS `tipeAlatBahan`,
     (SELECT 
         CASE WHEN ISNULL(SUM(`lb`.`jumlah`)) THEN 0 ELSE SUM(`lb`.`jumlah`) END 
     FROM `log_pembelians` `lb`
