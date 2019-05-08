@@ -110,12 +110,23 @@ var Table = {
                 {
                     field: "harga",
                     title: "Harga",
+                    textAlign: "center",
+                    template: function(k){
+                        return Common.Format.CommaSeparation(k.harga);
+                    }
+                },
+                {
+                    field: "keterangan",
+                    title: "Faktor Pengali",
                     textAlign: "center"
                 },
                 {
                     field: "total",
                     title: "Total",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template: function(k){
+                        return Common.Format.CommaSeparation(k.total);
+                    }
                 }
             ]
         });
@@ -170,7 +181,10 @@ var Table = {
                 {
                     field: "totalPembayaran",
                     title: "Biaya",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template: function(k){
+                        return Common.Format.CommaSeparation(k.totalPembayaran);
+                    }
                 }
             ]
         });
@@ -209,7 +223,11 @@ var Control = {
                 dataType: "json",
             })
             .done(function (data, textStatus, jqXHR) {
-                $("#biodata").text(data.namaPeneliti + ", " + data.instansiPeneliti)
+                if(data.instansiPeneliti == null){
+                    $("#biodata").text(data.namaPeneliti)    
+                }else{
+                    $("#biodata").text(data.namaPeneliti + ", " + data.instansiPeneliti)
+                }
             })
             .fail(function (jqXHR, textStatus, errorThrown) {
                 Common.Alert.Error(errorThrown);
@@ -472,7 +490,7 @@ var Select = {
                     }
                 });
                 $("#slsMilestone").select2({
-                    placeholder: "Milestone",
+                    placeholder: "Tahapan Penelitian",
                 });
             })
             .fail(function (jqXHR, textStatus, errorThrown) {

@@ -138,13 +138,15 @@ var Transaction = {
             } else Transaction.Alur(id);
         });
         $("#btnTambahBayar").on("click", function () {
+            var sisa = $.trim($("#txtSisaBiaya").text()).substring(3);
+            hsl = sisa.split('.').join('');
             if (
                 $.trim($("#tbxTglPembayaran").val()) == "" ||
                 $.trim($("#tbxNominal").val()) == ""
             ) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } 
-            else if($("#tbxNominal").val() > $.trim($("#txtSisaBiaya").text()).split('.')[1]){
+            else if($("#tbxNominal").val() > parseInt(hsl)){
                 Common.Alert.Warning("Total pembayaran melebihi sisa pembayaran")
             }
             else Transaction.Pembayaran(id);

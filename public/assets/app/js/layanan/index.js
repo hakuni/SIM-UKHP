@@ -83,7 +83,10 @@ var Table = {
                 {
                     field: "harga",
                     title: "Harga",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template: function(t){
+                        return Common.Format.CommaSeparation(t.harga);
+                    }
                 },
                 {
                     field: "satuan",
@@ -98,13 +101,13 @@ var Table = {
 var Button = {
     Init: function () {
         $("#btnTambahLayanan").on("click", function () {
-            if ($.trim($("#tbxItem").val()) == "" || $.trim($("#tbxHarga").val()) == "" || $.trim($("#tbxSatuan").val()) == "") {
+            if ($.trim($("#tbxItem").val()) == "" || $.trim($("#tbxHarga").val()) == "" || $.trim($("#tbxSatuan").val()) == "" || $.trim($("#tbxHarga").val()) <=0 ) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } else
                 Button.Tambah();
         });
         $("#btnUbahLayanan").on("click", function () {
-            if ($.trim($("#tbxItemUbah").val()) == "" || $.trim($("#tbxHargaUbah").val()) == "" || $.trim($("#tbxSatuanUbah").val()) == "") {
+            if ($.trim($("#tbxItemUbah").val()) == "" || $.trim($("#tbxHargaUbah").val()) == "" || $.trim($("#tbxSatuanUbah").val()) == "" || $.trim($("#tbxHarga").val()) <=0) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } else
                 Button.Ubah();

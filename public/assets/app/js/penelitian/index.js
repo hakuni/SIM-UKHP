@@ -99,7 +99,10 @@ var Table = {
                 {
                     field: "instansiPeneliti",
                     title: "Instansi",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template: function(t){
+                        return t.instansiPeneliti == null ? "-" : t.instansiPeneliti;
+                    }
                 },
                 {
                     field: "telpPeneliti",
@@ -114,7 +117,10 @@ var Table = {
                 {
                     field: "alamatPeneliti",
                     title: "Alamat",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template: function(t){
+                        return t.alamatPeneliti == null ? "-": t.alamatPeneliti;
+                    }
                 },
                 {
                     field: "namaStatus",

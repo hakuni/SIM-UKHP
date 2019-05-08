@@ -89,8 +89,7 @@
                                                     Harga <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="number" id="tbxHarga" class="form-control m-input"
-                                                        required>
+                                                    <input type="number" id="tbxHarga" class="form-control m-input" min=0 required>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">
@@ -171,8 +170,7 @@
                                                     Harga <strong style="color:red" ;>*</strong> :
                                                 </label>
                                                 <div class="col-lg-9 col-md-9 col-sm-12">
-                                                    <input type="number" id="tbxHargaUbah" class="form-control m-input"
-                                                        required>
+                                                    <input type="number" id="tbxHargaUbah" class="form-control m-input" min=0 required>
                                                 </div>
                                             </div>
                                             <div class="form-group m-form__group row">

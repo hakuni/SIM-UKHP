@@ -99,7 +99,7 @@
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
                                 <label class="m-radio m-radio--solid m-radio--success">
-                                    <input type="radio" name="etikHewan" value="1" id="ya">
+                                    <input type="radio" name="etikHewan" value="1" id="ya" checked>
                                     Ya
                                     <span></span>
                                 </label>
@@ -116,7 +116,7 @@
                             </label>
                             <div class="col-lg-9 col-md-9 col-sm-12 m-radio-inline" style="padding-left:20px; padding-top:5px">
                                 <label class="m-radio m-radio--solid m-radio--success">
-                                    <input type="radio" name="laporan" value="1" id="ya">
+                                    <input type="radio" name="laporan" value="1" id="ya" checked>
                                     Ya
                                     <span></span>
                                 </label>
@@ -155,7 +155,7 @@
                             </div>
                             <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
                                 <label class="m-radio m-radio--solid m-radio--success">
-                                    <input type="radio" name="pemeliharaan" value="1" id="hari">
+                                    <input type="radio" name="pemeliharaan" value="1" id="hari" checked>
                                     Hari
                                     <span></span>
                                 </label>
@@ -175,7 +175,7 @@
                             </div>
                             <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
                                 <label class="m-radio m-radio--solid m-radio--success">
-                                    <input type="radio" name="perlakuan" value="1" id="hari">
+                                    <input type="radio" name="perlakuan" value="1" id="hari" checked>
                                     Hari
                                     <span></span>
                                 </label>
@@ -195,7 +195,7 @@
                             </div>
                             <div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
                                 <label class="m-radio m-radio--solid m-radio--success">
-                                    <input type="radio" name="analisis" value="1" id="hari">
+                                    <input type="radio" name="analisis" value="1" id="hari" checked>
                                     Hari
                                     <span></span>
                                 </label>
@@ -214,7 +214,7 @@
                                 <input type="number" min="0" value="0" id="tbxDurasi4" name="tbxDurasi4" class="form-control m-input" required>
                             </div><div class="col-lg-6 m-radio-inline" style="padding-left:20px; padding-top:5px">
                                 <label class="m-radio m-radio--solid m-radio--success">
-                                    <input type="radio" name="durasiLaporan" value="1" id="hari">
+                                    <input type="radio" name="durasiLaporan" value="1" id="hari" checked>
                                     Hari
                                     <span></span>
                                 </label>

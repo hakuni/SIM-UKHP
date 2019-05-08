@@ -32,6 +32,7 @@ SELECT
     `b`.`namaAlatBahan`,
     `b`.`tipeAlatBahan`,
     `b`.`satuan`,
+    `r`.`keterangan`,
     `mm`.`idMilestone`,
     `mm`.`namaMilestone`,
     `r`.`jumlah`,

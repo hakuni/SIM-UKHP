@@ -174,12 +174,18 @@ var Table = {
                 {
                     field: "harga",
                     title: "Harga",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template: function(t){
+                        return Common.Format.CommaSeparation(t.harga);
+                    }
                 },
                 {
                     field: "total",
                     title: "Total",
                     textAlign: "center",
+                    template: function(t){
+                        return Common.Format.CommaSeparation(t.total);
+                    }
                 }
             ]
         });
@@ -388,13 +394,13 @@ var Select = {
 var Transaction = {
     Init: function () {
         $("#btnTambahPembelian").on("click", function () {
-            if ($("#slsAlatBahan").val() == 0 || $.trim($("#tbxTanggalPembelian").val()) == "" || $.trim($("#tbxJumlahBeli").val()) == "") {
+            if ($("#slsAlatBahan").val() == 0 || $.trim($("#tbxTanggalPembelian").val()) == "" || $.trim($("#tbxJumlahBeli").val()) == "" || $.trim($("#tbxJumlahBeli").val()) <=0 ) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } else
                 Transaction.Pembelian();
         });
         $("#btnTambahPenggunaan").on("click", function () {
-            if ($("#slsAlatBahanGuna").val() == 0 || $.trim($("#tbxTanggalPenggunaan").val()) == "" || $.trim($("#tbxJumlahPenggunaan").val()) == "") {
+            if ($("#slsAlatBahanGuna").val() == 0 || $.trim($("#tbxTanggalPenggunaan").val()) == "" || $.trim($("#tbxJumlahPenggunaan").val()) == "" || $.trim($("#tbxJumlahPenggunaan").val()) <= 0) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
             } else
                 Transaction.Penggunaan();

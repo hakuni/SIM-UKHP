@@ -96,7 +96,7 @@ var Form = {
                 }
             },
             invalidHandler: function (e, r) {
-                var i = $("#msgFail");
+                var i = $("#msgProsedur");
                 i.removeClass("m--hide").show(), mApp.scrollTo(i, -200);
             },
             submitHandler: function (e) {

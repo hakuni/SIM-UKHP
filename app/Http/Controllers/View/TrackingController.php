@@ -44,6 +44,7 @@ class TrackingController extends Controller
         $prosedur = json_decode($vwProsedur->getProsedur($vwDetailPenelitian['idProsedur'])->getContent(), true);
         $email = $_COOKIE['email'];
         $sisaBiaya = $vwDetailPenelitian["biaya"] - $vwDetailPenelitian["totalBayar"];
+        $sisaBiaya = number_format($sisaBiaya,0,',','.');
         return view('tracking/detail', compact('vwDetailPenelitian', 'prosedur', 'email', 'sisaBiaya'));
     }
 
