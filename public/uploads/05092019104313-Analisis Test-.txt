@@ -1,0 +1,11 @@
+- waktu muncul list kategori, di pinggir nya ada panah tapi gabisa di klik. orang jadi bingung itu bisa di klik atau enggak
+- background di https://www.minapoli.com/info/join-the-team kalau bisa diganti
+- https://www.minapoli.com/event masih blm ada
+- join team masih ada salah link reference
+https://www.minapoli.com/i/join-the-team
+https://www.minapoli.com/info/join-the-team (yang bisa)
+https://www.minapoli.com/info/join-our-team
+- tombol search msh belum berfungsi tapi bisa pakai tombol enter di keyboard
+- sorting hasil pencarian sepertinya masih belum jalan
+
+

@@ -29,6 +29,15 @@ class KeuanganController extends Controller
             return redirect('/Login');
         }
         $hasil = new Download;
-        return $hasil->exportRincian($id);
+        $file = $hasil->exportRincian($id);
+        $cek = json_decode($file->getContent(), true);
+        if($cek){
+            echo("<script> 
+                alert('Prosedur belum dibuat');
+                location.href = '/Keuangan/Rincian/".$id."'
+                </script>");
+        }
+        else 
+            return $file;
     }
 }
