@@ -145,11 +145,9 @@ var Transaction = {
                 $.trim($("#tbxNominal").val()) == ""
             ) {
                 Common.Alert.Warning("Periksa kembali data masukan anda");
-            } 
-            else if($("#tbxNominal").val() > parseInt(hsl)){
+            } else if ($("#tbxNominal").val() > parseInt(hsl)) {
                 Common.Alert.Warning("Total pembayaran melebihi sisa pembayaran")
-            }
-            else Transaction.Pembayaran(id);
+            } else Transaction.Pembayaran(id);
         });
     },
     Konfirmasi: function (id) {
@@ -201,10 +199,9 @@ var Transaction = {
 
         var model = new FormData();
         model.append("idPenelitian", id);
-        if($("#statusLaporan").val() != 1 && $("#inptMilestoneID").val() == 4){
+        if ($("#statusLaporan").val() != 1 && $("#inptMilestoneID").val() == 4) {
             model.append("idMilestone", 5);
-        }
-        else
+        } else
             model.append("idMilestone", $.trim($("#inptMilestoneID").val()));
         model.append("PIC", $.trim($("#slsPIC").val()));
         model.append("catatan", $.trim($("#tbxCatatan").val()));
@@ -243,7 +240,7 @@ var Transaction = {
             })
             .done(function (data, textStatus, jqXHR) {
                 // if (Common.CheckError.Object(data) == true)
-                Common.Alert.SuccessRoute("Berhasil menambahkan", "/Tracking");
+                Common.Alert.SuccessRoute("Berhasil melanjutkan", "/Tracking");
                 btn.removeClass(
                     "m-loader m-loader--right m-loader--light"
                 ).attr("disabled", false);

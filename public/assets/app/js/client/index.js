@@ -5,62 +5,61 @@ jQuery(document).ready(function () {
 Control = {
     Init: function () {
         $("#btnLacak").on("click", function () {
-            var btn = $("#btnLacak");
+            if ($.trim($("#tbxResi").val()) != "") {
+                var btn = $("#btnLacak");
 
-            btn.addClass("m-loader m-loader--right m-loader--light").attr(
-                "disabled",
-                true
-            );
-            Reset.Init();
-            $.ajax({
-                    url: "/api/clientTrack/" + $("#tbxResi").val(),
-                    type: "GET"
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    $("#judulPenelitian").html(data[0].judulPenelitian);
-                    $("#namaKategori").html(data[0].namaKategori);
-                    $("#biodata").html(
-                        data[0].namaPeneliti + " / " + data[0].instansiPeneliti
-                    );
-                    $.each(data, function (i, item) {
-                        console.log(item);
-                        var img = "assets/app/media/img/logos/process.gif";
-                        if (item.status == 1) {
-                            img = "assets/app/media/img/logos/success.png";
-                        }
-                        if (item.idMilestone == null) {
-                            document.getElementById("prosedur").src = img;
-                        }
-                        if (item.idMilestone == 2) {
-                            document.getElementById("persiapan").src = img;
-                        }
-                        if (item.idMilestone == 3) {
-                            document.getElementById("pengujian").src = img;
-                            if (item.status == 1 && item.statusPembayaran == "LUNAS") {
-                                $("#btnHasil").show();
+                btn.addClass("m-loader m-loader--right m-loader--light").attr(
+                    "disabled",
+                    true
+                );
+                Reset.Init();
+                $.ajax({
+                        url: "/api/clientTrack/" + $("#tbxResi").val(),
+                        type: "GET"
+                    })
+                    .done(function (data, textStatus, jqXHR) {
+                        $("#judulPenelitian").html(data[0].judulPenelitian);
+                        $("#namaKategori").html(data[0].namaKategori);
+                        $("#biodata").html(data[0].namaPeneliti + " / " + data[0].instansiPeneliti);
+                        $.each(data, function (i, item) {
+                            var img = "assets/app/media/img/logos/process.gif";
+                            if (item.status == 1) {
+                                img = "assets/app/media/img/logos/success.png";
                             }
-                        }
-                        if (item.idMilestone == 4) {
-                            document.getElementById("analisis").src = img;
-                            if (item.status == 1 && item.statusPembayaran == "LUNAS") {
-                                document.getElementById("selesai").src = img;
-                                $("#btnData").show();
+                            if (item.idMilestone == null) {
+                                document.getElementById("prosedur").src = img;
                             }
-                        }
+                            if (item.idMilestone == 2) {
+                                document.getElementById("persiapan").src = img;
+                            }
+                            if (item.idMilestone == 3) {
+                                document.getElementById("pengujian").src = img;
+                                if (item.status == 1 && item.statusPembayaran == "LUNAS") {
+                                    $("#btnHasil").show();
+                                }
+                            }
+                            if (item.idMilestone == 4) {
+                                document.getElementById("analisis").src = img;
+                                if (item.status == 1 && item.statusPembayaran == "LUNAS") {
+                                    document.getElementById("selesai").src = img;
+                                    $("#btnData").show();
+                                }
+                            }
+                        });
+                        $("#divHome").hide();
+                        $("#divLacak").show();
+                        Button.Init(data[0].idPenelitian);
+                        btn.removeClass(
+                            "m-loader m-loader--right m-loader--light"
+                        ).attr("disabled", false);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        Common.Alert.Error(errorThrown);
+                        btn.removeClass(
+                            "m-loader m-loader--right m-loader--light"
+                        ).attr("disabled", false);
                     });
-                    $("#divHome").hide();
-                    $("#divLacak").show();
-                    Button.Init(data[0].idPenelitian);
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    Common.Alert.Error(errorThrown);
-                    btn.removeClass(
-                        "m-loader m-loader--right m-loader--light"
-                    ).attr("disabled", false);
-                });
+            } else Common.Alert.Warning("Kode resi tidak boleh kosong");
         });
     }
 };

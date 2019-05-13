@@ -95,7 +95,10 @@ var Table = {
                 {
                     field: "biaya",
                     title: "Biaya",
-                    textAlign: "center"
+                    textAlign: "center",
+                    template: function (k) {
+                        return Common.Format.CommaSeparation(k.biaya);
+                    }
                 },
                 {
                     field: "statusPembayaran",

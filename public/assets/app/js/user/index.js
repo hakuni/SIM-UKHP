@@ -85,7 +85,7 @@ var Table = {
                 },
                 {
                     field: "namaRole",
-                    title: "Role",
+                    title: "Jabatan",
                     textAlign: "center"
                 },
                 {

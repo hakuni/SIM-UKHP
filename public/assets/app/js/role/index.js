@@ -83,7 +83,7 @@ var Table = {
                 },
                 {
                     field: "namaRole",
-                    title: "Nama Role",
+                    title: "Nama Jabatan",
                     textAlign: "center"
                 }
             ]
@@ -158,7 +158,7 @@ var Button = {
     Konfirmasi: function (id) {
         swal({
             title: "Anda yakin?",
-            text: "Role ini akan dihapus",
+            text: "Jabatan ini akan dihapus",
             type: "question",
             showCancelButton: true,
             confirmButtonText: "Yakin, hapus ini!"

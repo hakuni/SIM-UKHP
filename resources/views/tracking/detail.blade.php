@@ -208,6 +208,7 @@
                                         <div class="col-lg-9 col-md-9 col-sm-12 m--align-left">
                                             <label class="col-form-label col-lg-3 col-sm-12" id="txtSisaBiaya">
                                                 Rp.{{$sisaBiaya}}
+                                                <input type="hidden" id="tbxSisaBiaya" value="{{$sisaBiaya}}">
                                             </label>
                                         </div>
                                     </div>
@@ -234,7 +235,7 @@
                                         @if ($vwDetailPenelitian['idMilestone'] == 4)
                                             @if($prosedur['laporan'] == 1)
                                                 Pembuatan Laporan
-                                            @else  
+                                            @else
                                                 Selesai
                                             @endif
                                         @elseif ($vwDetailPenelitian['idMilestone'] == 5)
@@ -528,6 +529,10 @@
                 Riwayat Penelitian :
             </h6>
         </div>
+
+        <!-- <div class="m-scrollable mCustomScrollbar _mCS_5 mCS-autoHide m--margin-top-15" data-scrollbar-shown="true" data-scrollable="true" data-max-height="380" style="overflow: visible; position: relative;">
+            <textarea readonly class="form-control m-input m-input--air" id="exampleTextarea" rows="5" style="margin-bottom: 30px;">{{ $vwDetailPenelitian['perlakuan'] }}</textarea>
+        </div> -->
 
         <div class="m_datatable" id="divHistory" style="margin-top: 20px">
 
