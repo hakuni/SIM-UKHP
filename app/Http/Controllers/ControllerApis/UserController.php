@@ -75,7 +75,8 @@ class UserController extends Controller
             $user = User::findOrFail($request->id);
             $user->namaUser = $request->namaUser;
             $user->email = $request->email;
-            $user->idRole = $request->idRole;
+            if($request->role != null)
+                $user->idRole = $request->idRole;
             if($request->password != null)
                 $user->password = Hash::make($request->password);
             $user->save();
