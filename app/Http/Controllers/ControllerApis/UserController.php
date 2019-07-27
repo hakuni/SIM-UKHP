@@ -147,7 +147,7 @@ class UserController extends Controller
                                 ->withCookie(cookie()->forever('email', $auth->email));
             }
             else
-                return response()->json(['message'=>'Login Gagal'])->setStatusCode(422);
+                return response()->json(['message'=>'Username atau Password Salah'])->setStatusCode(422);
         }
         catch(\Exception $e){
             return response()->json(['message' => $e->getMessage()])->setStatusCode(422);
@@ -179,7 +179,10 @@ class UserController extends Controller
     public function getTracking($resi){
         try{
             $trackData = vwClientTrack::where('resi', $resi)->get();
-            return response($trackData);
+            if(count($trackData) > 0)
+                return response($trackData);
+            else
+                return response()->json(['message' => "Penelitian Tidak Ditemukan"])->setStatusCode(404);
         }
         catch(\Exception $e){
             return response()->json(['message' => $e->getMessage()])->setStatusCode(404);

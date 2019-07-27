@@ -27,7 +27,7 @@
 											SIM-UKHP
 										</h3>
 									</div> -->
-									<form class="m-form m-form--fit" action="">
+									<!-- <form class="m-form m-form--fit" action=""> -->
 
 										<div class="form-group m-form__group row">
                                             <label class="col-form-label col-lg-5 col-sm-12">
@@ -37,7 +37,6 @@
 										</div>
 										<div class="row m-login__form-sub">
                                             <div class="col-lg-4">
-
                                             </div>
 											<div class="col-lg-4">
 												<button id="btnLacak" class="btn btn-primary btn-m m-btn m-btn--icon m-btn--pill m-btn--air" style="margin-left:10px; margin-right:10px">
@@ -50,10 +49,9 @@
                                                 </button>
                                             </div>
                                             <div class="col-lg-4">
-
                                             </div>
 										</div>
-									</form>
+									<!-- </form> -->
 								</div>
 							</div>
 						</div>

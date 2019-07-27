@@ -53,7 +53,7 @@ var Transaction = {
                 .fail(function (jqXHR, textStatus, errorThrown) {
                     swal({
                         title: "Perhatian!",
-                        text: "Username atau Password salah",
+                        text: jqXHR.responseJSON.message,
                         type: "warning",
                     })
                     btn.removeClass("m-loader m-loader--right m-loader--light").attr(

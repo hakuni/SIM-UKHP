@@ -54,12 +54,15 @@ Control = {
                         ).attr("disabled", false);
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
-                        Common.Alert.Error(errorThrown);
+                        Common.Alert.Error(jqXHR.responseJSON.message);
                         btn.removeClass(
                             "m-loader m-loader--right m-loader--light"
                         ).attr("disabled", false);
                     });
-            } else Common.Alert.Warning("Kode resi tidak boleh kosong");
+            } else{
+                Common.Alert.Warning("Kode resi tidak boleh kosong");
+                return;
+            }
         });
     }
 };
