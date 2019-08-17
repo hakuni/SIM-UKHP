@@ -41,7 +41,7 @@ class TrackingController extends Controller
         $penelitian = new PenelitianController();
         $vwDetailPenelitian = json_decode($penelitian->getDetailTrx($idPenelitian)->getContent(), true);
         $vwProsedur = new ProsedurController();
-        $prosedur = json_decode($vwProsedur->getProsedur($vwDetailPenelitian['idProsedur'])->getContent(), true);
+        $prosedur = $vwDetailPenelitian['idProsedur'] == null ? 0 : json_decode($vwProsedur->getProsedur($vwDetailPenelitian['idProsedur'])->getContent(), true);
         $email = $_COOKIE['email'];
         $sisaBiaya = $vwDetailPenelitian["biaya"] - $vwDetailPenelitian["totalBayar"];
         $sisaBiaya = number_format($sisaBiaya,0,',','.');
